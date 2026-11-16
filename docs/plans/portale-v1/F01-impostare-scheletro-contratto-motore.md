@@ -48,4 +48,78 @@ Verifica manuale: `npm run dev`, apri la pagina, la tabella mostra le righe di `
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche superate, fallite e non eseguite, nomi definitivi dei file del tema, interfaccia del motore, modello effettivamente usato (Fable o ripiego), decisioni nuove, lavoro residuo, consumo reale se noto.
+**Esito:** completata il 2026-11-16 21:01 su Fable 5.2 (nessun ripiego). Effort non verificabile dalla sessione.
+
+### Verifiche
+
+| Verifica | Esito |
+| --- | --- |
+| `npm run build` | superata; `dist/assets/sql-wasm-browser-<hash>.wasm` presente |
+| `npm test` | superata: 18 test in due file, compresi watchdog e ripristino |
+| `npm run lint` | superata |
+| Tema `prova` copiato da `star-wars` con `id` cambiato, poi `npm test` | superata: il test di scoperta confronta i temi con le cartelle di `themes/` e ne vede due; cartella rimossa |
+| Manuale, `npm run dev` | superata nel browser integrato: la tabella mostra le cinque righe di `pianeti`, console senza errori |
+| Manuale, build servita con `vite preview` (non richiesta dal piano) | superata: worker e WASM si caricano anche dalla build |
+
+Nessuna verifica fallita o non eseguita.
+
+### Nomi dei file del tema
+
+Quelli della sezione «Struttura di un tema» del `README.md` del piano. Decisione di Marco in questa fase: il manifest contiene solo `id`, `title`, `description`; gli altri file si trovano per nome fisso. L’`id` deve coincidere con il nome della cartella e rispettare `THEME_ID_PATTERN` (minuscole, cifre, trattini): altrimenti il registro lancia un errore al caricamento.
+
+### Registro dei temi
+
+`src/themes/registry.ts` esporta `themes` (ordinati per `id`), `findTheme(id)` e `buildRegistry(…)`, la parte senza `import.meta.glob`, provabile con moduli finti. Un `Theme` ha `manifest` e `loadDatabaseScript()`, che restituisce `schema.sql` seguito da `dati.sql`; nella build i due file sono moduli separati, scaricati alla prima chiamata.
+
+### Interfaccia del motore
+
+Tutta in `src/sql/engine.ts`; F02 e F03 importano solo da lì, più l’istanza.
+
+```ts
+interface SqlEngine {
+  open(source: { key: string; script: string }): Promise<SqlDatabase>;
+  dispose(): void;
+}
+interface SqlDatabase {
+  run(sql: string, options?: { maxRows?: number; timeoutMs?: number }): Promise<RunResult>;
+  reset(): Promise<void>;
+  close(): Promise<void>;
+}
+interface RunResult { resultSets: ResultSet[]; rowsModified: number; durationMs: number }
+interface ResultSet { columns: string[]; rows: SqlValue[][]; totalRows: number; truncated: boolean }
+```
+
+- Istanza per il browser: `engine` in `src/sql/browser.ts`. Fuori dal browser (test, script): `createNodeEngine()` in `src/sql/testing/nodeEngine.ts`, stesso ponte e stesso nucleo su un `worker_threads`.
+- Errori: `SqlError` (messaggio di SQLite per intero; le istruzioni precedenti dello script restano eseguite), `SqlTimeoutError` (watchdog), `EngineError` (caricamento fallito, script della sorgente sbagliato, database chiuso).
+- Ogni `open` dà un database indipendente, anche dalla stessa sorgente: F02 può aprire una copia dello stato iniziale per la query attesa.
+- Valori predefiniti: 5 s di tempo massimo, 1000 righe per insieme di risultati (`totalRows` conta comunque tutte le righe), al massimo 20 insiemi di risultati per script. Per la verifica F02 passi un `maxRows` adeguato.
+- Dopo un’interruzione del watchdog il worker viene terminato: **tutti** i database aperti, non solo quello della query, ripartono dallo stato iniziale alla richiesta successiva.
+- `PRAGMA foreign_keys = ON` e `hard_heap_limit` di 64 MiB a ogni apertura.
+
+### Struttura del codice
+
+| File | Ruolo |
+| --- | --- |
+| `src/sql/core.ts` | Nucleo: `sql.js` dietro il protocollo, senza sapere di girare in un worker |
+| `src/sql/protocol.ts` | Messaggi fra ponte e worker |
+| `src/sql/bridge.ts` | `createEngine(spawn, options)`: ciclo di vita del worker e watchdog |
+| `src/sql/worker.ts`, `src/sql/browser.ts` | Web Worker e istanza del browser |
+| `src/sql/testing/` | Worker e motore per Node |
+| `src/App.tsx` | Pagina minima, da sostituire in F03 |
+
+### Decisioni nuove
+
+- **Test del motore su un worker vero di Node**, non su un ambiente simulato: il watchdog è provato con una ricorsione senza fine davvero interrotta. Node carica `src/sql/testing/nodeWorker.ts` e `src/sql/core.ts` senza Vite, quindi in questi due file gli import di valori indicano l’estensione `.ts` e servono solo sintassi cancellabili (`erasableSyntaxOnly`). Richiede Node ≥ 22.18 (`engines` in `package.json`): F10 ne tenga conto nel flusso di pubblicazione.
+- **Versioni installate:** `npm install` ha risolto TypeScript 6.0 e Vitest 4.1, non le ultime pubblicate (7.0 e 5.1), per i vincoli fra i pacchetti. Vite 8.3, React 19.3, `sql.js` 1.16.0 (build `sql-wasm-browser` nel browser).
+- **Dipendenze oltre l’elenco della fase**, tutte di sviluppo e di corredo allo stack deciso: `@vitejs/plugin-react`, `typescript-eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `globals`, `@types/*`.
+- `base: './'` in `vite.config.ts`: il sito funziona sotto qualunque sottocartella di GitHub Pages.
+- Aggiunto `.claude/launch.json` per avviare il server di sviluppo nell’anteprima dell’app.
+- Il worker e il ponte del libro sono stati letti direttamente, senza subagent `Explore`: il contesto bastava. Dal libro non sono stati portati le «foto» del database e la verifica (`verifyRun`, che è perimetro di F02).
+
+### Lavoro residuo
+
+Nessuno per questa fase. Il tema `star-wars` è un segnaposto di due tabelle e cinque righe ciascuna (F04).
+
+### Consumo reale
+
+Non noto.

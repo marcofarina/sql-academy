@@ -2,7 +2,7 @@
 
 | ID | Fase | Dipendenze | Modello / effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | da fare | | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |
+| F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | completata | 2026-11-16 21:01 | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |
 | F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | da fare | | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
 | F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | da fare | | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
 | F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | da fare | | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
@@ -225,22 +225,25 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Tutor AI | Escluso | Richiede server e chiavi |
 | Sandbox | Accetta qualunque istruzione, con «Ripristina database» (proposta di Claude, approvata con il piano) | Ogni studente ha un database in memoria proprio |
 | Routing | Con hash, `#/<tema>/<sezione>` (proposta di Claude, approvata con il piano) | GitHub Pages non riscrive gli URL |
+| Manifest del tema | Solo `id`, `title`, `description`; gli altri file si trovano per nome fisso (Marco, 2026-11-16, in F01) | Un tema nuovo non ripete codice di caricamento |
 | Riuso dal libro | Copia e adattamento, senza dipendenza fra i repo (proposta di Claude, approvata con il piano) | Stesso autore, repo pubblico |
 
-### Struttura attesa di un tema
+### Struttura di un tema
 
-F01 fissa i nomi definitivi e li registra qui; fino ad allora vale questa bozza.
+Nomi fissati in F01 (2026-11-16). Il contratto è in `src/themes/contract.ts`; il registro `src/themes/registry.ts` trova i file per nome, quindi il manifest non li elenca.
 
 ```text
 themes/<id>/
-  theme.ts       manifest: id, titolo, descrizione, riferimenti agli altri file
+  theme.ts       manifest esportato come default: id (uguale al nome della cartella), title, description
   schema.sql     CREATE TABLE con chiavi esterne dichiarate
   dati.sql       INSERT
   esercizi.*     formato fissato in F02
-  analisi.md     testo del dominio
-  er.ts          entità, associazioni, cardinalità
-  stile.css      variabili e decorazioni del tema
+  analisi.md     testo del dominio (F07)
+  er.ts          entità, associazioni, cardinalità (F06)
+  stile.css      variabili e decorazioni del tema (F08)
 ```
+
+In F01 il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
 
 ### Riferimenti da adattare
 
@@ -266,3 +269,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | Data | Nota |
 | --- | --- |
 | 2026-11-16 | Piano scritto dopo l’intervista con Marco. Nessuna fase avviata. |
+| 2026-11-16 | F01 completata su Fable 5.2. Scheletro, contratto del tema, registro e motore SQL con watchdog; passaggio di consegne nel dettaglio della fase. |
