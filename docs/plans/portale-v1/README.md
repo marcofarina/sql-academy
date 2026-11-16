@@ -1,0 +1,268 @@
+# Piano «portale-v1»
+
+| ID | Fase | Dipendenze | Modello / effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | da fare | | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |
+| F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | da fare | | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
+| F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | da fare | | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
+| F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | da fare | | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
+| F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | da fare | | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
+| F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
+| F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
+| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
+| F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
+| F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
+
+Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
+
+Le stime di consumo sono qualitative: nessuna misura garantisce che una fase rientri in una finestra di cinque ore.
+
+## Prompt di apertura
+
+Tutti i prompt condividono la stessa chiusura. I percorsi sono relativi alla radice del repo.
+
+### P-F01
+
+```text
+Prima di incollare: /model Fable 5.2  e  /effort medium
+
+Modello richiesto: Fable 5.2, effort medium.
+Ripiego se Fable non è disponibile: Opus 5.5, effort high.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F01-impostare-scheletro-contratto-motore.md
+ID e obiettivo: F01 — Impostare scheletro, contratto del tema e motore SQL.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F02
+
+```text
+Prima di incollare: /model Fable 5.2  e  /effort medium
+
+Modello richiesto: Fable 5.2, effort medium.
+Ripiego se Fable non è disponibile: Opus 5.5, effort high.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F02-definire-esercizi-verifica.md
+ID e obiettivo: F02 — Definire formato degli esercizi e verifica delle risposte.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F03
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F03-costruire-sandbox-guscio-tema.md
+ID e obiettivo: F03 — Costruire sandbox e guscio delle pagine di un tema.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F04
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort high
+
+Modello richiesto: Sonnet 5.5, effort high.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F04-portare-star-wars-su-sqlite.md
+ID e obiettivo: F04 — Portare database ed esercizi Star Wars su SQLite.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F05
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F05-costruire-addestramento-catalogo-progressi.md
+ID e obiettivo: F05 — Costruire addestramento, catalogo delle query e progressi.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F06
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F06-generare-logico-disegnare-er.md
+ID e obiettivo: F06 — Generare il modello logico e disegnare l’ER dichiarativo.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F07
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F07-scrivere-analisi-rivedere-testi.md
+ID e obiettivo: F07 — Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F08
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F08-costruire-stile-veste-star-wars.md
+ID e obiettivo: F08 — Costruire il sistema di stile per tema e la veste Star Wars.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F09
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F09-aggiungere-tema-signore-anelli.md
+ID e obiettivo: F09 — Aggiungere il tema di prova «Il Signore degli Anelli».
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F10
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort medium
+
+Modello richiesto: Sonnet 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F10-pubblicare-github-pages.md
+ID e obiettivo: F10 — Pubblicare su GitHub Pages e collegare il libro.
+
+Questa fase crea un remote, esegue push e pubblica: chiedi il via a Marco prima di ciascuna di queste azioni.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+## Obiettivo
+
+Pubblicare un portale statico di addestramento a SQL con la piattaforma comune, il tema Star Wars completo e un secondo tema ridotto, «Il Signore degli Anelli», che dimostra che un tema si aggiunge senza toccare il codice comune. Gli altri due temi richiesti da `AGENTS.md` appartengono a piani successivi.
+
+Per ogni tema lo studente trova sei sezioni: sandbox, addestramento, tutte le query, analisi, schema ER, modello logico.
+
+## Vincoli
+
+- Sito solo client: nessun server, nessuna chiave, nessun account, nessun dato personale (gli studenti sono minori).
+- Repo e sito pubblici: icone Phosphor duotone; delle opere protette si usano nomi e ambientazioni, non immagini, loghi o font ufficiali.
+- Il dialetto SQL è quello del libro: SQLite.
+- Aggiungere un tema non modifica file fuori da `themes/<id>/`.
+- Nessun push e nessuna pubblicazione senza il via di Marco. Lavoro su `dev`.
+
+## Autonomia concordata
+
+**Bilanciata** (Marco, 2026-11-16): chiedi sulle decisioni strutturali, risolvi da solo i dettagli locali e reversibili. Chiedi sempre prima di cambiare requisiti o ampliare il perimetro.
+
+## Strategia dei modelli
+
+- Priorità all’**approfondimento**; budget dichiarato ampio nella finestra di cinque ore e nella settimana (Marco, 2026-11-16).
+- **Fable 5.2 incluso a tempo:** disponibile fino al **2026-11-17 08:59** (`Europe/Rome`). Assegnato a F01 e F02, da aprire in sequenza entro la scadenza. Se una delle due cade dopo, gira su Opus 5.5 `high`: annotalo nel passaggio di consegne.
+- Opus 5.5 `medium` dove si decide una forma o si scrivono testi per gli studenti (F03, F05–F09).
+- Sonnet 5.5 dove si esegue una forma già decisa (F04, F10). F04 parte da `high` perché ogni query va giudicata sul risultato, non solo eseguita.
+- Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al modello superiore.
+
+## Decisioni condivise
+
+Prese da Marco il 2026-11-16, salvo dove indicato.
+
+| Decisione | Scelta | Motivo |
+| --- | --- | --- |
+| Motore SQL | SQLite via `sql.js` | Una query che funziona nel libro funziona nel portale |
+| Architettura | Sito statico autonomo su GitHub Pages, link reciproci con il libro | Nessun server da mantenere |
+| Visibilità | Pubblica | Come il libro |
+| Framework | React + Vite + TypeScript, CSS con variabili per tema | Stack del prototipo, stessa famiglia del sito del libro |
+| Formato del tema | Cartella `themes/<id>/` autoscoperta al build | Requisito 1 e 4 di `AGENTS.md` |
+| Modello logico | Generato dallo schema SQL del tema | Non può divergere dal database |
+| Schema ER | File dichiarativo del tema, disegnato da un componente comune | Lo schema SQL non contiene nomi delle associazioni né scelte concettuali |
+| Primo tema | Star Wars, con i 121 esercizi del prototipo riverificati su SQLite | Contenuti già esistenti |
+| Tema di prova | Il Signore degli Anelli, in versione ridotta | Prova di modularità su un dominio nuovo |
+| Addestramento | Percorso per capitolo del libro (6–9) e difficoltà, più sessioni configurabili | Segue il libro e conserva il generatore del prototipo |
+| Progressi | `localStorage`, per tema | Nessun dato personale |
+| Tutor AI | Escluso | Richiede server e chiavi |
+| Sandbox | Accetta qualunque istruzione, con «Ripristina database» (proposta di Claude, approvata con il piano) | Ogni studente ha un database in memoria proprio |
+| Routing | Con hash, `#/<tema>/<sezione>` (proposta di Claude, approvata con il piano) | GitHub Pages non riscrive gli URL |
+| Riuso dal libro | Copia e adattamento, senza dipendenza fra i repo (proposta di Claude, approvata con il piano) | Stesso autore, repo pubblico |
+
+### Struttura attesa di un tema
+
+F01 fissa i nomi definitivi e li registra qui; fino ad allora vale questa bozza.
+
+```text
+themes/<id>/
+  theme.ts       manifest: id, titolo, descrizione, riferimenti agli altri file
+  schema.sql     CREATE TABLE con chiavi esterne dichiarate
+  dati.sql       INSERT
+  esercizi.*     formato fissato in F02
+  analisi.md     testo del dominio
+  er.ts          entità, associazioni, cardinalità
+  stile.css      variabili e decorazioni del tema
+```
+
+### Riferimenti da adattare
+
+Fatti verificati il 2026-11-16 con `ls` e `grep` sui percorsi indicati, relativi a `~/Developer/github/`.
+
+| Percorso | Che cosa contiene |
+| --- | --- |
+| `python-doesnt-byte/static/sql-runner/worker.js` | Worker `sql.js` (728 righe): seed serializzato, `PRAGMA foreign_keys = ON`, `lastResultSet`, `hasOrderBy`, `compareSets`, `verifyRun` |
+| `python-doesnt-byte/src/theme/SQLRunner/sqlBridge.ts` | Ponte fra React e worker, con watchdog che termina il worker su una query che non finisce |
+| `python-doesnt-byte/src/components/DiagrammaER/` | Componente ER dichiarativo del libro (`index.tsx`, `layout.ts`, `types.ts`), cardinalità `(min,max)`; usa il carattere Excalifont, licenza OFL |
+| `jedi-academy/src/data/starWarsDatabase.ts` | Schema descrittivo e seed SQL di sette tabelle (272 righe) |
+| `jedi-academy/src/data/exercises.ts` | 121 esercizi (1413 righe): `id`, `title`, `description`, `difficulty`, `keywords`, `expectedQuery`, `hints`, `relevantTables`, `checkOrder` |
+| `jedi-academy/src/services/sessionGenerator.ts` | Generatore di sessioni del prototipo |
+
+Il libro dichiara `sql.js` `^1.14.1`; l’ultima versione su npm al 2026-11-16 è la 1.16.0 (`npm view sql.js version`). Node locale: v25.9.0.
+
+### Comandi dei criteri di accettazione
+
+I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: alla stesura del piano (2026-11-16) **non sono stati eseguiti**. Ogni fase li esegue e ne riporta l’esito.
+
+## Aggiornamenti di stato
+
+| Data | Nota |
+| --- | --- |
+| 2026-11-16 | Piano scritto dopo l’intervista con Marco. Nessuna fase avviata. |

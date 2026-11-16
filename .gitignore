@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.*
+
+# Symlink locale alle norme del workspace
+.claude/norms
+.claude/settings.local.json
