@@ -11,7 +11,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check:themes": "node scripts/check-themes.ts"
   },
   "dependencies": {
     "react": "^19.3.1",

@@ -11,8 +11,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-16 | Repo inizializzato con questo file, `CLAUDE.md`, `.gitignore` e il symlink alle norme. Nessuno stack scelto, nessun piano. |
 | 2026-11-16 | Decisioni strutturali prese con Marco e piano `portale-v1` scritto in `docs/plans/portale-v1/` (dieci fasi). Branch `dev` creato. Nessun codice. |
 | 2026-11-16 | F01 completata: scheletro Vite, contratto del tema (`src/themes/`), motore SQLite in un worker con watchdog (`src/sql/`), tema segnaposto `themes/star-wars/`. Comandi: `npm run dev`, `build`, `test`, `lint`. |
+| 2026-11-16 | F02 completata: tipo `Exercise` e file `themes/<id>/esercizi.ts`, verifica delle risposte (`src/exercises/`), `npm run check:themes`. Tre esercizi segnaposto nel tema `star-wars`. |
 
-**Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura. F02 va aperta entro il 2026-11-17 08:59 per usare Fable 5.2.
+**Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 
 ## Requisiti di Marco
 

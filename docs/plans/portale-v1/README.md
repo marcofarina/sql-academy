@@ -3,7 +3,7 @@
 | ID | Fase | Dipendenze | Modello / effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | completata | 2026-11-16 21:01 | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |
-| F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | da fare | | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
+| F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | completata | 2026-11-16 21:36 | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
 | F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | da fare | | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
 | F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | da fare | | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | da fare | | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
@@ -226,6 +226,8 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Sandbox | Accetta qualunque istruzione, con «Ripristina database» (proposta di Claude, approvata con il piano) | Ogni studente ha un database in memoria proprio |
 | Routing | Con hash, `#/<tema>/<sezione>` (proposta di Claude, approvata con il piano) | GitHub Pages non riscrive gli URL |
 | Manifest del tema | Solo `id`, `title`, `description`; gli altri file si trovano per nome fisso (Marco, 2026-11-16, in F01) | Un tema nuovo non ripete codice di caricamento |
+| Formato degli esercizi | File TypeScript `themes/<id>/esercizi.ts` (Claude, in F02) | Controllato dal compilatore; le query su più righe restano leggibili, cosa che JSON non consente |
+| Confronto delle risposte | Nomi e ordine delle colonne non contano; contano numero di colonne e valori (Marco, 2026-11-16, in F02) | Come nel libro; le consegne non devono prescrivere alias |
 | Riuso dal libro | Copia e adattamento, senza dipendenza fra i repo (proposta di Claude, approvata con il piano) | Stesso autore, repo pubblico |
 
 ### Struttura di un tema
@@ -237,13 +239,13 @@ themes/<id>/
   theme.ts       manifest esportato come default: id (uguale al nome della cartella), title, description
   schema.sql     CREATE TABLE con chiavi esterne dichiarate
   dati.sql       INSERT
-  esercizi.*     formato fissato in F02
+  esercizi.ts    elenco di Exercise esportato come default; facoltativo (F02)
   analisi.md     testo del dominio (F07)
   er.ts          entità, associazioni, cardinalità (F06)
   stile.css      variabili e decorazioni del tema (F08)
 ```
 
-In F01 il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
+Il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori, ed `esercizi.ts`, facoltativo (da F02). `theme.ts` ed `esercizi.ts` sono caricati anche da Node senza Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
 
 ### Riferimenti da adattare
 
@@ -270,3 +272,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | --- | --- |
 | 2026-11-16 | Piano scritto dopo l’intervista con Marco. Nessuna fase avviata. |
 | 2026-11-16 | F01 completata su Fable 5.2. Scheletro, contratto del tema, registro e motore SQL con watchdog; passaggio di consegne nel dettaglio della fase. |
+| 2026-11-16 | F02 completata su Fable 5.2. Tipo `Exercise`, verifica delle risposte con le regole di confronto, `npm run check:themes`; regole e interfacce nel dettaglio della fase. |
