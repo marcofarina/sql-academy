@@ -48,8 +48,8 @@ test('esegue la query della pagina sul tema Star Wars', async () => {
   const db = await engine.open({ key: 'star-wars', script });
   const [pianeti] = (await db.run('SELECT * FROM pianeti')).resultSets;
 
-  expect(pianeti.columns).toEqual(['id', 'nome', 'clima']);
-  expect(pianeti.totalRows).toBe(5);
+  expect(pianeti.columns).toEqual(['id', 'nome', 'clima', 'terreno', 'popolazione', 'settore_galattico']);
+  expect(pianeti.totalRows).toBe(15);
   await db.close();
 });
 
