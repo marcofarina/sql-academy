@@ -9,9 +9,10 @@
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | da fare | | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
-| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
+| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
 | F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
+| F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | da fare | | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
 
 Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
 
@@ -189,6 +190,23 @@ Questa fase crea un remote, esegue push e pubblica: chiedi il via a Marco prima 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
+### P-F11
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F11-studiare-veste-strumento-design.md
+ID e obiettivo: F11 — Studiare la veste grafica con lo strumento di design.
+
+Le tavole si disegnano con l’Artifact di tipo «Design» (tool Artifact, quickstart con intent "design"); mostra a Marco le tavole e attendi l’approvazione prima di scrivere la specifica. Nelle tavole usa solo icone RB già nel progetto: le icone tematiche restano segnaposto per F08.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
 ## Obiettivo
 
 Pubblicare un portale statico di addestramento a SQL con la piattaforma comune, il tema Star Wars completo e un secondo tema ridotto, «Il Signore degli Anelli», che dimostra che un tema si aggiunge senza toccare il codice comune. Gli altri due temi richiesti da `AGENTS.md` appartengono a piani successivi.
@@ -325,3 +343,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-16 | F02 completata su Fable 5.2. Tipo `Exercise`, verifica delle risposte con le regole di confronto, `npm run check:themes`; regole e interfacce nel dettaglio della fase. |
 | 2026-11-17 | Piano aggiornato su richiesta di Marco: tutte le icone passano dalla skill `icone-rb` (RB Icons), il progetto è collaudo della skill. Sezione «Icone» nel piano; modificate F03, F05, F06, F08, F09 e i loro prompt; `AGENTS.md` sostituisce Phosphor con `Icone: rb-icons`. |
 | 2026-11-17 | F03 completata su Opus 5.5. Routing con hash, elenco dei temi, guscio con sei sezioni, sandbox con CodeMirror; dieci icone RB create e approvate da Marco. Dettagli e collaudo della skill nel dettaglio della fase. |
+| 2026-11-17 | Aggiunta F11 su richiesta di Marco: studio della veste con l’Artifact «Design» prima di F08, che ora dipende da F11. Ammesse icone tematiche e loghi o emblemi stilizzati. |

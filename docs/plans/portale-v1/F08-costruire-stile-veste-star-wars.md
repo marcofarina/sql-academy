@@ -1,7 +1,7 @@
 # F08 — Costruire il sistema di stile per tema e la veste Star Wars
 
 - **Modello / effort:** Opus 5.5 `medium`. Si decide che cosa un tema può personalizzare: è una parte del contratto.
-- **Dipendenze:** F03. Conviene dopo F05 e F06, per vestire componenti già esistenti; se la apri prima, rivedi le viste nuove quando arrivano.
+- **Dipendenze:** F03, F11 (tavole approvate e specifica `docs/design/veste.md`). Conviene dopo F05 e F06, per vestire componenti già esistenti; se la apri prima, rivedi le viste nuove quando arrivano.
 - **Consumo stimato:** medio.
 - **Incertezza:** media. Le verifiche sono visive.
 - **Punto di ripresa:** variabili comuni applicate a tutti i componenti con la veste neutra, prima della veste Star Wars.
@@ -12,7 +12,8 @@ Ogni tema cambia colori, caratteri e decorazioni del sito attraverso il proprio 
 
 ## 2. Contesto minimo
 
-- Passaggi di consegne di F03, F05, F06.
+- Passaggi di consegne di F03, F05, F06, F11.
+- `docs/design/veste.md`: valori e decorazioni approvati da Marco in F11; F08 li applica, non li ridecide.
 - Skill `frontend-design`, da caricare prima di disegnare.
 - Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Le icone di un tema stanno in `themes/<id>/icone/`.
 - Vincolo di `AGENTS.md`: nessuna immagine o font ufficiale delle opere; loghi ed emblemi solo come icone RB stilizzate.
@@ -31,7 +32,7 @@ Fuori: nuove funzionalità, modifiche alla struttura delle pagine oltre a ciò c
 3b. Rivedi le icone comuni di F03–F06 con i colori del tema e controlla che restino leggibili sul fondo del tema.
 4. Applica il tema all’editor SQL e ai diagrammi di F06.
 5. Controlla il contrasto di testo e accenti (rapporto minimo 4,5:1 per il testo) con uno strumento, non a occhio, e riporta i valori.
-6. Proponi a Marco la veste con schermate prima di rifinire.
+6. Proponi a Marco la veste con schermate prima di rifinire, confrontandola con le tavole di F11.
 
 ## 5. Criteri di accettazione
 
