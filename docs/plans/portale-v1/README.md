@@ -65,6 +65,8 @@ Piano: docs/plans/portale-v1/README.md
 Fase: docs/plans/portale-v1/F03-costruire-sandbox-guscio-tema.md
 ID e obiettivo: F03 — Costruire sandbox e guscio delle pagine di un tema.
 
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
@@ -95,6 +97,8 @@ Piano: docs/plans/portale-v1/README.md
 Fase: docs/plans/portale-v1/F05-costruire-addestramento-catalogo-progressi.md
 ID e obiettivo: F05 — Costruire addestramento, catalogo delle query e progressi.
 
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
@@ -109,6 +113,8 @@ Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se no
 Piano: docs/plans/portale-v1/README.md
 Fase: docs/plans/portale-v1/F06-generare-logico-disegnare-er.md
 ID e obiettivo: F06 — Generare il modello logico e disegnare l’ER dichiarativo.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -142,6 +148,8 @@ Piano: docs/plans/portale-v1/README.md
 Fase: docs/plans/portale-v1/F08-costruire-stile-veste-star-wars.md
 ID e obiettivo: F08 — Costruire il sistema di stile per tema e la veste Star Wars.
 
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
@@ -158,6 +166,8 @@ Fase: docs/plans/portale-v1/F09-aggiungere-tema-signore-anelli.md
 ID e obiettivo: F09 — Aggiungere il tema di prova «Il Signore degli Anelli».
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -188,7 +198,7 @@ Per ogni tema lo studente trova sei sezioni: sandbox, addestramento, tutte le qu
 ## Vincoli
 
 - Sito solo client: nessun server, nessuna chiave, nessun account, nessun dato personale (gli studenti sono minori).
-- Repo e sito pubblici: icone Phosphor duotone; delle opere protette si usano nomi e ambientazioni, non immagini, loghi o font ufficiali.
+- Repo e sito pubblici: tutte le icone sono RB Icons, create o scelte con la skill `icone-rb` (vedi «Icone» più sotto); niente Font Awesome né Phosphor. Delle opere protette si usano nomi e ambientazioni, non immagini, loghi o font ufficiali.
 - Il dialetto SQL è quello del libro: SQLite.
 - Aggiungere un tema non modifica file fuori da `themes/<id>/`.
 - Nessun push e nessuna pubblicazione senza il via di Marco. Lavoro su `dev`.
@@ -229,6 +239,32 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Formato degli esercizi | File TypeScript `themes/<id>/esercizi.ts` (Claude, in F02) | Controllato dal compilatore; le query su più righe restano leggibili, cosa che JSON non consente |
 | Confronto delle risposte | Nomi e ordine delle colonne non contano; contano numero di colonne e valori (Marco, 2026-11-16, in F02) | Come nel libro; le consegne non devono prescrivere alias |
 | Riuso dal libro | Copia e adattamento, senza dipendenza fra i repo (proposta di Claude, approvata con il piano) | Stesso autore, repo pubblico |
+| Icone | Solo RB Icons, tutte passate dalla skill `icone-rb`; il progetto è anche collaudo della skill (Marco, 2026-11-17) | Repo pubblico: Font Awesome Pro non ammesso; Phosphor non si usa più |
+
+### Icone
+
+Marco, 2026-11-17: questo progetto serve anche da collaudo della skill `icone-rb` (nominata «rb-icons» a voce; nella sessione la skill si chiama `icone-rb`). Ogni icona del portale passa dalla skill, senza eccezioni: nessuna icona scritta a mano fuori dal procedimento, nessun emoji o carattere Unicode usato come pittogramma.
+
+Fonte: `Icone: rb-icons` è registrata in `AGENTS.md`, quindi la skill non chiede la fonte.
+
+Procedimento per ogni fase che ha interfaccia (F03, F05, F06, F08, F09), eseguito **prima** di scrivere i componenti:
+
+1. Elenca le icone che la fase richiede (navigazione, azioni, esiti, stati, decorazioni) con il significato di ciascuna.
+2. Per ognuna cerca nel catalogo con `python3 tools/search.py`, più sinonimi in italiano e in inglese, come prescrive la skill. Se esiste un’icona adatta, usala.
+3. Per le mancanti segui il passo 3b della skill (clean room, `STILE.md`, validazione, galleria). Il modello per disegnare è Opus: le cinque fasi con interfaccia girano già su Opus 5.5; se una fase gira su un modello più leggero, **fermati** e dillo a Marco prima di disegnare.
+4. Mostra a Marco il render a 128 px delle icone **nuove** e attendi l’approvazione. Il commit di ciascuna va nel repository `~/Developer/github/icone`, sul branch `dev`, con le sole modifiche dell’icona; nessun push senza il via di Marco. Questi commit non entrano nel commit di chiusura della fase del portale.
+5. Copia nel progetto solo le icone usate: quelle comuni in `src/assets/icons/<nome>.svg`, quelle che appartengono a un solo tema in `themes/<id>/icone/<nome>.svg` (un tema porta con sé le proprie icone: F09 non tocca file comuni). Uso inline o come file, secondo il passo 4 della skill; icone decorative con `aria-hidden="true"`, le altre con `role="img"` e `<title>`.
+6. Compila la tabella «Registro icone» qui sotto e riporta nel passaggio di consegne della fase i problemi trovati nella skill (ricerca che non trova, `STILE.md` ambiguo, strumenti che falliscono, icone respinte da Marco e perché): è l’esito del collaudo.
+
+Se la libreria o la skill non sono raggiungibili, fermati e dillo a Marco: non sostituire con icone di altre librerie.
+
+#### Registro icone
+
+Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (esisteva già) o `creata` (disegnata in questa fase, con il modello che l’ha disegnata).
+
+| Icona | Uso nel portale | Fase | Origine | Esito |
+| --- | --- | --- | --- | --- |
+| | | | | |
 
 ### Struttura di un tema
 
@@ -273,3 +309,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-16 | Piano scritto dopo l’intervista con Marco. Nessuna fase avviata. |
 | 2026-11-16 | F01 completata su Fable 5.2. Scheletro, contratto del tema, registro e motore SQL con watchdog; passaggio di consegne nel dettaglio della fase. |
 | 2026-11-16 | F02 completata su Fable 5.2. Tipo `Exercise`, verifica delle risposte con le regole di confronto, `npm run check:themes`; regole e interfacce nel dettaglio della fase. |
+| 2026-11-17 | Piano aggiornato su richiesta di Marco: tutte le icone passano dalla skill `icone-rb` (RB Icons), il progetto è collaudo della skill. Sezione «Icone» nel piano; modificate F03, F05, F06, F08, F09 e i loro prompt; `AGENTS.md` sostituisce Phosphor con `Icone: rb-icons`. |

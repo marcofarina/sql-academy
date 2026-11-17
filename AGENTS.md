@@ -91,5 +91,5 @@ Il symlink esiste solo in locale (è in `.gitignore`): una sessione nel cloud no
 
 - Interfaccia, documentazione e commenti in italiano; identificatori e nomi di file seguono le convenzioni del linguaggio.
 - Lavora sul branch `dev`; il merge in `main` lo chiede Marco. Messaggi di commit secondo i *Conventional Commits*, descrizione in italiano: `feat(temi): aggiungi il registro dei temi`.
-- Icone: Phosphor duotone (`~/Developer/github/icone-libere/phosphor-duotone/`, MIT). Il repo sarà pubblico: niente Font Awesome Pro.
+- Icone: rb-icons. Solo RB Icons, sempre tramite la skill `icone-rb` (repo pubblico: niente Font Awesome Pro). Il progetto collauda la skill; procedimento e registro nel piano, sezione «Icone». Comuni in `src/assets/icons/`, di un tema in `themes/<id>/icone/`.
 - Nessun push e nessuna pubblicazione senza il via di Marco.

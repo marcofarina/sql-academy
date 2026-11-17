@@ -16,6 +16,7 @@ Un secondo tema ridotto ma completo in tutte e sei le sezioni, aggiunto creando 
 
 - Contratto del tema e passaggi di consegne di F01, F02, F06, F08.
 - `themes/star-wars/` come esempio di tema completo.
+- Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Le icone del tema stanno in `themes/lotr/icone/`: non si tocca `src/assets/icons/`; se manca un’icona comune, è un difetto da descrivere a Marco, non da aggirare.
 - `.claude/norms/scrittura-didattica.md` e `.claude/norms/scrittura-umana.md`.
 
 ## 3. Perimetro
@@ -30,7 +31,7 @@ Fuori: qualunque file comune. Se serve modificarne uno, **fermati**: è un difet
 2. Proponi a Marco il dominio (per esempio popoli, regni, personaggi, compagnie, battaglie, luoghi) e lo schema ER; attendi l’approvazione.
 3. Scrivi `schema.sql`, `dati.sql` (dati coerenti con l’opera, verificati eseguendo il caricamento con le chiavi esterne attive), `er.ts`, `analisi.md`.
 4. Scrivi circa 20 esercizi: almeno quattro per capitolo, tre livelli di difficoltà. Esegui ogni query attesa e controlla che il risultato corrisponda alla consegna.
-5. Disegna la veste con caratteri liberi; nessuna immagine, logo o carattere ufficiale.
+5. Disegna la veste con caratteri liberi; nessuna immagine, logo o carattere ufficiale. Le icone decorative del tema (per esempio anelli, mappe, spade, luoghi) passano dalla skill `icone-rb` e vanno in `themes/lotr/icone/`; riusa quelle di Star Wars e quelle comuni dove il significato coincide.
 6. Scrivi nel `README.md` del repo la guida «Aggiungere un tema»: file richiesti, comandi di controllo, vincoli sulle opere protette. Ogni comando della guida va eseguito prima di scriverlo.
 7. Applica la passata finale di `scrittura-umana.md` ad analisi ed esercizi.
 

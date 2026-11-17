@@ -13,6 +13,7 @@ Le sezioni «Addestramento» e «Tutte le query» funzionano per qualunque tema;
 ## 2. Contesto minimo
 
 - Passaggi di consegne di F02, F03, F04.
+- Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Riusa quelle di F03; servono in più, per esempio: risolto, da fare, suggerimento, soluzione, sessione, filtro, riepilogo.
 - `~/Developer/github/jedi-academy/src/services/sessionGenerator.ts` e i componenti `ExerciseWorkspace.tsx`, `SessionConfigModal.tsx`, `SessionSummaryModal.tsx`, `BankCatalogView.tsx`, `HintsModal.tsx`: come riferimento di comportamento.
 
 ## 3. Perimetro
@@ -28,7 +29,8 @@ Fuori: stile del tema (F08), revisione dei testi (F07), esportazione dei progres
 3. **Sessioni:** lunghezza 5, 10 o 20; difficoltà singola o bilanciata; filtro per capitolo e parole chiave; estrazione senza ripetizioni; riepilogo finale con tentativi e suggerimenti usati.
 4. **Tutte le query:** elenco completo degli esercizi del tema con ricerca e filtri per capitolo, difficoltà, parola chiave e tabella; da ogni voce si apre l’esercizio.
 5. **Progressi:** `localStorage`, chiave `sql-academy:<tema>:v1`; esercizi risolti, ultima query scritta per esercizio; pulsante di azzeramento per tema. Ogni lettura e scrittura in `try/catch`: senza `localStorage` il portale funziona lo stesso. Nessun identificativo dello studente, nessuna data di nascita, nessun nome.
-6. Test: generatore di sessioni (lunghezza, assenza di ripetizioni, filtri che non trovano abbastanza esercizi), lettura di progressi corrotti o di una versione precedente.
+6. **Icone:** prima dei componenti, come nella sezione «Icone» del piano; copia le nuove in `src/assets/icons/`.
+7. Test: generatore di sessioni (lunghezza, assenza di ripetizioni, filtri che non trovano abbastanza esercizi), lettura di progressi corrotti o di una versione precedente.
 
 ## 5. Criteri di accettazione
 
