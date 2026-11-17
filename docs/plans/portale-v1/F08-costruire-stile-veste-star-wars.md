@@ -1,7 +1,7 @@
 # F08 — Costruire il sistema di stile per tema e la veste Star Wars
 
 - **Modello / effort:** Opus 5.5 `medium`. Si decide che cosa un tema può personalizzare: è una parte del contratto.
-- **Dipendenze:** F03, F11 (tavole approvate e specifica `docs/design/veste.md`). Conviene dopo F05 e F06, per vestire componenti già esistenti; se la apri prima, rivedi le viste nuove quando arrivano.
+- **Dipendenze:** F03, F11 (tavole approvate e specifiche `docs/design/neutra.md`, `docs/design/star-wars.md`). Conviene dopo F05 e F06, per vestire componenti già esistenti; se la apri prima, rivedi le viste nuove quando arrivano.
 - **Consumo stimato:** medio.
 - **Incertezza:** media. Le verifiche sono visive.
 - **Punto di ripresa:** variabili comuni applicate a tutti i componenti con la veste neutra, prima della veste Star Wars.
@@ -13,7 +13,7 @@ Ogni tema cambia colori, caratteri e decorazioni del sito attraverso il proprio 
 ## 2. Contesto minimo
 
 - Passaggi di consegne di F03, F05, F06, F11.
-- `docs/design/veste.md`: valori e decorazioni approvati da Marco in F11; F08 li applica, non li ridecide.
+- `docs/design/neutra.md` e `docs/design/star-wars.md`: valori e decorazioni approvati da Marco in F11; F08 li applica, non li ridecide.
 - Skill `frontend-design`, da caricare prima di disegnare.
 - Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Le icone di un tema stanno in `themes/<id>/icone/`.
 - Vincolo di `AGENTS.md`: nessuna immagine o font ufficiale delle opere; loghi ed emblemi solo come icone RB stilizzate.

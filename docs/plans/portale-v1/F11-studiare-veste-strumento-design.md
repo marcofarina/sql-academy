@@ -11,7 +11,7 @@
 Prima di scrivere CSS, Marco vede e approva l’aspetto del portale su tavole disegnate con lo strumento di design di Claude. Al termine esistono:
 
 - un Artifact di tipo «Design» con le tavole approvate;
-- una specifica in `docs/design/veste.md` che F08 applica senza dover reinventare le scelte.
+- due specifiche, `docs/design/neutra.md` per la pagina iniziale e `docs/design/star-wars.md` per il tema, che F08 applica senza dover reinventare le scelte. Ogni tema ha la sua specifica in `docs/design/<id>.md`.
 
 ## 2. Contesto minimo
 
@@ -34,14 +34,14 @@ Fuori: codice del portale (F08), creazione delle icone tematiche (F08, con la sk
 4. Nelle tavole usa solo le icone RB già nel progetto (`src/assets/icons/`). Le icone tematiche che proponi (oggetti, stemmi delle fazioni) restano segnaposto descritti a parole: le disegna F08 con la skill `icone-rb`.
 5. Caratteri: solo a licenza libera (per esempio OFL), con la licenza verificata alla fonte. Annota nome, licenza e URL.
 6. Misura con uno script il contrasto di ogni coppia testo/fondo e accento/fondo della palette (minimo 4,5:1 per il testo normale); correggi la palette finché non passa.
-7. Scrivi `docs/design/veste.md`: link all’Artifact, variabili con i valori (colori, caratteri, raggi, bordi) per la veste neutra e per Star Wars, decorazioni, elenco delle icone tematiche da creare con il loro significato, contrasti misurati.
+7. Scrivi `docs/design/neutra.md` e `docs/design/star-wars.md`: link all’Artifact, variabili con i valori (colori, caratteri, raggi, bordi), decorazioni, elenco delle icone tematiche da creare con il loro significato, contrasti misurati. È il modello delle specifiche dei temi successivi.
 
 ## 5. Criteri di accettazione
 
 | Verifica | Risultato atteso |
 | --- | --- |
 | Approvazione di Marco | Tavole della veste neutra e della veste Star Wars approvate, in chat |
-| `docs/design/veste.md` | Esiste; ogni colore e carattere usato nelle tavole vi compare con il suo valore |
+| `docs/design/neutra.md`, `docs/design/star-wars.md` | Esistono; ogni colore e carattere usato nelle tavole vi compare con il suo valore |
 | Script di contrasto | Ogni coppia testo/fondo almeno 4,5:1; valori riportati nella specifica |
 | Caratteri | Ognuno con licenza libera verificata alla fonte e URL |
 | `npm test`, `npm run lint` | Nessun errore (la fase non tocca il codice; controllo di non regressione) |
