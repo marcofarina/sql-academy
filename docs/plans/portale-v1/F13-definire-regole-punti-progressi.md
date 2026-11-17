@@ -29,16 +29,16 @@ Il portale applica le regole del sistema a punti: lo studente guadagna punti ris
 Un suggerimento costa circa un quarto del premio (arrotondato per eccesso), la soluzione il doppio: è l’estrema ratio.
 
 1. I punti sono **per tema**: ogni tema ha il proprio saldo.
-2. Il saldo parte da **zero** e non scende mai sotto zero: un aiuto che il saldo non copre non si apre (proposta di Claude).
+2. Il saldo parte da **zero** e non scende mai sotto zero: un aiuto che il saldo non copre non si apre (proposta di Claude, approvata da Marco il 2026-11-17).
 3. Il **primo aiuto del tema** è gratuito, una sola volta per tema. È sempre un suggerimento, perché la soluzione richiede tutti i suggerimenti.
-4. I suggerimenti si aprono uno alla volta, ciascuno al suo prezzo. Un aiuto pagato resta aperto per sempre (proposta di Claude).
+4. I suggerimenti si aprono uno alla volta, ciascuno al suo prezzo. Un aiuto pagato resta aperto per sempre (proposta di Claude, approvata da Marco il 2026-11-17).
 5. La soluzione si compra solo dopo aver aperto tutti i suggerimenti dell’esercizio.
-6. A esercizio risolto suggerimenti e soluzione si aprono gratis (proposta di Claude: la regola provvisoria di F05 mostrava già la soluzione a esercizio risolto).
-7. Il premio si incassa alla **prima** risoluzione, intero anche se lo studente ha usato suggerimenti, che ha già pagato (proposta di Claude).
+6. A esercizio risolto suggerimenti e soluzione si aprono gratis (proposta di Claude, approvata da Marco il 2026-11-17: la regola provvisoria di F05 mostrava già la soluzione a esercizio risolto).
+7. Il premio si incassa alla **prima** risoluzione, intero anche se lo studente ha usato suggerimenti, che ha già pagato (proposta di Claude, approvata da Marco il 2026-11-17).
 8. Un esercizio risolto **dopo** aver visto la soluzione risulta risolto ma vale zero punti.
 9. Rifare un esercizio già risolto, dal percorso o in una sessione, non dà punti.
-10. «Azzera i progressi» del tema azzera anche il saldo e restituisce l’aiuto gratuito (proposta di Claude).
-11. Le regole stanno nel codice comune e valgono per ogni tema: un tema non le personalizza (proposta di Claude).
+10. «Azzera i progressi» del tema azzera anche il saldo e restituisce l’aiuto gratuito (proposta di Claude, approvata da Marco il 2026-11-17).
+11. Le regole stanno nel codice comune e valgono per ogni tema: un tema non le personalizza (proposta di Claude, approvata da Marco il 2026-11-17).
 
 **Nessuna migrazione** (Marco): il portale non è ancora pubblicato e nessuno ha progressi salvati. La versione 2 sostituisce la 1; i dati della versione 1 si ignorano, come oggi si ignora una versione diversa.
 
