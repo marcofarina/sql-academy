@@ -713,3 +713,179 @@ button.link-button {
 .table-scroll td .status {
   color: inherit;
 }
+
+/* Modello logico: la notazione del libro, chiave primaria sottolineata ed esterna in corsivo */
+
+.view-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.view-switch button[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+.logical-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.relations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.relations > li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.relation {
+  margin: 0;
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.relation .attribute {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15rem;
+  white-space: nowrap;
+}
+
+.relation .attribute .icon-box {
+  font-size: 0.8em;
+  color: var(--color-muted);
+}
+
+.pk {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.fk {
+  font-style: italic;
+}
+
+.foreign-keys {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.foreign-keys li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.foreign-keys .icon-box {
+  color: var(--color-muted);
+}
+
+.sql-view-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.copy-status {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.sql-code {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+/* Schema ER: tratto di Excalidraw come nel libro. Excalifont (licenza OFL,
+   testo in src/er/Excalifont-OFL.txt), frammento latino copiato dal libro. */
+
+@font-face {
+  font-family: 'Excalifont';
+  src: url('./er/Excalifont-Regular-latin.woff2') format('woff2');
+  font-display: swap;
+}
+
+.er-figure {
+  display: block;
+  max-width: 100%;
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  /* Il diagramma scorre dentro la figura quando lo schermo è più stretto del
+     minimo leggibile (vedi minWidth in ErDiagram.tsx): la pagina no. */
+  overflow-x: auto;
+}
+
+.er-diagram {
+  --er-stroke: var(--color-text);
+  --er-shape-bg: #f3f5f9;
+  --er-page-bg: var(--color-surface);
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  color: var(--er-stroke);
+}
+
+.er-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.er-fill {
+  stroke: none;
+}
+
+.er-linea.er-stroke {
+  stroke-width: 1.5;
+}
+
+.er-entita.er-fill,
+.er-associazione.er-fill {
+  fill: var(--er-shape-bg);
+}
+
+.er-pallino.er-fill,
+.er-ellisse.er-fill {
+  fill: var(--er-page-bg);
+}
+
+.er-pallinoPieno.er-fill,
+.er-freccia.er-fill {
+  fill: currentColor;
+}
+
+.er-text {
+  font-family: 'Excalifont', 'Comic Sans MS', cursive;
+  font-weight: 400;
+  fill: currentColor;
+}
+
+.er-description summary {
+  cursor: pointer;
+}

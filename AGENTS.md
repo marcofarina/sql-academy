@@ -16,6 +16,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-17 | F04 completata: database Star Wars completo (`schema.sql`, `dati.sql`, con `fazioni.leader_id` verso `personaggi`) e 105 esercizi del prototipo (non 121: errore di conteggio nel piano) in `themes/star-wars/esercizi.ts`, tutti verificati su SQLite. Difetti di schema e incongruenze nel dettaglio della fase. |
 | 2026-11-17 | F05 completata: addestramento (percorso, esercizio, sessioni), catalogo «Tutte le query», progressi in `localStorage` (`src/training/`, `src/progress/`). Marco vuole un sistema a punti: brainstorming e nuove fasi del piano ancora da fare. |
 | 2026-11-17 | Brainstorming sul sistema a punti con Marco: aggiunte al piano F13–F17 (regole dei punti, interfaccia, progressi nello zaino di PDB, servizio e pagina della classifica). Nessun codice. CTF, gradi e traguardi rinviati a un piano successivo. |
+| 2026-11-17 | F06 completata: sezione «Modello logico» generata dal database (`src/logical/`), sezione «Schema ER» con il componente del libro (`src/er/`, dipendenza `roughjs`, carattere Excalifont) e `themes/star-wars/er.ts`; `check:themes` controlla la coerenza fra ER e tabelle. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

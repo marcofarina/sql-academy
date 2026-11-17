@@ -7,7 +7,7 @@
 | F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | completata | 2026-11-17 12:40 | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
 | F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | completata | 2026-11-17 13:15 | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | completata | 2026-11-17 15:10 | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
-| F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
+| F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | completata | 2026-11-17 16:19 | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
 | F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
@@ -374,6 +374,10 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Studio della veste | Ogni tema ha una propria fase di studio della veste con l’Artifact «Design», prima della fase che lo costruisce; la specifica approvata sta in `docs/design/<id>.md`, la veste neutra in `docs/design/neutra.md` (Marco, 2026-11-17) | L’aspetto di un tema si decide sulle tavole, con Marco, prima del codice |
 | Uso delle icone nel codice | File in `src/assets/icons/` (comuni) o `themes/<id>/icone/`, incorporati inline dal componente `Icon` (`src/icons/`); comuni per `name`, di un tema per `svg` (Claude, in F03) | Inline ereditano il colore del testo e le variabili `rb-*`; un’icona comune nuova non richiede codice |
 | Editor SQL | CodeMirror 6 con `@codemirror/lang-sql`, dialetto SQLite (Claude, in F03) | Evidenziazione, completamento dallo schema e scorciatoie già pronti; nessuna alternativa più semplice li dà tutti |
+| Formato di `er.ts` | Le props del componente `DiagrammaER` del libro, con i nomi in italiano (`entita`, `associazioni`, `col`, `riga`, `card`…), più `tabella` su entità e associazioni per il controllo di coerenza; tipo `ErDiagram` in `src/er/types.ts` (Claude, in F06) | Un diagramma passa dal libro al portale senza riscriverlo |
+| Tratto e carattere dell’ER | Come il libro: rough.js (nuova dipendenza `roughjs`) ed Excalifont, licenza OFL, copiato con il testo della licenza in `src/er/` (Marco, 2026-11-17, in F06) | Lo studente ritrova i diagrammi del libro |
+| Notazione dell’ER | `id` è l’identificatore di ogni entità; le colonne chiave esterna non sono attributi ma associazioni; gli attributi opzionali non sono segnati con `(0,1)`. Un diagramma più largo della pagina scorre dentro il suo riquadro, con il corpo minimo di 11 px del libro (Marco, 2026-11-17, in F06) | Leggibilità; l’opzionalità si vede nel modello logico |
+| Modello logico | Letto dal database iniziale del tema (le stesse tabelle che la sandbox legge all’apertura), nella notazione del libro: nome in grassetto, chiave primaria sottolineata, chiave esterna in corsivo, elenco «`a.b` si riferisce a `c.d`»; icone `key` e `link` accanto, con titolo per i lettori di schermo. Vista del codice con i `CREATE TABLE` di `schema.sql` (Claude, in F06) | Nessun file scritto a mano; notazione già nota allo studente |
 | Soluzione e aiuti | Superata dal «Sistema a punti» a partire da F13. Regola provvisoria: suggerimenti liberi, uno alla volta; soluzione dopo l’ultimo suggerimento o a esercizio risolto. Un solo punto del codice decide (`canRevealHint`, `canRevealSolution` in `src/training/exercises.ts`) e i progressi salvano suggerimenti aperti e soluzioni viste (Marco, 2026-11-17, in F05) | Marco vuole un sistema a punti (si guadagnano risolvendo, più per gli esercizi difficili; si spendono in suggerimenti e soluzione), da progettare in fasi dedicate dopo F05 |
 | Filtro per parole chiave nelle sessioni | Entra un esercizio che usa almeno una delle parole chiave scelte, come nel catalogo (Marco, 2026-11-17, in F05) | Ciò che lo studente conosce lo limita già il filtro per capitolo |
 | Indirizzi dell’addestramento | `#/<tema>/addestramento/<id>` per un esercizio, `#/<tema>/addestramento/sessione` per la sessione; l’`id` `sessione` è riservato e `check:themes` lo respinge (Claude, in F05) | Un esercizio si apre dal catalogo e si condivide con un link |
@@ -428,6 +432,10 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `magnifying-glass` | ricerca nel catalogo | F05 | creata (Opus 5.5) | approvata |
 | `flag` | riepilogo della sessione | F05 | creata (Opus 5.5) | approvata |
 | `trash-can` | azzeramento dei progressi | F05 | creata (Opus 5.5) | approvata |
+| `key` | chiave primaria nel modello logico | F06 | catalogo | usata (anche per «soluzione», F05) |
+| `link` | chiave esterna nel modello logico | F06 | creata (Opus 5.5) | approvata |
+| `code` | vista «Codice SQL» del modello logico | F06 | creata (Opus 5.5) | approvata la terza versione: le parentesi angolari con barra ricordavano i tag HTML; Marco ha chiesto una finestra di editor con righe rientrate e l’ultima riga di due parole |
+| `copy` | copia del codice SQL | F06 | creata (Opus 5.5) | approvata |
 
 ### Struttura di un tema
 
@@ -440,11 +448,11 @@ themes/<id>/
   dati.sql       INSERT
   esercizi.ts    elenco di Exercise esportato come default; facoltativo (F02)
   analisi.md     testo del dominio (F07)
-  er.ts          entità, associazioni, cardinalità (F06)
+  er.ts          schema ER (tipo ErDiagram), facoltativo (F06)
   stile.css      variabili e decorazioni del tema (F08)
 ```
 
-Il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori, ed `esercizi.ts`, facoltativo (da F02). `theme.ts` ed `esercizi.ts` sono caricati anche da Node senza Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
+Il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori, `esercizi.ts`, facoltativo (da F02), ed `er.ts`, facoltativo (da F06). `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
 
 ### Riferimenti da adattare
 
@@ -479,3 +487,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-17 | F04 completata su Sonnet 5.5. Database Star Wars e 105 esercizi su SQLite (il prototipo ne ha 105, non 121: corretto il piano). Ordinamenti completi in tre esercizi, difetti di schema e incongruenze fra consegna e query elencati nel dettaglio della fase per Marco e per F07. |
 | 2026-11-17 | F05 completata su Opus 5.5. Percorso, spazio di lavoro, sessioni con riepilogo, catalogo «Tutte le query», progressi in `localStorage`; otto icone RB nuove approvate da Marco. Marco chiede un sistema a punti (gamification) con fasi dedicate: brainstorming e aggiornamento del piano da fare in una sessione a parte, prima di aggiungere fasi. |
 | 2026-11-17 | Brainstorming con Marco sul sistema a punti: aggiunte F13–F17 (regole dei punti, interfaccia, zaino di PDB, servizio e pagina della classifica). F10 ora dipende da F14, F15, F17. Vincolo «solo client» rivisto: zaino cifrato e classifica facoltativa su Cloudflare, a costo zero. CTF, gradi e traguardi rinviati a un piano successivo. |
+| 2026-11-17 | F06 completata su Opus 5.5. Modello logico letto dal database con vista del codice; componente ER copiato dal libro (rough.js, Excalifont) con le linee distribuite sullo stesso lato; `themes/star-wars/er.ts` approvato da Marco; coerenza fra ER e tabelle in `check:themes`. Tre icone RB nuove approvate (`code`, `link`, `copy`). |

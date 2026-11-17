@@ -30,16 +30,30 @@ test('legge tabelle, colonne, tipi e chiavi dal database', async () => {
         { name: 'id', type: 'INTEGER', primaryKey: true },
         { name: 'nome', type: 'TEXT', primaryKey: false },
       ],
+      sql: 'CREATE TABLE casate (id INTEGER PRIMARY KEY, nome TEXT NOT NULL)',
     },
     {
       name: 'maghi',
       columns: [
         { name: 'id', type: 'INTEGER', primaryKey: true },
         { name: 'nome', type: 'TEXT', primaryKey: false },
-        { name: 'casata_id', type: 'INTEGER', primaryKey: false },
+        { name: 'casata_id', type: 'INTEGER', primaryKey: false, foreignKey: { table: 'casate', column: 'id' } },
       ],
+      sql: 'CREATE TABLE maghi (id INTEGER PRIMARY KEY, nome TEXT, casata_id INTEGER REFERENCES casate (id))',
     },
   ]);
+  await sandbox.close();
+});
+
+test('una chiave esterna senza colonna di arrivo rimanda alla chiave primaria', async () => {
+  const sandbox = await openSandbox(engine, {
+    key: 'sandbox-chiave-implicita',
+    script: `
+      CREATE TABLE casate (nome TEXT PRIMARY KEY);
+      CREATE TABLE maghi (id INTEGER PRIMARY KEY, casata TEXT REFERENCES casate);
+    `,
+  });
+  expect(sandbox.tables[1].columns[1].foreignKey).toEqual({ table: 'casate', column: 'nome' });
   await sandbox.close();
 });
 

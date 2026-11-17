@@ -19,6 +19,7 @@
     "codemirror": "^6.0.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "roughjs": "^4.6.6",
     "sql.js": "^1.16.0"
   },
   "devDependencies": {

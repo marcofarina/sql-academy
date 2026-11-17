@@ -17,11 +17,15 @@ export interface ColumnInfo {
   /** Tipo dichiarato nello schema; stringa vuota se manca. */
   type: string;
   primaryKey: boolean;
+  /** La colonna e la tabella a cui rimanda, se è (parte di) una chiave esterna. */
+  foreignKey?: { table: string; column: string };
 }
 
 export interface TableInfo {
   name: string;
   columns: ColumnInfo[];
+  /** L’istruzione `CREATE TABLE` così come è stata scritta in `schema.sql`. */
+  sql: string;
 }
 
 /** Esito di un’azione nella sandbox, da mostrare allo studente. */
@@ -40,21 +44,37 @@ export interface Sandbox {
 }
 
 const SCHEMA_QUERY = `
-  SELECT m.name, p.name, p.type, p.pk
+  SELECT m.name, m.sql, p.name, p.type, p.pk
   FROM sqlite_schema AS m JOIN pragma_table_info(m.name) AS p
   WHERE m.type = 'table' AND m.name NOT LIKE 'sqlite_%'
   ORDER BY m.name, p.cid`;
 
+const FOREIGN_KEY_QUERY = `
+  SELECT m.name, f."from", f."table", f."to"
+  FROM sqlite_schema AS m JOIN pragma_foreign_key_list(m.name) AS f
+  WHERE m.type = 'table' AND m.name NOT LIKE 'sqlite_%'`;
+
+/** Tabelle, colonne, chiavi primarie ed esterne del database, in ordine alfabetico di tabella. */
 export async function readTables(database: SqlDatabase): Promise<TableInfo[]> {
-  const [resultSet] = (await database.run(SCHEMA_QUERY, { maxRows: 10_000 })).resultSets;
+  const [schema] = (await database.run(SCHEMA_QUERY, { maxRows: 10_000 })).resultSets;
   const tables: TableInfo[] = [];
-  for (const [table, column, type, pk] of resultSet?.rows ?? []) {
+  for (const [table, sql, column, type, pk] of schema?.rows ?? []) {
     let current = tables.at(-1);
     if (current?.name !== table) {
-      current = { name: String(table), columns: [] };
+      current = { name: String(table), columns: [], sql: String(sql) };
       tables.push(current);
     }
     current.columns.push({ name: String(column), type: String(type ?? ''), primaryKey: Number(pk) > 0 });
+  }
+
+  const [foreignKeys] = (await database.run(FOREIGN_KEY_QUERY, { maxRows: 10_000 })).resultSets;
+  for (const [table, from, target, to] of foreignKeys?.rows ?? []) {
+    const column = tables.find((t) => t.name === table)?.columns.find((c) => c.name === from);
+    if (!column) continue;
+    // Senza colonna di arrivo la chiave esterna rimanda alla chiave primaria della tabella.
+    const targetColumn =
+      to === null ? tables.find((t) => t.name === target)?.columns.find((c) => c.primaryKey)?.name : String(to);
+    column.foreignKey = { table: String(target), column: targetColumn ?? '' };
   }
   return tables;
 }

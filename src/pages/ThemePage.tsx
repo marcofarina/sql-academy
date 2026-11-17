@@ -5,6 +5,8 @@ import { SandboxSection } from '../sandbox/SandboxSection.tsx';
 import { useSandbox } from '../sandbox/useSandbox.ts';
 import type { Theme } from '../themes/contract.ts';
 import { useProgress } from '../progress/useProgress.ts';
+import { ErSection } from '../er/ErSection.tsx';
+import { LogicalSection } from '../logical/LogicalSection.tsx';
 import { CatalogSection } from '../training/CatalogSection.tsx';
 import type { ActiveSession } from '../training/SessionView.tsx';
 import { TrainingSection } from '../training/TrainingSection.tsx';
@@ -70,6 +72,10 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
           />
         ) : section === 'query' ? (
           <CatalogSection themeId={id} training={training} progress={progress} />
+        ) : section === 'er' ? (
+          <ErSection theme={theme} />
+        ) : section === 'logico' ? (
+          <LogicalSection controller={sandbox} />
         ) : (
           <p className="placeholder">Questa sezione è in preparazione.</p>
         )}

@@ -11,14 +11,20 @@
  *   dati.sql      INSERT
  *   esercizi.ts   esercizi, esportati come `default` (tipo `Exercise[]`); facoltativo
  *   analisi.md    testo del dominio (F07)
- *   er.ts         schema ER dichiarativo (F06)
+ *   er.ts         schema ER, esportato come `default` (tipo `ErDiagram`); facoltativo
  *   stile.css     variabili e decorazioni del tema (F08)
  *
  * Sono obbligatori `theme.ts`, `schema.sql` e `dati.sql`.
  *
- * `theme.ts` ed `esercizi.ts` sono caricati anche da Node senza passare da Vite
- * (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`.
+ * `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza passare
+ * da Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`.
+ *
+ * Il modello logico non ha un file: si legge dal database del tema.
  */
+
+import type { ErDiagram } from '../er/types.ts';
+
+export type { ErDiagram } from '../er/types.ts';
 
 /** Il manifest di un tema: ciò che serve per elencarlo senza caricarne i contenuti. */
 export interface ThemeManifest {
@@ -87,4 +93,6 @@ export interface Theme {
   loadDatabaseScript(): Promise<string>;
   /** Carica gli esercizi del tema (`esercizi.ts`); elenco vuoto se il file manca. */
   loadExercises(): Promise<Exercise[]>;
+  /** Carica lo schema ER del tema (`er.ts`); `undefined` se il file manca. */
+  loadEr(): Promise<ErDiagram | undefined>;
 }
