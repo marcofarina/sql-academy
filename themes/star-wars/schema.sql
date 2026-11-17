@@ -1,5 +1,9 @@
 -- Database del tema Star Wars: sette tabelle.
 -- Ordine di creazione: ogni tabella dopo quelle a cui rimanda.
+-- Fa eccezione il giro fra fazioni e personaggi: una fazione ha un leader
+-- (un personaggio) e un personaggio appartiene a una fazione. Il vincolo di
+-- fazioni.leader_id è differito: si controlla alla fine della transazione
+-- che carica i dati (vedi dati.sql).
 
 CREATE TABLE pianeti (
   id                INTEGER PRIMARY KEY,
@@ -11,11 +15,11 @@ CREATE TABLE pianeti (
 );
 
 CREATE TABLE fazioni (
-  id     INTEGER PRIMARY KEY,
-  nome   TEXT NOT NULL,
-  leader TEXT,
-  tipo   TEXT,
-  motto  TEXT
+  id        INTEGER PRIMARY KEY,
+  nome      TEXT NOT NULL,
+  leader_id INTEGER REFERENCES personaggi (id) DEFERRABLE INITIALLY DEFERRED,
+  tipo      TEXT,
+  motto     TEXT
 );
 
 CREATE TABLE specie (

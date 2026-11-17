@@ -1,4 +1,8 @@
 -- Dati del tema Star Wars, nell’ordine imposto dalle chiavi esterne.
+-- Tutto in una transazione: le fazioni rimandano ai loro leader, che sono
+-- personaggi inseriti dopo, e il vincolo si controlla solo al COMMIT.
+
+BEGIN;
 
 INSERT INTO pianeti (id, nome, clima, terreno, popolazione, settore_galattico) VALUES
 (1, 'Tatooine', 'arido', 'deserto', 200000, 'Orlo Esterno'),
@@ -17,15 +21,15 @@ INSERT INTO pianeti (id, nome, clima, terreno, popolazione, settore_galattico) V
 (14, 'Exegol', 'oscuro', 'desolato e roccioso', 50000, 'Regioni Ignote'),
 (15, 'Scarif', 'tropicale', 'isole e oceani', 5000, 'Orlo Esterno');
 
-INSERT INTO fazioni (id, nome, leader, tipo, motto) VALUES
-(1, 'Alleanza Ribelle', 'Mon Mothma', 'Movimento Ribelle', 'Che la Forza sia con noi'),
-(2, 'Impero Galattico', 'Imperatore Palpatine', 'Governo', 'Ordine, Sicurezza, Pace'),
-(3, 'Repubblica Galattica', 'Cancelliere Valorum', 'Governo', 'Uniti nella Democrazia'),
-(4, 'Ordine Jedi', 'Gran Maestro Yoda', 'Ordine Religioso', 'Non c''è emozione, c''è pace'),
-(5, 'Ordine Sith', 'Darth Sidious', 'Ordine Religioso', 'La pace è una menzogna, c''è solo passione'),
-(6, 'Confederazione Sistemi Indipendenti', 'Conte Dooku', 'Governo', 'Libertà dalla Repubblica'),
-(7, 'Gilda dei Cacciatori di Taglie', 'Greef Karga', 'Sindacato', 'La taglia è sacra'),
-(8, 'Mandaloriani', 'Bo-Katan Kryze', 'Governo', 'Questa è la via');
+INSERT INTO fazioni (id, nome, leader_id, tipo, motto) VALUES
+(1, 'Alleanza Ribelle', 25, 'Movimento Ribelle', 'Che la Forza sia con noi'),
+(2, 'Impero Galattico', 7, 'Governo', 'Ordine, Sicurezza, Pace'),
+(3, 'Repubblica Galattica', 26, 'Governo', 'Uniti nella Democrazia'),
+(4, 'Ordine Jedi', 5, 'Ordine Religioso', 'Non c''è emozione, c''è pace'),
+(5, 'Ordine Sith', 7, 'Ordine Religioso', 'La pace è una menzogna, c''è solo passione'),
+(6, 'Confederazione Sistemi Indipendenti', 14, 'Governo', 'Libertà dalla Repubblica'),
+(7, 'Gilda dei Cacciatori di Taglie', 27, 'Sindacato', 'La taglia è sacra'),
+(8, 'Mandaloriani', 24, 'Governo', 'Questa è la via');
 
 INSERT INTO specie (id, nome, linguaggio, aspettativa_vita_media, pianeta_madre_id) VALUES
 (1, 'Umano', 'Galactic Basic', 85, 2),
@@ -63,7 +67,10 @@ INSERT INTO personaggi (id, nome, specie_id, pianeta_origine_id, fazione_id, ann
 (21, 'Cassian Andor', 1, 15, 1, 26, 0, 'Capitano dell''Intelligence'),
 (22, 'Qui-Gon Jinn', 1, 2, 4, 92, 1, 'Maestro Jedi'),
 (23, 'Jabba the Hutt', 7, 1, 7, 600, 0, 'Signore del Crimine'),
-(24, 'Bo-Katan Kryze', 1, 13, 8, 48, 0, 'Leader Mandaloriana');
+(24, 'Bo-Katan Kryze', 1, 13, 8, 48, 0, 'Leader Mandaloriana'),
+(25, 'Mon Mothma', 1, NULL, 1, 48, 0, 'Senatrice e Leader Ribelle'),
+(26, 'Finis Valorum', 1, 2, 3, 62, 0, 'Cancelliere Supremo'),
+(27, 'Greef Karga', 1, NULL, 7, NULL, 0, 'Magistrato e Capo della Gilda');
 
 INSERT INTO astronavi (id, nome, modello, costruttore, lunghezza_metri, velocita_iperguida, capacita_equipaggio, fazione_id) VALUES
 (1, 'Millennium Falcon', 'YT-1300f', 'Corellian Engineering', 34.75, 0.50, 4, 1),
@@ -101,3 +108,5 @@ INSERT INTO battaglie (id, nome, pianeta_id, anno_bby, fazione_vincitrice_id, pe
 (7, 'Battaglia di Mustafar', 9, 19, 2, 50),
 (8, 'Battaglia di Naboo', 3, 32, 3, 4500),
 (9, 'Battaglia di Kamino', 10, 21, 3, 6200);
+
+COMMIT;

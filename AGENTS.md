@@ -13,7 +13,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-16 | F01 completata: scheletro Vite, contratto del tema (`src/themes/`), motore SQLite in un worker con watchdog (`src/sql/`), tema segnaposto `themes/star-wars/`. Comandi: `npm run dev`, `build`, `test`, `lint`. |
 | 2026-11-16 | F02 completata: tipo `Exercise` e file `themes/<id>/esercizi.ts`, verifica delle risposte (`src/exercises/`), `npm run check:themes`. Tre esercizi segnaposto nel tema `star-wars`. |
 | 2026-11-17 | F03 completata: routing `#/<tema>/<sezione>`, elenco dei temi, guscio con sei sezioni, sandbox con editor CodeMirror (`src/sandbox/`), icone RB comuni in `src/assets/icons/` con il componente `src/icons/Icon.tsx`. |
-| 2026-11-17 | F04 completata: database Star Wars completo (`schema.sql`, `dati.sql`) e 105 esercizi del prototipo (non 121: errore di conteggio nel piano) in `themes/star-wars/esercizi.ts`, tutti verificati su SQLite. Difetti di schema e incongruenze nel dettaglio della fase. |
+| 2026-11-17 | F04 completata: database Star Wars completo (`schema.sql`, `dati.sql`, con `fazioni.leader_id` verso `personaggi`) e 105 esercizi del prototipo (non 121: errore di conteggio nel piano) in `themes/star-wars/esercizi.ts`, tutti verificati su SQLite. Difetti di schema e incongruenze nel dettaglio della fase. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

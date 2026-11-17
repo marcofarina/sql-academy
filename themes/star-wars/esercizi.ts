@@ -249,9 +249,9 @@ const exercises: Exercise[] = [
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
     title: 'Fazioni Governative',
-    prompt: "Mostra il nome, il leader e il motto di tutte le fazioni che sono classificate come 'Governo'.",
+    prompt: "Mostra il nome e il motto di tutte le fazioni che sono classificate come 'Governo'.",
     expectedQuery: `
-      SELECT nome, leader, motto
+      SELECT nome, motto
       FROM fazioni
       WHERE tipo = 'Governo'`,
     hints: [
@@ -470,9 +470,9 @@ const exercises: Exercise[] = [
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
     title: 'Leader delle Fazioni Religiose',
-    prompt: "Seleziona il nome della fazione e il leader per tutte le fazioni di tipo 'Ordine Religioso'.",
+    prompt: "Seleziona il nome della fazione e il tipo per tutte le fazioni di tipo 'Ordine Religioso'.",
     expectedQuery: `
-      SELECT nome, leader
+      SELECT nome, tipo
       FROM fazioni
       WHERE tipo = 'Ordine Religioso'`,
     hints: [
@@ -1673,12 +1673,14 @@ const exercises: Exercise[] = [
     title: 'Personaggi Sensibili alla Forza con Fazione e Ruolo Specifico',
     prompt: 'Mostra il nome del personaggio, il suo ruolo e il leader della sua fazione per tutti i personaggi con sensibile_alla_forza = 1 e fazione non nulla.',
     expectedQuery: `
-      SELECT personaggi.nome AS personaggio, personaggi.ruolo, fazioni.leader
+      SELECT personaggi.nome AS personaggio, personaggi.ruolo, leader.nome AS leader
       FROM personaggi
       JOIN fazioni ON personaggi.fazione_id = fazioni.id
+      JOIN personaggi AS leader ON fazioni.leader_id = leader.id
       WHERE personaggi.sensibile_alla_forza = 1`,
     hints: [
       'Unisci personaggi con fazioni.',
+      'Il leader di una fazione è un personaggio: unisci di nuovo la tabella personaggi, dandole un alias (per esempio AS leader).',
       'Filtra con WHERE personaggi.sensibile_alla_forza = 1.',
     ],
     tables: ['personaggi', 'fazioni'],
@@ -1760,18 +1762,20 @@ const exercises: Exercise[] = [
     id: 'ex-101',
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'NOT IN'],
     title: 'Fazioni Senza Battaglie Vinte (LEFT JOIN o NOT IN)',
     prompt: 'Mostra il nome e il leader di tutte le fazioni che NON hanno vinto alcuna battaglia registrata.',
     expectedQuery: `
-      SELECT nome, leader
+      SELECT fazioni.nome, leader.nome AS leader
       FROM fazioni
-      WHERE id NOT IN (SELECT fazione_vincitrice_id FROM battaglie)`,
+      JOIN personaggi AS leader ON fazioni.leader_id = leader.id
+      WHERE fazioni.id NOT IN (SELECT fazione_vincitrice_id FROM battaglie)`,
     hints: [
       'Usa una sottoquery per ricavare gli ID delle fazioni vincitrici.',
       'Filtra la tabella fazioni con id NOT IN (...).',
+      'Il leader di una fazione è un personaggio: unisci la tabella personaggi, dandole un alias (per esempio AS leader).',
     ],
-    tables: ['fazioni', 'battaglie'],
+    tables: ['fazioni', 'battaglie', 'personaggi'],
   },
   {
     id: 'ex-102',

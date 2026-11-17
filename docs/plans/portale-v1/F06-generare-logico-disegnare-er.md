@@ -13,6 +13,7 @@ Le sezioni «Modello logico» e «Schema ER» funzionano per qualunque tema: la 
 ## 2. Contesto minimo
 
 - Passaggi di consegne di F03 e F04.
+- Lo schema ha un riferimento circolare: `fazioni.leader_id` → `personaggi` (vincolo differito) e `personaggi.fazione_id` → `fazioni`. Nell’ER sono due associazioni distinte fra le stesse entità (appartenenza e guida): un personaggio può guidare più fazioni (Palpatine guida Impero e Ordine Sith), una fazione ha al più un leader.
 - Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Servono per i comandi delle viste (per esempio chiave primaria, chiave esterna, copia del codice, vista tabellare o codice).
 - `~/Developer/github/python-doesnt-byte/src/components/DiagrammaER/` (`index.tsx`, `layout.ts`, `types.ts`) e un esempio d’uso in `volumes/archivista/le-cardinalita.mdx`.
 - Capitoli 2 e 3 del volume (`volumes/archivista/`), per la notazione che lo studente conosce: leggi con un subagent `Explore` e chiedi solo le convenzioni grafiche e di scrittura dello schema relazionale.

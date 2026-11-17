@@ -58,7 +58,7 @@ Il passaggio di consegne riporta il conteggio degli esercizi per capitolo e diff
 | `npm run lint` | superata |
 | `sqlite3 :memory: "PRAGMA foreign_keys=ON" ".read …/schema.sql" ".read …/dati.sql" "PRAGMA foreign_key_check"` | superata: nessuna riga in uscita |
 | Tutte le 105 query attese eseguite con la CLI `sqlite3` | superata: nessun errore, nessun risultato vuoto |
-| Controllo incrociato: 43 query (12 facili, 13 medie, 18 difficili) ricalcolate con una formulazione SQL indipendente (join impliciti, sottoquery correlate, `EXISTS`, `LEFT JOIN … IS NULL`) | superata: tutti i risultati coincidono (le prime differenze erano errori del mio controllo, corretti e rilanciati) |
+| Controllo incrociato: 46 query (14 facili, 13 medie, 19 difficili) ricalcolate con una formulazione SQL indipendente (join impliciti, sottoquery correlate, `EXISTS`, `LEFT JOIN … IS NULL`) | superata: tutti i risultati coincidono (le prime differenze erano errori del mio controllo, corretti e rilanciati) |
 | Determinismo: le 105 query su una copia del database con le righe in ordine inverso | superata dopo le correzioni sotto: nessuna differenza |
 | Sandbox nel browser: tema caricato, sette tabelle, query con join e raggruppamento eseguita | superata, nessun errore in console |
 
@@ -93,15 +93,25 @@ Su SQLite nessuna query dava errore o zero righe: il prototipo girava già su un
 
 Le altre cinque query ordinate (ex-006, 022, 031, 034, 095) hanno chiavi senza pari merito. Un test di F01 (`src/sql/engine.test.ts`) verificava colonne e righe di `pianeti` del tema segnaposto: aggiornato a sei colonne e quindici righe.
 
-### Difetti di schema e di dati segnalati, non corretti
+### Modifica concordata: `fazioni.leader` diventa `fazioni.leader_id`
+
+Segnalato nel passaggio di consegne, poi risolto in questa stessa fase su richiesta di Marco (2026-11-17), perché lo schema ER di F06 nasca già giusto. Scelte di Marco: aggiungere i tre leader mancanti come personaggi; togliere il leader dalle colonne di ex-015 ed ex-028.
+
+- **Schema:** `fazioni.leader_id INTEGER REFERENCES personaggi (id) DEFERRABLE INITIALLY DEFERRED`. Il giro fra `fazioni` (leader) e `personaggi` (`fazione_id`) è circolare: il vincolo si controlla al `COMMIT`, e `dati.sql` carica tutto in una transazione (`BEGIN;` … `COMMIT;`). Il motore esegue lo script con un solo `db.exec`, quindi funziona nel browser e in Node; il criterio con `PRAGMA foreign_key_check` resta valido.
+- **Dati:** leader attuali già presenti (Palpatine, id 7, guida sia l’Impero sia l’Ordine Sith, dove il prototipo scriveva «Darth Sidious»; Yoda, Dooku, Bo-Katan) e tre personaggi nuovi: 25 Mon Mothma, 26 Finis Valorum, 27 Greef Karga. I personaggi salgono da 24 a 27; Mon Mothma e Greef Karga hanno il pianeta `NULL` perché Chandrila e Nevarro non sono fra i pianeti; Greef Karga ha anche l’anno di nascita `NULL`. **Gli anni di nascita (Mon Mothma 48, Valorum 62) e i ruoli sono miei e approssimativi: Marco li controlli.**
+- **Esercizi:** ex-015 ora mostra nome e motto, ex-028 nome e tipo (restano facili, una tabella). Ex-096 ed ex-101 mostrano il nome del leader con una join su `personaggi AS leader`, con un suggerimento in più. Restano invariati capitolo e difficoltà di tutti e 105.
+- **Effetti collaterali:** i risultati di alcuni esercizi cambiano con i tre personaggi nuovi (per esempio ex-041 ora include la Gilda con tre membri); le query attese li ricalcolano e le consegne non citano numeri.
+- **Verifiche dopo la modifica:** `check:themes` 0, 81 test, `build`, `lint`, `foreign_key_check` vuoto; controllo incrociato e determinismo rifatti; sandbox ricontrollata nel browser con la join sul leader.
+
+### Altri difetti di schema e di dati segnalati, non corretti
 
 Cambiarli modifica gli esercizi: decide Marco.
 
-1. **`fazioni.leader` è testo**, non una chiave esterna verso `personaggi`; alcuni leader (Cancelliere Valorum, Greef Karga) non sono nemmeno personaggi del database.
+1. *(risolto: vedi sopra)*
 2. **«Battaglia di Yavin» ha `pianeta_id = 8` (Endor)**: Yavin non è fra i pianeti. Ex-046, ex-081 e ex-098 mostrano «Endor» per due battaglie.
 3. **`battaglie.anno_bby` ha valori negativi** per le battaglie dopo Yavin (−3, −4): in realtà sono anni ABY. Il nome della colonna è ambiguo e i titoli di ex-026 ed ex-098 ne soffrono.
 4. **Nessun vincolo oltre a chiavi primarie, chiavi esterne e `nome NOT NULL`**: `sensibile_alla_forza` è un `INTEGER` senza `CHECK (… IN (0, 1))`, nessuna `UNIQUE` sui nomi. Ho aggiunto solo `NOT NULL` sui nomi, per non cambiare il comportamento degli esercizi.
-5. **Nessun personaggio senza fazione, specie o pianeta, nessuna fazione senza personaggi**: i dati non distinguono un `JOIN` da un `LEFT JOIN` in ex-088. Vedi sotto.
+5. **Nessun personaggio senza fazione o specie e nessuna fazione senza personaggi** (solo due personaggi hanno il pianeta `NULL`): i dati non distinguono un `JOIN` da un `LEFT JOIN` in ex-088. Vedi sotto.
 
 ### Incongruenze fra consegna e query per F07
 
