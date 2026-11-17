@@ -4,7 +4,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | completata | 2026-11-16 21:01 | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |
 | F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | completata | 2026-11-16 21:36 | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
-| F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | da fare | | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
+| F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | completata | 2026-11-17 12:40 | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
 | F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | da fare | | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | da fare | | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
@@ -240,6 +240,8 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Confronto delle risposte | Nomi e ordine delle colonne non contano; contano numero di colonne e valori (Marco, 2026-11-16, in F02) | Come nel libro; le consegne non devono prescrivere alias |
 | Riuso dal libro | Copia e adattamento, senza dipendenza fra i repo (proposta di Claude, approvata con il piano) | Stesso autore, repo pubblico |
 | Icone | Solo RB Icons, tutte passate dalla skill `icone-rb`; il progetto è anche collaudo della skill (Marco, 2026-11-17) | Repo pubblico: Font Awesome Pro non ammesso; Phosphor non si usa più |
+| Uso delle icone nel codice | File in `src/assets/icons/` (comuni) o `themes/<id>/icone/`, incorporati inline dal componente `Icon` (`src/icons/`); comuni per `name`, di un tema per `svg` (Claude, in F03) | Inline ereditano il colore del testo e le variabili `rb-*`; un’icona comune nuova non richiede codice |
+| Editor SQL | CodeMirror 6 con `@codemirror/lang-sql`, dialetto SQLite (Claude, in F03) | Evidenziazione, completamento dallo schema e scorciatoie già pronti; nessuna alternativa più semplice li dà tutti |
 
 ### Icone
 
@@ -264,7 +266,17 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 
 | Icona | Uso nel portale | Fase | Origine | Esito |
 | --- | --- | --- | --- | --- |
-| | | | | |
+| `terminal-window` | sezione Sandbox | F03 | catalogo | usata |
+| `bullseye` | sezione Addestramento | F03 | creata (Opus 5.5) | approvata |
+| `list` | sezione Tutte le query | F03 | creata (Opus 5.5) | approvata |
+| `file-lines` | sezione Analisi | F03 | creata (Opus 5.5) | approvata |
+| `entity-relationship` | sezione Schema ER | F03 | creata (Opus 5.5) | approvata la seconda di due varianti; la prima versione, verticale, non convinceva Marco |
+| `table` | sezione Modello logico | F03 | creata (Opus 5.5) | approvata |
+| `circle-play` | pulsante Esegui | F03 | creata (Opus 5.5) | approvata |
+| `circle-arrow-rotate-left` | pulsante Ripristina database, avviso di ripristino | F03 | creata (Opus 5.5) | approvata |
+| `circle-xmark` | errore di SQLite, database che non si apre | F03 | creata (Opus 5.5) | approvata |
+| `triangle-exclamation` | avviso di query interrotta dal watchdog | F03 | creata (Opus 5.5) | approvata |
+| `circle-arrow-left` | ritorno all’elenco dei temi | F03 | creata (Opus 5.5) | approvata |
 
 ### Struttura di un tema
 
@@ -310,3 +322,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-16 | F01 completata su Fable 5.2. Scheletro, contratto del tema, registro e motore SQL con watchdog; passaggio di consegne nel dettaglio della fase. |
 | 2026-11-16 | F02 completata su Fable 5.2. Tipo `Exercise`, verifica delle risposte con le regole di confronto, `npm run check:themes`; regole e interfacce nel dettaglio della fase. |
 | 2026-11-17 | Piano aggiornato su richiesta di Marco: tutte le icone passano dalla skill `icone-rb` (RB Icons), il progetto è collaudo della skill. Sezione «Icone» nel piano; modificate F03, F05, F06, F08, F09 e i loro prompt; `AGENTS.md` sostituisce Phosphor con `Icone: rb-icons`. |
+| 2026-11-17 | F03 completata su Opus 5.5. Routing con hash, elenco dei temi, guscio con sei sezioni, sandbox con CodeMirror; dieci icone RB create e approvate da Marco. Dettagli e collaudo della skill nel dettaglio della fase. |

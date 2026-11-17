@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · triangle-exclamation -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M228.3 47.5A32 32 0 0 1 283.7 47.5L507.4 431.9A32 32 0 0 1 479.7 480L32.3 480A32 32 0 0 1 4.6 431.9L228.3 47.5ZM232 160L232 288A24 24 0 0 0 280 288L280 160A24 24 0 0 0 232 160ZM224 384A32 32 0 0 0 288 384A32 32 0 0 0 224 384Z"/>
+  <path class="rb-primary" fill="currentColor" d="M232 160A24 24 0 0 1 280 160L280 288A24 24 0 0 1 232 288L232 160ZM224 384A32 32 0 0 1 288 384A32 32 0 0 1 224 384Z"/>
+</svg>

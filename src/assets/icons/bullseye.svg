@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · bullseye -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M0 256A256 256 0 0 1 512 256A256 256 0 0 1 0 256ZM80 256A176 176 0 0 0 432 256A176 176 0 0 0 80 256Z"/>
+  <path class="rb-primary" fill="currentColor" d="M128 256A128 128 0 0 1 384 256A128 128 0 0 1 128 256ZM176 256A80 80 0 0 0 336 256A80 80 0 0 0 176 256ZM224 256A32 32 0 0 1 288 256A32 32 0 0 1 224 256Z"/>
+</svg>
