@@ -2,7 +2,7 @@
  * Registro dei temi: scopre le cartelle `themes/<id>/` al build.
  *
  * I manifest entrano nel pacchetto principale (servono per l’elenco dei temi);
- * i file SQL, gli esercizi e lo schema ER diventano moduli separati, scaricati quando lo studente apre il tema.
+ * i file SQL, gli esercizi, l’analisi e lo schema ER diventano moduli separati, scaricati quando lo studente apre il tema.
  */
 
 import { THEME_ID_PATTERN, type ErDiagram, type Exercise, type Theme, type ThemeManifest } from './contract.ts';
@@ -30,11 +30,13 @@ export function buildRegistry(
   dataModules: Record<string, Loader<string>>,
   exerciseModules: Record<string, Loader<Exercise[]>> = {},
   erModules: Record<string, Loader<ErDiagram>> = {},
+  analysisModules: Record<string, Loader<string>> = {},
 ): Theme[] {
   const schemas = byFolder(schemaModules);
   const data = byFolder(dataModules);
   const exercises = byFolder(exerciseModules);
   const ers = byFolder(erModules);
+  const analyses = byFolder(analysisModules);
 
   return [...byFolder(manifestModules)]
     .sort(([a], [b]) => a.localeCompare(b))
@@ -59,6 +61,7 @@ export function buildRegistry(
         loadDatabaseScript: async () => `${await loadSchema()}\n${await loadData()}`,
         loadExercises: exercises.get(folder) ?? (async () => []),
         loadEr: ers.get(folder) ?? (async () => undefined),
+        loadAnalysis: analyses.get(folder) ?? (async () => undefined),
       };
     });
 }
@@ -70,6 +73,7 @@ export const themes: Theme[] = buildRegistry(
   import.meta.glob<string>('../../themes/*/dati.sql', { query: '?raw', import: 'default' }),
   import.meta.glob<Exercise[]>('../../themes/*/esercizi.ts', { import: 'default' }),
   import.meta.glob<ErDiagram>('../../themes/*/er.ts', { import: 'default' }),
+  import.meta.glob<string>('../../themes/*/analisi.md', { query: '?raw', import: 'default' }),
 );
 
 export function findTheme(id: string): Theme | undefined {

@@ -19,7 +19,8 @@ INSERT INTO pianeti (id, nome, clima, terreno, popolazione, settore_galattico) V
 (12, 'Kashyyyk', 'tropicale', 'giungla e foreste giganti', 45000000, 'Orlo Mediano'),
 (13, 'Mandalore', 'arido', 'deserti e biomi artificiali', 4000000, 'Orlo Esterno'),
 (14, 'Exegol', 'oscuro', 'desolato e roccioso', 50000, 'Regioni Ignote'),
-(15, 'Scarif', 'tropicale', 'isole e oceani', 5000, 'Orlo Esterno');
+(15, 'Scarif', 'tropicale', 'isole e oceani', 5000, 'Orlo Esterno'),
+(16, 'Yavin 4', 'tropicale', 'giungla e templi antichi', 1000, 'Orlo Esterno');
 
 INSERT INTO fazioni (id, nome, leader_id, tipo, motto) VALUES
 (1, 'Alleanza Ribelle', 25, 'Movimento Ribelle', 'Che la Forza sia con noi'),
@@ -99,7 +100,7 @@ INSERT INTO spade_laser (id, personaggio_id, colore_lama, tipo_cristallo, impugn
 (10, 22, 'Verde', 'Kyber di Adegan', 'Robusta scanalata');
 
 INSERT INTO battaglie (id, nome, pianeta_id, anno_bby, fazione_vincitrice_id, perdite_stimate) VALUES
-(1, 'Battaglia di Yavin', 8, 0, 1, 35000),
+(1, 'Battaglia di Yavin', 16, 0, 1, 35000),
 (2, 'Battaglia di Hoth', 5, -3, 2, 1200),
 (3, 'Battaglia di Endor', 8, -4, 1, 75000),
 (4, 'Battaglia di Geonosis', 11, 22, 3, 23000),

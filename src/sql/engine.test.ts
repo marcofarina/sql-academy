@@ -49,7 +49,7 @@ test('esegue la query della pagina sul tema Star Wars', async () => {
   const [pianeti] = (await db.run('SELECT * FROM pianeti')).resultSets;
 
   expect(pianeti.columns).toEqual(['id', 'nome', 'clima', 'terreno', 'popolazione', 'settore_galattico']);
-  expect(pianeti.totalRows).toBe(15);
+  expect(pianeti.totalRows).toBe(16);
   await db.close();
 });
 

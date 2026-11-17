@@ -889,3 +889,9 @@ button.link-button {
 .er-description summary {
   cursor: pointer;
 }
+
+/* Analisi del dominio: testo da leggere, righe non troppo lunghe. */
+.analysis {
+  max-width: 42rem;
+  line-height: 1.6;
+}
