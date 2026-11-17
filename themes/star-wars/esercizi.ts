@@ -12,14 +12,14 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM'],
-    title: 'Tutti i Pianeti della Galassia',
-    prompt: "Recupera tutti i dati e tutte le colonne della tabella 'pianeti'.",
+    title: 'Tutti i pianeti della galassia',
+    prompt: 'Mostra tutte le colonne di tutti i pianeti dell’archivio.',
     expectedQuery: `
       SELECT *
       FROM pianeti`,
     hints: [
-      "Per selezionare tutte le colonne senza elencarle una ad una, usa l'asterisco *.",
-      'Specifica la tabella corretta con la clausola FROM.',
+      'Non serve filtrare: vuoi ogni riga della tabella pianeti.',
+      'Per prendere tutte le colonne senza elencarle esiste un simbolo apposito, da scrivere dopo SELECT.',
     ],
     tables: ['pianeti'],
   },
@@ -28,14 +28,14 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM'],
-    title: 'Nomi e Clima dei Pianeti',
-    prompt: 'Seleziona solamente il nome e il clima di tutti i pianeti presenti negli archivi.',
+    title: 'Nome e clima dei pianeti',
+    prompt: 'Mostra il nome e il clima di ogni pianeta.',
     expectedQuery: `
       SELECT nome, clima
       FROM pianeti`,
     hints: [
-      'Elenca le colonne richieste separate da una virgola dopo la parola chiave SELECT.',
-      "Le colonne da proiettare sono 'nome' e 'clima'.",
+      'Ti servono due colonne della tabella pianeti, senza filtri.',
+      'Dopo SELECT le colonne si elencano separate da una virgola.',
     ],
     tables: ['pianeti'],
   },
@@ -44,15 +44,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Personaggi Sensibili alla Forza',
-    prompt: 'Mostra il nome e il ruolo di tutti i personaggi che sono sensibili alla Forza (sensibile_alla_forza = 1).',
+    title: 'Personaggi sensibili alla Forza',
+    prompt: 'Mostra il nome e il ruolo dei personaggi sensibili alla Forza.',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       WHERE sensibile_alla_forza = 1`,
     hints: [
-      'Usa la clausola WHERE per filtrare i record.',
-      'Imposta la condizione: sensibile_alla_forza = 1.',
+      'Per tenere solo alcune righe serve la clausola WHERE.',
+      'La colonna sensibile_alla_forza vale 1 per chi è sensibile alla Forza e 0 per chi non lo è.',
     ],
     tables: ['personaggi'],
   },
@@ -61,15 +61,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti del Settore Orlo Esterno',
-    prompt: "Estrai il nome, il terreno e la popolazione di tutti i pianeti che appartengono al settore 'Orlo Esterno'.",
+    title: 'Pianeti dell’Orlo Esterno',
+    prompt: 'Mostra il nome, il terreno e la popolazione dei pianeti del settore «Orlo Esterno».',
     expectedQuery: `
       SELECT nome, terreno, popolazione
       FROM pianeti
       WHERE settore_galattico = 'Orlo Esterno'`,
     hints: [
-      "I valori di tipo testo devono essere racchiusi tra apici singoli, es: 'Orlo Esterno'.",
-      'La colonna su cui filtrare è settore_galattico.',
+      'Il settore di un pianeta è nella colonna settore_galattico.',
+      'Un valore di testo si scrive fra apici singoli, con le maiuscole come nel database.',
     ],
     tables: ['pianeti'],
   },
@@ -78,15 +78,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Astronavi di Grandi Dimensioni',
-    prompt: 'Trova il nome, il modello e la lunghezza delle astronavi con una lunghezza superiore a 100 metri.',
+    title: 'Astronavi lunghe più di 100 metri',
+    prompt: 'Mostra il nome, il modello e la lunghezza delle astronavi lunghe più di 100 metri.',
     expectedQuery: `
       SELECT nome, modello, lunghezza_metri
       FROM astronavi
       WHERE lunghezza_metri > 100`,
     hints: [
-      "Usa l'operatore di confronto maggiore (>).",
-      'Il campo da verificare è lunghezza_metri.',
+      'La lunghezza in metri è nella colonna lunghezza_metri.',
+      '«Più di» chiede un confronto stretto: una nave di 100 metri esatti non va bene.',
     ],
     tables: ['astronavi'],
   },
@@ -95,15 +95,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY'],
-    title: 'Pianeti Ordinati per Popolazione',
-    prompt: 'Mostra il nome e la popolazione di tutti i pianeti, ordinandoli in ordine decrescente di popolazione (dai più popolati ai meno popolati).',
+    title: 'Pianeti dal più popolato',
+    prompt: 'Mostra il nome e la popolazione di ogni pianeta, dal più popolato al meno popolato.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       ORDER BY popolazione DESC`,
     hints: [
-      'Aggiungi la clausola ORDER BY alla fine della query.',
-      "Per l'ordine decrescente usa la parola chiave DESC.",
+      'L’ordine delle righe si sceglie con ORDER BY, in fondo alla query.',
+      'L’ordine predefinito è crescente: per il contrario serve una parola chiave.',
     ],
     tables: ['pianeti'],
   },
@@ -112,16 +112,17 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY', 'LIMIT'],
-    title: "Le 3 Astronavi più Veloci nell'Iperguida",
-    prompt: "Seleziona il nome, il modello e la velocità nell'iperguida delle prime 3 astronavi con il valore di velocita_iperguida più basso (in Star Wars, valore più basso indica astronave più rapida). Ordina per velocità crescente e, a parità di velocità, per nome in ordine alfabetico.",
+    title: 'Le tre astronavi più veloci',
+    prompt: 'Mostra il nome, il modello e la classe dell’iperguida delle tre astronavi più veloci: una classe più bassa vuol dire una nave più veloce. Ordinale dalla più veloce e, a parità di classe, per nome in ordine alfabetico.',
     expectedQuery: `
       SELECT nome, modello, velocita_iperguida
       FROM astronavi
       ORDER BY velocita_iperguida ASC, nome ASC
       LIMIT 3`,
     hints: [
-      'Ordina per velocita_iperguida in ordine crescente (ASC).',
-      'Limita il numero di righe restituite a 3 usando la clausola LIMIT 3.',
+      'Prima ordini le astronavi, poi tieni solo le prime righe.',
+      'Ordina per velocita_iperguida crescente e, come secondo criterio, per nome.',
+      'Il numero di righe si limita con LIMIT, scritto dopo ORDER BY.',
     ],
     tables: ['astronavi'],
   },
@@ -130,15 +131,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Personaggi Nati Prima di 50 BBY',
-    prompt: "Recupera il nome e l'anno di nascita (anno_nascita_bby) dei personaggi nati prima di 50 BBY (ovvero con anno_nascita_bby > 50).",
+    title: 'Personaggi nati più di 50 anni prima di Yavin',
+    prompt: 'Mostra il nome e l’anno di nascita dei personaggi nati più di 50 anni prima della battaglia di Yavin.',
     expectedQuery: `
       SELECT nome, anno_nascita_bby
       FROM personaggi
       WHERE anno_nascita_bby > 50`,
     hints: [
-      'Filtra usando la colonna anno_nascita_bby.',
-      'La condizione è: anno_nascita_bby > 50.',
+      'Gli anni si contano a ritroso da Yavin: più il numero è grande, più la nascita è lontana.',
+      'La colonna da confrontare è anno_nascita_bby.',
     ],
     tables: ['personaggi'],
   },
@@ -147,15 +148,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti dal Clima Arido o Ghiacciato',
-    prompt: "Mostra il nome e il clima dei pianeti il cui clima è 'arido' oppure 'ghiacciato'.",
+    title: 'Pianeti aridi o ghiacciati',
+    prompt: 'Mostra il nome e il clima dei pianeti con clima «arido» o «ghiacciato».',
     expectedQuery: `
       SELECT nome, clima
       FROM pianeti
       WHERE clima = 'arido' OR clima = 'ghiacciato'`,
     hints: [
-      "Puoi usare l'operatore logico OR, oppure la clausola IN ('arido', 'ghiacciato').",
-      'Verifica la sintassi del confronto di stringhe.',
+      'Le condizioni sono due, e basta che ne valga una.',
+      'Puoi unire due confronti con OR, oppure usare IN con un elenco di valori.',
     ],
     tables: ['pianeti'],
   },
@@ -164,15 +165,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Spade Laser Verdi',
-    prompt: "Estrai l'identificativo e il tipo di cristallo di tutte le spade laser che hanno una lama di colore 'Verde'.",
+    title: 'Spade laser verdi',
+    prompt: 'Mostra l’identificativo e il tipo di cristallo delle spade laser con la lama «Verde».',
     expectedQuery: `
       SELECT id, tipo_cristallo
       FROM spade_laser
       WHERE colore_lama = 'Verde'`,
     hints: [
-      'La tabella da interrogare è spade_laser.',
-      "La condizione sul colore è: colore_lama = 'Verde'.",
+      'Le spade laser sono nella tabella spade_laser.',
+      'Il colore è nella colonna colore_lama, scritto con l’iniziale maiuscola.',
     ],
     tables: ['spade_laser'],
   },
@@ -181,14 +182,14 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'DISTINCT', 'FROM'],
-    title: 'Tipi Distinti di Clima',
-    prompt: 'Elenca tutti i tipi distinti di clima presenti nella tabella dei pianeti, senza ripetizioni.',
+    title: 'Climi dei pianeti senza ripetizioni',
+    prompt: 'Mostra i climi dei pianeti, ciascuno una volta sola.',
     expectedQuery: `
       SELECT DISTINCT clima
       FROM pianeti`,
     hints: [
-      'Usa la parola chiave DISTINCT subito dopo SELECT per eliminare i duplicati.',
-      'La colonna da selezionare è clima.',
+      'Più pianeti hanno lo stesso clima, e una SELECT normale lo ripete.',
+      'Una parola chiave, scritta subito dopo SELECT, elimina le righe duplicate.',
     ],
     tables: ['pianeti'],
   },
@@ -197,15 +198,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Caccia e Navi Monoposto',
-    prompt: 'Trova il nome e il costruttore delle astronavi che hanno una capacità di equipaggio esattamente pari a 1.',
+    title: 'Astronavi con un solo membro d’equipaggio',
+    prompt: 'Mostra il nome e il costruttore delle astronavi che hanno un equipaggio di un solo membro.',
     expectedQuery: `
       SELECT nome, costruttore
       FROM astronavi
       WHERE capacita_equipaggio = 1`,
     hints: [
-      'La colonna da verificare è capacita_equipaggio.',
-      'La condizione è capacita_equipaggio = 1.',
+      'Il numero di membri dell’equipaggio è nella colonna capacita_equipaggio.',
+      'Il confronto è un’uguaglianza con un numero, che si scrive senza apici.',
     ],
     tables: ['astronavi'],
   },
@@ -214,15 +215,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'LIKE'],
-    title: "Personaggi con Nome che Inizia per 'Darth'",
-    prompt: "Seleziona il nome e il ruolo di tutti i personaggi il cui nome inizia con il titolo 'Darth'.",
+    title: 'Personaggi il cui nome comincia con «Darth»',
+    prompt: 'Mostra il nome e il ruolo dei personaggi il cui nome comincia con «Darth».',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       WHERE nome LIKE 'Darth%'`,
     hints: [
-      "Usa l'operatore LIKE con il carattere jolly percentuale %.",
-      "Il pattern di ricerca è 'Darth%'.",
+      'Per confrontare solo una parte di un testo serve LIKE, non l’uguale.',
+      'Nel modello di LIKE il simbolo % sta per qualunque sequenza di caratteri: qui va dopo la parola.',
     ],
     tables: ['personaggi'],
   },
@@ -231,15 +232,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti con Popolazione Compresa tra 1 Milione e 10 Miliardi',
-    prompt: 'Estrai il nome e la popolazione dei pianeti la cui popolazione è compresa tra 1.000.000 e 10.000.000.000 (estremi inclusi).',
+    title: 'Pianeti fra un milione e dieci miliardi di abitanti',
+    prompt: 'Mostra il nome e la popolazione dei pianeti che hanno fra un milione e dieci miliardi di abitanti, estremi compresi.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       WHERE popolazione BETWEEN 1000000 AND 10000000000`,
     hints: [
-      "Puoi usare l'operatore BETWEEN ... AND ... oppure due confronti uniti da AND.",
-      'Fai attenzione al numero di zeri: 1000000 e 10000000000.',
+      'Servono due confronti sulla stessa colonna, oppure BETWEEN … AND …, che comprende gli estremi.',
+      'Scrivi i numeri senza punti: un milione è 1000000, dieci miliardi ha dieci zeri.',
     ],
     tables: ['pianeti'],
   },
@@ -248,15 +249,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Fazioni Governative',
-    prompt: "Mostra il nome e il motto di tutte le fazioni che sono classificate come 'Governo'.",
+    title: 'Fazioni di governo',
+    prompt: 'Mostra il nome e il motto delle fazioni di tipo «Governo».',
     expectedQuery: `
       SELECT nome, motto
       FROM fazioni
       WHERE tipo = 'Governo'`,
     hints: [
-      'La tabella di riferimento è fazioni.',
-      "Filtra con tipo = 'Governo'.",
+      'Il tipo di una fazione è nella colonna tipo della tabella fazioni.',
+      'Il valore va scritto fra apici, con la maiuscola.',
     ],
     tables: ['fazioni'],
   },
@@ -265,15 +266,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Battaglie con Perdite Elevate',
-    prompt: "Seleziona il nome della battaglia, l'anno e le perdite stimate per tutti gli scontri che hanno causato più di 10.000 perdite.",
+    title: 'Battaglie con più di 10.000 perdite',
+    prompt: 'Mostra il nome, l’anno e le perdite stimate delle battaglie con più di 10.000 perdite.',
     expectedQuery: `
       SELECT nome, anno_bby, perdite_stimate
       FROM battaglie
       WHERE perdite_stimate > 10000`,
     hints: [
-      'Interroga la tabella battaglie.',
-      'Filtra dove perdite_stimate > 10000.',
+      'Le perdite sono nella colonna perdite_stimate della tabella battaglie.',
+      'Nel codice SQL i numeri si scrivono senza il punto delle migliaia.',
     ],
     tables: ['battaglie'],
   },
@@ -282,15 +283,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Specie con Aspettativa di Vita Alta',
-    prompt: "Trova il nome e l'aspettativa di vita media delle specie con una vita media superiore a 100 anni.",
+    title: 'Specie che vivono più di 100 anni',
+    prompt: 'Mostra il nome e l’aspettativa di vita media delle specie che in media vivono più di 100 anni.',
     expectedQuery: `
       SELECT nome, aspettativa_vita_media
       FROM specie
       WHERE aspettativa_vita_media > 100`,
     hints: [
-      'Tabella da utilizzare: specie.',
-      'Condizione: aspettativa_vita_media > 100.',
+      'Ti serve la tabella specie.',
+      'L’aspettativa di vita, in anni, è nella colonna aspettativa_vita_media.',
     ],
     tables: ['specie'],
   },
@@ -299,15 +300,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Personaggi Senza sensibilità alla Forza',
-    prompt: 'Mostra il nome e il ruolo di tutti i personaggi non sensibili alla Forza (sensibile_alla_forza = 0).',
+    title: 'Personaggi non sensibili alla Forza',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che non sono sensibili alla Forza.',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       WHERE sensibile_alla_forza = 0`,
     hints: [
-      'Imposta il filtro sensibile_alla_forza = 0.',
-      'Le colonne richieste sono nome e ruolo.',
+      'Filtra le righe con WHERE.',
+      'La colonna sensibile_alla_forza vale 0 per chi non è sensibile alla Forza.',
     ],
     tables: ['personaggi'],
   },
@@ -316,15 +317,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'LIKE'],
-    title: 'Spade Laser con Impugnatura Curva',
-    prompt: "Recupera tutte le colonne delle spade laser che possiedono una impugnatura curva ('Impugnatura curva da duello' o contenente 'curva').",
+    title: 'Spade laser con l’impugnatura curva',
+    prompt: 'Mostra tutte le colonne delle spade laser la cui impugnatura contiene la parola «curva».',
     expectedQuery: `
       SELECT *
       FROM spade_laser
       WHERE impugnatura LIKE '%curva%'`,
     hints: [
-      "Usa l'operatore LIKE con '%curva%'.",
-      'Seleziona tutte le colonne con *.',
+      '«Contiene» vuol dire che la parola può stare in qualunque punto del testo: serve LIKE.',
+      'Il simbolo % va da entrambe le parti della parola.',
     ],
     tables: ['spade_laser'],
   },
@@ -333,14 +334,14 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'DISTINCT', 'FROM'],
-    title: 'Costruttori di Astronavi Distinti',
-    prompt: 'Seleziona i nomi univoci (senza duplicati) di tutti i costruttori navali registrati nella tabella delle astronavi.',
+    title: 'Costruttori di astronavi senza ripetizioni',
+    prompt: 'Mostra i costruttori delle astronavi, ciascuno una volta sola.',
     expectedQuery: `
       SELECT DISTINCT costruttore
       FROM astronavi`,
     hints: [
-      'Usa la parola chiave DISTINCT per scartare i duplicati.',
-      'La colonna è costruttore.',
+      'Lo stesso costruttore compare in più astronavi.',
+      'La parola chiave che elimina i duplicati va subito dopo SELECT.',
     ],
     tables: ['astronavi'],
   },
@@ -349,15 +350,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti Disabitati o Quasi Disabitati',
-    prompt: 'Trova il nome, il clima e la popolazione dei pianeti con una popolazione inferiore o uguale a 1.000 abitanti.',
+    title: 'Pianeti quasi disabitati',
+    prompt: 'Mostra il nome, il clima e la popolazione dei pianeti con al massimo 1000 abitanti.',
     expectedQuery: `
       SELECT nome, clima, popolazione
       FROM pianeti
       WHERE popolazione <= 1000`,
     hints: [
-      "Usa l'operatore minore o uguale (<=).",
-      'Il valore numerico di riferimento è 1000.',
+      '«Al massimo» comprende anche i pianeti con 1000 abitanti esatti.',
+      'Ti serve l’operatore minore o uguale.',
     ],
     tables: ['pianeti'],
   },
@@ -366,15 +367,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY'],
-    title: 'Personaggi in Ordine Alfabetico',
-    prompt: 'Estrai il nome e il ruolo di tutti i personaggi, ordinandoli alfabeticamente per nome in ordine crescente.',
+    title: 'Personaggi in ordine alfabetico',
+    prompt: 'Mostra il nome e il ruolo di tutti i personaggi, in ordine alfabetico per nome.',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       ORDER BY nome ASC`,
     hints: [
-      'Usa ORDER BY nome ASC.',
-      "ASC indica l'ordine alfabetico dalla A alla Z.",
+      'L’ordine delle righe si sceglie con ORDER BY.',
+      'L’ordine alfabetico dalla A alla Z è quello crescente, il predefinito.',
     ],
     tables: ['personaggi'],
   },
@@ -383,16 +384,16 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY', 'LIMIT'],
-    title: 'I 5 Personaggi Più Anziani',
-    prompt: "Seleziona il nome e l'anno di nascita dei 5 personaggi con il valore di anno_nascita_bby più alto (i più anziani). Ordinali dal più anziano.",
+    title: 'I cinque personaggi più anziani',
+    prompt: 'Mostra il nome e l’anno di nascita dei cinque personaggi più anziani, dal più anziano.',
     expectedQuery: `
       SELECT nome, anno_nascita_bby
       FROM personaggi
       ORDER BY anno_nascita_bby DESC
       LIMIT 5`,
     hints: [
-      'Ordina in ordine decrescente (DESC) per anno_nascita_bby.',
-      'Limita a 5 righe con LIMIT 5.',
+      'Gli anni si contano a ritroso da Yavin: il personaggio più anziano ha l’anno di nascita più grande.',
+      'Ordina per anno_nascita_bby decrescente, poi tieni solo le prime righe con LIMIT.',
     ],
     tables: ['personaggi'],
   },
@@ -401,15 +402,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Astronavi Costruite da Corellian Engineering',
-    prompt: "Mostra il nome, il modello e la lunghezza delle astronavi fabbricate da 'Corellian Engineering'.",
+    title: 'Astronavi della Corellian Engineering',
+    prompt: 'Mostra il nome, il modello e la lunghezza delle astronavi costruite dalla «Corellian Engineering».',
     expectedQuery: `
       SELECT nome, modello, lunghezza_metri
       FROM astronavi
       WHERE costruttore = 'Corellian Engineering'`,
     hints: [
-      'Filtra la colonna costruttore.',
-      "Usa costruttore = 'Corellian Engineering'.",
+      'Il costruttore è nella colonna costruttore della tabella astronavi.',
+      'Scrivi il nome del costruttore fra apici, esattamente come nel database.',
     ],
     tables: ['astronavi'],
   },
@@ -418,15 +419,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'LIKE'],
-    title: 'Pianeti con Terreno Forestale o Paludoso',
-    prompt: "Recupera il nome e il terreno dei pianeti il cui terreno contiene la parola 'foreste' oppure 'paludi'.",
+    title: 'Pianeti con foreste o paludi',
+    prompt: 'Mostra il nome e il terreno dei pianeti il cui terreno contiene la parola «foreste» oppure la parola «paludi».',
     expectedQuery: `
       SELECT nome, terreno
       FROM pianeti
       WHERE terreno LIKE '%foreste%' OR terreno LIKE '%paludi%'`,
     hints: [
-      "Combina due condizioni LIKE con l'operatore logico OR.",
-      "Usa i caratteri jolly '%foreste%' e '%paludi%'.",
+      'Servono due condizioni con LIKE, e basta che ne valga una.',
+      'Ogni parola cercata va fra due simboli %, perché può stare in qualunque punto del testo.',
     ],
     tables: ['pianeti'],
   },
@@ -435,15 +436,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Battaglie Avvenute nel Periodo Ante-Impero',
-    prompt: "Trova il nome e l'anno delle battaglie svoltesi con anno_bby maggiore di 10 (durante le Guerre dei Cloni o prima).",
+    title: 'Battaglie di più di dieci anni prima di Yavin',
+    prompt: 'Mostra il nome e l’anno delle battaglie combattute più di dieci anni prima della battaglia di Yavin, cioè durante le Guerre dei Cloni o prima.',
     expectedQuery: `
       SELECT nome, anno_bby
       FROM battaglie
       WHERE anno_bby > 10`,
     hints: [
-      'Tabella di destinazione: battaglie.',
-      'Condizione: anno_bby > 10.',
+      'Gli anni si contano a ritroso da Yavin: più il numero è grande, più la battaglia è antica.',
+      'Confronta la colonna anno_bby con 10.',
     ],
     tables: ['battaglie'],
   },
@@ -452,15 +453,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Spade Laser Rosse dei Guerrieri Oscuri',
-    prompt: "Mostra l'identificativo, il tipo di cristallo e l'impugnatura di tutte le spade laser con lama 'Rosso'.",
+    title: 'Spade laser rosse',
+    prompt: 'Mostra l’identificativo, il tipo di cristallo e l’impugnatura delle spade laser con la lama «Rosso».',
     expectedQuery: `
       SELECT id, tipo_cristallo, impugnatura
       FROM spade_laser
       WHERE colore_lama = 'Rosso'`,
     hints: [
-      "Filtra con colore_lama = 'Rosso'.",
-      'Le colonne da proiettare sono id, tipo_cristallo, impugnatura.',
+      'Ti serve la tabella spade_laser.',
+      'Il colore è nella colonna colore_lama, ed è scritto al maschile: «Rosso».',
     ],
     tables: ['spade_laser'],
   },
@@ -469,15 +470,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Leader delle Fazioni Religiose',
-    prompt: "Seleziona il nome della fazione e il tipo per tutte le fazioni di tipo 'Ordine Religioso'.",
+    title: 'Fazioni religiose',
+    prompt: 'Mostra il nome e il tipo delle fazioni di tipo «Ordine Religioso».',
     expectedQuery: `
       SELECT nome, tipo
       FROM fazioni
       WHERE tipo = 'Ordine Religioso'`,
     hints: [
-      'Verifica la tabella fazioni.',
-      "Condizione: tipo = 'Ordine Religioso'.",
+      'Ti serve la tabella fazioni.',
+      'Il tipo è nella colonna tipo: scrivi il valore fra apici, con le maiuscole come nel database.',
     ],
     tables: ['fazioni'],
   },
@@ -486,15 +487,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Personaggi con Fazione Non Assegnata o Specifica',
-    prompt: 'Trova il nome e il ruolo dei personaggi che appartengono alla fazione con ID pari a 1 (Alleanza Ribelle).',
+    title: 'Personaggi dell’Alleanza Ribelle',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che militano nell’Alleanza Ribelle.',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       WHERE fazione_id = 1`,
     hints: [
-      'Filtra su fazione_id = 1.',
-      'Proietta le colonne nome e ruolo.',
+      'Nella tabella personaggi la fazione è indicata dal suo identificativo, nella colonna fazione_id, non dal nome.',
+      'L’identificativo dell’Alleanza Ribelle si legge nella tabella fazioni: è 1.',
     ],
     tables: ['personaggi'],
   },
@@ -503,14 +504,14 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM'],
-    title: 'Specie e Lingue Parlate',
-    prompt: 'Estrai il nome della specie e il rispettivo linguaggio per tutte le specie registrate.',
+    title: 'Specie e lingue',
+    prompt: 'Mostra il nome e la lingua di ogni specie.',
     expectedQuery: `
       SELECT nome, linguaggio
       FROM specie`,
     hints: [
-      'La query richiede semplicemente una proiezione su due colonne dalla tabella specie.',
-      'Nessun filtro WHERE è richiesto.',
+      'Ti servono due colonne della tabella specie, senza filtri.',
+      'La lingua è nella colonna linguaggio.',
     ],
     tables: ['specie'],
   },
@@ -519,16 +520,16 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY', 'LIMIT'],
-    title: 'Le 3 Astronavi Più Lunghe',
-    prompt: "Mostra il nome, il modello e la lunghezza delle 3 astronavi più lunghe dell'archivio in ordine decrescente.",
+    title: 'Le tre astronavi più lunghe',
+    prompt: 'Mostra il nome, il modello e la lunghezza delle tre astronavi più lunghe, dalla più lunga.',
     expectedQuery: `
       SELECT nome, modello, lunghezza_metri
       FROM astronavi
       ORDER BY lunghezza_metri DESC
       LIMIT 3`,
     hints: [
-      'Ordina per lunghezza_metri DESC.',
-      'Usa la clausola LIMIT 3.',
+      'Prima ordini, poi tieni solo le prime righe.',
+      'Ordina per lunghezza_metri decrescente e limita il risultato con LIMIT.',
     ],
     tables: ['astronavi'],
   },
@@ -537,15 +538,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'LIKE'],
-    title: "Pianeti il cui Nome Termina con 'ine'",
-    prompt: "Trova il nome e il clima di tutti i pianeti il cui nome termina con le lettere 'ine' (come Tatooine).",
+    title: 'Pianeti il cui nome finisce in «ine»',
+    prompt: 'Mostra il nome e il clima dei pianeti il cui nome finisce con le lettere «ine», come Tatooine.',
     expectedQuery: `
       SELECT nome, clima
       FROM pianeti
       WHERE nome LIKE '%ine'`,
     hints: [
-      "Usa la clausola LIKE '%ine'.",
-      "Il carattere % posto all'inizio cattura qualsiasi sequenza di caratteri che precede 'ine'.",
+      'Per confrontare una parte di un testo serve LIKE.',
+      'Il simbolo % va da una parte sola: quella che precede «ine».',
     ],
     tables: ['pianeti'],
   },
@@ -554,15 +555,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Personaggi Senza Ruolo di Droide',
-    prompt: 'Mostra il nome e il ruolo dei personaggi appartenenti alla specie droide (specie_id = 3).',
+    title: 'Personaggi droidi',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che sono droidi.',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       WHERE specie_id = 3`,
     hints: [
-      'Filtra i record dove specie_id è uguale a 3.',
-      'Le colonne da visualizzare sono nome e ruolo.',
+      'Nella tabella personaggi la specie è indicata dal suo identificativo, nella colonna specie_id.',
+      'L’identificativo della specie «Droide» si legge nella tabella specie: è 3.',
     ],
     tables: ['personaggi'],
   },
@@ -571,15 +572,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY'],
-    title: 'Fazioni con Nomi in Ordine Decrescente',
-    prompt: 'Seleziona tutti i campi della tabella fazioni ordinando i record in ordine alfabetico decrescente (da Z ad A) per nome.',
+    title: 'Fazioni in ordine alfabetico inverso',
+    prompt: 'Mostra tutte le colonne delle fazioni, in ordine alfabetico inverso per nome, dalla Z alla A.',
     expectedQuery: `
       SELECT *
       FROM fazioni
       ORDER BY nome DESC`,
     hints: [
-      'Usa ORDER BY nome DESC.',
-      'Seleziona tutte le colonne con *.',
+      'Ti servono tutte le colonne e la clausola ORDER BY.',
+      'L’ordine dalla Z alla A è quello decrescente.',
     ],
     tables: ['fazioni'],
   },
@@ -588,15 +589,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti nel Nucleo Profondo',
-    prompt: "Estrai il nome e la popolazione dei pianeti situati nel settore galattico 'Nucleo Profondo'.",
+    title: 'Pianeti del Nucleo Profondo',
+    prompt: 'Mostra il nome e la popolazione dei pianeti del settore «Nucleo Profondo».',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       WHERE settore_galattico = 'Nucleo Profondo'`,
     hints: [
-      "Filtra con settore_galattico = 'Nucleo Profondo'.",
-      'Proietta nome e popolazione.',
+      'Il settore è nella colonna settore_galattico.',
+      'Il valore va fra apici, con le maiuscole come nel database.',
     ],
     tables: ['pianeti'],
   },
@@ -1160,15 +1161,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti con Popolazione Superiore alla Media',
-    prompt: 'Trova il nome e la popolazione di tutti i pianeti che hanno una popolazione superiore a 100.000.000 di abitanti.',
+    title: 'Pianeti con più di 100 milioni di abitanti',
+    prompt: 'Mostra il nome e la popolazione dei pianeti con più di 100 milioni di abitanti.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       WHERE popolazione > 100000000`,
     hints: [
-      'Filtra la tabella pianeti con popolazione > 100000000.',
-      'Proietta nome e popolazione.',
+      'Il confronto è sulla colonna popolazione.',
+      'Scrivi il numero per intero, senza punti: 100 milioni ha otto zeri.',
     ],
     tables: ['pianeti'],
   },
@@ -1194,15 +1195,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE', 'LIKE'],
-    title: 'Spade Laser con Cristalli di Ilum o Adegan',
-    prompt: "Mostra l'identificativo e il colore della lama delle spade laser che utilizzano cristalli con origine 'Ilum' o 'Adegan'.",
+    title: 'Spade laser con cristalli di Ilum o di Adegan',
+    prompt: 'Mostra l’identificativo e il colore della lama delle spade laser il cui tipo di cristallo contiene «Ilum» oppure «Adegan».',
     expectedQuery: `
       SELECT id, colore_lama
       FROM spade_laser
       WHERE tipo_cristallo LIKE '%Ilum%' OR tipo_cristallo LIKE '%Adegan%'`,
     hints: [
-      "Usa l'operatore LIKE con '%Ilum%' e '%Adegan%'.",
-      "Combina con l'operatore OR.",
+      'Il tipo di cristallo è un testo come «Kyber di Ilum»: per cercarne una parte serve LIKE.',
+      'Servono due LIKE uniti da OR.',
     ],
     tables: ['spade_laser'],
   },
@@ -1229,15 +1230,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Astronavi Senza Equipaggio Numeroso',
-    prompt: "Seleziona il nome e la capacità dell'equipaggio per le navi con equipaggio compreso tra 2 e 10 membri.",
+    title: 'Astronavi con un equipaggio da due a dieci membri',
+    prompt: 'Mostra il nome e la capacità dell’equipaggio delle astronavi con un equipaggio da due a dieci membri, estremi compresi.',
     expectedQuery: `
       SELECT nome, capacita_equipaggio
       FROM astronavi
       WHERE capacita_equipaggio BETWEEN 2 AND 10`,
     hints: [
-      'Usa BETWEEN 2 AND 10 sulla colonna capacita_equipaggio.',
-      'Proietta nome e capacita_equipaggio.',
+      'La capacità è nella colonna capacita_equipaggio.',
+      'BETWEEN … AND … comprende entrambi gli estremi.',
     ],
     tables: ['astronavi'],
   },
@@ -1246,15 +1247,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti il cui Clima è Temperato con più di 1 Miliardo di Abitanti',
-    prompt: "Trova il nome, la popolazione e il terreno dei pianeti che hanno clima 'temperato' e popolazione superiore a 1.000.000.000.",
+    title: 'Pianeti temperati con più di un miliardo di abitanti',
+    prompt: 'Mostra il nome, la popolazione e il terreno dei pianeti con clima «temperato» e più di un miliardo di abitanti.',
     expectedQuery: `
       SELECT nome, popolazione, terreno
       FROM pianeti
       WHERE clima = 'temperato' AND popolazione > 1000000000`,
     hints: [
-      "Usa l'operatore logico AND per unire i due criteri.",
-      'Verifica sia il clima sia la popolazione.',
+      'Le condizioni sono due, e devono valere entrambe.',
+      'Un miliardo, scritto senza punti, è 1 seguito da nove zeri.',
     ],
     tables: ['pianeti'],
   },
@@ -1690,15 +1691,15 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Astronavi con Equipaggio Superiore alla Media della Propria Fazione',
-    prompt: "Trova il nome dell'astronave, il modello e la capacità equipaggio per le navi la cui capacità equipaggio supera 100 membri.",
+    title: 'Astronavi con più di 100 membri d’equipaggio',
+    prompt: 'Mostra il nome, il modello e la capacità dell’equipaggio delle astronavi con più di 100 membri d’equipaggio.',
     expectedQuery: `
       SELECT nome, modello, capacita_equipaggio
       FROM astronavi
       WHERE capacita_equipaggio > 100`,
     hints: [
-      'Filtra la tabella astronavi con capacita_equipaggio > 100.',
-      'Proietta nome, modello e capacita_equipaggio.',
+      'Ti serve la tabella astronavi.',
+      'Il confronto è sulla colonna capacita_equipaggio.',
     ],
     tables: ['astronavi'],
   },
