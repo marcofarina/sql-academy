@@ -17,6 +17,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-17 | F05 completata: addestramento (percorso, esercizio, sessioni), catalogo «Tutte le query», progressi in `localStorage` (`src/training/`, `src/progress/`). Marco vuole un sistema a punti: brainstorming e nuove fasi del piano ancora da fare. |
 | 2026-11-17 | Brainstorming sul sistema a punti con Marco: aggiunte al piano F13–F17 (regole dei punti, interfaccia, progressi nello zaino di PDB, servizio e pagina della classifica). Nessun codice. CTF, gradi e traguardi rinviati a un piano successivo. |
 | 2026-11-17 | F06 completata: sezione «Modello logico» generata dal database (`src/logical/`), sezione «Schema ER» con il componente del libro (`src/er/`, dipendenza `roughjs`, carattere Excalifont) e `themes/star-wars/er.ts`; `check:themes` controlla la coerenza fra ER e tabelle. |
+| 2026-11-17 | F07 completata: analisi del dominio in `themes/star-wars/analisi.md`, approvata da Marco, e sezione «Analisi» (`src/analysis/`); titoli, consegne e suggerimenti dei 105 esercizi riscritti; pianeta Yavin 4 aggiunto ai dati; ex-088 riscritto sui pianeti. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

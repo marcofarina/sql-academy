@@ -1,7 +1,7 @@
 import type { Exercise } from '../../src/themes/contract.ts';
 
 // Esercizi portati dal prototipo jedi-academy (F04) e verificati su SQLite.
-// Titoli, consegne e suggerimenti sono quelli del prototipo: li rivede F07.
+// Titoli, consegne e suggerimenti sono stati riscritti in F07.
 // Il capitolo di ogni esercizio è la clausola più avanzata della query attesa:
 // sottoquery, poi raggruppamenti e funzioni di aggregazione, poi join, poi una tabella.
 
@@ -1317,7 +1317,7 @@ const exercises: Exercise[] = [
       JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id
       JOIN fazioni ON personaggi.fazione_id = fazioni.id`,
     hints: [
-      'Le informazioni sono sparse in quattro tabelle: la tabella personaggi va unita alle altre tre.',
+      'I dati richiesti stanno in quattro tabelle: la tabella personaggi va unita alle altre tre.',
       'Ogni JOIN usa una chiave esterna di personaggi: specie_id, pianeta_origine_id e fazione_id.',
       'Quattro tabelle hanno una colonna nome: scrivi sempre davanti il nome della tabella.',
     ],
@@ -1346,15 +1346,16 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
-    title: 'Pianeti Senza Alcun Personaggio Registrato (Sottoquery NOT IN)',
-    prompt: "Trova il nome di tutti i pianeti dai quali NON proviene alcun personaggio registrato nella tabella 'personaggi'.",
+    title: 'Pianeti su cui non è nato nessuno',
+    prompt: 'Mostra il nome dei pianeti su cui non è nato nessun personaggio.',
     expectedQuery: `
       SELECT nome
       FROM pianeti
       WHERE id NOT IN (SELECT pianeta_origine_id FROM personaggi WHERE pianeta_origine_id IS NOT NULL)`,
     hints: [
-      'Usa una sottoquery con NOT IN: WHERE id NOT IN (SELECT pianeta_origine_id FROM personaggi ...).',
-      'In alternativa puoi usare una LEFT JOIN filtrando dove la chiave del personaggio è NULL.',
+      'Una sottoquery può darti l’elenco dei pianeti natali dei personaggi; a te servono gli altri.',
+      'Per tenere i valori che non compaiono in un elenco c’è NOT IN.',
+      'Se l’elenco contiene un NULL, NOT IN non restituisce nessuna riga: due personaggi hanno il pianeta sconosciuto, quindi nella sottoquery scarta i NULL.',
     ],
     tables: ['pianeti', 'personaggi'],
   },
@@ -1363,15 +1364,15 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
-    title: 'Personaggi che NON Possiedono una Spada Laser',
-    prompt: "Trova il nome e il ruolo di tutti i personaggi che NON hanno una spada laser registrata nell'archivio.",
+    title: 'Personaggi senza spada laser',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che non possiedono una spada laser.',
     expectedQuery: `
       SELECT nome, ruolo
       FROM personaggi
       WHERE id NOT IN (SELECT personaggio_id FROM spade_laser)`,
     hints: [
-      'Usa una sottoquery per selezionare tutti i personaggio_id presenti in spade_laser.',
-      'Filtra la tabella personaggi con WHERE id NOT IN (...).',
+      'Una sottoquery sulla tabella spade_laser ti dà gli identificativi dei personaggi che una spada ce l’hanno.',
+      'Tieni i personaggi il cui id non compare in quell’elenco, con NOT IN.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
@@ -1380,15 +1381,15 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Astronavi Più Lunghe della Lunghezza Media di Tutte le Navi',
-    prompt: 'Seleziona il nome, il modello e la lunghezza delle astronavi la cui lunghezza supera la lunghezza media di tutte le astronavi della flotta.',
+    title: 'Astronavi più lunghe della media',
+    prompt: 'Mostra il nome, il modello e la lunghezza delle astronavi più lunghe della lunghezza media di tutte le astronavi.',
     expectedQuery: `
       SELECT nome, modello, lunghezza_metri
       FROM astronavi
       WHERE lunghezza_metri > (SELECT AVG(lunghezza_metri) FROM astronavi)`,
     hints: [
-      'Crea una sottoquery scalare (SELECT AVG(lunghezza_metri) FROM astronavi).',
-      "Usa l'operatore maggiore (>) nella clausola WHERE della query principale.",
+      'La media non è un numero che conosci in anticipo: la calcola una sottoquery.',
+      'Una sottoquery che restituisce un solo valore si può usare in un confronto, fra parentesi, al posto di un numero.',
     ],
     tables: ['astronavi'],
   },
@@ -1456,15 +1457,15 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti la cui Popolazione Supera quella di Tatooine',
-    prompt: "Seleziona il nome e la popolazione dei pianeti che hanno una popolazione superiore a quella di 'Tatooine', usando una sottoquery.",
+    title: 'Pianeti più popolati di Tatooine',
+    prompt: 'Mostra il nome e la popolazione dei pianeti più popolati di Tatooine.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       WHERE popolazione > (SELECT popolazione FROM pianeti WHERE nome = 'Tatooine')`,
     hints: [
-      "Usa una sottoquery per ricavare la popolazione di Tatooine: (SELECT popolazione FROM pianeti WHERE nome = 'Tatooine').",
-      "Confronta la popolazione con l'operatore >.",
+      'La popolazione di Tatooine la ricava una sottoquery sulla stessa tabella pianeti.',
+      'Confronta la popolazione di ogni pianeta con il valore della sottoquery, scritta fra parentesi.',
     ],
     tables: ['pianeti'],
   },
@@ -1513,16 +1514,17 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Pianeti che sono Teatri di Battaglie con Perdite Superiori alla Media',
-    prompt: 'Trova i nomi dei pianeti dove si sono svolte battaglie con perdite stimate superiori alla media delle perdite di tutte le battaglie.',
+    title: 'Pianeti di battaglie sanguinose',
+    prompt: 'Mostra, ciascuno una volta sola, i pianeti su cui si è combattuta almeno una battaglia con perdite superiori alla media delle perdite di tutte le battaglie.',
     expectedQuery: `
       SELECT DISTINCT pianeti.nome
       FROM pianeti
       JOIN battaglie ON pianeti.id = battaglie.pianeta_id
       WHERE battaglie.perdite_stimate > (SELECT AVG(perdite_stimate) FROM battaglie)`,
     hints: [
-      'Usa una sottoquery (SELECT AVG(perdite_stimate) FROM battaglie) nel filtro WHERE.',
-      'Unisci pianeti con battaglie e usa DISTINCT.',
+      'Unisci pianeti e battaglie, poi filtra le battaglie.',
+      'La media delle perdite la calcola una sottoquery, da usare nel confronto.',
+      'Se più battaglie di un pianeta passano il filtro, il pianeta si ripete: serve DISTINCT.',
     ],
     tables: ['pianeti', 'battaglie'],
   },
@@ -1568,16 +1570,16 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Personaggi della Stessa Specie di Yoda (Sottoquery)',
-    prompt: "Trova il nome e l'anno di nascita di tutti i personaggi appartenenti alla stessa specie di 'Yoda' (escluso Yoda stesso).",
+    title: 'Personaggi della stessa specie di Yoda',
+    prompt: 'Mostra il nome e l’anno di nascita dei personaggi della stessa specie di Yoda, escluso Yoda.',
     expectedQuery: `
       SELECT nome, anno_nascita_bby
       FROM personaggi
       WHERE specie_id = (SELECT specie_id FROM personaggi WHERE nome = 'Yoda')
         AND nome <> 'Yoda'`,
     hints: [
-      "Usa una sottoquery per trovare specie_id di Yoda: (SELECT specie_id FROM personaggi WHERE nome = 'Yoda').",
-      "Escludi Yoda con AND nome <> 'Yoda'.",
+      'La specie di Yoda la ricava una sottoquery sulla tabella personaggi.',
+      'Le condizioni sono due: la specie uguale a quella di Yoda e il nome diverso da «Yoda».',
     ],
     tables: ['personaggi'],
   },
@@ -1622,15 +1624,15 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'SUM'],
-    title: "Pianeti con Popolazione Superiore alla Somma di Tutti i Pianeti dell'Orlo Esterno",
-    prompt: "Trova il nome e la popolazione dei pianeti la cui popolazione da sola è maggiore della popolazione totale di tutti i pianeti dell'Orlo Esterno.",
+    title: 'Pianeti più popolati dell’intero Orlo Esterno',
+    prompt: 'Mostra il nome e la popolazione dei pianeti che da soli hanno più abitanti di tutti i pianeti dell’Orlo Esterno messi insieme.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       WHERE popolazione > (SELECT SUM(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Esterno')`,
     hints: [
-      "Calcola la somma dell'Orlo Esterno in una sottoquery: (SELECT SUM(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Esterno').",
-      'Confronta con la popolazione del singolo pianeta.',
+      'La popolazione complessiva dell’Orlo Esterno la calcola una sottoquery con SUM.',
+      'Confronta la popolazione di ogni pianeta con il risultato della sottoquery.',
     ],
     tables: ['pianeti'],
   },
@@ -1639,16 +1641,16 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
-    title: 'Fazioni che Hanno Sia Personaggi che Astronavi',
-    prompt: "Estrai i nomi delle fazioni che hanno sia almeno un personaggio registrato sia almeno un'astronave registrata.",
+    title: 'Fazioni con personaggi e astronavi',
+    prompt: 'Mostra il nome delle fazioni che hanno almeno un personaggio e almeno un’astronave.',
     expectedQuery: `
       SELECT nome
       FROM fazioni
       WHERE id IN (SELECT fazione_id FROM personaggi)
         AND id IN (SELECT fazione_id FROM astronavi)`,
     hints: [
-      'Usa due condizioni con IN: id IN (SELECT fazione_id FROM personaggi) AND id IN (SELECT fazione_id FROM astronavi).',
-      'Seleziona il nome della fazione.',
+      'Due sottoquery ti danno le fazioni dei personaggi e le fazioni delle astronavi.',
+      'L’id della fazione deve comparire in entrambi gli elenchi: due IN uniti da AND.',
     ],
     tables: ['fazioni', 'personaggi', 'astronavi'],
   },
@@ -1770,17 +1772,17 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'NOT IN'],
-    title: 'Fazioni Senza Battaglie Vinte (LEFT JOIN o NOT IN)',
-    prompt: 'Mostra il nome e il leader di tutte le fazioni che NON hanno vinto alcuna battaglia registrata.',
+    title: 'Fazioni senza vittorie e i loro leader',
+    prompt: 'Mostra il nome delle fazioni che non hanno vinto nessuna battaglia, con il nome del loro leader.',
     expectedQuery: `
       SELECT fazioni.nome, leader.nome AS leader
       FROM fazioni
       JOIN personaggi AS leader ON fazioni.leader_id = leader.id
       WHERE fazioni.id NOT IN (SELECT fazione_vincitrice_id FROM battaglie)`,
     hints: [
-      'Usa una sottoquery per ricavare gli ID delle fazioni vincitrici.',
-      'Filtra la tabella fazioni con id NOT IN (...).',
-      'Il leader di una fazione è un personaggio: unisci la tabella personaggi, dandole un alias (per esempio AS leader).',
+      'Una sottoquery sulla tabella battaglie ti dà le fazioni che hanno vinto; tieni le altre con NOT IN.',
+      'Il leader di una fazione è un personaggio, indicato dalla colonna leader_id: unisci fazioni e personaggi.',
+      'Dai un nome alla tabella dei leader, per esempio JOIN personaggi AS leader, così la query si legge meglio.',
     ],
     tables: ['fazioni', 'battaglie', 'personaggi'],
   },
@@ -1789,15 +1791,15 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'WHERE', 'MAX'],
-    title: 'Pianeti con Popolazione Maggiore di Qualsiasi Pianeta del Settore Mediano',
-    prompt: "Seleziona il nome e la popolazione dei pianeti la cui popolazione supera il massimo di popolazione presente nell'Orlo Mediano.",
+    title: 'Pianeti più popolati di tutto l’Orlo Mediano',
+    prompt: 'Mostra il nome e la popolazione dei pianeti più popolati di qualunque pianeta dell’Orlo Mediano.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
       WHERE popolazione > (SELECT MAX(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Mediano')`,
     hints: [
-      "Trova il massimo con (SELECT MAX(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Mediano').",
-      'Confronta con popolazione > (...).',
+      'Basta superare il pianeta più popolato dell’Orlo Mediano: lo trova una sottoquery con MAX.',
+      'Confronta la popolazione di ogni pianeta con il risultato della sottoquery.',
     ],
     tables: ['pianeti'],
   },
