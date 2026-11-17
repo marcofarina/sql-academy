@@ -70,7 +70,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Progressi dello studente | `localStorage`, per tema; nessun dato personale |
 | Tutor AI | Escluso |
 | Visibilità del repo | Pubblica |
-| Temi tratti da opere protette | Nomi e ambientazioni sì; immagini, loghi e font ufficiali no |
+| Temi tratti da opere protette | Nomi e ambientazioni sì; immagini e font ufficiali no; loghi ed emblemi solo come icone RB stilizzate, non identiche agli originali (2026-11-17) |
 
 ## Norme condivise (workspace)
 

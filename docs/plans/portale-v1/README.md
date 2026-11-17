@@ -198,7 +198,7 @@ Per ogni tema lo studente trova sei sezioni: sandbox, addestramento, tutte le qu
 ## Vincoli
 
 - Sito solo client: nessun server, nessuna chiave, nessun account, nessun dato personale (gli studenti sono minori).
-- Repo e sito pubblici: tutte le icone sono RB Icons, create o scelte con la skill `icone-rb` (vedi «Icone» più sotto); niente Font Awesome né Phosphor. Delle opere protette si usano nomi e ambientazioni, non immagini, loghi o font ufficiali.
+- Repo e sito pubblici: tutte le icone sono RB Icons, create o scelte con la skill `icone-rb` (vedi «Icone» più sotto); niente Font Awesome né Phosphor. Delle opere protette si usano nomi e ambientazioni, non immagini né font ufficiali; loghi, stemmi ed emblemi entrano solo come icone RB stilizzate, non identiche agli originali.
 - Il dialetto SQL è quello del libro: SQLite.
 - Aggiungere un tema non modifica file fuori da `themes/<id>/`.
 - Nessun push e nessuna pubblicazione senza il via di Marco. Lavoro su `dev`.
@@ -249,7 +249,7 @@ Marco, 2026-11-17: questo progetto serve anche da collaudo della skill `icone-rb
 
 Fonte: `Icone: rb-icons` è registrata in `AGENTS.md`, quindi la skill non chiede la fonte.
 
-**Icone tematiche** (Marco, 2026-11-17): le icone create possono essere molto legate al tema e rappresentarne oggetti, luoghi e personaggi tipici (per Star Wars, per esempio, una spada laser o un caccia stellare; per Il Signore degli Anelli un anello o una spada). Si disegnano dall’oggetto, non da immagini dell’opera, e non riproducono loghi o emblemi ufficiali (vincolo «Temi tratti da opere protette»). Un’icona tematica appartiene a un solo tema e sta in `themes/<id>/icone/`.
+**Icone tematiche** (Marco, 2026-11-17): le icone create possono essere molto legate al tema e rappresentarne oggetti, luoghi e personaggi tipici (per Star Wars, per esempio, una spada laser o un caccia stellare; per Il Signore degli Anelli un anello o una spada). Sono ammessi anche loghi, stemmi ed emblemi dell’opera (Marco, 2026-11-17), purché stilizzati nello stile RB e non identici agli originali, come fa Font Awesome: se ne riprende la struttura riconoscibile, semplificata secondo `STILE.md`, senza ricalcarne i tracciati. Un’icona tematica appartiene a un solo tema e sta in `themes/<id>/icone/`.
 
 Procedimento per ogni fase che ha interfaccia (F03, F05, F06, F08, F09), eseguito **prima** di scrivere i componenti:
 

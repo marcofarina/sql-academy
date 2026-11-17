@@ -27,7 +27,7 @@ Fuori: nuove funzionalità, modifiche alla struttura delle pagine oltre a ciò c
 
 1. Elenca i punti di personalizzazione e fissali nel contratto: colori di superficie, testo, accento, esiti; carattere dei titoli, del testo e del codice; raggio e bordi; uno spazio per decorazioni (sfondo, intestazione) e per le icone proprie del tema, che prendono i colori dalle variabili (variante `.rb-swap` e variabili `--rb-*` dello snippet di `STILE.md`, sezione 6). Aggiorna il `README.md` del piano.
 2. Sostituisci nei componenti comuni ogni colore e carattere scritto a mano con le variabili. Lo `stile.css` del tema si applica solo dentro il guscio del tema.
-3. Disegna la veste Star Wars con caratteri a licenza libera, serviti dal progetto con il loro file di licenza. Evoca l’ambientazione senza riprodurre loghi né il carattere del titolo dei film. Le decorazioni a icona (per esempio pianeti, astronavi, spade) sono RB Icons create con la skill e salvate in `themes/star-wars/icone/`; nessun logo o simbolo ufficiale dell’opera.
+3. Disegna la veste Star Wars con caratteri a licenza libera, serviti dal progetto con il loro file di licenza. Evoca l’ambientazione senza riprodurre il carattere del titolo dei film. Le decorazioni a icona (per esempio pianeti, astronavi, spade, stemmi delle fazioni) sono RB Icons create con la skill e salvate in `themes/star-wars/icone/`; loghi ed emblemi solo stilizzati, non identici agli originali (sezione «Icone» del piano).
 3b. Rivedi le icone comuni di F03–F06 con i colori del tema e controlla che restino leggibili sul fondo del tema.
 4. Applica il tema all’editor SQL e ai diagrammi di F06.
 5. Controlla il contrasto di testo e accenti (rapporto minimo 4,5:1 per il testo) con uno strumento, non a occhio, e riporta i valori.
