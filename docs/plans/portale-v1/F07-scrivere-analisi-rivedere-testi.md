@@ -16,6 +16,7 @@ Questa fase si esegue solo in locale: le norme in `.claude/norms/` non sono ragg
 
 - `.claude/norms/scrittura-didattica.md` prima di scrivere; `.claude/norms/scrittura-umana.md` a fine stesura; `.claude/norms/contenuto.md` è già importata da `AGENTS.md`.
 - Passaggi di consegne di F04 (incongruenze fra consegna e query) e F06 (ER).
+- Decisioni rinviate a F07 da Marco (2026-11-17), elencate nel passaggio di consegne di F04: i difetti di schema e di dati (`fazioni.leader` come testo, «Battaglia di Yavin» su Endor, `anno_bby` negativo, ex-088 che non distingue `JOIN` e `LEFT JOIN`). Prima di scrivere l’analisi chiedi a Marco che cosa correggere: l’analisi e gli esercizi devono descrivere lo stesso database.
 - Una traccia di seconda prova di Informatica come modello di registro per l’analisi: chiedila a Marco se non è nel repo.
 - `~/Developer/github/python-doesnt-byte/volumes/archivista/leggere-un-dominio.mdx`: come il libro presenta un testo di dominio.
 
