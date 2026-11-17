@@ -249,6 +249,8 @@ Marco, 2026-11-17: questo progetto serve anche da collaudo della skill `icone-rb
 
 Fonte: `Icone: rb-icons` è registrata in `AGENTS.md`, quindi la skill non chiede la fonte.
 
+**Icone tematiche** (Marco, 2026-11-17): le icone create possono essere molto legate al tema e rappresentarne oggetti, luoghi e personaggi tipici (per Star Wars, per esempio, una spada laser o un caccia stellare; per Il Signore degli Anelli un anello o una spada). Si disegnano dall’oggetto, non da immagini dell’opera, e non riproducono loghi o emblemi ufficiali (vincolo «Temi tratti da opere protette»). Un’icona tematica appartiene a un solo tema e sta in `themes/<id>/icone/`.
+
 Procedimento per ogni fase che ha interfaccia (F03, F05, F06, F08, F09), eseguito **prima** di scrivere i componenti:
 
 1. Elenca le icone che la fase richiede (navigazione, azioni, esiti, stati, decorazioni) con il significato di ciascuna.
