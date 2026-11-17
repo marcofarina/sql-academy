@@ -15,7 +15,7 @@ Ogni tema cambia colori, caratteri e decorazioni del sito attraverso il proprio 
 - Passaggi di consegne di F03, F05, F06.
 - Skill `frontend-design`, da caricare prima di disegnare.
 - Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Le icone di un tema stanno in `themes/<id>/icone/`.
-- Vincolo di `AGENTS.md`: nessuna immagine, logo o font ufficiale delle opere.
+- Vincolo di `AGENTS.md`: nessuna immagine o font ufficiale delle opere; loghi ed emblemi solo come icone RB stilizzate.
 
 ## 3. Perimetro
 
