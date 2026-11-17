@@ -11,9 +11,14 @@
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
 | F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
-| F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
+| F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | da fare | | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
 | F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
+| F13 | Definire regole dei punti e progressi versione 2 | F05 | Sonnet 5.5 `high` | medio | da fare | | [P-F13](#p-f13) | [F13](F13-definire-regole-punti-progressi.md) |
+| F14 | Mostrare saldo, costi e punti nell’interfaccia | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F14](#p-f14) | [F14](F14-mostrare-saldo-costi-punti.md) |
+| F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | da fare | | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
+| F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
+| F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
 
 Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
 
@@ -225,15 +230,104 @@ Le tavole si disegnano con l’Artifact di tipo «Design» (tool Artifact, quick
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
+### P-F13
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort high
+
+Modello richiesto: Sonnet 5.5, effort high.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F13-definire-regole-punti-progressi.md
+ID e obiettivo: F13 — Definire regole dei punti e progressi versione 2.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F14
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F14-mostrare-saldo-costi-punti.md
+ID e obiettivo: F14 — Mostrare saldo, costi e punti nell’interfaccia.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F15
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort high
+
+Modello richiesto: Opus 5.5, effort high.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F15-collegare-progressi-zaino-pdb.md
+ID e obiettivo: F15 — Collegare i progressi allo zaino di PDB.
+
+Questa fase modifica anche il repo ~/Developer/github/python-doesnt-byte (solo CORS del Worker dello zaino ed eventuale privacy policy, sul suo branch dev): chiedi il via a Marco prima di ogni commit e di ogni deploy in quel repo.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F16
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F16-costruire-servizio-classifica.md
+ID e obiettivo: F16 — Costruire il servizio della classifica.
+
+Creazione del database D1, dominio e deploy del Worker richiedono il via di Marco; mostragli le liste dei nomi e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F17
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F17-mostrare-classifica-portale.md
+ID e obiettivo: F17 — Mostrare la classifica nel portale.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
 ## Obiettivo
 
 Pubblicare un portale statico di addestramento a SQL con la piattaforma comune, il tema Star Wars completo e un secondo tema ridotto, «Il Signore degli Anelli», che dimostra che un tema si aggiunge senza toccare il codice comune. Gli altri due temi richiesti da `AGENTS.md` appartengono a piani successivi.
+
+Dal 2026-11-17 il piano comprende anche il sistema a punti, il salvataggio dei progressi nello zaino di PDB e una classifica pubblica (F13–F17), da completare prima della pubblicazione.
 
 Per ogni tema lo studente trova sei sezioni: sandbox, addestramento, tutte le query, analisi, schema ER, modello logico.
 
 ## Vincoli
 
-- Sito solo client: nessun server, nessuna chiave, nessun account, nessun dato personale (gli studenti sono minori).
+- Sito statico, senza account né dati personali (gli studenti sono minori). Due servizi esterni, entrambi su Cloudflare Workers Free a costo zero (Marco, 2026-11-17): lo zaino di PDB, cifrato nel browser e illeggibile dal server; la classifica, facoltativa, con un nome casuale e i soli punti. Il portale funziona anche se i due servizi non rispondono.
 - Repo e sito pubblici: tutte le icone sono RB Icons, create o scelte con la skill `icone-rb` (vedi «Icone» più sotto); niente Font Awesome né Phosphor. Delle opere protette si usano nomi e ambientazioni, non immagini né font ufficiali; loghi, stemmi ed emblemi entrano solo come icone RB stilizzate, non identiche agli originali.
 - Il dialetto SQL è quello del libro: SQLite.
 - Aggiungere un tema non modifica file fuori da `themes/<id>/`.
@@ -248,7 +342,8 @@ Per ogni tema lo studente trova sei sezioni: sandbox, addestramento, tutte le qu
 - Priorità all’**approfondimento**; budget dichiarato ampio nella finestra di cinque ore e nella settimana (Marco, 2026-11-16).
 - **Fable 5.2 incluso a tempo:** disponibile fino al **2026-11-17 08:59** (`Europe/Rome`). Assegnato a F01 e F02, da aprire in sequenza entro la scadenza. Se una delle due cade dopo, gira su Opus 5.5 `high`: annotalo nel passaggio di consegne.
 - Opus 5.5 `medium` dove si decide una forma o si scrivono testi per gli studenti (F03, F05–F09).
-- Sonnet 5.5 dove si esegue una forma già decisa (F04, F10). F04 parte da `high` perché ogni query va giudicata sul risultato, non solo eseguita.
+- Sonnet 5.5 dove si esegue una forma già decisa (F04, F10, F13). F13 parte da `high` perché ogni regola dei punti ha casi limite da coprire con i test.
+- Opus 5.5 `high` per F15: sincronizzazione fra dispositivi e cifratura, dentro un servizio già in produzione che custodisce le note degli studenti del libro. F04 parte da `high` perché ogni query va giudicata sul risultato, non solo eseguita.
 - Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al modello superiore.
 
 ## Decisioni condivise
@@ -267,7 +362,7 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Primo tema | Star Wars, con i 105 esercizi del prototipo riverificati su SQLite | Contenuti già esistenti |
 | Tema di prova | Il Signore degli Anelli, in versione ridotta | Prova di modularità su un dominio nuovo |
 | Addestramento | Percorso per capitolo del libro (6–9) e difficoltà, più sessioni configurabili | Segue il libro e conserva il generatore del prototipo |
-| Progressi | `localStorage`, per tema | Nessun dato personale |
+| Progressi | `localStorage`, per tema; dal 2026-11-17 anche nello zaino (vedi «Salvataggio dei progressi») | Nessun dato personale |
 | Tutor AI | Escluso | Richiede server e chiavi |
 | Sandbox | Accetta qualunque istruzione, con «Ripristina database» (proposta di Claude, approvata con il piano) | Ogni studente ha un database in memoria proprio |
 | Routing | Con hash, `#/<tema>/<sezione>` (proposta di Claude, approvata con il piano) | GitHub Pages non riscrive gli URL |
@@ -279,9 +374,14 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Studio della veste | Ogni tema ha una propria fase di studio della veste con l’Artifact «Design», prima della fase che lo costruisce; la specifica approvata sta in `docs/design/<id>.md`, la veste neutra in `docs/design/neutra.md` (Marco, 2026-11-17) | L’aspetto di un tema si decide sulle tavole, con Marco, prima del codice |
 | Uso delle icone nel codice | File in `src/assets/icons/` (comuni) o `themes/<id>/icone/`, incorporati inline dal componente `Icon` (`src/icons/`); comuni per `name`, di un tema per `svg` (Claude, in F03) | Inline ereditano il colore del testo e le variabili `rb-*`; un’icona comune nuova non richiede codice |
 | Editor SQL | CodeMirror 6 con `@codemirror/lang-sql`, dialetto SQLite (Claude, in F03) | Evidenziazione, completamento dallo schema e scorciatoie già pronti; nessuna alternativa più semplice li dà tutti |
-| Soluzione e aiuti | Regola provvisoria: suggerimenti liberi, uno alla volta; soluzione dopo l’ultimo suggerimento o a esercizio risolto. Un solo punto del codice decide (`canRevealHint`, `canRevealSolution` in `src/training/exercises.ts`) e i progressi salvano suggerimenti aperti e soluzioni viste (Marco, 2026-11-17, in F05) | Marco vuole un sistema a punti (si guadagnano risolvendo, più per gli esercizi difficili; si spendono in suggerimenti e soluzione), da progettare in fasi dedicate dopo F05 |
+| Soluzione e aiuti | Superata dal «Sistema a punti» a partire da F13. Regola provvisoria: suggerimenti liberi, uno alla volta; soluzione dopo l’ultimo suggerimento o a esercizio risolto. Un solo punto del codice decide (`canRevealHint`, `canRevealSolution` in `src/training/exercises.ts`) e i progressi salvano suggerimenti aperti e soluzioni viste (Marco, 2026-11-17, in F05) | Marco vuole un sistema a punti (si guadagnano risolvendo, più per gli esercizi difficili; si spendono in suggerimenti e soluzione), da progettare in fasi dedicate dopo F05 |
 | Filtro per parole chiave nelle sessioni | Entra un esercizio che usa almeno una delle parole chiave scelte, come nel catalogo (Marco, 2026-11-17, in F05) | Ciò che lo studente conosce lo limita già il filtro per capitolo |
 | Indirizzi dell’addestramento | `#/<tema>/addestramento/<id>` per un esercizio, `#/<tema>/addestramento/sessione` per la sessione; l’`id` `sessione` è riservato e `check:themes` lo respinge (Claude, in F05) | Un esercizio si apre dal catalogo e si condivide con un link |
+| Sistema a punti | Premio per difficoltà 10 / 20 / 30; suggerimento 3 / 5 / 8 (circa un quarto del premio); soluzione 20 / 40 / 60 (il doppio: estrema ratio), acquistabile solo dopo tutti i suggerimenti. Saldo per tema, parte da zero; gratuito solo il primo aiuto del tema. Premio solo alla prima risoluzione; zero se la soluzione è stata vista prima. Regole complete nel § 2 di F13 (Marco, 2026-11-17) | L’aiuto ha un prezzo: lo studente prova prima di chiedere |
+| Migrazione dei progressi | Nessuna: la versione 2 sostituisce la 1 (Marco, 2026-11-17) | Il portale non è pubblicato; per questo F10 dipende dalle fasi dei punti e dello zaino |
+| Salvataggio dei progressi | `localStorage` più lo **stesso zaino di PDB**, sezione `sql-academy`, con lo stesso codice dello studente (Marco, 2026-11-17) | Gli studenti ritrovano a casa il lavoro del laboratorio; lo zaino è nato a sezioni e conserva quelle che un sito non conosce |
+| Classifica | Generale e per tema, pubblica; partecipazione facoltativa, spenta all’inizio; nome assegnato a caso dal sistema, non modificabile; mostra i primi 50 e la propria posizione; Worker e D1 propri del portale; difesa con controlli di plausibilità sul server (Marco, 2026-11-17) | Lo zaino cifrato non può alimentarla; la plausibilità costa zero sul piano gratuito, mentre la verifica di ogni risposta sul server rischia il limite di calcolo per richiesta. Restano possibili le soluzioni lette nel codice del sito e la copia fra compagni: la classifica è un gioco, non un voto |
+| Seguiti, fuori da questo piano | **CTF**: query che trovano flag nascoste nei dati, con difficoltà, premi e suggerimenti a pagamento, **senza soluzione** (se non si trova, resta irrisolta); entreranno nella stessa classifica. **Gradi e traguardi** sui punti. Entrambi in un piano successivo (Marco, 2026-11-17) | Prima si pubblicano punti, zaino e classifica; F13 e F16 tengono già conto delle CTF |
 
 ### Icone
 
@@ -378,3 +478,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-17 | Aggiunta F12 su richiesta di Marco: ogni tema ha la propria fase di studio della veste. F09 ora dipende da F12; le specifiche stanno in `docs/design/<id>.md`. |
 | 2026-11-17 | F04 completata su Sonnet 5.5. Database Star Wars e 105 esercizi su SQLite (il prototipo ne ha 105, non 121: corretto il piano). Ordinamenti completi in tre esercizi, difetti di schema e incongruenze fra consegna e query elencati nel dettaglio della fase per Marco e per F07. |
 | 2026-11-17 | F05 completata su Opus 5.5. Percorso, spazio di lavoro, sessioni con riepilogo, catalogo «Tutte le query», progressi in `localStorage`; otto icone RB nuove approvate da Marco. Marco chiede un sistema a punti (gamification) con fasi dedicate: brainstorming e aggiornamento del piano da fare in una sessione a parte, prima di aggiungere fasi. |
+| 2026-11-17 | Brainstorming con Marco sul sistema a punti: aggiunte F13–F17 (regole dei punti, interfaccia, zaino di PDB, servizio e pagina della classifica). F10 ora dipende da F14, F15, F17. Vincolo «solo client» rivisto: zaino cifrato e classifica facoltativa su Cloudflare, a costo zero. CTF, gradi e traguardi rinviati a un piano successivo. |

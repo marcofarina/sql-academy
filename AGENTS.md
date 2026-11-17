@@ -15,8 +15,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-17 | F03 completata: routing `#/<tema>/<sezione>`, elenco dei temi, guscio con sei sezioni, sandbox con editor CodeMirror (`src/sandbox/`), icone RB comuni in `src/assets/icons/` con il componente `src/icons/Icon.tsx`. |
 | 2026-11-17 | F04 completata: database Star Wars completo (`schema.sql`, `dati.sql`, con `fazioni.leader_id` verso `personaggi`) e 105 esercizi del prototipo (non 121: errore di conteggio nel piano) in `themes/star-wars/esercizi.ts`, tutti verificati su SQLite. Difetti di schema e incongruenze nel dettaglio della fase. |
 | 2026-11-17 | F05 completata: addestramento (percorso, esercizio, sessioni), catalogo «Tutte le query», progressi in `localStorage` (`src/training/`, `src/progress/`). Marco vuole un sistema a punti: brainstorming e nuove fasi del piano ancora da fare. |
+| 2026-11-17 | Brainstorming sul sistema a punti con Marco: aggiunte al piano F13–F17 (regole dei punti, interfaccia, progressi nello zaino di PDB, servizio e pagina della classifica). Nessun codice. CTF, gradi e traguardi rinviati a un piano successivo. |
 
-**Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura. In parallelo resta da fare, in una sessione propria, il brainstorming sul sistema a punti chiesto da Marco e l’aggiunta delle sue fasi al piano.
+**Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 
 ## Requisiti di Marco
 
@@ -69,7 +70,10 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Schema ER e modello logico | Modello logico generato dallo schema SQL; ER dichiarato in un file del tema |
 | Primo tema | Star Wars, con gli esercizi del prototipo riverificati su SQLite. Tema di prova: Il Signore degli Anelli. Gli altri due temi sono da scegliere in un piano successivo |
 | Addestramento | Percorso per capitolo del libro e difficoltà, più sessioni configurabili |
-| Progressi dello studente | `localStorage`, per tema; nessun dato personale |
+| Progressi dello studente | `localStorage`, per tema, più lo zaino cifrato di PDB (sezione `sql-academy`, stesso codice del libro); nessun dato personale (2026-11-17) |
+| Sistema a punti | Premi 10 / 20 / 30 per difficoltà; suggerimenti e soluzione a pagamento, soluzione solo dopo tutti i suggerimenti; saldo per tema da zero. Dettagli in F13 (2026-11-17) |
+| Classifica | Pubblica, generale e per tema; facoltativa; nome casuale non modificabile; controlli di plausibilità sul server; Worker e D1 propri, Cloudflare Workers Free a costo zero (2026-11-17) |
+| CTF | Flag da trovare con query, suggerimenti a pagamento, nessuna soluzione: in un piano successivo (2026-11-17) |
 | Tutor AI | Escluso |
 | Visibilità del repo | Pubblica |
 | Studio della veste | Ogni tema ha una propria fase di studio con l’Artifact «Design» prima di essere costruito; specifica in `docs/design/<id>.md` (2026-11-17) |
