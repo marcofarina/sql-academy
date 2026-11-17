@@ -640,15 +640,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi e Nome della loro Fazione',
-    prompt: "Esegui una JOIN tra la tabella 'personaggi' e la tabella 'fazioni' per mostrare il nome del personaggio e il nome della sua fazione.",
+    title: 'Personaggi e fazioni',
+    prompt: 'Mostra il nome di ogni personaggio accanto al nome della fazione in cui milita.',
     expectedQuery: `
       SELECT personaggi.nome AS nome_personaggio, fazioni.nome AS nome_fazione
       FROM personaggi
       JOIN fazioni ON personaggi.fazione_id = fazioni.id`,
     hints: [
-      'Collega le tabelle tramite la condizione di uguaglianza tra chiavi: personaggi.fazione_id = fazioni.id.',
-      "Usa prefissi di tabella o alias per evitare ambiguità sul campo 'nome'.",
+      'Il nome della fazione non è nella tabella personaggi: devi unirla alla tabella fazioni.',
+      'La colonna fazione_id di un personaggio contiene l’identificativo della sua fazione.',
+      'Entrambe le tabelle hanno una colonna nome: scrivi davanti il nome della tabella, come personaggi.nome.',
     ],
     tables: ['personaggi', 'fazioni'],
   },
@@ -674,15 +675,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi con la Rispettiva Spada Laser',
-    prompt: 'Mostra il nome del personaggio, il colore della lama e il tipo di cristallo per tutti i personaggi che possiedono una spada laser.',
+    title: 'Personaggi e spade laser',
+    prompt: 'Mostra il nome del personaggio, il colore della lama e il tipo di cristallo di ogni spada laser.',
     expectedQuery: `
       SELECT personaggi.nome, spade_laser.colore_lama, spade_laser.tipo_cristallo
       FROM personaggi
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id`,
     hints: [
-      'Unisci la tabella personaggi e la tabella spade_laser sulla chiave personaggio_id.',
-      'Seleziona nome, colore_lama e tipo_cristallo.',
+      'Il proprietario di una spada è indicato nella tabella spade_laser: unisci le due tabelle.',
+      'La colonna personaggio_id di una spada contiene l’identificativo del suo proprietario.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
@@ -725,15 +726,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi e Nome del Pianeta di Origine',
-    prompt: 'Mostra il nome del personaggio e il nome del pianeta natale, unendo la tabella personaggi con la tabella pianeti.',
+    title: 'Personaggi e pianeti natali',
+    prompt: 'Mostra il nome di ogni personaggio di cui si conosce il pianeta natale, accanto al nome di quel pianeta.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio, pianeti.nome AS pianeta
       FROM personaggi
       JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id`,
     hints: [
-      'Collega personaggi.pianeta_origine_id con pianeti.id.',
-      'Proietta i due nomi con alias chiarificatori.',
+      'Unisci la tabella personaggi alla tabella pianeti.',
+      'Il pianeta natale di un personaggio è indicato dalla colonna pianeta_origine_id.',
+      'Una JOIN scarta da sola i personaggi con il pianeta sconosciuto, perché per loro non trova un pianeta corrispondente.',
     ],
     tables: ['personaggi', 'pianeti'],
   },
@@ -742,15 +744,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Astronavi per Fazione Proprietaria',
-    prompt: "Mostra il nome dell'astronave, il modello e il nome della fazione a cui appartiene, unendo astronavi e fazioni.",
+    title: 'Astronavi e fazioni proprietarie',
+    prompt: 'Mostra il nome e il modello di ogni astronave, con il nome della fazione a cui appartiene.',
     expectedQuery: `
       SELECT astronavi.nome AS nome_nave, astronavi.modello, fazioni.nome AS nome_fazione
       FROM astronavi
       JOIN fazioni ON astronavi.fazione_id = fazioni.id`,
     hints: [
-      'Unisci la tabella astronavi con fazioni tramite astronavi.fazione_id = fazioni.id.',
-      'Seleziona i campi richiesti.',
+      'Unisci la tabella astronavi alla tabella fazioni.',
+      'La colonna fazione_id di un’astronave contiene l’identificativo della fazione proprietaria.',
     ],
     tables: ['astronavi', 'fazioni'],
   },
@@ -777,15 +779,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Battaglie e Pianeta Teatro dello Scontro',
-    prompt: "Estrai il nome della battaglia, l'anno_bby e il nome del pianeta su cui si è svolta la battaglia.",
+    title: 'Battaglie e pianeti',
+    prompt: 'Mostra il nome e l’anno di ogni battaglia, con il nome del pianeta su cui è stata combattuta.',
     expectedQuery: `
       SELECT battaglie.nome AS battaglia, battaglie.anno_bby, pianeti.nome AS pianeta
       FROM battaglie
       JOIN pianeti ON battaglie.pianeta_id = pianeti.id`,
     hints: [
-      'Unisci battaglie con pianeti collegando battaglie.pianeta_id = pianeti.id.',
-      'Seleziona il nome della battaglia, anno e nome del pianeta.',
+      'Unisci la tabella battaglie alla tabella pianeti.',
+      'La colonna pianeta_id di una battaglia contiene l’identificativo del pianeta.',
     ],
     tables: ['battaglie', 'pianeti'],
   },
@@ -830,15 +832,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi e Nome della Loro Specie',
-    prompt: 'Mostra il nome del personaggio, il suo ruolo e il nome della specie a cui appartiene, unendo personaggi e specie.',
+    title: 'Personaggi e specie',
+    prompt: 'Mostra il nome e il ruolo di ogni personaggio, con il nome della specie a cui appartiene.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio, personaggi.ruolo, specie.nome AS specie
       FROM personaggi
       JOIN specie ON personaggi.specie_id = specie.id`,
     hints: [
-      'Collega la tabella personaggi a specie tramite personaggi.specie_id = specie.id.',
-      'Proietta le colonne richieste.',
+      'Unisci la tabella personaggi alla tabella specie.',
+      'La colonna specie_id di un personaggio contiene l’identificativo della sua specie.',
     ],
     tables: ['personaggi', 'specie'],
   },
@@ -882,8 +884,8 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Tutte le Battaglie Vinte con Fazione Vincitrice',
-    prompt: "Mostra il nome della battaglia, l'anno_bby e il nome della fazione che ha vinto il conflitto.",
+    title: 'Battaglie e vincitori',
+    prompt: 'Mostra il nome e l’anno di ogni battaglia, con il nome della fazione che l’ha vinta.',
     expectedQuery: `
       SELECT battaglie.nome AS battaglia,
              battaglie.anno_bby,
@@ -891,8 +893,8 @@ const exercises: Exercise[] = [
       FROM battaglie
       JOIN fazioni ON battaglie.fazione_vincitrice_id = fazioni.id`,
     hints: [
-      'Unisci battaglie e fazioni sulla chiave battaglie.fazione_vincitrice_id = fazioni.id.',
-      'Seleziona il nome della battaglia e il nome della fazione vincitrice.',
+      'Unisci la tabella battaglie alla tabella fazioni.',
+      'La fazione vincitrice è indicata dalla colonna fazione_vincitrice_id.',
     ],
     tables: ['battaglie', 'fazioni'],
   },
@@ -935,16 +937,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Personaggi con Spada Laser Blu o Verde',
-    prompt: "Mostra il nome del personaggio, il suo ruolo e il colore della lama per i personaggi dotati di spada laser con lama 'Blu' o 'Verde'.",
+    title: 'Personaggi con la spada laser blu o verde',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che hanno una spada laser con la lama «Blu» o «Verde», e il colore della lama.',
     expectedQuery: `
       SELECT personaggi.nome, personaggi.ruolo, spade_laser.colore_lama
       FROM personaggi
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
       WHERE spade_laser.colore_lama IN ('Blu', 'Verde')`,
     hints: [
-      'Esegui una JOIN tra personaggi e spade_laser.',
-      "Aggiungi un filtro WHERE con IN ('Blu', 'Verde') o con operatore OR.",
+      'Prima unisci personaggi e spade_laser, poi filtra le righe con WHERE.',
+      'Per due colori ammessi puoi usare OR, oppure IN con un elenco di valori.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
@@ -1005,15 +1007,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Specie Nascoste nel Pianeta Madre',
-    prompt: 'Mostra il nome della specie, il linguaggio e il nome del suo pianeta natale unendo specie e pianeti.',
+    title: 'Specie e pianeti d’origine',
+    prompt: 'Mostra il nome e la lingua di ogni specie, con il nome del suo pianeta d’origine.',
     expectedQuery: `
       SELECT specie.nome AS specie, specie.linguaggio, pianeti.nome AS pianeta_madre
       FROM specie
       JOIN pianeti ON specie.pianeta_madre_id = pianeti.id`,
     hints: [
-      'Unisci specie con pianeti tramite specie.pianeta_madre_id = pianeti.id.',
-      'Seleziona specie.nome, specie.linguaggio e pianeti.nome.',
+      'Unisci la tabella specie alla tabella pianeti.',
+      'Il pianeta d’origine di una specie è indicato dalla colonna pianeta_madre_id.',
     ],
     tables: ['specie', 'pianeti'],
   },
@@ -1074,16 +1076,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Tutte le Astronavi della Fazione Ribelle',
-    prompt: "Mostra il nome dell'astronave, il modello e il costruttore delle navi appartenenti all'Alleanza Ribelle unendo astronavi e fazioni.",
+    title: 'Astronavi dell’Alleanza Ribelle',
+    prompt: 'Mostra il nome, il modello e il costruttore delle astronavi dell’Alleanza Ribelle.',
     expectedQuery: `
       SELECT astronavi.nome, astronavi.modello, astronavi.costruttore
       FROM astronavi
       JOIN fazioni ON astronavi.fazione_id = fazioni.id
       WHERE fazioni.nome = 'Alleanza Ribelle'`,
     hints: [
-      'Collega astronavi con fazioni.',
-      "Filtra con fazioni.nome = 'Alleanza Ribelle'.",
+      'Il nome della fazione è nella tabella fazioni: unisci astronavi e fazioni.',
+      'Dopo la JOIN puoi filtrare con WHERE sul nome della fazione.',
     ],
     tables: ['astronavi', 'fazioni'],
   },
@@ -1092,16 +1094,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Personaggi Nati a Tatooine',
-    prompt: "Estrai il nome e il ruolo di tutti i personaggi il cui pianeta di origine è 'Tatooine'.",
+    title: 'Personaggi nati su Tatooine',
+    prompt: 'Mostra il nome e il ruolo dei personaggi nati su Tatooine.',
     expectedQuery: `
       SELECT personaggi.nome, personaggi.ruolo
       FROM personaggi
       JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id
       WHERE pianeti.nome = 'Tatooine'`,
     hints: [
-      'Unisci personaggi con pianeti sulla chiave esterna pianeta_origine_id.',
-      "Imposta la condizione: pianeti.nome = 'Tatooine'.",
+      'Il nome del pianeta è nella tabella pianeti: unisci personaggi e pianeti.',
+      'Il pianeta natale è indicato dalla colonna pianeta_origine_id; dopo la JOIN filtra sul nome del pianeta.',
     ],
     tables: ['personaggi', 'pianeti'],
   },
@@ -1110,15 +1112,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN'],
-    title: 'Pianeti che Hanno Ospitato Almeno una Battaglia',
-    prompt: 'Mostra i nomi univoci dei pianeti su cui si è svolta almeno una battaglia, unendo pianeti e battaglie.',
+    title: 'Pianeti che hanno visto una battaglia',
+    prompt: 'Mostra il nome dei pianeti su cui è stata combattuta almeno una battaglia, ciascuno una volta sola.',
     expectedQuery: `
       SELECT DISTINCT pianeti.nome
       FROM pianeti
       JOIN battaglie ON pianeti.id = battaglie.pianeta_id`,
     hints: [
-      'Unisci le due tabelle con JOIN ... ON pianeti.id = battaglie.pianeta_id.',
-      'Usa DISTINCT per non mostrare lo stesso pianeta più volte.',
+      'Unisci pianeti e battaglie: un pianeta compare una volta per ogni battaglia combattuta su di esso.',
+      'Per non ripetere lo stesso pianeta serve DISTINCT.',
     ],
     tables: ['pianeti', 'battaglie'],
   },
@@ -1127,15 +1129,15 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'LEFT JOIN'],
-    title: 'Tutti i Personaggi con o senza Spada Laser (LEFT JOIN)',
-    prompt: 'Estrai il nome del personaggio e il colore della lama della sua spada laser. Mostra anche i personaggi che NON possiedono una spada laser (il colore sarà NULL).',
+    title: 'Personaggi con o senza spada laser',
+    prompt: 'Mostra il nome di ogni personaggio e il colore della lama della sua spada laser. Devono comparire anche i personaggi senza spada, con il colore vuoto.',
     expectedQuery: `
       SELECT personaggi.nome, spade_laser.colore_lama
       FROM personaggi
       LEFT JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id`,
     hints: [
-      'Usa LEFT JOIN (o LEFT OUTER JOIN) per mantenere tutti i personaggi anche senza corrispondenza.',
-      'Collega personaggi.id con spade_laser.personaggio_id.',
+      'Una JOIN normale scarta i personaggi che non hanno una spada corrispondente.',
+      'Esiste una JOIN che tiene tutte le righe della tabella scritta a sinistra, anche senza corrispondenza.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
@@ -1264,16 +1266,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Personaggi con Spada Laser Rossa e Nome Fazione',
-    prompt: "Mostra il nome del personaggio e il colore della lama unendo personaggi e spade_laser, filtrando solo per coloro che hanno lama 'Rosso'.",
+    title: 'Personaggi con la spada laser rossa',
+    prompt: 'Mostra il nome dei personaggi che hanno una spada laser con la lama «Rosso», e il colore della lama.',
     expectedQuery: `
       SELECT personaggi.nome, spade_laser.colore_lama
       FROM personaggi
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
       WHERE spade_laser.colore_lama = 'Rosso'`,
     hints: [
-      'Esegui una JOIN su personaggi.id = spade_laser.personaggio_id.',
-      "Aggiungi WHERE spade_laser.colore_lama = 'Rosso'.",
+      'Unisci personaggi e spade_laser.',
+      'Dopo la JOIN filtra sulla colonna colore_lama.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
@@ -1301,8 +1303,8 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggio, Specie, Pianeta Natale e Fazione (Tripla JOIN)',
-    prompt: 'Mostra in un unico report il nome del personaggio, il nome della sua specie, il nome del pianeta natale e il nome della sua fazione, unendo 4 tabelle.',
+    title: 'Specie, pianeta e fazione dei personaggi',
+    prompt: 'Mostra il nome di ogni personaggio di cui si conosce il pianeta natale, con il nome della sua specie, del suo pianeta natale e della sua fazione.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio,
              specie.nome AS specie,
@@ -1313,8 +1315,9 @@ const exercises: Exercise[] = [
       JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id
       JOIN fazioni ON personaggi.fazione_id = fazioni.id`,
     hints: [
-      'Collega la tabella personaggi con specie, poi con pianeti, poi con fazioni.',
-      'Usa 3 clausole JOIN con le rispettive chiavi esterne.',
+      'Le informazioni sono sparse in quattro tabelle: la tabella personaggi va unita alle altre tre.',
+      'Ogni JOIN usa una chiave esterna di personaggi: specie_id, pianeta_origine_id e fazione_id.',
+      'Quattro tabelle hanno una colonna nome: scrivi sempre davanti il nome della tabella.',
     ],
     tables: ['personaggi', 'specie', 'pianeti', 'fazioni'],
   },
@@ -1323,16 +1326,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi con Spada Laser e Nome della Fazione',
-    prompt: 'Mostra il nome del personaggio, il colore della spada laser e il nome della fazione di appartenenza, unendo personaggi, spade_laser e fazioni.',
+    title: 'Spade laser e fazioni dei proprietari',
+    prompt: 'Per ogni spada laser mostra il nome del proprietario, il colore della lama e il nome della fazione del proprietario.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio, spade_laser.colore_lama, fazioni.nome AS fazione
       FROM personaggi
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
       JOIN fazioni ON personaggi.fazione_id = fazioni.id`,
     hints: [
-      'Unisci personaggi con spade_laser su personaggi.id = spade_laser.personaggio_id.',
-      'Unisci con fazioni su personaggi.fazione_id = fazioni.id.',
+      'Servono tre tabelle: personaggi, spade_laser e fazioni.',
+      'La tabella personaggi sta in mezzo: si unisce alle spade con il suo id e alle fazioni con fazione_id.',
     ],
     tables: ['personaggi', 'spade_laser', 'fazioni'],
   },
@@ -1392,8 +1395,8 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Battaglie e Fazione Vincitrice con Dettagli Pianeta (Multi-JOIN)',
-    prompt: 'Estrai il nome della battaglia, il nome del pianeta su cui si è combattuto, il clima del pianeta e il nome della fazione vincitrice.',
+    title: 'Battaglie con pianeta, clima e vincitore',
+    prompt: 'Mostra il nome di ogni battaglia, il nome e il clima del pianeta su cui è stata combattuta e il nome della fazione che l’ha vinta.',
     expectedQuery: `
       SELECT battaglie.nome AS battaglia,
              pianeti.nome AS pianeta,
@@ -1403,8 +1406,8 @@ const exercises: Exercise[] = [
       JOIN pianeti ON battaglie.pianeta_id = pianeti.id
       JOIN fazioni ON battaglie.fazione_vincitrice_id = fazioni.id`,
     hints: [
-      'Unisci battaglie con pianeti (battaglie.pianeta_id = pianeti.id).',
-      'Unisci battaglie con fazioni (battaglie.fazione_vincitrice_id = fazioni.id).',
+      'Servono tre tabelle: battaglie, pianeti e fazioni.',
+      'La tabella battaglie sta in mezzo: ha una chiave esterna verso pianeti e una verso fazioni.',
     ],
     tables: ['battaglie', 'pianeti', 'fazioni'],
   },
@@ -1487,8 +1490,8 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Personaggi con Spada Laser Blu Nati prima di Yavin',
-    prompt: "Mostra il nome del personaggio, il suo ruolo, l'anno di nascita e il cristallo della spada per chi possiede una spada 'Blu', unendo personaggi e spade_laser.",
+    title: 'Personaggi con la spada laser blu',
+    prompt: 'Mostra il nome, il ruolo e l’anno di nascita dei personaggi che hanno una spada laser con la lama «Blu», e il tipo di cristallo della spada.',
     expectedQuery: `
       SELECT personaggi.nome,
              personaggi.ruolo,
@@ -1498,8 +1501,8 @@ const exercises: Exercise[] = [
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
       WHERE spade_laser.colore_lama = 'Blu'`,
     hints: [
-      'Collega personaggi e spade_laser su personaggi.id = spade_laser.personaggio_id.',
-      "Filtra per colore_lama = 'Blu'.",
+      'Unisci personaggi e spade_laser.',
+      'Dopo la JOIN filtra sul colore della lama; le altre colonne vengono da tutte e due le tabelle.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
@@ -1580,16 +1583,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Specie Native di Pianeti con Clima Temperato',
-    prompt: "Mostra il nome della specie, il linguaggio e il nome del pianeta madre per le specie originarie di pianeti con clima 'temperato'.",
+    title: 'Specie di pianeti temperati',
+    prompt: 'Mostra il nome e la lingua delle specie il cui pianeta d’origine ha clima «temperato», con il nome di quel pianeta.',
     expectedQuery: `
       SELECT specie.nome AS specie, specie.linguaggio, pianeti.nome AS pianeta
       FROM specie
       JOIN pianeti ON specie.pianeta_madre_id = pianeti.id
       WHERE pianeti.clima = 'temperato'`,
     hints: [
-      'Collega specie a pianeti tramite pianeta_madre_id.',
-      "Filtra dove pianeti.clima = 'temperato'.",
+      'Unisci specie e pianeti.',
+      'Il filtro riguarda una colonna della tabella pianeti: il clima.',
     ],
     tables: ['specie', 'pianeti'],
   },
@@ -1598,16 +1601,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi con Spada Laser e Dettagli del Pianeta Natale (Tripla JOIN)',
-    prompt: 'Mostra il nome del personaggio, il nome del pianeta natale e il colore della lama della sua spada laser unendo personaggi, pianeti e spade_laser.',
+    title: 'Spade laser e pianeti natali dei proprietari',
+    prompt: 'Per ogni spada laser mostra il nome del proprietario, il nome del suo pianeta natale e il colore della lama.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio, pianeti.nome AS pianeta, spade_laser.colore_lama
       FROM personaggi
       JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id`,
     hints: [
-      'Esegui una JOIN con pianeti (pianeta_origine_id = pianeti.id) e una con spade_laser (personaggi.id = spade_laser.personaggio_id).',
-      'Proietta i 3 attributi richiesti.',
+      'Servono tre tabelle: personaggi, pianeti e spade_laser.',
+      'La tabella personaggi sta in mezzo: si unisce ai pianeti con pianeta_origine_id e alle spade con il suo id.',
     ],
     tables: ['personaggi', 'pianeti', 'spade_laser'],
   },
@@ -1671,8 +1674,8 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: 'Personaggi Sensibili alla Forza con Fazione e Ruolo Specifico',
-    prompt: 'Mostra il nome del personaggio, il suo ruolo e il leader della sua fazione per tutti i personaggi con sensibile_alla_forza = 1 e fazione non nulla.',
+    title: 'Personaggi sensibili alla Forza e i loro leader',
+    prompt: 'Mostra il nome e il ruolo dei personaggi sensibili alla Forza, con il nome del leader della fazione in cui militano.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio, personaggi.ruolo, leader.nome AS leader
       FROM personaggi
@@ -1680,9 +1683,9 @@ const exercises: Exercise[] = [
       JOIN personaggi AS leader ON fazioni.leader_id = leader.id
       WHERE personaggi.sensibile_alla_forza = 1`,
     hints: [
-      'Unisci personaggi con fazioni.',
-      'Il leader di una fazione è un personaggio: unisci di nuovo la tabella personaggi, dandole un alias (per esempio AS leader).',
-      'Filtra con WHERE personaggi.sensibile_alla_forza = 1.',
+      'Dal personaggio arrivi alla sua fazione, e dalla fazione al suo leader.',
+      'Il leader di una fazione è anche lui un personaggio: la tabella personaggi va usata due volte.',
+      'Per usare due volte la stessa tabella dai alla seconda un altro nome, per esempio JOIN personaggi AS leader.',
     ],
     tables: ['personaggi', 'fazioni'],
   },
@@ -1708,16 +1711,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
-    title: "Pianeti con Battaglie nell'Anno 0 BBY o Precedente",
-    prompt: 'Mostra il nome del pianeta e il nome della battaglia svoltasi in anno_bby <= 0 (durante o dopo la Battaglia di Yavin).',
+    title: 'Battaglie dall’anno di Yavin in poi',
+    prompt: 'Mostra il nome del pianeta, il nome della battaglia e l’anno delle battaglie combattute nell’anno di Yavin o dopo.',
     expectedQuery: `
       SELECT pianeti.nome AS pianeta, battaglie.nome AS battaglia, battaglie.anno_bby
       FROM pianeti
       JOIN battaglie ON pianeti.id = battaglie.pianeta_id
       WHERE battaglie.anno_bby <= 0`,
     hints: [
-      'Unisci pianeti con battaglie.',
-      'Filtra con battaglie.anno_bby <= 0.',
+      'Unisci pianeti e battaglie.',
+      'Gli anni si contano a ritroso da Yavin: l’anno di Yavin è 0 e quelli successivi sono negativi.',
     ],
     tables: ['pianeti', 'battaglie'],
   },
@@ -1745,17 +1748,17 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN', 'WHERE', 'LIKE'],
-    title: 'Il Maestro e il Pianeta: Pianeti con Almeno un Maestro Jedi',
-    prompt: "Estrai i nomi univoci dei pianeti di nascita dei personaggi che hanno il ruolo di 'Maestro Jedi' o 'Gran Maestro Jedi'.",
+    title: 'Pianeti natali dei Maestri Jedi',
+    prompt: 'Mostra, ciascuno una volta sola, i pianeti natali dei personaggi che hanno il ruolo «Maestro Jedi» o «Gran Maestro Jedi».',
     expectedQuery: `
       SELECT DISTINCT pianeti.nome AS pianeta
       FROM pianeti
       JOIN personaggi ON pianeti.id = personaggi.pianeta_origine_id
       WHERE personaggi.ruolo LIKE '%Maestro Jedi%'`,
     hints: [
-      'Collega pianeti con personaggi.',
-      "Filtra dove personaggi.ruolo LIKE '%Maestro Jedi%'.",
-      'Usa DISTINCT per evitare duplicati.',
+      'Unisci pianeti e personaggi, poi filtra sul ruolo.',
+      'I due ruoli hanno in comune le parole «Maestro Jedi»: puoi cercarle con LIKE.',
+      'Più Maestri Jedi sono nati sullo stesso pianeta: serve DISTINCT.',
     ],
     tables: ['pianeti', 'personaggi'],
   },
@@ -1800,8 +1803,8 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN'],
-    title: 'Personaggi con Fazione e Dettagli Astronave della Fazione (Multi-JOIN)',
-    prompt: 'Mostra il nome del personaggio, il nome della sua fazione e il nome delle astronavi gestite da quella fazione unendo personaggi, fazioni e astronavi.',
+    title: 'Personaggi e astronavi della loro fazione',
+    prompt: 'Per ogni personaggio mostra il nome, il nome della sua fazione e il nome di ciascuna astronave che appartiene a quella fazione.',
     expectedQuery: `
       SELECT personaggi.nome AS personaggio,
              fazioni.nome AS fazione,
@@ -1810,8 +1813,8 @@ const exercises: Exercise[] = [
       JOIN fazioni ON personaggi.fazione_id = fazioni.id
       JOIN astronavi ON fazioni.id = astronavi.fazione_id`,
     hints: [
-      'Collega personaggi con fazioni, e fazioni con astronavi su fazione_id = fazioni.id.',
-      'Proietta personaggio, fazione e astronave.',
+      'La fazione collega le due cose: personaggi e astronavi hanno entrambi una colonna fazione_id.',
+      'Il risultato ha una riga per ogni coppia personaggio–astronave della stessa fazione: è normale che sia lungo.',
     ],
     tables: ['personaggi', 'fazioni', 'astronavi'],
   },
@@ -1820,16 +1823,16 @@ const exercises: Exercise[] = [
     chapter: 'join',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'LIKE'],
-    title: 'Personaggi con Spada Laser Impugnatura Curva o Doppia Lama',
-    prompt: "Trova il nome del personaggio, il suo ruolo e l'impugnatura della sua spada laser per spade con impugnatura contenente 'curva' o 'Doppia'.",
+    title: 'Spade laser con impugnatura curva o doppia',
+    prompt: 'Mostra il nome e il ruolo dei personaggi la cui spada laser ha un’impugnatura che contiene la parola «curva» o la parola «Doppia», e l’impugnatura.',
     expectedQuery: `
       SELECT personaggi.nome, personaggi.ruolo, spade_laser.impugnatura
       FROM personaggi
       JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
       WHERE spade_laser.impugnatura LIKE '%curva%' OR spade_laser.impugnatura LIKE '%Doppia%'`,
     hints: [
-      'Unisci personaggi e spade_laser.',
-      'Applica la condizione WHERE con LIKE su impugnatura.',
+      'Unisci personaggi e spade_laser, poi filtra sull’impugnatura.',
+      'Servono due LIKE uniti da OR, ciascuno con la parola fra due simboli %.',
     ],
     tables: ['personaggi', 'spade_laser'],
   },
