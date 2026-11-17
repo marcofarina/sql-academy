@@ -1,6 +1,9 @@
 /**
  * Routing con hash: `#/` è l’elenco dei temi, `#/<tema>/<sezione>` una sezione
  * di un tema. GitHub Pages non riscrive gli URL, quindi il percorso sta nell’hash.
+ *
+ * Solo l’addestramento ha un elemento in più: `#/<tema>/addestramento/<id>` apre
+ * un esercizio, `#/<tema>/addestramento/sessione` la sessione configurabile.
  */
 
 export const SECTIONS = [
@@ -16,10 +19,18 @@ export type SectionId = (typeof SECTIONS)[number]['id'];
 
 export const DEFAULT_SECTION: SectionId = 'sandbox';
 
-export type Route =
-  | { page: 'home' }
-  | { page: 'theme'; themeId: string; section: SectionId }
-  | { page: 'not-found' };
+/** L’elemento dell’addestramento che apre la sessione; nessun esercizio può avere questo `id`. */
+export const SESSION_ITEM = 'sessione';
+
+export type ThemeRoute = {
+  page: 'theme';
+  themeId: string;
+  section: SectionId;
+  /** Solo nell’addestramento: l’`id` di un esercizio oppure `SESSION_ITEM`. */
+  item?: string;
+};
+
+export type Route = { page: 'home' } | ThemeRoute | { page: 'not-found' };
 
 function isSection(value: string): value is SectionId {
   return SECTIONS.some((section) => section.id === value);
@@ -30,13 +41,16 @@ export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#/, '').split('/').filter(Boolean).map(decodeURIComponent);
   if (parts.length === 0) return { page: 'home' };
   const [themeId, section = DEFAULT_SECTION, ...rest] = parts;
-  if (rest.length > 0 || !isSection(section)) return { page: 'not-found' };
-  return { page: 'theme', themeId, section };
+  if (!isSection(section)) return { page: 'not-found' };
+  if (rest.length === 0) return { page: 'theme', themeId, section };
+  if (rest.length === 1 && section === 'addestramento') return { page: 'theme', themeId, section, item: rest[0] };
+  return { page: 'not-found' };
 }
 
-export function formatRoute(route: { page: 'home' } | { page: 'theme'; themeId: string; section: SectionId }): string {
+export function formatRoute(route: { page: 'home' } | ThemeRoute): string {
   if (route.page === 'home') return '#/';
-  return `#/${encodeURIComponent(route.themeId)}/${route.section}`;
+  const base = `#/${encodeURIComponent(route.themeId)}/${route.section}`;
+  return route.item === undefined ? base : `${base}/${encodeURIComponent(route.item)}`;
 }
 
 /** L’hash canonico della stessa pagina, se diverso da quello dato: `#/star-wars` → `#/star-wars/sandbox`. */

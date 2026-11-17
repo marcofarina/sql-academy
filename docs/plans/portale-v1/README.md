@@ -6,7 +6,7 @@
 | F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | completata | 2026-11-16 21:36 | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
 | F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | completata | 2026-11-17 12:40 | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
 | F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | completata | 2026-11-17 13:15 | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
-| F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | da fare | | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
+| F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | completata | 2026-11-17 15:10 | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
 | F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
@@ -279,6 +279,9 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Studio della veste | Ogni tema ha una propria fase di studio della veste con l’Artifact «Design», prima della fase che lo costruisce; la specifica approvata sta in `docs/design/<id>.md`, la veste neutra in `docs/design/neutra.md` (Marco, 2026-11-17) | L’aspetto di un tema si decide sulle tavole, con Marco, prima del codice |
 | Uso delle icone nel codice | File in `src/assets/icons/` (comuni) o `themes/<id>/icone/`, incorporati inline dal componente `Icon` (`src/icons/`); comuni per `name`, di un tema per `svg` (Claude, in F03) | Inline ereditano il colore del testo e le variabili `rb-*`; un’icona comune nuova non richiede codice |
 | Editor SQL | CodeMirror 6 con `@codemirror/lang-sql`, dialetto SQLite (Claude, in F03) | Evidenziazione, completamento dallo schema e scorciatoie già pronti; nessuna alternativa più semplice li dà tutti |
+| Soluzione e aiuti | Regola provvisoria: suggerimenti liberi, uno alla volta; soluzione dopo l’ultimo suggerimento o a esercizio risolto. Un solo punto del codice decide (`canRevealHint`, `canRevealSolution` in `src/training/exercises.ts`) e i progressi salvano suggerimenti aperti e soluzioni viste (Marco, 2026-11-17, in F05) | Marco vuole un sistema a punti (si guadagnano risolvendo, più per gli esercizi difficili; si spendono in suggerimenti e soluzione), da progettare in fasi dedicate dopo F05 |
+| Filtro per parole chiave nelle sessioni | Entra un esercizio che usa almeno una delle parole chiave scelte, come nel catalogo (Marco, 2026-11-17, in F05) | Ciò che lo studente conosce lo limita già il filtro per capitolo |
+| Indirizzi dell’addestramento | `#/<tema>/addestramento/<id>` per un esercizio, `#/<tema>/addestramento/sessione` per la sessione; l’`id` `sessione` è riservato e `check:themes` lo respinge (Claude, in F05) | Un esercizio si apre dal catalogo e si condivide con un link |
 
 ### Icone
 
@@ -316,6 +319,15 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `circle-xmark` | errore di SQLite, database che non si apre | F03 | creata (Opus 5.5) | approvata |
 | `triangle-exclamation` | avviso di query interrotta dal watchdog | F03 | creata (Opus 5.5) | approvata |
 | `circle-arrow-left` | ritorno all’elenco dei temi | F03 | creata (Opus 5.5) | approvata |
+| `circle-check` | pulsante Verifica, esercizio risolto, esito corretto | F05 | creata (Opus 5.5) | approvata |
+| `circle` | esercizio da fare | F05 | creata (Opus 5.5) | approvata; monotono (R3.9) |
+| `circle-arrow-right` | prossimo esercizio | F05 | creata (Opus 5.5) | approvata |
+| `lightbulb` | suggerimenti | F05 | creata (Opus 5.5) | approvata la quarta variante: Marco ha chiesto un filamento, la «M» e l’arco ∩ non convincevano, i pallini pieni non erano ciò che intendeva; tenuto il filamento a due riccioli del suo schizzo |
+| `key` | soluzione | F05 | catalogo | usata |
+| `dice` | avvio di una sessione casuale | F05 | creata (Opus 5.5) | approvata |
+| `magnifying-glass` | ricerca nel catalogo | F05 | creata (Opus 5.5) | approvata |
+| `flag` | riepilogo della sessione | F05 | creata (Opus 5.5) | approvata |
+| `trash-can` | azzeramento dei progressi | F05 | creata (Opus 5.5) | approvata |
 
 ### Struttura di un tema
 
@@ -365,3 +377,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-17 | Aggiunta F11 su richiesta di Marco: studio della veste con l’Artifact «Design» prima di F08, che ora dipende da F11. Ammesse icone tematiche e loghi o emblemi stilizzati. |
 | 2026-11-17 | Aggiunta F12 su richiesta di Marco: ogni tema ha la propria fase di studio della veste. F09 ora dipende da F12; le specifiche stanno in `docs/design/<id>.md`. |
 | 2026-11-17 | F04 completata su Sonnet 5.5. Database Star Wars e 105 esercizi su SQLite (il prototipo ne ha 105, non 121: corretto il piano). Ordinamenti completi in tre esercizi, difetti di schema e incongruenze fra consegna e query elencati nel dettaglio della fase per Marco e per F07. |
+| 2026-11-17 | F05 completata su Opus 5.5. Percorso, spazio di lavoro, sessioni con riepilogo, catalogo «Tutte le query», progressi in `localStorage`; otto icone RB nuove approvate da Marco. Marco chiede un sistema a punti (gamification) con fasi dedicate: brainstorming e aggiornamento del piano da fare in una sessione a parte, prima di aggiungere fasi. |

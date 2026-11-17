@@ -12,7 +12,7 @@ function righe(n: number): string {
   return n === 1 ? '1 riga' : `${n} righe`;
 }
 
-function ResultTable({ resultSet, caption }: { resultSet: ResultSet; caption: string }) {
+export function ResultTable({ resultSet, caption }: { resultSet: ResultSet; caption: string }) {
   const { columns, rows, totalRows, truncated } = resultSet;
   return (
     <figure className="result">

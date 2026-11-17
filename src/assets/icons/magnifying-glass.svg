@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · magnifying-glass -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M64 208A144 144 0 0 1 352 208A144 144 0 0 1 64 208Z"/>
+  <path class="rb-primary" fill="currentColor" d="M0 208A208 208 0 0 1 416 208A208 208 0 0 1 0 208ZM64 208A144 144 0 0 0 352 208A144 144 0 0 0 64 208ZM315.5 360.7A32 32 0 0 1 360.7 315.5L502.6 457.4A32 32 0 0 1 457.4 502.6L315.5 360.7Z"/>
+</svg>

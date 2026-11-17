@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+  <!-- RB Icons · key -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M48 144A144 144 0 1 1 336 144A144 144 0 1 1 48 144ZM144 104A48 48 0 1 0 240 104A48 48 0 1 0 144 104Z"/>
+  <path class="rb-primary" fill="currentColor" d="M160 284.4A144 144 0 0 0 224 284.4V336H272A16 16 0 0 1 288 352V368A16 16 0 0 1 272 384H224V416H256A16 16 0 0 1 272 432V448A16 16 0 0 1 256 464H224V480A32 32 0 0 1 160 480Z"/>
+</svg>

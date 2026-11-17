@@ -7,6 +7,7 @@
 import { CHAPTERS, DIFFICULTIES, EXERCISE_ID_PATTERN, type Exercise } from '../themes/contract.ts';
 import { SqlError, SqlTimeoutError, type SqlEngine } from '../sql/engine.ts';
 import { ExerciseError, runExpected } from './verify.ts';
+import { SESSION_ITEM } from '../routing/route.ts';
 
 export interface ThemeToCheck {
   id: string;
@@ -61,6 +62,7 @@ export async function checkTheme(engine: SqlEngine, theme: ThemeToCheck): Promis
       const report = (problem: string) => problems.push(`${theme.id}/${exercise.id}: ${problem}`);
 
       if (seen.has(exercise.id)) report('id usato da più di un esercizio');
+      if (exercise.id === SESSION_ITEM) report(`l’id «${SESSION_ITEM}» è riservato alla sessione di addestramento`);
       seen.add(exercise.id);
       shapeProblems(exercise).forEach(report);
 

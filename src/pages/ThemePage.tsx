@@ -4,13 +4,22 @@ import { SECTIONS, formatRoute, type SectionId } from '../routing/route.ts';
 import { SandboxSection } from '../sandbox/SandboxSection.tsx';
 import { useSandbox } from '../sandbox/useSandbox.ts';
 import type { Theme } from '../themes/contract.ts';
+import { useProgress } from '../progress/useProgress.ts';
+import { CatalogSection } from '../training/CatalogSection.tsx';
+import type { ActiveSession } from '../training/SessionView.tsx';
+import { TrainingSection } from '../training/TrainingSection.tsx';
+import { useTraining } from '../training/useTraining.ts';
 
 /** Guscio delle pagine di un tema: intestazione, le sei sezioni, il contenuto della sezione scelta. */
-export function ThemePage({ theme, section }: { theme: Theme; section: SectionId }) {
+export function ThemePage({ theme, section, item }: { theme: Theme; section: SectionId; item?: string }) {
   const { id, title } = theme.manifest;
   // La sandbox vive con il tema, non con la sezione: cambiando sezione query e database restano.
   const sandbox = useSandbox(theme);
   const [query, setQuery] = useState('');
+  // Esercizi, progressi e sessione vivono anch’essi con il tema: passano da una sezione all’altra.
+  const training = useTraining(theme);
+  const { progress, update, reset } = useProgress(id);
+  const [session, setSession] = useState<ActiveSession>();
   const current = SECTIONS.find((s) => s.id === section)!;
 
   useEffect(() => {
@@ -48,6 +57,19 @@ export function ThemePage({ theme, section }: { theme: Theme; section: SectionId
         </h1>
         {section === 'sandbox' ? (
           <SandboxSection controller={sandbox} query={query} onQueryChange={setQuery} />
+        ) : section === 'addestramento' ? (
+          <TrainingSection
+            themeId={id}
+            item={item}
+            training={training}
+            progress={progress}
+            onProgress={update}
+            onResetProgress={reset}
+            session={session}
+            onSession={setSession}
+          />
+        ) : section === 'query' ? (
+          <CatalogSection themeId={id} training={training} progress={progress} />
         ) : (
           <p className="placeholder">Questa sezione è in preparazione.</p>
         )}

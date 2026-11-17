@@ -40,3 +40,18 @@ test('hash canonico', () => {
   expect(canonicalHash('#')).toBe('#/');
   expect(canonicalHash('#/star-wars/cucina')).toBeUndefined();
 });
+
+test('addestramento: esercizio o sessione', () => {
+  expect(parseRoute('#/star-wars/addestramento/ex-001')).toEqual({
+    page: 'theme',
+    themeId: 'star-wars',
+    section: 'addestramento',
+    item: 'ex-001',
+  });
+  expect(parseRoute('#/star-wars/addestramento/sessione')).toMatchObject({ item: 'sessione' });
+  expect(parseRoute('#/star-wars/query/ex-001')).toEqual({ page: 'not-found' });
+  expect(parseRoute('#/star-wars/addestramento/ex-001/altro')).toEqual({ page: 'not-found' });
+  const hash = formatRoute({ page: 'theme', themeId: 'star-wars', section: 'addestramento', item: 'ex-001' });
+  expect(hash).toBe('#/star-wars/addestramento/ex-001');
+  expect(canonicalHash(hash)).toBeUndefined();
+});

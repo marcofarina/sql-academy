@@ -13,5 +13,5 @@ export function App() {
   }
   const theme = findTheme(route.themeId);
   if (!theme) return <NotFoundPage message={`Il tema «${route.themeId}» non esiste.`} />;
-  return <ThemePage key={theme.manifest.id} theme={theme} section={route.section} />;
+  return <ThemePage key={theme.manifest.id} theme={theme} section={route.section} item={route.item} />;
 }
