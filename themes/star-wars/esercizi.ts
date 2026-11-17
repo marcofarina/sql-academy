@@ -607,14 +607,14 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'COUNT'],
-    title: 'Conteggio Totale dei Personaggi',
-    prompt: "Calcola il numero totale di personaggi registrati negli archivi, rinominando la colonna di conteggio come 'totale_personaggi'.",
+    title: 'Quanti sono i personaggi',
+    prompt: 'Mostra il numero totale di personaggi dell’archivio.',
     expectedQuery: `
       SELECT COUNT(*) AS totale_personaggi
       FROM personaggi`,
     hints: [
-      'Usa la funzione di aggregazione COUNT(*).',
-      "Assegna l'alias con AS totale_personaggi.",
+      'Il risultato è una sola riga con un solo numero.',
+      'La funzione di aggregazione che conta le righe è COUNT.',
     ],
     tables: ['personaggi'],
   },
@@ -623,15 +623,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'COUNT'],
-    title: 'Numero di Personaggi per Fazione',
-    prompt: 'Raggruppa i personaggi in base alla loro fazione (fazione_id) e calcola quanti personaggi appartengono a ciascuna fazione. Mostra fazione_id e il conteggio.',
+    title: 'Personaggi per fazione',
+    prompt: 'Per ogni fazione mostra il suo identificativo e il numero di personaggi che vi militano.',
     expectedQuery: `
       SELECT fazione_id, COUNT(*) AS numero_personaggi
       FROM personaggi
       GROUP BY fazione_id`,
     hints: [
-      'Usa la clausola GROUP BY su fazione_id.',
-      'Includi COUNT(*) nella lista delle colonne da selezionare.',
+      'Ti basta la tabella personaggi: la fazione è indicata da fazione_id.',
+      'Per contare per gruppi servono GROUP BY e COUNT.',
     ],
     tables: ['personaggi'],
   },
@@ -658,15 +658,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'SUM'],
-    title: 'Popolazione Totale per Settore Galattico',
-    prompt: 'Calcola la somma complessiva della popolazione dei pianeti per ciascun settore galattico. Mostra settore_galattico e la somma della popolazione.',
+    title: 'Popolazione per settore galattico',
+    prompt: 'Per ogni settore galattico mostra il nome del settore e la popolazione complessiva dei suoi pianeti.',
     expectedQuery: `
       SELECT settore_galattico, SUM(popolazione) AS popolazione_totale
       FROM pianeti
       GROUP BY settore_galattico`,
     hints: [
-      'Usa la funzione aggregata SUM(popolazione).',
-      'Raggruppa le righe tramite GROUP BY settore_galattico.',
+      'Un gruppo per ogni settore: GROUP BY settore_galattico.',
+      'La funzione che somma i valori di un gruppo è SUM.',
     ],
     tables: ['pianeti'],
   },
@@ -692,16 +692,17 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'HAVING', 'COUNT'],
-    title: 'Fazioni con Almeno 3 Personaggi',
-    prompt: 'Trova gli ID delle fazioni (fazione_id) che contano almeno 3 personaggi registrati, insieme al numero di personaggi.',
+    title: 'Fazioni con almeno tre personaggi',
+    prompt: 'Mostra l’identificativo delle fazioni con almeno tre personaggi, e il numero dei loro personaggi.',
     expectedQuery: `
       SELECT fazione_id, COUNT(*) AS totale
       FROM personaggi
       GROUP BY fazione_id
       HAVING COUNT(*) >= 3`,
     hints: [
-      'Per filtrare i risultati aggregati non puoi usare WHERE, devi usare la clausola HAVING.',
-      'La condizione dopo GROUP BY è: HAVING COUNT(*) >= 3.',
+      'Prima raggruppa i personaggi per fazione e contali.',
+      'La condizione riguarda il conteggio di ogni gruppo, non le singole righe: WHERE non basta.',
+      'Il filtro sui gruppi si scrive con HAVING, dopo GROUP BY.',
     ],
     tables: ['personaggi'],
   },
@@ -710,14 +711,14 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'AVG'],
-    title: 'Lunghezza Media delle Astronavi',
-    prompt: 'Calcola la lunghezza media in metri delle astronavi registrate, arrotondata o mostrata come valore medio.',
+    title: 'Lunghezza media delle astronavi',
+    prompt: 'Mostra la lunghezza media, in metri, delle astronavi dell’archivio.',
     expectedQuery: `
       SELECT AVG(lunghezza_metri) AS lunghezza_media
       FROM astronavi`,
     hints: [
-      'Usa la funzione aggregata AVG(lunghezza_metri).',
-      'Assegna un alias alla colonna risultante.',
+      'Il risultato è una sola riga con un solo numero.',
+      'La funzione che calcola la media è AVG.',
     ],
     tables: ['astronavi'],
   },
@@ -761,16 +762,17 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'ORDER BY', 'COUNT'],
-    title: 'Numero di Spade Laser per Colore',
-    prompt: 'Calcola quante spade laser esistono per ciascun colore di lama. Mostra il colore della lama e il conteggio, ordinati per conteggio decrescente. A parità di conteggio, ordina per colore in ordine alfabetico.',
+    title: 'Spade laser per colore',
+    prompt: 'Per ogni colore di lama mostra il colore e il numero di spade laser di quel colore, dal colore più frequente. A parità di numero, ordina i colori in ordine alfabetico.',
     expectedQuery: `
       SELECT colore_lama, COUNT(*) AS quantita
       FROM spade_laser
       GROUP BY colore_lama
       ORDER BY quantita DESC, colore_lama ASC`,
     hints: [
-      'Raggruppa con GROUP BY colore_lama.',
-      'Ordina il risultato per quantita DESC.',
+      'Raggruppa le spade per colore_lama e contale.',
+      'In ORDER BY puoi usare il conteggio, anche attraverso il suo alias.',
+      'Il secondo criterio di ordinamento, dopo una virgola, è il colore.',
     ],
     tables: ['spade_laser'],
   },
@@ -796,16 +798,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'MIN', 'MAX', 'AVG'],
-    title: 'Perdite Medie per Battaglia',
-    prompt: 'Calcola le perdite stimate minime, massime e medie tra tutte le battaglie registrate.',
+    title: 'Perdite minime, massime e medie',
+    prompt: 'Mostra, in una sola riga, le perdite stimate minime, massime e medie delle battaglie.',
     expectedQuery: `
       SELECT MIN(perdite_stimate) AS perdite_minime,
              MAX(perdite_stimate) AS perdite_massime,
              AVG(perdite_stimate) AS perdite_medie
       FROM battaglie`,
     hints: [
-      'Usa le tre funzioni MIN, MAX e AVG sulla colonna perdite_stimate.',
-      'Assegna alias leggibili.',
+      'Ti servono tre funzioni di aggregazione sulla stessa colonna, perdite_stimate.',
+      'Le funzioni sono MIN, MAX e AVG, separate da virgole dopo SELECT.',
     ],
     tables: ['battaglie'],
   },
@@ -814,16 +816,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'HAVING', 'COUNT'],
-    title: 'Pianeti con più di 2 Personaggi Nativi',
-    prompt: 'Trova gli ID dei pianeti di origine (pianeta_origine_id) da cui provengono più di 2 personaggi registrati, insieme al numero di personaggi nativi.',
+    title: 'Pianeti natali di più di due personaggi',
+    prompt: 'Mostra l’identificativo dei pianeti su cui sono nati più di due personaggi, e il numero di personaggi nati su ciascuno.',
     expectedQuery: `
       SELECT pianeta_origine_id, COUNT(*) AS totale_nativi
       FROM personaggi
       GROUP BY pianeta_origine_id
       HAVING COUNT(*) > 2`,
     hints: [
-      'Raggruppa per pianeta_origine_id.',
-      "Usa HAVING COUNT(*) > 2 per filtrare dopo l'aggregazione.",
+      'Raggruppa i personaggi per pianeta_origine_id e contali.',
+      'Il filtro riguarda il conteggio dei gruppi: si scrive con HAVING.',
     ],
     tables: ['personaggi'],
   },
@@ -849,16 +851,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'ORDER BY', 'COUNT'],
-    title: 'Numero di Astronavi per Costruttore',
-    prompt: 'Mostra il nome di ciascun costruttore e il numero totale di modelli di astronave costruiti, ordinando dal costruttore con più astronavi a quello con meno. A parità di numero, ordina per costruttore in ordine alfabetico.',
+    title: 'Astronavi per costruttore',
+    prompt: 'Per ogni costruttore mostra il nome e il numero di astronavi che ha costruito, dal costruttore con più astronavi. A parità di numero, ordina i costruttori in ordine alfabetico.',
     expectedQuery: `
       SELECT costruttore, COUNT(*) AS numero_navi
       FROM astronavi
       GROUP BY costruttore
       ORDER BY numero_navi DESC, costruttore ASC`,
     hints: [
-      'Raggruppa per costruttore.',
-      'Ordina in ordine decrescente usando il conteggio.',
+      'Raggruppa le astronavi per costruttore e contale.',
+      'Ordina per il conteggio decrescente e, come secondo criterio, per costruttore.',
     ],
     tables: ['astronavi'],
   },
@@ -867,15 +869,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'COUNT'],
-    title: 'Numero di Pianeti per Tipologia di Clima',
-    prompt: 'Conta quanti pianeti sono associati a ciascun clima. Mostra il clima e il numero di pianeti.',
+    title: 'Pianeti per clima',
+    prompt: 'Per ogni clima mostra il clima e il numero di pianeti che lo hanno.',
     expectedQuery: `
       SELECT clima, COUNT(*) AS numero_pianeti
       FROM pianeti
       GROUP BY clima`,
     hints: [
-      'Usa GROUP BY clima.',
-      'Includi COUNT(*) con alias numero_pianeti.',
+      'Un gruppo per ogni clima.',
+      'Ti servono GROUP BY e COUNT.',
     ],
     tables: ['pianeti'],
   },
@@ -903,15 +905,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'SUM'],
-    title: 'Capacità Equipaggio Totale per Fazione',
-    prompt: "Calcola la somma complessiva della capacità dell'equipaggio di tutte le navi appartenenti a ciascuna fazione (fazione_id). Mostra fazione_id e il totale equipaggio.",
+    title: 'Equipaggio complessivo per fazione',
+    prompt: 'Per ogni fazione che possiede astronavi mostra l’identificativo della fazione e la somma della capacità dell’equipaggio delle sue astronavi.',
     expectedQuery: `
       SELECT fazione_id, SUM(capacita_equipaggio) AS equipaggio_totale
       FROM astronavi
       GROUP BY fazione_id`,
     hints: [
-      'Raggruppa le astronavi per fazione_id.',
-      'Usa la funzione SUM(capacita_equipaggio).',
+      'Ti basta la tabella astronavi: la fazione è indicata da fazione_id.',
+      'Raggruppa per fazione e somma capacita_equipaggio con SUM.',
     ],
     tables: ['astronavi'],
   },
@@ -920,15 +922,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'AVG'],
-    title: 'Aspettativa di Vita Media per Linguaggio',
-    prompt: "Calcola l'aspettativa di vita media per ciascun linguaggio delle specie registrate.",
+    title: 'Aspettativa di vita per lingua',
+    prompt: 'Per ogni lingua mostra la lingua e l’aspettativa di vita media delle specie che la parlano.',
     expectedQuery: `
       SELECT linguaggio, AVG(aspettativa_vita_media) AS vita_media
       FROM specie
       GROUP BY linguaggio`,
     hints: [
-      'Raggruppa per la colonna linguaggio.',
-      'Usa AVG(aspettativa_vita_media).',
+      'Più specie possono parlare la stessa lingua: raggruppa per linguaggio.',
+      'Calcola la media di aspettativa_vita_media con AVG.',
     ],
     tables: ['specie'],
   },
@@ -955,16 +957,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'COUNT'],
-    title: 'Numero di Personaggi Sensibili alla Forza per Fazione',
-    prompt: 'Conta quanti personaggi sensibili alla Forza (sensibile_alla_forza = 1) appartengono a ciascuna fazione (fazione_id).',
+    title: 'Sensibili alla Forza per fazione',
+    prompt: 'Per ogni fazione mostra l’identificativo e il numero dei suoi personaggi sensibili alla Forza. Le fazioni senza personaggi sensibili alla Forza non compaiono.',
     expectedQuery: `
       SELECT fazione_id, COUNT(*) AS jedi_o_sith
       FROM personaggi
       WHERE sensibile_alla_forza = 1
       GROUP BY fazione_id`,
     hints: [
-      'Filtra prima con WHERE sensibile_alla_forza = 1.',
-      'Poi raggruppa con GROUP BY fazione_id.',
+      'Prima scarti con WHERE i personaggi non sensibili alla Forza, poi raggruppi quelli rimasti.',
+      'WHERE si scrive prima di GROUP BY.',
     ],
     tables: ['personaggi'],
   },
@@ -973,15 +975,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'MAX'],
-    title: 'Lunghezza Massima delle Navi per Fazione',
-    prompt: 'Trova la lunghezza massima in metri delle astronavi per ciascuna fazione (fazione_id).',
+    title: 'Astronave più lunga per fazione',
+    prompt: 'Per ogni fazione che possiede astronavi mostra l’identificativo della fazione e la lunghezza della sua astronave più lunga.',
     expectedQuery: `
       SELECT fazione_id, MAX(lunghezza_metri) AS lunghezza_massima
       FROM astronavi
       GROUP BY fazione_id`,
     hints: [
-      'Usa la funzione MAX(lunghezza_metri).',
-      'Raggruppa per fazione_id.',
+      'Raggruppa le astronavi per fazione_id.',
+      'La funzione che dà il valore più grande di un gruppo è MAX.',
     ],
     tables: ['astronavi'],
   },
@@ -990,15 +992,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'SUM'],
-    title: 'Perdite Totali delle Battaglie per Pianeta',
-    prompt: 'Calcola le perdite stimate totali subite su ciascun pianeta (pianeta_id) nelle battaglie registrate.',
+    title: 'Perdite per pianeta',
+    prompt: 'Per ogni pianeta su cui si è combattuto mostra l’identificativo del pianeta e la somma delle perdite stimate nelle sue battaglie.',
     expectedQuery: `
       SELECT pianeta_id, SUM(perdite_stimate) AS perdite_totali
       FROM battaglie
       GROUP BY pianeta_id`,
     hints: [
-      'Raggruppa per pianeta_id nella tabella battaglie.',
-      'Usa SUM(perdite_stimate).',
+      'Ti basta la tabella battaglie: il pianeta è indicato da pianeta_id.',
+      'Raggruppa per pianeta e somma le perdite con SUM.',
     ],
     tables: ['battaglie'],
   },
@@ -1024,16 +1026,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'HAVING', 'COUNT'],
-    title: 'Settori Galattici con più di 3 Pianeti',
-    prompt: 'Trova i settori galattici che contengono più di 3 pianeti, visualizzando il settore e il conteggio dei pianeti.',
+    title: 'Settori con più di tre pianeti',
+    prompt: 'Mostra i settori galattici con più di tre pianeti, e il numero di pianeti di ciascuno.',
     expectedQuery: `
       SELECT settore_galattico, COUNT(*) AS numero_pianeti
       FROM pianeti
       GROUP BY settore_galattico
       HAVING COUNT(*) > 3`,
     hints: [
-      'Raggruppa per settore_galattico.',
-      'Usa HAVING COUNT(*) > 3 per filtrare sui gruppi.',
+      'Raggruppa i pianeti per settore e contali.',
+      'Il filtro sul conteggio si scrive con HAVING.',
     ],
     tables: ['pianeti'],
   },
@@ -1042,15 +1044,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE', 'AVG'],
-    title: 'Età Media dei Personaggi Sensibili alla Forza',
-    prompt: "Calcola il valore medio dell'anno di nascita (anno_nascita_bby) per tutti i personaggi che sono sensibili alla Forza.",
+    title: 'Anno di nascita medio dei sensibili alla Forza',
+    prompt: 'Mostra la media degli anni di nascita dei personaggi sensibili alla Forza.',
     expectedQuery: `
       SELECT AVG(anno_nascita_bby) AS media_anno_bby
       FROM personaggi
       WHERE sensibile_alla_forza = 1`,
     hints: [
-      'Filtra con WHERE sensibile_alla_forza = 1.',
-      'Calcola AVG(anno_nascita_bby).',
+      'Prima filtra i personaggi con WHERE, poi calcola la media su quelli rimasti.',
+      'La media di anno_nascita_bby si calcola con AVG.',
     ],
     tables: ['personaggi'],
   },
@@ -1059,15 +1061,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'COUNT'],
-    title: 'Tipi di Fazione e Numero di Fazioni Registrate',
-    prompt: 'Mostra ogni tipo di fazione presente e quante fazioni appartengono a quel tipo.',
+    title: 'Fazioni per tipo',
+    prompt: 'Per ogni tipo di fazione mostra il tipo e il numero di fazioni di quel tipo.',
     expectedQuery: `
       SELECT tipo, COUNT(*) AS numero_fazioni
       FROM fazioni
       GROUP BY tipo`,
     hints: [
-      "Raggruppa per la colonna 'tipo' nella tabella fazioni.",
-      'Conta i record con COUNT(*).',
+      'Un gruppo per ogni valore della colonna tipo della tabella fazioni.',
+      'Ti servono GROUP BY e COUNT.',
     ],
     tables: ['fazioni'],
   },
@@ -1146,15 +1148,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'AVG'],
-    title: 'Velocità Media Iperguida per Fazione',
-    prompt: "Calcola la velocità media nell'iperguida delle navi per ciascuna fazione (fazione_id).",
+    title: 'Classe media dell’iperguida per fazione',
+    prompt: 'Per ogni fazione che possiede astronavi mostra l’identificativo della fazione e la classe media dell’iperguida delle sue astronavi.',
     expectedQuery: `
       SELECT fazione_id, AVG(velocita_iperguida) AS velocita_media
       FROM astronavi
       GROUP BY fazione_id`,
     hints: [
-      'Raggruppa per fazione_id.',
-      'Usa AVG(velocita_iperguida).',
+      'Raggruppa le astronavi per fazione_id.',
+      'Calcola la media di velocita_iperguida con AVG.',
     ],
     tables: ['astronavi'],
   },
@@ -1180,15 +1182,15 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'COUNT'],
-    title: 'Numero di Battaglie Vinte per Fazione',
-    prompt: "Calcola quante battaglie ha vinto ciascuna fazione vincitrice (fazione_vincitrice_id). Mostra l'ID e il totale di vittorie.",
+    title: 'Vittorie per fazione',
+    prompt: 'Per ogni fazione che ha vinto almeno una battaglia mostra l’identificativo della fazione e il numero di battaglie vinte.',
     expectedQuery: `
       SELECT fazione_vincitrice_id, COUNT(*) AS vittorie
       FROM battaglie
       GROUP BY fazione_vincitrice_id`,
     hints: [
-      'Raggruppa per fazione_vincitrice_id nella tabella battaglie.',
-      'Conta con COUNT(*).',
+      'Ti basta la tabella battaglie: la fazione vincitrice è indicata da fazione_vincitrice_id.',
+      'Raggruppa per quella colonna e conta le righe.',
     ],
     tables: ['battaglie'],
   },
@@ -1214,16 +1216,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'COUNT'],
-    title: 'Numero di Personaggi Umani per Pianeta Natale',
-    prompt: 'Conta quanti personaggi umani (specie_id = 1) provengono da ciascun pianeta di origine (pianeta_origine_id).',
+    title: 'Umani per pianeta natale',
+    prompt: 'Per ogni pianeta natale mostra l’identificativo del pianeta e il numero di personaggi umani nati lì. Gli umani con il pianeta sconosciuto formano un gruppo a parte, con l’identificativo vuoto.',
     expectedQuery: `
       SELECT pianeta_origine_id, COUNT(*) AS numero_umani
       FROM personaggi
       WHERE specie_id = 1
       GROUP BY pianeta_origine_id`,
     hints: [
-      'Filtra prima con WHERE specie_id = 1.',
-      'Poi raggruppa con GROUP BY pianeta_origine_id.',
+      'Gli umani sono i personaggi della specie «Umano», che ha identificativo 1: filtrali con WHERE.',
+      'Poi raggruppa per pianeta_origine_id. GROUP BY mette i valori vuoti, NULL, in un gruppo tutto loro.',
     ],
     tables: ['personaggi'],
   },
@@ -1284,16 +1286,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'HAVING', 'COUNT'],
-    title: 'Fazioni con più di 1 Astronave Operativa',
-    prompt: 'Trova gli ID delle fazioni (fazione_id) che possiedono più di 1 astronave registrata, insieme al conteggio.',
+    title: 'Fazioni con più di un’astronave',
+    prompt: 'Mostra l’identificativo delle fazioni che possiedono più di un’astronave, e il numero delle loro astronavi.',
     expectedQuery: `
       SELECT fazione_id, COUNT(*) AS totale_navi
       FROM astronavi
       GROUP BY fazione_id
       HAVING COUNT(*) > 1`,
     hints: [
-      'Raggruppa le astronavi per fazione_id.',
-      'Filtra con la clausola HAVING COUNT(*) > 1.',
+      'Raggruppa le astronavi per fazione_id e contale.',
+      'Il filtro sul conteggio si scrive con HAVING.',
     ],
     tables: ['astronavi'],
   },
@@ -1416,8 +1418,8 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY'],
-    title: 'Fazioni con Flotta: Conteggio Navi e Lunghezza Totale',
-    prompt: "Per ogni fazione che possiede almeno un'astronave, mostra il nome della fazione, il numero di astronavi e la somma della loro lunghezza in metri.",
+    title: 'Flotte delle fazioni',
+    prompt: 'Per ogni fazione che possiede astronavi mostra il nome della fazione, il numero delle sue astronavi e la loro lunghezza complessiva in metri.',
     expectedQuery: `
       SELECT fazioni.nome AS fazione,
              COUNT(astronavi.id) AS numero_navi,
@@ -1426,8 +1428,8 @@ const exercises: Exercise[] = [
       JOIN astronavi ON fazioni.id = astronavi.fazione_id
       GROUP BY fazioni.nome`,
     hints: [
-      'Unisci fazioni e astronavi.',
-      'Raggruppa per fazioni.nome e calcola COUNT e SUM.',
+      'Il nome della fazione è nella tabella fazioni: uniscila ad astronavi prima di raggruppare.',
+      'Raggruppa per il nome della fazione; nella stessa SELECT puoi usare COUNT e SUM.',
     ],
     tables: ['fazioni', 'astronavi'],
   },
@@ -1436,16 +1438,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'MAX'],
-    title: 'Personaggio Più Anziano per Ciascuna Fazione (Sottoquery Correlata o Raggruppamento)',
-    prompt: "Trova il valore massimo di anno_nascita_bby (il più anziano) per ciascuna fazione, mostrando il nome della fazione e l'età massima in BBY.",
+    title: 'Membro più anziano di ogni fazione',
+    prompt: 'Per ogni fazione mostra il nome e l’anno di nascita del suo membro più anziano.',
     expectedQuery: `
       SELECT fazioni.nome AS fazione, MAX(personaggi.anno_nascita_bby) AS massimo_anno_bby
       FROM personaggi
       JOIN fazioni ON personaggi.fazione_id = fazioni.id
       GROUP BY fazioni.nome`,
     hints: [
-      'Unisci personaggi con fazioni.',
-      'Raggruppa per fazioni.nome e usa MAX(personaggi.anno_nascita_bby).',
+      'Unisci personaggi e fazioni, poi raggruppa per il nome della fazione.',
+      'Gli anni si contano a ritroso da Yavin: il più anziano ha l’anno di nascita più grande.',
     ],
     tables: ['personaggi', 'fazioni'],
   },
@@ -1471,8 +1473,8 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING', 'COUNT'],
-    title: 'Fazioni che Hanno Vinto Almeno 2 Battaglie',
-    prompt: 'Trova il nome delle fazioni che hanno vinto 2 o più battaglie, unendo battaglie e fazioni e applicando un filtro sui gruppi.',
+    title: 'Fazioni con almeno due vittorie',
+    prompt: 'Mostra il nome delle fazioni che hanno vinto almeno due battaglie, e il numero delle loro vittorie.',
     expectedQuery: `
       SELECT fazioni.nome AS fazione, COUNT(battaglie.id) AS vittorie
       FROM fazioni
@@ -1480,8 +1482,8 @@ const exercises: Exercise[] = [
       GROUP BY fazioni.nome
       HAVING COUNT(battaglie.id) >= 2`,
     hints: [
-      'Unisci fazioni e battaglie.',
-      'Raggruppa per fazioni.nome e filtra con HAVING COUNT(battaglie.id) >= 2.',
+      'Unisci fazioni e battaglie attraverso la fazione vincitrice.',
+      'Raggruppa per il nome della fazione e filtra i gruppi con HAVING.',
     ],
     tables: ['fazioni', 'battaglie'],
   },
@@ -1529,34 +1531,35 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'LEFT JOIN', 'GROUP BY', 'COUNT'],
-    title: 'Numero di Personaggi per Nome della Fazione (anche fazioni con 0 personaggi)',
-    prompt: 'Mostra il nome di TUTTE le fazioni e il numero di personaggi appartenenti a ciascuna, includendo anche le fazioni senza personaggi (LEFT JOIN).',
+    title: 'Personaggi nati su ogni pianeta',
+    prompt: 'Per ogni pianeta mostra il nome e il numero di personaggi nati lì. Devono comparire anche i pianeti su cui non è nato nessuno, con zero.',
     expectedQuery: `
-      SELECT fazioni.nome AS fazione, COUNT(personaggi.id) AS totale_personaggi
-      FROM fazioni
-      LEFT JOIN personaggi ON fazioni.id = personaggi.fazione_id
-      GROUP BY fazioni.nome`,
+      SELECT pianeti.nome AS pianeta, COUNT(personaggi.id) AS personaggi_nati
+      FROM pianeti
+      LEFT JOIN personaggi ON pianeti.id = personaggi.pianeta_origine_id
+      GROUP BY pianeti.nome`,
     hints: [
-      'Usa una LEFT JOIN partendo da fazioni verso personaggi.',
-      'Conta personaggi.id (e NON *) per contare 0 quando non ci sono corrispondenze.',
+      'Una JOIN normale scarta i pianeti senza personaggi: serve una JOIN che tenga tutti i pianeti.',
+      'Con LEFT JOIN un pianeta senza personaggi resta, con le colonne di personaggi vuote.',
+      'COUNT(*) conta le righe, anche quella con le colonne vuote: conta invece una colonna di personaggi, che salta i valori NULL.',
     ],
-    tables: ['fazioni', 'personaggi'],
+    tables: ['pianeti', 'personaggi'],
   },
   {
     id: 'ex-089',
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'MIN'],
-    title: 'Le Astronavi Più Veloci di Ciascuna Fazione',
-    prompt: "Trova la velocità minima nell'iperguida (massima rapidità) registrata per ciascuna fazione che possiede navi, mostrando il nome della fazione e la velocità minima.",
+    title: 'Astronave più veloce di ogni fazione',
+    prompt: 'Per ogni fazione che possiede astronavi mostra il nome della fazione e la classe dell’iperguida della sua astronave più veloce: una classe più bassa vuol dire una nave più veloce.',
     expectedQuery: `
       SELECT fazioni.nome AS fazione, MIN(astronavi.velocita_iperguida) AS velocita_migliore
       FROM fazioni
       JOIN astronavi ON fazioni.id = astronavi.fazione_id
       GROUP BY fazioni.nome`,
     hints: [
-      'Unisci fazioni con astronavi.',
-      'Raggruppa per fazioni.nome e usa MIN(astronavi.velocita_iperguida).',
+      'Unisci fazioni e astronavi, poi raggruppa per il nome della fazione.',
+      'La nave più veloce ha la classe più bassa: ti serve MIN, non MAX.',
     ],
     tables: ['fazioni', 'astronavi'],
   },
@@ -1654,8 +1657,8 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'ORDER BY', 'SUM'],
-    title: 'Perdite Complessive nelle Battaglie per Fazione Vincitrice (con Nome Fazione)',
-    prompt: 'Mostra il nome della fazione vincitrice e il totale delle perdite stimate causate nei conflitti vinti, ordinando dalla fazione con più perdite a quella con meno.',
+    title: 'Perdite nelle battaglie vinte',
+    prompt: 'Per ogni fazione che ha vinto almeno una battaglia mostra il nome e la somma delle perdite stimate nelle battaglie che ha vinto, dalla fazione con la somma più alta.',
     expectedQuery: `
       SELECT fazioni.nome AS fazione, SUM(battaglie.perdite_stimate) AS perdite_totali
       FROM fazioni
@@ -1663,9 +1666,9 @@ const exercises: Exercise[] = [
       GROUP BY fazioni.nome
       ORDER BY perdite_totali DESC`,
     hints: [
-      'Unisci fazioni e battaglie.',
-      'Raggruppa per fazioni.nome e somma perdite_stimate con SUM().',
-      'Ordina con ORDER BY perdite_totali DESC.',
+      'Unisci fazioni e battaglie attraverso la fazione vincitrice.',
+      'Raggruppa per il nome della fazione e somma le perdite.',
+      'L’ordine si applica al risultato dei gruppi: in ORDER BY puoi usare la somma.',
     ],
     tables: ['fazioni', 'battaglie'],
   },
@@ -1729,8 +1732,8 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'COUNT'],
-    title: 'Distribuzione Spade Laser per Tipo Cristallo e Fazione del Personaggio',
-    prompt: 'Mostra il tipo di cristallo, il nome della fazione e il conteggio delle spade laser, unendo spade_laser, personaggi e fazioni.',
+    title: 'Spade laser per cristallo e fazione',
+    prompt: 'Per ogni combinazione di tipo di cristallo e fazione del proprietario mostra il tipo di cristallo, il nome della fazione e il numero di spade laser.',
     expectedQuery: `
       SELECT spade_laser.tipo_cristallo, fazioni.nome AS fazione, COUNT(*) AS totale
       FROM spade_laser
@@ -1738,8 +1741,8 @@ const exercises: Exercise[] = [
       JOIN fazioni ON personaggi.fazione_id = fazioni.id
       GROUP BY spade_laser.tipo_cristallo, fazioni.nome`,
     hints: [
-      'Unisci 3 tabelle: spade_laser, personaggi, fazioni.',
-      'Raggruppa sia per spade_laser.tipo_cristallo sia per fazioni.nome.',
+      'Servono tre tabelle: dalla spada al proprietario, dal proprietario alla sua fazione.',
+      'GROUP BY accetta più colonne separate da virgole: un gruppo per ogni coppia di valori.',
     ],
     tables: ['spade_laser', 'personaggi', 'fazioni'],
   },
@@ -1841,16 +1844,16 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'COUNT'],
-    title: 'Riepilogo Generale Galattico: Fazioni con Conteggio Personaggi e Conteggio Navi',
-    prompt: 'Mostra il nome della fazione, il numero di personaggi appartenenti a quella fazione (conteggio calcolato) e il suo tipo.',
+    title: 'Membri e tipo di ogni fazione',
+    prompt: 'Per ogni fazione mostra il nome, il tipo e il numero dei suoi membri.',
     expectedQuery: `
       SELECT fazioni.nome AS fazione, fazioni.tipo, COUNT(personaggi.id) AS numero_membri
       FROM fazioni
       JOIN personaggi ON fazioni.id = personaggi.fazione_id
       GROUP BY fazioni.nome, fazioni.tipo`,
     hints: [
-      'Unisci fazioni e personaggi.',
-      'Raggruppa per fazioni.nome e fazioni.tipo, calcolando COUNT(personaggi.id).',
+      'Unisci fazioni e personaggi, poi raggruppa.',
+      'Il tipo compare nella SELECT senza funzione di aggregazione: mettilo anche in GROUP BY, accanto al nome.',
     ],
     tables: ['fazioni', 'personaggi'],
   },
