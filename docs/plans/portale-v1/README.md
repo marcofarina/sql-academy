@@ -5,7 +5,7 @@
 | F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | completata | 2026-11-16 21:01 | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |
 | F02 | Definire formato degli esercizi e verifica delle risposte | F01 | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | medio | completata | 2026-11-16 21:36 | [P-F02](#p-f02) | [F02](F02-definire-esercizi-verifica.md) |
 | F03 | Costruire sandbox e guscio delle pagine di un tema | F01 | Opus 5.5 `medium` | medio | completata | 2026-11-17 12:40 | [P-F03](#p-f03) | [F03](F03-costruire-sandbox-guscio-tema.md) |
-| F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | da fare | | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
+| F04 | Portare database ed esercizi Star Wars su SQLite | F02 | Sonnet 5.5 `high` | medio-alto | completata | 2026-11-17 13:15 | [P-F04](#p-f04) | [F04](F04-portare-star-wars-su-sqlite.md) |
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | da fare | | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
@@ -264,7 +264,7 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Formato del tema | Cartella `themes/<id>/` autoscoperta al build | Requisito 1 e 4 di `AGENTS.md` |
 | Modello logico | Generato dallo schema SQL del tema | Non può divergere dal database |
 | Schema ER | File dichiarativo del tema, disegnato da un componente comune | Lo schema SQL non contiene nomi delle associazioni né scelte concettuali |
-| Primo tema | Star Wars, con i 121 esercizi del prototipo riverificati su SQLite | Contenuti già esistenti |
+| Primo tema | Star Wars, con i 105 esercizi del prototipo riverificati su SQLite | Contenuti già esistenti |
 | Tema di prova | Il Signore degli Anelli, in versione ridotta | Prova di modularità su un dominio nuovo |
 | Addestramento | Percorso per capitolo del libro (6–9) e difficoltà, più sessioni configurabili | Segue il libro e conserva il generatore del prototipo |
 | Progressi | `localStorage`, per tema | Nessun dato personale |
@@ -344,7 +344,7 @@ Fatti verificati il 2026-11-16 con `ls` e `grep` sui percorsi indicati, relativi
 | `python-doesnt-byte/src/theme/SQLRunner/sqlBridge.ts` | Ponte fra React e worker, con watchdog che termina il worker su una query che non finisce |
 | `python-doesnt-byte/src/components/DiagrammaER/` | Componente ER dichiarativo del libro (`index.tsx`, `layout.ts`, `types.ts`), cardinalità `(min,max)`; usa il carattere Excalifont, licenza OFL |
 | `jedi-academy/src/data/starWarsDatabase.ts` | Schema descrittivo e seed SQL di sette tabelle (272 righe) |
-| `jedi-academy/src/data/exercises.ts` | 121 esercizi (1413 righe): `id`, `title`, `description`, `difficulty`, `keywords`, `expectedQuery`, `hints`, `relevantTables`, `checkOrder` |
+| `jedi-academy/src/data/exercises.ts` | 105 esercizi (1413 righe): `id`, `title`, `description`, `difficulty`, `keywords`, `expectedQuery`, `hints`, `relevantTables`, `checkOrder` |
 | `jedi-academy/src/services/sessionGenerator.ts` | Generatore di sessioni del prototipo |
 
 Il libro dichiara `sql.js` `^1.14.1`; l’ultima versione su npm al 2026-11-16 è la 1.16.0 (`npm view sql.js version`). Node locale: v25.9.0.
@@ -364,3 +364,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-17 | F03 completata su Opus 5.5. Routing con hash, elenco dei temi, guscio con sei sezioni, sandbox con CodeMirror; dieci icone RB create e approvate da Marco. Dettagli e collaudo della skill nel dettaglio della fase. |
 | 2026-11-17 | Aggiunta F11 su richiesta di Marco: studio della veste con l’Artifact «Design» prima di F08, che ora dipende da F11. Ammesse icone tematiche e loghi o emblemi stilizzati. |
 | 2026-11-17 | Aggiunta F12 su richiesta di Marco: ogni tema ha la propria fase di studio della veste. F09 ora dipende da F12; le specifiche stanno in `docs/design/<id>.md`. |
+| 2026-11-17 | F04 completata su Sonnet 5.5. Database Star Wars e 105 esercizi su SQLite (il prototipo ne ha 105, non 121: corretto il piano). Ordinamenti completi in tre esercizi, difetti di schema e incongruenze fra consegna e query elencati nel dettaglio della fase per Marco e per F07. |

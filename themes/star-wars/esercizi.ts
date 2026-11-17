@@ -113,7 +113,7 @@ const exercises: Exercise[] = [
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY', 'LIMIT'],
     title: "Le 3 Astronavi più Veloci nell'Iperguida",
-    prompt: "Seleziona il nome, il modello e la velocità nell'iperguida delle prime 3 astronavi con il valore di velocita_iperguida più basso (in Star Wars, valore più basso indica astronave più rapida). A parità di velocità, ordina per nome in ordine alfabetico.",
+    prompt: "Seleziona il nome, il modello e la velocità nell'iperguida delle prime 3 astronavi con il valore di velocita_iperguida più basso (in Star Wars, valore più basso indica astronave più rapida). Ordina per velocità crescente e, a parità di velocità, per nome in ordine alfabetico.",
     expectedQuery: `
       SELECT nome, modello, velocita_iperguida
       FROM astronavi
@@ -384,7 +384,7 @@ const exercises: Exercise[] = [
     difficulty: 'facile',
     keywords: ['SELECT', 'FROM', 'ORDER BY', 'LIMIT'],
     title: 'I 5 Personaggi Più Anziani',
-    prompt: "Seleziona il nome e l'anno di nascita dei 5 personaggi con il valore di anno_nascita_bby più alto (i più anziani).",
+    prompt: "Seleziona il nome e l'anno di nascita dei 5 personaggi con il valore di anno_nascita_bby più alto (i più anziani). Ordinali dal più anziano.",
     expectedQuery: `
       SELECT nome, anno_nascita_bby
       FROM personaggi
@@ -1293,6 +1293,558 @@ const exercises: Exercise[] = [
       'Filtra con la clausola HAVING COUNT(*) > 1.',
     ],
     tables: ['astronavi'],
+  },
+  // Difficile (30)
+  {
+    id: 'ex-076',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN'],
+    title: 'Personaggio, Specie, Pianeta Natale e Fazione (Tripla JOIN)',
+    prompt: 'Mostra in un unico report il nome del personaggio, il nome della sua specie, il nome del pianeta natale e il nome della sua fazione, unendo 4 tabelle.',
+    expectedQuery: `
+      SELECT personaggi.nome AS personaggio,
+             specie.nome AS specie,
+             pianeti.nome AS pianeta,
+             fazioni.nome AS fazione
+      FROM personaggi
+      JOIN specie ON personaggi.specie_id = specie.id
+      JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id`,
+    hints: [
+      'Collega la tabella personaggi con specie, poi con pianeti, poi con fazioni.',
+      'Usa 3 clausole JOIN con le rispettive chiavi esterne.',
+    ],
+    tables: ['personaggi', 'specie', 'pianeti', 'fazioni'],
+  },
+  {
+    id: 'ex-077',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN'],
+    title: 'Personaggi con Spada Laser e Nome della Fazione',
+    prompt: 'Mostra il nome del personaggio, il colore della spada laser e il nome della fazione di appartenenza, unendo personaggi, spade_laser e fazioni.',
+    expectedQuery: `
+      SELECT personaggi.nome AS personaggio, spade_laser.colore_lama, fazioni.nome AS fazione
+      FROM personaggi
+      JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id`,
+    hints: [
+      'Unisci personaggi con spade_laser su personaggi.id = spade_laser.personaggio_id.',
+      'Unisci con fazioni su personaggi.fazione_id = fazioni.id.',
+    ],
+    tables: ['personaggi', 'spade_laser', 'fazioni'],
+  },
+  {
+    id: 'ex-078',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Pianeti Senza Alcun Personaggio Registrato (Sottoquery NOT IN)',
+    prompt: "Trova il nome di tutti i pianeti dai quali NON proviene alcun personaggio registrato nella tabella 'personaggi'.",
+    expectedQuery: `
+      SELECT nome
+      FROM pianeti
+      WHERE id NOT IN (SELECT pianeta_origine_id FROM personaggi WHERE pianeta_origine_id IS NOT NULL)`,
+    hints: [
+      'Usa una sottoquery con NOT IN: WHERE id NOT IN (SELECT pianeta_origine_id FROM personaggi ...).',
+      'In alternativa puoi usare una LEFT JOIN filtrando dove la chiave del personaggio è NULL.',
+    ],
+    tables: ['pianeti', 'personaggi'],
+  },
+  {
+    id: 'ex-079',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Personaggi che NON Possiedono una Spada Laser',
+    prompt: "Trova il nome e il ruolo di tutti i personaggi che NON hanno una spada laser registrata nell'archivio.",
+    expectedQuery: `
+      SELECT nome, ruolo
+      FROM personaggi
+      WHERE id NOT IN (SELECT personaggio_id FROM spade_laser)`,
+    hints: [
+      'Usa una sottoquery per selezionare tutti i personaggio_id presenti in spade_laser.',
+      'Filtra la tabella personaggi con WHERE id NOT IN (...).',
+    ],
+    tables: ['personaggi', 'spade_laser'],
+  },
+  {
+    id: 'ex-080',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Astronavi Più Lunghe della Lunghezza Media di Tutte le Navi',
+    prompt: 'Seleziona il nome, il modello e la lunghezza delle astronavi la cui lunghezza supera la lunghezza media di tutte le astronavi della flotta.',
+    expectedQuery: `
+      SELECT nome, modello, lunghezza_metri
+      FROM astronavi
+      WHERE lunghezza_metri > (SELECT AVG(lunghezza_metri) FROM astronavi)`,
+    hints: [
+      'Crea una sottoquery scalare (SELECT AVG(lunghezza_metri) FROM astronavi).',
+      "Usa l'operatore maggiore (>) nella clausola WHERE della query principale.",
+    ],
+    tables: ['astronavi'],
+  },
+  {
+    id: 'ex-081',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN'],
+    title: 'Battaglie e Fazione Vincitrice con Dettagli Pianeta (Multi-JOIN)',
+    prompt: 'Estrai il nome della battaglia, il nome del pianeta su cui si è combattuto, il clima del pianeta e il nome della fazione vincitrice.',
+    expectedQuery: `
+      SELECT battaglie.nome AS battaglia,
+             pianeti.nome AS pianeta,
+             pianeti.clima,
+             fazioni.nome AS fazione_vincitrice
+      FROM battaglie
+      JOIN pianeti ON battaglie.pianeta_id = pianeti.id
+      JOIN fazioni ON battaglie.fazione_vincitrice_id = fazioni.id`,
+    hints: [
+      'Unisci battaglie con pianeti (battaglie.pianeta_id = pianeti.id).',
+      'Unisci battaglie con fazioni (battaglie.fazione_vincitrice_id = fazioni.id).',
+    ],
+    tables: ['battaglie', 'pianeti', 'fazioni'],
+  },
+  {
+    id: 'ex-082',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY'],
+    title: 'Fazioni con Flotta: Conteggio Navi e Lunghezza Totale',
+    prompt: "Per ogni fazione che possiede almeno un'astronave, mostra il nome della fazione, il numero di astronavi e la somma della loro lunghezza in metri.",
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione,
+             COUNT(astronavi.id) AS numero_navi,
+             SUM(astronavi.lunghezza_metri) AS lunghezza_totale
+      FROM fazioni
+      JOIN astronavi ON fazioni.id = astronavi.fazione_id
+      GROUP BY fazioni.nome`,
+    hints: [
+      'Unisci fazioni e astronavi.',
+      'Raggruppa per fazioni.nome e calcola COUNT e SUM.',
+    ],
+    tables: ['fazioni', 'astronavi'],
+  },
+  {
+    id: 'ex-083',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'MAX'],
+    title: 'Personaggio Più Anziano per Ciascuna Fazione (Sottoquery Correlata o Raggruppamento)',
+    prompt: "Trova il valore massimo di anno_nascita_bby (il più anziano) per ciascuna fazione, mostrando il nome della fazione e l'età massima in BBY.",
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, MAX(personaggi.anno_nascita_bby) AS massimo_anno_bby
+      FROM personaggi
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id
+      GROUP BY fazioni.nome`,
+    hints: [
+      'Unisci personaggi con fazioni.',
+      'Raggruppa per fazioni.nome e usa MAX(personaggi.anno_nascita_bby).',
+    ],
+    tables: ['personaggi', 'fazioni'],
+  },
+  {
+    id: 'ex-084',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Pianeti la cui Popolazione Supera quella di Tatooine',
+    prompt: "Seleziona il nome e la popolazione dei pianeti che hanno una popolazione superiore a quella di 'Tatooine', usando una sottoquery.",
+    expectedQuery: `
+      SELECT nome, popolazione
+      FROM pianeti
+      WHERE popolazione > (SELECT popolazione FROM pianeti WHERE nome = 'Tatooine')`,
+    hints: [
+      "Usa una sottoquery per ricavare la popolazione di Tatooine: (SELECT popolazione FROM pianeti WHERE nome = 'Tatooine').",
+      "Confronta la popolazione con l'operatore >.",
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-085',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING', 'COUNT'],
+    title: 'Fazioni che Hanno Vinto Almeno 2 Battaglie',
+    prompt: 'Trova il nome delle fazioni che hanno vinto 2 o più battaglie, unendo battaglie e fazioni e applicando un filtro sui gruppi.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, COUNT(battaglie.id) AS vittorie
+      FROM fazioni
+      JOIN battaglie ON fazioni.id = battaglie.fazione_vincitrice_id
+      GROUP BY fazioni.nome
+      HAVING COUNT(battaglie.id) >= 2`,
+    hints: [
+      'Unisci fazioni e battaglie.',
+      'Raggruppa per fazioni.nome e filtra con HAVING COUNT(battaglie.id) >= 2.',
+    ],
+    tables: ['fazioni', 'battaglie'],
+  },
+  {
+    id: 'ex-086',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Personaggi con Spada Laser Blu Nati prima di Yavin',
+    prompt: "Mostra il nome del personaggio, il suo ruolo, l'anno di nascita e il cristallo della spada per chi possiede una spada 'Blu', unendo personaggi e spade_laser.",
+    expectedQuery: `
+      SELECT personaggi.nome,
+             personaggi.ruolo,
+             personaggi.anno_nascita_bby,
+             spade_laser.tipo_cristallo
+      FROM personaggi
+      JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
+      WHERE spade_laser.colore_lama = 'Blu'`,
+    hints: [
+      'Collega personaggi e spade_laser su personaggi.id = spade_laser.personaggio_id.',
+      "Filtra per colore_lama = 'Blu'.",
+    ],
+    tables: ['personaggi', 'spade_laser'],
+  },
+  {
+    id: 'ex-087',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Pianeti che sono Teatri di Battaglie con Perdite Superiori alla Media',
+    prompt: 'Trova i nomi dei pianeti dove si sono svolte battaglie con perdite stimate superiori alla media delle perdite di tutte le battaglie.',
+    expectedQuery: `
+      SELECT DISTINCT pianeti.nome
+      FROM pianeti
+      JOIN battaglie ON pianeti.id = battaglie.pianeta_id
+      WHERE battaglie.perdite_stimate > (SELECT AVG(perdite_stimate) FROM battaglie)`,
+    hints: [
+      'Usa una sottoquery (SELECT AVG(perdite_stimate) FROM battaglie) nel filtro WHERE.',
+      'Unisci pianeti con battaglie e usa DISTINCT.',
+    ],
+    tables: ['pianeti', 'battaglie'],
+  },
+  {
+    id: 'ex-088',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'LEFT JOIN', 'GROUP BY', 'COUNT'],
+    title: 'Numero di Personaggi per Nome della Fazione (anche fazioni con 0 personaggi)',
+    prompt: 'Mostra il nome di TUTTE le fazioni e il numero di personaggi appartenenti a ciascuna, includendo anche le fazioni senza personaggi (LEFT JOIN).',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, COUNT(personaggi.id) AS totale_personaggi
+      FROM fazioni
+      LEFT JOIN personaggi ON fazioni.id = personaggi.fazione_id
+      GROUP BY fazioni.nome`,
+    hints: [
+      'Usa una LEFT JOIN partendo da fazioni verso personaggi.',
+      'Conta personaggi.id (e NON *) per contare 0 quando non ci sono corrispondenze.',
+    ],
+    tables: ['fazioni', 'personaggi'],
+  },
+  {
+    id: 'ex-089',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'MIN'],
+    title: 'Le Astronavi Più Veloci di Ciascuna Fazione',
+    prompt: "Trova la velocità minima nell'iperguida (massima rapidità) registrata per ciascuna fazione che possiede navi, mostrando il nome della fazione e la velocità minima.",
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, MIN(astronavi.velocita_iperguida) AS velocita_migliore
+      FROM fazioni
+      JOIN astronavi ON fazioni.id = astronavi.fazione_id
+      GROUP BY fazioni.nome`,
+    hints: [
+      'Unisci fazioni con astronavi.',
+      'Raggruppa per fazioni.nome e usa MIN(astronavi.velocita_iperguida).',
+    ],
+    tables: ['fazioni', 'astronavi'],
+  },
+  {
+    id: 'ex-090',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Personaggi della Stessa Specie di Yoda (Sottoquery)',
+    prompt: "Trova il nome e l'anno di nascita di tutti i personaggi appartenenti alla stessa specie di 'Yoda' (escluso Yoda stesso).",
+    expectedQuery: `
+      SELECT nome, anno_nascita_bby
+      FROM personaggi
+      WHERE specie_id = (SELECT specie_id FROM personaggi WHERE nome = 'Yoda')
+        AND nome <> 'Yoda'`,
+    hints: [
+      "Usa una sottoquery per trovare specie_id di Yoda: (SELECT specie_id FROM personaggi WHERE nome = 'Yoda').",
+      "Escludi Yoda con AND nome <> 'Yoda'.",
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-091',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Specie Native di Pianeti con Clima Temperato',
+    prompt: "Mostra il nome della specie, il linguaggio e il nome del pianeta madre per le specie originarie di pianeti con clima 'temperato'.",
+    expectedQuery: `
+      SELECT specie.nome AS specie, specie.linguaggio, pianeti.nome AS pianeta
+      FROM specie
+      JOIN pianeti ON specie.pianeta_madre_id = pianeti.id
+      WHERE pianeti.clima = 'temperato'`,
+    hints: [
+      'Collega specie a pianeti tramite pianeta_madre_id.',
+      "Filtra dove pianeti.clima = 'temperato'.",
+    ],
+    tables: ['specie', 'pianeti'],
+  },
+  {
+    id: 'ex-092',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN'],
+    title: 'Personaggi con Spada Laser e Dettagli del Pianeta Natale (Tripla JOIN)',
+    prompt: 'Mostra il nome del personaggio, il nome del pianeta natale e il colore della lama della sua spada laser unendo personaggi, pianeti e spade_laser.',
+    expectedQuery: `
+      SELECT personaggi.nome AS personaggio, pianeti.nome AS pianeta, spade_laser.colore_lama
+      FROM personaggi
+      JOIN pianeti ON personaggi.pianeta_origine_id = pianeti.id
+      JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id`,
+    hints: [
+      'Esegui una JOIN con pianeti (pianeta_origine_id = pianeti.id) e una con spade_laser (personaggi.id = spade_laser.personaggio_id).',
+      'Proietta i 3 attributi richiesti.',
+    ],
+    tables: ['personaggi', 'pianeti', 'spade_laser'],
+  },
+  {
+    id: 'ex-093',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'SUM'],
+    title: "Pianeti con Popolazione Superiore alla Somma di Tutti i Pianeti dell'Orlo Esterno",
+    prompt: "Trova il nome e la popolazione dei pianeti la cui popolazione da sola è maggiore della popolazione totale di tutti i pianeti dell'Orlo Esterno.",
+    expectedQuery: `
+      SELECT nome, popolazione
+      FROM pianeti
+      WHERE popolazione > (SELECT SUM(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Esterno')`,
+    hints: [
+      "Calcola la somma dell'Orlo Esterno in una sottoquery: (SELECT SUM(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Esterno').",
+      'Confronta con la popolazione del singolo pianeta.',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-094',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'Fazioni che Hanno Sia Personaggi che Astronavi',
+    prompt: "Estrai i nomi delle fazioni che hanno sia almeno un personaggio registrato sia almeno un'astronave registrata.",
+    expectedQuery: `
+      SELECT nome
+      FROM fazioni
+      WHERE id IN (SELECT fazione_id FROM personaggi)
+        AND id IN (SELECT fazione_id FROM astronavi)`,
+    hints: [
+      'Usa due condizioni con IN: id IN (SELECT fazione_id FROM personaggi) AND id IN (SELECT fazione_id FROM astronavi).',
+      'Seleziona il nome della fazione.',
+    ],
+    tables: ['fazioni', 'personaggi', 'astronavi'],
+  },
+  {
+    id: 'ex-095',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'ORDER BY', 'SUM'],
+    title: 'Perdite Complessive nelle Battaglie per Fazione Vincitrice (con Nome Fazione)',
+    prompt: 'Mostra il nome della fazione vincitrice e il totale delle perdite stimate causate nei conflitti vinti, ordinando dalla fazione con più perdite a quella con meno.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, SUM(battaglie.perdite_stimate) AS perdite_totali
+      FROM fazioni
+      JOIN battaglie ON fazioni.id = battaglie.fazione_vincitrice_id
+      GROUP BY fazioni.nome
+      ORDER BY perdite_totali DESC`,
+    hints: [
+      'Unisci fazioni e battaglie.',
+      'Raggruppa per fazioni.nome e somma perdite_stimate con SUM().',
+      'Ordina con ORDER BY perdite_totali DESC.',
+    ],
+    tables: ['fazioni', 'battaglie'],
+  },
+  {
+    id: 'ex-096',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Personaggi Sensibili alla Forza con Fazione e Ruolo Specifico',
+    prompt: 'Mostra il nome del personaggio, il suo ruolo e il leader della sua fazione per tutti i personaggi con sensibile_alla_forza = 1 e fazione non nulla.',
+    expectedQuery: `
+      SELECT personaggi.nome AS personaggio, personaggi.ruolo, fazioni.leader
+      FROM personaggi
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id
+      WHERE personaggi.sensibile_alla_forza = 1`,
+    hints: [
+      'Unisci personaggi con fazioni.',
+      'Filtra con WHERE personaggi.sensibile_alla_forza = 1.',
+    ],
+    tables: ['personaggi', 'fazioni'],
+  },
+  {
+    id: 'ex-097',
+    chapter: 'una-tabella',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Astronavi con Equipaggio Superiore alla Media della Propria Fazione',
+    prompt: "Trova il nome dell'astronave, il modello e la capacità equipaggio per le navi la cui capacità equipaggio supera 100 membri.",
+    expectedQuery: `
+      SELECT nome, modello, capacita_equipaggio
+      FROM astronavi
+      WHERE capacita_equipaggio > 100`,
+    hints: [
+      'Filtra la tabella astronavi con capacita_equipaggio > 100.',
+      'Proietta nome, modello e capacita_equipaggio.',
+    ],
+    tables: ['astronavi'],
+  },
+  {
+    id: 'ex-098',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: "Pianeti con Battaglie nell'Anno 0 BBY o Precedente",
+    prompt: 'Mostra il nome del pianeta e il nome della battaglia svoltasi in anno_bby <= 0 (durante o dopo la Battaglia di Yavin).',
+    expectedQuery: `
+      SELECT pianeti.nome AS pianeta, battaglie.nome AS battaglia, battaglie.anno_bby
+      FROM pianeti
+      JOIN battaglie ON pianeti.id = battaglie.pianeta_id
+      WHERE battaglie.anno_bby <= 0`,
+    hints: [
+      'Unisci pianeti con battaglie.',
+      'Filtra con battaglie.anno_bby <= 0.',
+    ],
+    tables: ['pianeti', 'battaglie'],
+  },
+  {
+    id: 'ex-099',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'COUNT'],
+    title: 'Distribuzione Spade Laser per Tipo Cristallo e Fazione del Personaggio',
+    prompt: 'Mostra il tipo di cristallo, il nome della fazione e il conteggio delle spade laser, unendo spade_laser, personaggi e fazioni.',
+    expectedQuery: `
+      SELECT spade_laser.tipo_cristallo, fazioni.nome AS fazione, COUNT(*) AS totale
+      FROM spade_laser
+      JOIN personaggi ON spade_laser.personaggio_id = personaggi.id
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id
+      GROUP BY spade_laser.tipo_cristallo, fazioni.nome`,
+    hints: [
+      'Unisci 3 tabelle: spade_laser, personaggi, fazioni.',
+      'Raggruppa sia per spade_laser.tipo_cristallo sia per fazioni.nome.',
+    ],
+    tables: ['spade_laser', 'personaggi', 'fazioni'],
+  },
+  {
+    id: 'ex-100',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN', 'WHERE', 'LIKE'],
+    title: 'Il Maestro e il Pianeta: Pianeti con Almeno un Maestro Jedi',
+    prompt: "Estrai i nomi univoci dei pianeti di nascita dei personaggi che hanno il ruolo di 'Maestro Jedi' o 'Gran Maestro Jedi'.",
+    expectedQuery: `
+      SELECT DISTINCT pianeti.nome AS pianeta
+      FROM pianeti
+      JOIN personaggi ON pianeti.id = personaggi.pianeta_origine_id
+      WHERE personaggi.ruolo LIKE '%Maestro Jedi%'`,
+    hints: [
+      'Collega pianeti con personaggi.',
+      "Filtra dove personaggi.ruolo LIKE '%Maestro Jedi%'.",
+      'Usa DISTINCT per evitare duplicati.',
+    ],
+    tables: ['pianeti', 'personaggi'],
+  },
+  {
+    id: 'ex-101',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Fazioni Senza Battaglie Vinte (LEFT JOIN o NOT IN)',
+    prompt: 'Mostra il nome e il leader di tutte le fazioni che NON hanno vinto alcuna battaglia registrata.',
+    expectedQuery: `
+      SELECT nome, leader
+      FROM fazioni
+      WHERE id NOT IN (SELECT fazione_vincitrice_id FROM battaglie)`,
+    hints: [
+      'Usa una sottoquery per ricavare gli ID delle fazioni vincitrici.',
+      'Filtra la tabella fazioni con id NOT IN (...).',
+    ],
+    tables: ['fazioni', 'battaglie'],
+  },
+  {
+    id: 'ex-102',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'MAX'],
+    title: 'Pianeti con Popolazione Maggiore di Qualsiasi Pianeta del Settore Mediano',
+    prompt: "Seleziona il nome e la popolazione dei pianeti la cui popolazione supera il massimo di popolazione presente nell'Orlo Mediano.",
+    expectedQuery: `
+      SELECT nome, popolazione
+      FROM pianeti
+      WHERE popolazione > (SELECT MAX(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Mediano')`,
+    hints: [
+      "Trova il massimo con (SELECT MAX(popolazione) FROM pianeti WHERE settore_galattico = 'Orlo Mediano').",
+      'Confronta con popolazione > (...).',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-103',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN'],
+    title: 'Personaggi con Fazione e Dettagli Astronave della Fazione (Multi-JOIN)',
+    prompt: 'Mostra il nome del personaggio, il nome della sua fazione e il nome delle astronavi gestite da quella fazione unendo personaggi, fazioni e astronavi.',
+    expectedQuery: `
+      SELECT personaggi.nome AS personaggio,
+             fazioni.nome AS fazione,
+             astronavi.nome AS astronave
+      FROM personaggi
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id
+      JOIN astronavi ON fazioni.id = astronavi.fazione_id`,
+    hints: [
+      'Collega personaggi con fazioni, e fazioni con astronavi su fazione_id = fazioni.id.',
+      'Proietta personaggio, fazione e astronave.',
+    ],
+    tables: ['personaggi', 'fazioni', 'astronavi'],
+  },
+  {
+    id: 'ex-104',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'LIKE'],
+    title: 'Personaggi con Spada Laser Impugnatura Curva o Doppia Lama',
+    prompt: "Trova il nome del personaggio, il suo ruolo e l'impugnatura della sua spada laser per spade con impugnatura contenente 'curva' o 'Doppia'.",
+    expectedQuery: `
+      SELECT personaggi.nome, personaggi.ruolo, spade_laser.impugnatura
+      FROM personaggi
+      JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
+      WHERE spade_laser.impugnatura LIKE '%curva%' OR spade_laser.impugnatura LIKE '%Doppia%'`,
+    hints: [
+      'Unisci personaggi e spade_laser.',
+      'Applica la condizione WHERE con LIKE su impugnatura.',
+    ],
+    tables: ['personaggi', 'spade_laser'],
+  },
+  {
+    id: 'ex-105',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'COUNT'],
+    title: 'Riepilogo Generale Galattico: Fazioni con Conteggio Personaggi e Conteggio Navi',
+    prompt: 'Mostra il nome della fazione, il numero di personaggi appartenenti a quella fazione (conteggio calcolato) e il suo tipo.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, fazioni.tipo, COUNT(personaggi.id) AS numero_membri
+      FROM fazioni
+      JOIN personaggi ON fazioni.id = personaggi.fazione_id
+      GROUP BY fazioni.nome, fazioni.tipo`,
+    hints: [
+      'Unisci fazioni e personaggi.',
+      'Raggruppa per fazioni.nome e fazioni.tipo, calcolando COUNT(personaggi.id).',
+    ],
+    tables: ['fazioni', 'personaggi'],
   },
 ];
 
