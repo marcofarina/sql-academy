@@ -13,7 +13,7 @@
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
 | F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | completata | 2026-11-18 01:24 | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
-| F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
+| F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 13:18 | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
 | F13 | Definire regole dei punti e progressi versione 2 | F05 | Sonnet 5.5 `high` | medio | da fare | | [P-F13](#p-f13) | [F13](F13-definire-regole-punti-progressi.md) |
 | F14 | Mostrare saldo, costi e punti nell’interfaccia | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F14](#p-f14) | [F14](F14-mostrare-saldo-costi-punti.md) |
 | F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | da fare | | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
@@ -393,6 +393,7 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Veste di un tema | Il manifest aggiunge `motto` (fronte della locandina), `icons` e `schemes` (icone per schema: `emblem`, `empty`; `solved` comune). File facoltativi del tema: `stile.css` (radice `.theme[data-theme-id="<id>"]`), `locandina.css` (radice `.poster[data-theme-id="<id>"]`), `icone/`, `fonts/`; `check:themes` controlla che ogni regola resti confinata. Le variabili ridefinibili sono in `src/styles.css`, l’unico file con colori scritti a mano (Marco e Claude, 2026-11-18, in F08) | Un tema nuovo si veste senza toccare i componenti comuni |
 | Numeri della scheda di un tema | Tabelle, righe ed esercizi per difficoltà e capitolo calcolati al build dal plugin `scripts/themeStatsPlugin.ts` (modulo `virtual:theme-stats`) (Marco, 2026-11-18, in F08) | La pagina iniziale non scarica SQLite e i numeri non si scrivono a mano |
 | Caratteri | Serviti dal progetto, TTF originali di `google/fonts` con il loro `OFL.txt`: comuni in `src/assets/fonts/`, di un tema in `themes/<id>/fonts/` (Marco, 2026-11-18, in F08) | Nessuna richiesta a servizi esterni; licenze accanto ai file |
+| Veste Il Signore degli Anelli | Due schemi: chiaro «la mappa della Contea» (carta, inchiostro seppia, verde della Contea, percorso rosso tra le sezioni) e scuro «le porte di Moria» (pietra ardesia, *ithildin*, pulsante d’argento); emblemi `wizard-staff` e `eye-of-sauron`, sandbox con `one-ring`; locandina chiara. Specifica in `docs/design/lotr.md` (Marco, 2026-11-18, in F12) | Marco ha approvato entrambe le direzioni proposte, una per schema |
 | Contrasto delle palette | `node docs/design/contrasto.mjs [palette]` misura ogni coppia delle specifiche ed esce con errore sotto 4,5:1 (testo) o 3:1 (bordi e icone) (Claude, in F11) | F08 e F12 devono misurare con uno strumento, non a occhio |
 
 ### Icone
@@ -449,6 +450,12 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `lightsabers-crossed` | Star Wars, esercizio risolto | F08 | creata (Opus 5.5) | approvata alla terza versione; una spada sola restava sotto la copertura minima (R1.6) |
 | `x-wing` | Star Wars, stati vuoti nello schema chiaro | F08 | creata (Opus 5.5) | approvata alla terza versione |
 | `battle-station` | Star Wars, stati vuoti nello schema scuro | F08 | creata (Opus 5.5) | approvata alla terza versione |
+| `one-ring` | Il Signore degli Anelli, sezione Sandbox (da collegare in F09) | F12 | creata (Opus 5.5) | approvata alla terza versione: Marco ha chiesto una catenella doppia a parabola invece della maglia infilata |
+| `wizard-staff` | Il Signore degli Anelli, emblema dello schema chiaro (da collegare in F09) | F12 | creata (Opus 5.5) | approvata la seconda versione, disegnata da una foto di riferimento di Marco: la prima sembrava una bacchetta |
+| `eye-of-sauron` | Il Signore degli Anelli, emblema dello schema scuro (da collegare in F09) | F12 | creata (Opus 5.5) | approvata la terza versione, con contorno a fiamme: la seconda, a raggi, sembrava un ragno |
+| `hobbit-door` | Il Signore degli Anelli, proposta per lo stato vuoto chiaro | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `wizard-staff` |
+| `durin-door` | Il Signore degli Anelli, proposta per lo stato vuoto scuro | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `eye-of-sauron` |
+| `magic-wand` | nessuno | F12 | creata (Opus 5.5) | primo `wizard-staff`, rinominato; Marco l’ha tenuta nel catalogo senza usarla |
 
 ### Struttura di un tema
 
@@ -506,3 +513,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-17 | F06 completata su Opus 5.5. Modello logico letto dal database con vista del codice; componente ER copiato dal libro (rough.js, Excalifont) con le linee distribuite sullo stesso lato; `themes/star-wars/er.ts` approvato da Marco; coerenza fra ER e tabelle in `check:themes`. Tre icone RB nuove approvate (`code`, `link`, `copy`). |
 | 2026-11-18 | F11 completata su Opus 5.5. Tavole nell’Artifact «Design»; specifiche `docs/design/neutra.md` e `docs/design/star-wars.md`, approvate da Marco; script `docs/design/contrasto.mjs`. Nuova decisione sul contratto: schemi chiaro e scuro per tema. Emblemi dell’Alleanza e dell’Impero da creare in F08. |
 | 2026-11-18 | F08 completata su Opus 5.5, in due sessioni (la prima interrotta per limite di utilizzo). Contratto della veste, veste Star Wars con schemi chiaro e scuro, pagina iniziale a locandine; cinque icone tematiche approvate. Dettagli e scostamenti dalla tavola nel dettaglio della fase. |
+| 2026-11-18 | F12 completata su Opus 5.5. Tavole nell’Artifact «Design» [SQL Academy — veste Il Signore degli Anelli](https://claude.ai/artifact/DtawNio6cxm36cFE3Euij7); Marco ha approvato entrambe le direzioni come schema chiaro (mappa della Contea) e scuro (porte di Moria). Specifica `docs/design/lotr.md`; sei icone tematiche create su richiesta di Marco (anticipate da F09); due lacune del contratto per F09. |

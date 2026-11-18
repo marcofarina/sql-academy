@@ -15,7 +15,7 @@ Un secondo tema ridotto ma completo in tutte e sei le sezioni, aggiunto creando 
 ## 2. Contesto minimo
 
 - Contratto del tema e passaggi di consegne di F01, F02, F06, F08, F12.
-- `docs/design/lotr.md`: veste approvata da Marco in F12; F09 la applica, non la ridecide.
+- `docs/design/lotr.md`: veste approvata da Marco in F12; F09 la applica, non la ridecide. Le icone tematiche principali esistono già nella libreria (F12): si copiano, non si ridisegnano. La sezione «Lacune del contratto» elenca due correzioni del contratto attese (icona di una sezione, decorazioni SVG).
 - `themes/star-wars/` come esempio di tema completo.
 - Icone: leggi la sezione «Icone» del `README.md` del piano e segui la skill `icone-rb` per ogni icona (catalogo RB Icons, poi creazione se manca). Le icone del tema stanno in `themes/lotr/icone/`: non si tocca `src/assets/icons/`; se manca un’icona comune, è un difetto da descrivere a Marco, non da aggirare.
 - `.claude/norms/scrittura-didattica.md` e `.claude/norms/scrittura-umana.md`.

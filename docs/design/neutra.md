@@ -109,7 +109,7 @@ Il **fronte** appartiene al tema: colori, decorazioni e caratteri del titolo son
 
 Il fronte Star Wars delle tavole: fondo `#070B1A` con stelle (puntini `#FFFFFF`, `#C9D4FF`, `#FFE9A8`), un pianeta che sorge in basso a destra (gradiente radiale da `#FBE6A8` a `#3A1508` attraverso `#E7A247` e `#A9481C`), una luna (`#DDE4F2`, `#7C88A8`, `#2C3350`), titolo `#F2C94C`, motto e crediti `#C3CADB`, colore di base del testo `#F4F1E6`.
 
-Il fronte del Signore degli Anelli nelle tavole è provvisorio e lo ridecide F12. Valori delle tavole: fondo da `#0D1C16` a `#2B4A37` attraverso `#1B3427`; montagne `#1E3A2D` e `#102219`; sole da `#FFF3C8` a `#B38B3A` attraverso `#E2C878`; titolo `#E9D38E`; motto e riga `#D4DCCF`; colore di base del testo `#F1EAD2`.
+Il fronte del Signore degli Anelli nelle tavole era provvisorio: F12 lo ha sostituito con quello di `docs/design/lotr.md`, sezione «Locandina». Valori delle tavole: fondo da `#0D1C16` a `#2B4A37` attraverso `#1B3427`; montagne `#1E3A2D` e `#102219`; sole da `#FFF3C8` a `#B38B3A` attraverso `#E2C878`; titolo `#E9D38E`; motto e riga `#D4DCCF`; colore di base del testo `#F1EAD2`.
 
 Il **retro** è la scheda del tema ed è uguale per tutti i temi. I numeri si ricavano dal database e dagli esercizi del tema, non si scrivono a mano:
 
