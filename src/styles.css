@@ -307,8 +307,11 @@ h1 .icon-box {
   left: 3px;
   width: calc(50% - 4px);
   border-radius: 999px;
-  background: var(--color-text);
-  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  background-color: var(--color-text);
+  /* Il colore cambia con lo schema: sfuma lungo lo stesso tragitto del fondo. */
+  transition:
+    transform 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    background-color 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* «Scuro» è il secondo pulsante, come in SCHEMES (src/themes/contract.ts). */
