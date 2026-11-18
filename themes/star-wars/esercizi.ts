@@ -1859,6 +1859,189 @@ const exercises: Exercise[] = [
     ],
     tables: ['fazioni', 'personaggi'],
   },
+
+  // F22 — una tabella: medio (6), difficile (4)
+  {
+    id: 'ex-106',
+    chapter: 'una-tabella',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'Lame blu, viola o bianche',
+    prompt: 'Mostra l’id, il colore della lama e l’impugnatura delle spade laser con la lama blu, viola o bianca.',
+    expectedQuery: `
+      SELECT id, colore_lama, impugnatura
+      FROM spade_laser
+      WHERE colore_lama IN ('Blu', 'Viola', 'Bianco')`,
+    hints: [
+      'Potresti unire tre confronti con OR, ma c’è un operatore che controlla se un valore compare in un elenco.',
+      'Scrivi WHERE colore_lama IN (…) con i tre colori fra apici, con l’iniziale maiuscola come nel database: il bianco è «Bianco».',
+    ],
+    tables: ['spade_laser'],
+  },
+  {
+    id: 'ex-107',
+    chapter: 'una-tabella',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IS NULL'],
+    title: 'Nati chissà dove',
+    prompt: 'Mostra il nome e il ruolo dei personaggi di cui l’archivio non conosce il pianeta natale.',
+    expectedQuery: `
+      SELECT nome, ruolo
+      FROM personaggi
+      WHERE pianeta_origine_id IS NULL`,
+    hints: [
+      'Quando un dato manca, la colonna pianeta_origine_id contiene NULL.',
+      'Il confronto = NULL non trova nessuna riga: per i valori mancanti si scrive IS NULL.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-108',
+    chapter: 'una-tabella',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT LIKE'],
+    title: 'Sensibili alla Forza, né Jedi né Sith',
+    prompt: 'Mostra il nome e il ruolo dei personaggi sensibili alla Forza il cui ruolo non contiene né la parola «Jedi» né la parola «Sith».',
+    expectedQuery: `
+      SELECT nome, ruolo
+      FROM personaggi
+      WHERE sensibile_alla_forza = 1
+        AND ruolo NOT LIKE '%Jedi%'
+        AND ruolo NOT LIKE '%Sith%'`,
+    hints: [
+      'Le condizioni sono tre e devono valere tutte insieme: uniscile con AND.',
+      'NOT LIKE \'%Jedi%\' scarta i ruoli che contengono «Jedi» in qualunque posizione; fai lo stesso per «Sith».',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-109',
+    chapter: 'una-tabella',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Astronavi misurate in chilometri',
+    prompt: 'Mostra il nome delle astronavi lunghe almeno 1000 metri e la loro lunghezza espressa in chilometri.',
+    expectedQuery: `
+      SELECT nome, lunghezza_metri / 1000 AS lunghezza_km
+      FROM astronavi
+      WHERE lunghezza_metri >= 1000`,
+    hints: [
+      'Dopo SELECT puoi scrivere un calcolo sulle colonne, non solo il nome di una colonna.',
+      'Un chilometro è fatto di 1000 metri: dividi lunghezza_metri per 1000. «Almeno» vuol dire >=.',
+    ],
+    tables: ['astronavi'],
+  },
+  {
+    id: 'ex-110',
+    chapter: 'una-tabella',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'ORDER BY'],
+    title: 'Pianeti settore per settore',
+    prompt: 'Mostra il settore galattico e il nome di ogni pianeta, ordinati per settore in ordine alfabetico e, dentro lo stesso settore, per nome.',
+    expectedQuery: `
+      SELECT settore_galattico, nome
+      FROM pianeti
+      ORDER BY settore_galattico ASC, nome ASC`,
+    hints: [
+      'ORDER BY accetta più colonne separate da una virgola.',
+      'La seconda colonna conta solo fra le righe che hanno lo stesso valore nella prima: ORDER BY settore_galattico, nome.',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-111',
+    chapter: 'una-tabella',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'ORDER BY', 'LIMIT', 'OFFSET'],
+    title: 'Dal quarto al sesto pianeta più popolato',
+    prompt: 'Mostra il nome e la popolazione dei pianeti che occupano il quarto, il quinto e il sesto posto nella classifica dei più popolati, in ordine di popolazione decrescente.',
+    expectedQuery: `
+      SELECT nome, popolazione
+      FROM pianeti
+      ORDER BY popolazione DESC
+      LIMIT 3 OFFSET 3`,
+    hints: [
+      'Ordina i pianeti dal più popolato, poi prendi tre righe saltando le prime tre.',
+      'LIMIT dice quante righe tenere, OFFSET quante saltarne prima: LIMIT 3 OFFSET 3.',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-112',
+    chapter: 'una-tabella',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'CASE'],
+    title: 'Astronavi per taglia',
+    prompt: 'Mostra il nome e la lunghezza di ogni astronave, con una terza colonna che vale «piccola» sotto i 20 metri, «media» da 20 a meno di 200 metri e «grande» da 200 metri in su.',
+    expectedQuery: `
+      SELECT nome, lunghezza_metri,
+        CASE
+          WHEN lunghezza_metri < 20 THEN 'piccola'
+          WHEN lunghezza_metri < 200 THEN 'media'
+          ELSE 'grande'
+        END AS taglia
+      FROM astronavi`,
+    hints: [
+      'Una colonna che cambia valore secondo una condizione si costruisce con CASE WHEN … THEN … END.',
+      'I rami WHEN si controllano in ordine e vince il primo vero: dopo WHEN lunghezza_metri < 20, il ramo WHEN lunghezza_metri < 200 vale solo per le navi da 20 metri in su. Le altre finiscono nell’ELSE.',
+    ],
+    tables: ['astronavi'],
+  },
+  {
+    id: 'ex-113',
+    chapter: 'una-tabella',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Il lato oscuro della Forza',
+    prompt: 'Mostra il nome, il ruolo e la fazione dei personaggi sensibili alla Forza che militano nell’Impero Galattico oppure nell’Ordine Sith.',
+    expectedQuery: `
+      SELECT nome, ruolo, fazione_id
+      FROM personaggi
+      WHERE (fazione_id = 2 OR fazione_id = 5)
+        AND sensibile_alla_forza = 1`,
+    hints: [
+      'Nella tabella fazioni l’Impero Galattico ha id 2 e l’Ordine Sith id 5. Se nel risultato compare Grand Moff Tarkin, che non è sensibile alla Forza, controlla come si combinano AND e OR.',
+      'AND si applica prima di OR: senza parentesi la condizione sulla Forza vale solo per l’Ordine Sith. Racchiudi fra parentesi i due confronti uniti da OR.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-114',
+    chapter: 'una-tabella',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Quanti anni avevano a Hoth',
+    prompt: 'La battaglia di Hoth è dell’anno −3. Mostra il nome dei personaggi dell’Alleanza Ribelle sensibili alla Forza e l’età che avevano in quella battaglia.',
+    expectedQuery: `
+      SELECT nome, anno_nascita_bby + 3 AS eta_a_hoth
+      FROM personaggi
+      WHERE fazione_id = 1
+        AND sensibile_alla_forza = 1`,
+    hints: [
+      'La «Traccia» spiega come l’archivio conta gli anni: chi è nato nell’anno 19 a Yavin aveva 19 anni, e tre anni dopo ne aveva 22. L’Alleanza Ribelle ha id 1.',
+      'L’età si ottiene dalla differenza fra l’anno di nascita e l’anno della battaglia: anno_nascita_bby − (−3), cioè anno_nascita_bby + 3.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-115',
+    chapter: 'una-tabella',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IS NOT NULL', 'ORDER BY', 'LIMIT'],
+    title: 'I tre personaggi più giovani',
+    prompt: 'Mostra il nome e l’anno di nascita dei tre personaggi più giovani di cui l’archivio conosce l’anno di nascita, dal più giovane, e a parità di anno in ordine alfabetico.',
+    expectedQuery: `
+      SELECT nome, anno_nascita_bby
+      FROM personaggi
+      WHERE anno_nascita_bby IS NOT NULL
+      ORDER BY anno_nascita_bby ASC, nome ASC
+      LIMIT 3`,
+    hints: [
+      'Il più giovane è nato più vicino a Yavin, cioè ha l’anno di nascita più piccolo. Prova la query senza filtri: chi compare in cima?',
+      'In ordine crescente SQLite mette i NULL prima di tutti gli altri valori, così Greef Karga, di cui l’anno manca, finisce primo. Escludilo con WHERE anno_nascita_bby IS NOT NULL.',
+    ],
+    tables: ['personaggi'],
+  },
 ];
 
 export default exercises;
