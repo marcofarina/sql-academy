@@ -12,6 +12,7 @@
  *   esercizi.ts   esercizi, esportati come `default` (tipo `Exercise[]`); facoltativo
  *   traccia.md    traccia: il testo del problema da cui nasce il database, in Markdown minimo (vedi `src/trace/markdown.ts`); facoltativo
  *   er.ts         schema ER, esportato come `default` (tipo `ErDiagram`); facoltativo
+ *   logico.ts     posizioni delle tabelle nel diagramma del modello logico, esportate come `default` (tipo `LogicalLayout`); facoltativo
  *   stile.css     veste del guscio del tema: variabili e decorazioni; facoltativo
  *   locandina.css fronte della locandina sulla pagina iniziale; facoltativo
  *   icone/*.svg   icone RB proprie del tema, citate per nome dal manifest; facoltative
@@ -32,16 +33,19 @@
  * voce all’altra. Il tema ne disegna l’aspetto con `.sections-indicator::after`,
  * posizionato rispetto alla voce (per esempio `bottom: 0`), senza transizioni proprie.
  *
- * `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza passare
+ * `theme.ts`, `esercizi.ts`, `er.ts` e `logico.ts` sono caricati anche da Node senza passare
  * da Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`.
  *
- * Il modello logico non ha un file: si legge dal database del tema.
+ * Il modello logico si legge dal database del tema: `logico.ts` dice solo dove
+ * disegnare ogni tabella. Senza il file le tabelle si dispongono tre per riga.
  */
 
 import type { ErDiagram } from '../er/types.ts';
+import type { LogicalLayout } from '../logical/types.ts';
 import type { SectionId } from '../routing/route.ts';
 
 export type { ErDiagram } from '../er/types.ts';
+export type { LogicalLayout } from '../logical/types.ts';
 
 /** Il manifest di un tema: ciò che serve per elencarlo senza caricarne i contenuti. */
 export interface ThemeManifest {
@@ -157,6 +161,8 @@ export interface Theme {
   loadExercises(): Promise<Exercise[]>;
   /** Carica lo schema ER del tema (`er.ts`); `undefined` se il file manca. */
   loadEr(): Promise<ErDiagram | undefined>;
+  /** Carica le posizioni del modello logico (`logico.ts`); `undefined` se il file manca. */
+  loadLogical(): Promise<LogicalLayout | undefined>;
   /** Carica il testo della traccia (`traccia.md`); `undefined` se il file manca. */
   loadTrace(): Promise<string | undefined>;
 }

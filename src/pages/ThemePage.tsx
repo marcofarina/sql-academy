@@ -115,7 +115,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
         ) : section === 'er' ? (
           <ErSection theme={theme} />
         ) : section === 'logico' ? (
-          <LogicalSection controller={sandbox} />
+          <LogicalSection theme={theme} controller={sandbox} />
         ) : (
           <p className="placeholder">Questa sezione è in preparazione.</p>
         )}

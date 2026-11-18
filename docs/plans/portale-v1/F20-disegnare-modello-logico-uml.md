@@ -54,4 +54,31 @@ Procedura manuale con `npm run dev`: in `#/star-wars/logico` e `#/lotr/logico`, 
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, decisione sulla disposizione ed eventuale correzione del contratto, osservazioni di Marco, lavoro residuo, consumo reale se noto.
+**Esito:** completata il 2026-11-18 su Opus 5.5 (effort non verificabile dalla sessione).
+
+**Decisione sulla disposizione.** Marco ha scelto la disposizione dichiarata dal tema. Correzione del contratto: nuovo file facoltativo `themes/<id>/logico.ts`, tipo `LogicalLayout` (`src/logical/types.ts`), con le sole posizioni `{ col, riga }` di ogni tabella; caricato da `Theme.loadLogical()`. Senza il file le tabelle si dispongono tre per riga (`defaultLayout`).
+
+**Cosa c’è:**
+
+- `src/logical/layout.ts`: relazioni lette dalle chiavi esterne (`relationsOf`), coerenza del file con le tabelle (`checkLayoutCoherence`), disposizione e instradamento (`layoutDiagram`), controllo del disegno (`drawingProblems`). Le linee corrono in corsie verticali fra le colonne e orizzontali fra le righe della griglia, larghe quanto servono, con un binario per linea: non possono attraversare un riquadro. L’ordine dei binari in una corsia evita che due tratti alla stessa altezza si sovrappongano; le linee verso la stessa chiave primaria si uniscono nell’ultimo tratto, come nella verifica.
+- `src/logical/LogicalDiagram.tsx`: SVG con le variabili della veste (`--color-surface`, `--color-surface-2`, `--color-text`, `--color-muted`, `--color-accent-ink`), testo misurato nel browser con i caratteri della veste; icone `key` e `link` dentro l’SVG; `<title>` e `<desc>`. La figura riusa `.er-figure` e scorre a 375 px come l’ER.
+- `src/logical/LogicalSection.tsx`: legenda (chiave primaria, chiave esterna, associazione uno a molti), diagramma, descrizione a parole (`src/logical/describe.ts`); la vista «Codice SQL» è invariata. Tolti gli stili della vista testuale (`.relations`, `.relation`, `.foreign-keys`).
+- `themes/star-wars/logico.ts` e `themes/lotr/logico.ts`: quattro colonne per due righe, ogni linea fra colonne vicine.
+- `check:themes` controlla coerenza e disegno di ogni tema; guida «Aggiungere un tema» aggiornata.
+
+**Verifiche:**
+
+| Verifica | Esito |
+| --- | --- |
+| `npm run check:themes` | superata: exit 0, 9 linee per Star Wars e 8 per LOTR, 0 problemi |
+| `npm test` | superata: 127 test in 16 file; nuovi in `src/logical/logical.test.ts` (estrazione delle relazioni, anche dentro una chiave primaria composta; estremi delle linee; disposizione predefinita; coerenza; attraversamenti e sovrapposizioni; i due temi; descrizione) |
+| `npm run lint`, `npm run build` | superate: exit 0 (resta l’avviso già noto sui blocchi oltre 500 kB) |
+| Procedura manuale, `npm run dev` | superata nel pannello del browser: `#/star-wars/logico` e `#/lotr/logico` negli schemi chiaro e scuro; sette riquadri per tema con tutte le colonne, una linea per chiave esterna con `1` e `N`, nessuna linea sopra un riquadro; a 375 px il documento resta largo 375 px e il diagramma scorre nella figura. Confronto a vista con la pagina 1 della verifica fatto. |
+
+**Differenze dalla verifica, volute:** l’intestazione ha il colore del testo della veste, quindi negli schemi scuri è chiara; la riga della chiave primaria usa `--color-surface-2` e quella della chiave esterna non ha fondo (la verifica usa giallo e azzurro, che non sono variabili della veste); la legenda sta sopra il diagramma, in HTML.
+
+**Osservazioni di Marco:** nessuna oltre alla scelta della disposizione.
+
+**Fuori perimetro, segnalato:** in console React avvisa più volte di un conflitto fra `transition` e `transitionDuration` nello stile in linea durante il rinnovo della pagina: viene dall’indicatore della sezione (F18), non da questa fase.
+
+**Lavoro residuo:** nessuno per la fase. Un tema con più tabelle o collegamenti fra colonne lontane allarga il diagramma con le corsie orizzontali: `check:themes` segnala i problemi, la leggibilità va giudicata a vista.

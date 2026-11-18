@@ -1,5 +1,5 @@
 /**
- * `npm run check:themes`: controlla esercizi, schema ER e fogli di stile di tutti i temi fuori
+ * `npm run check:themes`: controlla esercizi, schema ER, modello logico e fogli di stile di tutti i temi fuori
  * dal browser ed esce con un codice diverso da 0 se trova un problema.
  *
  * Gira in Node senza Vite, quindi non usa il registro (`import.meta.glob`):
@@ -10,10 +10,11 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { checkErCoherence } from '../src/er/coherence.ts';
 import { calcola } from '../src/er/layout.ts';
 import { checkTheme } from '../src/exercises/check.ts';
+import { checkLayoutCoherence, defaultLayout, drawingProblems, layoutDiagram } from '../src/logical/layout.ts';
 import { unscopedSelectors } from '../src/themes/cssScope.ts';
 import { readTables } from '../src/sandbox/session.ts';
 import { createNodeEngine } from '../src/sql/testing/nodeEngine.ts';
-import type { ErDiagram, Exercise, ThemeManifest } from '../src/themes/contract.ts';
+import type { ErDiagram, Exercise, LogicalLayout, ThemeManifest } from '../src/themes/contract.ts';
 
 const themesUrl = new URL('../themes/', import.meta.url);
 const folders = readdirSync(themesUrl, { withFileTypes: true })
@@ -55,6 +56,21 @@ try {
         er = `schema ER su ${tables.length} tabelle`;
       }
 
+      // Modello logico: ogni tabella ha la sua posizione e le linee non attraversano i riquadri.
+      const database = await engine.open({ key: `${folder}/logico`, script });
+      const tables = await readTables(database);
+      await database.close();
+      let logical = 'modello logico senza logico.ts';
+      let layout = defaultLayout(tables);
+      if (existsSync(file('logico.ts'))) {
+        layout = ((await import(file('logico.ts').href)) as { default: LogicalLayout }).default;
+        found.push(...checkLayoutCoherence(layout, tables.map((t) => t.name)).map((p) => `${folder}/logico.ts: ${p}`));
+        logical = 'modello logico dichiarato';
+      }
+      const drawing = layoutDiagram(tables, layout);
+      found.push(...drawingProblems(drawing).map((p) => `${folder}/logico.ts: ${p}`));
+      logical += ` (${drawing.lines.length} linee)`;
+
       // Fogli di stile: ogni selettore resta dentro il tema.
       const scopes = { 'stile.css': `.theme[data-theme-id="${folder}"]`, 'locandina.css': `.poster[data-theme-id="${folder}"]` };
       for (const [name, scope] of Object.entries(scopes)) {
@@ -66,7 +82,7 @@ try {
 
       problems.push(...found);
       const total = Array.isArray(exercises) ? exercises.length : 0;
-      console.log(`${found.length === 0 ? '✓' : '✗'} ${folder}: ${total} esercizi, ${er}, ${found.length} problemi`);
+      console.log(`${found.length === 0 ? '✓' : '✗'} ${folder}: ${total} esercizi, ${er}, ${logical}, ${found.length} problemi`);
     } catch (error) {
       problems.push(`${folder}: ${error instanceof Error ? error.message : String(error)}`);
       console.log(`✗ ${folder}: tema non caricato`);

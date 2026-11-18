@@ -1,20 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Icon } from '../icons/Icon.tsx';
-import type { ColumnInfo, TableInfo } from '../sandbox/session.ts';
+import type { TableInfo } from '../sandbox/session.ts';
 import type { SandboxController } from '../sandbox/useSandbox.ts';
+import type { Theme } from '../themes/contract.ts';
+import { describeTables } from './describe.ts';
+import { defaultLayout } from './layout.ts';
+import { LogicalDiagram } from './LogicalDiagram.tsx';
+import type { LogicalLayout } from './types.ts';
 
 type View = 'schema' | 'sql';
 
 /**
- * Il modello logico del tema, letto dal database: nessun file scritto a mano.
- * Usa le tabelle che la sandbox legge all’apertura, cioè quelle del database
- * iniziale, anche se lo studente ne ha modificato la copia.
+ * Il modello logico del tema, letto dal database: tabelle, colonne e chiavi
+ * non stanno in un file scritto a mano. `logico.ts` del tema dice solo dove
+ * disegnare le tabelle. Usa le tabelle che la sandbox legge all’apertura,
+ * cioè quelle del database iniziale, anche se lo studente ne ha modificato la copia.
  */
-export function LogicalSection({ controller }: { controller: SandboxController }) {
+export function LogicalSection({ theme, controller }: { theme: Theme; controller: SandboxController }) {
   const [view, setView] = useState<View>('schema');
+  // `null`: posizioni in caricamento; `undefined`: il tema non ha `logico.ts`.
+  const [layout, setLayout] = useState<LogicalLayout | undefined | null>(null);
   const { state } = controller;
 
-  if (state.status === 'loading') return <p className="placeholder">Caricamento del database…</p>;
+  useEffect(() => {
+    let cancelled = false;
+    theme.loadLogical().then(
+      (loaded) => !cancelled && setLayout(loaded),
+      () => !cancelled && setLayout(undefined),
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [theme]);
+
+  if (state.status === 'loading' || layout === null) return <p className="placeholder">Caricamento del database…</p>;
   if (state.status === 'failed') {
     return (
       <div className="notice notice-error" role="alert">
@@ -40,70 +59,51 @@ export function LogicalSection({ controller }: { controller: SandboxController }
           Codice SQL
         </button>
       </div>
-      {view === 'schema' ? <SchemaView tables={tables} /> : <SqlView tables={tables} />}
+      {view === 'schema' ? (
+        <SchemaView tables={tables} layout={layout ?? defaultLayout(tables)} title={`Modello logico del database ${theme.manifest.title}`} />
+      ) : (
+        <SqlView tables={tables} />
+      )}
     </div>
   );
 }
 
-function SchemaView({ tables }: { tables: TableInfo[] }) {
+function SchemaView({ tables, layout, title }: { tables: TableInfo[]; layout: LogicalLayout; title: string }) {
+  const sentences = useMemo(() => describeTables(tables), [tables]);
   return (
     <>
-      <p className="logical-legend">
-        <span>
-          <Icon name="key" /> <span className="pk">sottolineata</span>: chiave primaria
-        </span>
-        <span>
-          <Icon name="link" /> <span className="fk">in corsivo</span>: chiave esterna
-        </span>
-      </p>
-      <ul className="relations">
-        {tables.map((table) => {
-          const foreignKeys = table.columns.filter((c) => c.foreignKey);
-          return (
-            <li key={table.name}>
-              <p className="relation">
-                <strong>{table.name}</strong>(
-                {table.columns.map((column, i) => (
-                  <span key={column.name}>
-                    {i > 0 && ', '}
-                    <Attribute column={column} />
-                  </span>
-                ))}
-                )
-              </p>
-              {foreignKeys.length > 0 && (
-                <ul className="foreign-keys">
-                  {foreignKeys.map((column) => (
-                    <li key={column.name}>
-                      <Icon name="link" />
-                      <code>
-                        {table.name}.{column.name}
-                      </code>{' '}
-                      si riferisce a{' '}
-                      <code>
-                        {column.foreignKey!.table}.{column.foreignKey!.column}
-                      </code>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          );
-        })}
+      <ul className="logical-legend" aria-label="Legenda">
+        <li>
+          <span className="logical-legend-key">
+            <Icon name="key" /> <span className="pk">id</span>
+          </span>
+          chiave primaria
+        </li>
+        <li>
+          <span className="logical-legend-key">
+            <Icon name="link" /> <span className="fk">id</span>
+          </span>
+          chiave esterna
+        </li>
+        <li>
+          <svg className="logical-legend-line" viewBox="0 0 64 22" width="64" height="22" aria-hidden="true">
+            <line x1="2" y1="16" x2="62" y2="16" />
+            <text x="4" y="11">N</text>
+            <text x="60" y="11" textAnchor="end">1</text>
+          </svg>
+          associazione uno a molti
+        </li>
       </ul>
+      <LogicalDiagram tables={tables} layout={layout} title={title} />
+      <details className="er-description">
+        <summary>Il diagramma descritto a parole</summary>
+        <ul>
+          {sentences.map((sentence) => (
+            <li key={sentence}>{sentence}</li>
+          ))}
+        </ul>
+      </details>
     </>
-  );
-}
-
-/** Un attributo nella notazione del libro, con le icone accanto: le icone dicono a voce ciò che sottolineatura e corsivo dicono alla vista. */
-function Attribute({ column }: { column: ColumnInfo }) {
-  const classes = [column.primaryKey && 'pk', column.foreignKey && 'fk'].filter(Boolean).join(' ');
-  return (
-    <span className="attribute">
-      {column.primaryKey && <Icon name="key" title="Chiave primaria" />}
-      {column.foreignKey && <Icon name="link" title="Chiave esterna" />}
-      <span className={classes || undefined}>{column.name}</span>
-    </span>
   );
 }
 

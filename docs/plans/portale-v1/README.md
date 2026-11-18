@@ -21,7 +21,7 @@
 | F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
 | F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | completata | 2026-11-18 15:46 | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
 | F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | completata | 2026-11-18 16:59 | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
-| F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
+| F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | completata | 2026-11-18 20:22 | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
 | F21 | Arricchire i dati del Signore degli Anelli e portarne gli esercizi a circa 150 | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F21](#p-f21) | [F21](F21-ampliare-esercizi-signore-anelli.md) |
 | F22 | Portare gli esercizi di Star Wars a circa 150 | F07 | Opus 5.5 `medium` | alto | da fare | | [P-F22](#p-f22) | [F22](F22-ampliare-esercizi-star-wars.md) |
 
@@ -564,13 +564,14 @@ themes/<id>/
   esercizi.ts    elenco di Exercise esportato come default; facoltativo (F02)
   analisi.md     testo del dominio (F07)
   er.ts          schema ER (tipo ErDiagram), facoltativo (F06)
+  logico.ts      posizioni delle tabelle nel modello logico (tipo LogicalLayout), facoltativo (F20)
   stile.css      variabili e decorazioni del guscio del tema, facoltativo (F08)
   locandina.css  fronte della locandina sulla pagina iniziale, facoltativo (F08)
   icone/*.svg    icone RB del tema, citate per nome dal manifest (F08)
   fonts/         caratteri del tema con il loro OFL.txt, citati da stile.css (F08)
 ```
 
-Il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori, `esercizi.ts`, facoltativo (da F02), ed `er.ts`, facoltativo (da F06). `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
+Il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori, `esercizi.ts`, facoltativo (da F02), `er.ts`, facoltativo (da F06), e `logico.ts`, facoltativo (da F20). `theme.ts`, `esercizi.ts`, `er.ts` e `logico.ts` sono caricati anche da Node senza Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
 
 ### Riferimenti da adattare
 
@@ -612,3 +613,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-18 | F09 completata su Opus 5.5 (commit `515d142`, correzione del contratto `eb8a74d`). Dal feedback di Marco: rifiniture subito (`f7fa065`, `6ab7855`: barra di scorrimento stabile, selettore che scorre, chiavi esterne nel pannello, parole chiave solo a esercizio risolto, decorazioni LOTR più grandi) e quattro fasi nuove, F18–F21, che diventano dipendenze di F10. |
 | 2026-11-18 | Obiettivo di Marco: circa 150 esercizi distinti per tema (circa 600 nel portale con quattro temi). F21 diventa «arricchire i dati di LOTR e portarne gli esercizi a circa 150»; nuova F22 per Star Wars (da 105 a circa 150, colmando sottoquery ed esercizi facili oltre il capitolo 6). F10 dipende anche da F22. |
 | 2026-11-18 | F18 completata su Opus 5.5. Indicatore unico della sezione attiva, spostato e animato dal guscio; la veste ne disegna l’aspetto con `.sections-indicator::after`. Icona comune `rocket` e nuovo campo `icons.session` del contratto: `x-wing` e `tie-fighter` per Star Wars, `hobbit-backpack` per LOTR. Su richiesta di Marco, anche `icons.reset` per «Azzera i progressi»: `volcano` e `battle-station-damaged`. |
+| 2026-11-18 | F20 completata su Opus 5.5. Il modello logico diventa un diagramma UML generato dal database; disposizione dichiarata dal tema in `themes/<id>/logico.ts` (scelta di Marco), con linee instradate nelle corsie fra le tabelle e controllate da `check:themes`. Contratto: nuovo file facoltativo e `Theme.loadLogical`. |

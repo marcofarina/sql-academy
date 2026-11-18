@@ -45,6 +45,7 @@ Proponi a Marco il dominio e lo schema ER prima di scrivere i file. Poi crea:
 | `schema.sql` | le istruzioni `CREATE TABLE`, con le chiavi esterne dichiarate, ogni tabella dopo quelle a cui rimanda |
 | `dati.sql` | le istruzioni `INSERT` |
 | `er.ts` | lo schema ER, nella forma del componente `<DiagrammaER>` del libro; ogni tabella deve tradurre un’entità o un’associazione |
+| `logico.ts` | le posizioni delle tabelle nel diagramma del modello logico, su una griglia (`col`, `riga` da 0, una tabella per cella); colonne, tipi e chiavi si leggono dal database |
 | `traccia.md` | la traccia: il testo del problema da cui nasce il database, come nella seconda prova dell’Esame di Stato; la prima riga `# …` è il titolo della pagina |
 
 Sono obbligatori solo `theme.ts`, `schema.sql` e `dati.sql`. Verifica il caricamento con le chiavi esterne attive (`foreign_key_check` non deve stampare nulla):
@@ -53,7 +54,7 @@ Sono obbligatori solo `theme.ts`, `schema.sql` e `dati.sql`. Verifica il caricam
 sqlite3 :memory: "PRAGMA foreign_keys=ON;" ".read themes/<id>/schema.sql" ".read themes/<id>/dati.sql" "PRAGMA foreign_key_check;"
 ```
 
-Poi esegui `npm run check:themes` e apri la sezione «Schema ER» in `npm run dev`: lo script controlla la coerenza fra ER e tabelle, non la leggibilità del disegno.
+Poi esegui `npm run check:themes` e apri le sezioni «Schema ER» e «Modello logico» in `npm run dev`. Lo script controlla la coerenza fra ER e tabelle e, per il modello logico, che ogni tabella abbia una posizione e che le linee delle chiavi esterne non attraversino i riquadri né si sovrappongano; la leggibilità del disegno la giudichi tu. Nel modello logico conviene mettere vicine le tabelle collegate: una linea fra colonne non adiacenti passa per una corsia orizzontale e allarga il diagramma. Senza `logico.ts` le tabelle si dispongono tre per riga.
 
 ### 3. Scrivi gli esercizi
 

@@ -1039,7 +1039,7 @@ button.link-button {
   color: inherit;
 }
 
-/* Modello logico: la notazione del libro, chiave primaria sottolineata ed esterna in corsivo */
+/* Modello logico: diagramma UML, chiave primaria sottolineata ed esterna in corsivo */
 
 .view-switch {
   display: flex;
@@ -1057,38 +1057,41 @@ button.link-button {
 .logical-legend {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem 1.5rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
   color: var(--color-muted);
   font-size: 15px;
 }
 
-.relations {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.logical-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.relations > li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--color-rule);
-}
-
-.relation {
-  margin: 0;
-  font-family: var(--font-mono);
-  overflow-wrap: anywhere;
-}
-
-.relation .attribute {
+.logical-legend-key {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.15rem;
-  white-space: nowrap;
+  gap: 0.2rem;
+  padding: 0 0.3rem;
+  color: var(--color-text);
 }
 
-.relation .attribute .icon-box {
-  font-size: 0.8em;
-  color: var(--color-muted);
+.logical-legend-key .icon-box {
+  color: var(--color-accent-ink);
+}
+
+.logical-legend-line line {
+  stroke: var(--color-accent-ink);
+  stroke-width: 1.5;
+}
+
+.logical-legend-line text {
+  fill: var(--color-accent-ink);
+  font: 700 12px var(--font-body);
 }
 
 .pk {
@@ -1100,22 +1103,68 @@ button.link-button {
   font-style: italic;
 }
 
-.foreign-keys {
-  list-style: none;
-  margin: 0.4rem 0 0;
-  padding: 0;
-  font-size: 15px;
+/* Il diagramma del modello logico: i colori vengono dalle variabili della
+   veste, così ogni tema lo veste senza regole proprie. La figura è la stessa
+   dello schema ER (.er-figure) e scorre allo stesso modo sugli schermi stretti. */
+
+.logical-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
-.foreign-keys li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem;
+.logical-box {
+  fill: var(--color-surface);
+  stroke: var(--color-text);
+  stroke-width: 1.2;
 }
 
-.foreign-keys .icon-box {
-  color: var(--color-muted);
+.logical-head {
+  fill: var(--color-text);
+}
+
+.logical-title {
+  fill: var(--color-surface);
+  font: 700 15px var(--font-body);
+}
+
+.logical-pk-row {
+  fill: var(--color-surface-2);
+}
+
+.logical-name {
+  fill: var(--color-text);
+  font: 400 14px var(--font-body);
+}
+
+.logical-name.is-pk {
+  text-decoration: underline;
+}
+
+.logical-name.is-fk {
+  font-style: italic;
+}
+
+.logical-type {
+  fill: var(--color-muted);
+  font: 400 11.5px var(--font-mono);
+}
+
+.logical-icon {
+  color: var(--color-accent-ink);
+}
+
+.logical-line {
+  fill: none;
+  stroke: var(--color-accent-ink);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.logical-card {
+  fill: var(--color-accent-ink);
+  font: 700 12px var(--font-body);
 }
 
 .sql-view-actions {

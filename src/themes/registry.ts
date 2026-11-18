@@ -2,11 +2,11 @@
  * Registro dei temi: scopre le cartelle `themes/<id>/` al build.
  *
  * I manifest entrano nel pacchetto principale (servono per l’elenco dei temi);
- * i file SQL, gli esercizi, la traccia e lo schema ER diventano moduli separati, scaricati quando lo studente apre il tema.
+ * i file SQL, gli esercizi, la traccia, lo schema ER e le posizioni del modello logico diventano moduli separati, scaricati quando lo studente apre il tema.
  */
 
 import themeStats from 'virtual:theme-stats';
-import { THEME_ID_PATTERN, type ErDiagram, type Exercise, type Theme, type ThemeManifest, type ThemeStats } from './contract.ts';
+import { THEME_ID_PATTERN, type ErDiagram, type Exercise, type LogicalLayout, type Theme, type ThemeManifest, type ThemeStats } from './contract.ts';
 import { iconName } from '../icons/registry.ts';
 
 type Loader<T> = () => Promise<T>;
@@ -59,6 +59,7 @@ export function buildRegistry(
   traceModules: Record<string, Loader<string>> = {},
   iconModules: Record<string, string> = {},
   stats: Record<string, ThemeStats> = {},
+  logicalModules: Record<string, Loader<LogicalLayout>> = {},
 ): Theme[] {
   const icons = iconsByFolder(iconModules);
   const schemas = byFolder(schemaModules);
@@ -66,6 +67,7 @@ export function buildRegistry(
   const exercises = byFolder(exerciseModules);
   const ers = byFolder(erModules);
   const traces = byFolder(traceModules);
+  const logicals = byFolder(logicalModules);
 
   return [...byFolder(manifestModules)]
     .sort(([a], [b]) => a.localeCompare(b))
@@ -95,6 +97,7 @@ export function buildRegistry(
         loadExercises: exercises.get(folder) ?? (async () => []),
         loadEr: ers.get(folder) ?? (async () => undefined),
         loadTrace: traces.get(folder) ?? (async () => undefined),
+        loadLogical: logicals.get(folder) ?? (async () => undefined),
       };
     });
 }
@@ -109,6 +112,7 @@ export const themes: Theme[] = buildRegistry(
   import.meta.glob<string>('../../themes/*/traccia.md', { query: '?raw', import: 'default' }),
   import.meta.glob<string>('../../themes/*/icone/*.svg', { query: '?raw', import: 'default', eager: true }),
   themeStats,
+  import.meta.glob<LogicalLayout>('../../themes/*/logico.ts', { import: 'default' }),
 );
 
 // I fogli di stile dei temi entrano tutti nella pagina: ogni regola è confinata al proprio tema (vedi contract.ts).
