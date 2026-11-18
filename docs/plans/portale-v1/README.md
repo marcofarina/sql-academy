@@ -9,7 +9,7 @@
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | completata | 2026-11-17 15:10 | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | completata | 2026-11-17 16:19 | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | completata | 2026-11-17 19:00 | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
-| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | in corso | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
+| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 09:45 | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
 | F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | completata | 2026-11-18 01:24 | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
@@ -390,6 +390,9 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Seguiti, fuori da questo piano | **CTF**: query che trovano flag nascoste nei dati, con difficoltà, premi e suggerimenti a pagamento, **senza soluzione** (se non si trova, resta irrisolta); entreranno nella stessa classifica. **Gradi e traguardi** sui punti. Entrambi in un piano successivo (Marco, 2026-11-17) | Prima si pubblicano punti, zaino e classifica; F13 e F16 tengono già conto delle CTF |
 | Veste della pagina iniziale | Le locandine dei temi lanciate a caso su un tavolo, da trascinare; un clic gira la locandina sul retro, la scheda del tema con dati calcolati e «Entra»; a 375 px un mazzo da sfogliare. Specifica in `docs/design/neutra.md` (Marco, 2026-11-18, in F11) | Marco ha scartato la pagina-risultato come banale e ha proposto lui il tavolo; le direzioni scartate sono nella specifica |
 | Schemi chiaro e scuro di un tema | Un tema può dichiarare due schemi, con un selettore nell’intestazione del guscio; Star Wars: chiaro «X-wing», scuro «Morte Nera», con gli emblemi dell’Alleanza e dell’Impero nel selettore. Alla prima visita segue `prefers-color-scheme`, poi la scelta si conserva nel browser per tema (Marco, 2026-11-18, in F11; i dettagli sono proposta di Claude) | Marco vuole un tema chiaro e uno scuro; tocca il contratto del tema, quindi lo fissa F08 |
+| Veste di un tema | Il manifest aggiunge `motto` (fronte della locandina), `icons` e `schemes` (icone per schema: `emblem`, `empty`; `solved` comune). File facoltativi del tema: `stile.css` (radice `.theme[data-theme-id="<id>"]`), `locandina.css` (radice `.poster[data-theme-id="<id>"]`), `icone/`, `fonts/`; `check:themes` controlla che ogni regola resti confinata. Le variabili ridefinibili sono in `src/styles.css`, l’unico file con colori scritti a mano (Marco e Claude, 2026-11-18, in F08) | Un tema nuovo si veste senza toccare i componenti comuni |
+| Numeri della scheda di un tema | Tabelle, righe ed esercizi per difficoltà e capitolo calcolati al build dal plugin `scripts/themeStatsPlugin.ts` (modulo `virtual:theme-stats`) (Marco, 2026-11-18, in F08) | La pagina iniziale non scarica SQLite e i numeri non si scrivono a mano |
+| Caratteri | Serviti dal progetto, TTF originali di `google/fonts` con il loro `OFL.txt`: comuni in `src/assets/fonts/`, di un tema in `themes/<id>/fonts/` (Marco, 2026-11-18, in F08) | Nessuna richiesta a servizi esterni; licenze accanto ai file |
 | Contrasto delle palette | `node docs/design/contrasto.mjs [palette]` misura ogni coppia delle specifiche ed esce con errore sotto 4,5:1 (testo) o 3:1 (bordi e icone) (Claude, in F11) | F08 e F12 devono misurare con uno strumento, non a occhio |
 
 ### Icone
@@ -441,6 +444,11 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `link` | chiave esterna nel modello logico | F06 | creata (Opus 5.5) | approvata |
 | `code` | vista «Codice SQL» del modello logico | F06 | creata (Opus 5.5) | approvata la terza versione: le parentesi angolari con barra ricordavano i tag HTML; Marco ha chiesto una finestra di editor con righe rientrate e l’ultima riga di due parole |
 | `copy` | copia del codice SQL | F06 | creata (Opus 5.5) | approvata |
+| `rebel-alliance` | Star Wars, emblema dello schema chiaro | F08 | creata (Opus 5.5) | approvata alla terza versione; eccezione alla regola clean room autorizzata da Marco (dettaglio di F08) |
+| `galactic-empire` | Star Wars, emblema dello schema scuro | F08 | creata (Opus 5.5) | approvata alla terza versione; tolte le tacche sulla corona (R5.8, R1.4) |
+| `lightsabers-crossed` | Star Wars, esercizio risolto | F08 | creata (Opus 5.5) | approvata alla terza versione; una spada sola restava sotto la copertura minima (R1.6) |
+| `x-wing` | Star Wars, stati vuoti nello schema chiaro | F08 | creata (Opus 5.5) | approvata alla terza versione |
+| `battle-station` | Star Wars, stati vuoti nello schema scuro | F08 | creata (Opus 5.5) | approvata alla terza versione |
 
 ### Struttura di un tema
 
@@ -448,13 +456,16 @@ Nomi fissati in F01 (2026-11-16). Il contratto è in `src/themes/contract.ts`; i
 
 ```text
 themes/<id>/
-  theme.ts       manifest esportato come default: id (uguale al nome della cartella), title, description
+  theme.ts       manifest esportato come default: id (uguale al nome della cartella), title, description, motto; icons e schemes facoltativi (F08)
   schema.sql     CREATE TABLE con chiavi esterne dichiarate
   dati.sql       INSERT
   esercizi.ts    elenco di Exercise esportato come default; facoltativo (F02)
   analisi.md     testo del dominio (F07)
   er.ts          schema ER (tipo ErDiagram), facoltativo (F06)
-  stile.css      variabili e decorazioni del tema (F08)
+  stile.css      variabili e decorazioni del guscio del tema, facoltativo (F08)
+  locandina.css  fronte della locandina sulla pagina iniziale, facoltativo (F08)
+  icone/*.svg    icone RB del tema, citate per nome dal manifest (F08)
+  fonts/         caratteri del tema con il loro OFL.txt, citati da stile.css (F08)
 ```
 
 Il registro legge `theme.ts`, `schema.sql` e `dati.sql`, tutti obbligatori, `esercizi.ts`, facoltativo (da F02), ed `er.ts`, facoltativo (da F06). `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`. Ogni fase che introduce un altro file aggiunge al registro il suo caricamento a richiesta.
@@ -494,3 +505,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-17 | Brainstorming con Marco sul sistema a punti: aggiunte F13–F17 (regole dei punti, interfaccia, zaino di PDB, servizio e pagina della classifica). F10 ora dipende da F14, F15, F17. Vincolo «solo client» rivisto: zaino cifrato e classifica facoltativa su Cloudflare, a costo zero. CTF, gradi e traguardi rinviati a un piano successivo. |
 | 2026-11-17 | F06 completata su Opus 5.5. Modello logico letto dal database con vista del codice; componente ER copiato dal libro (rough.js, Excalifont) con le linee distribuite sullo stesso lato; `themes/star-wars/er.ts` approvato da Marco; coerenza fra ER e tabelle in `check:themes`. Tre icone RB nuove approvate (`code`, `link`, `copy`). |
 | 2026-11-18 | F11 completata su Opus 5.5. Tavole nell’Artifact «Design»; specifiche `docs/design/neutra.md` e `docs/design/star-wars.md`, approvate da Marco; script `docs/design/contrasto.mjs`. Nuova decisione sul contratto: schemi chiaro e scuro per tema. Emblemi dell’Alleanza e dell’Impero da creare in F08. |
+| 2026-11-18 | F08 completata su Opus 5.5, in due sessioni (la prima interrotta per limite di utilizzo). Contratto della veste, veste Star Wars con schemi chiaro e scuro, pagina iniziale a locandine; cinque icone tematiche approvate. Dettagli e scostamenti dalla tavola nel dettaglio della fase. |

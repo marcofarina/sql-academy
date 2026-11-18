@@ -1238,9 +1238,31 @@ button.link-button {
   color: var(--home-on-primary);
 }
 
+.home a.button.primary,
+.home a.button.primary:hover {
+  border-color: transparent;
+  border-radius: 6px;
+  min-height: 46px;
+  background: var(--home-text);
+  color: var(--home-on-primary);
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home a.button.primary:hover {
+  background: var(--home-primary-hover);
+}
+
+/* Il tavolo copre la pagina ma lascia passare i clic all’intestazione: li prendono solo le locandine. */
 .table-area {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+}
+
+.table-area > * {
+  pointer-events: auto;
 }
 
 /* Locandina: un contenitore posizionato sul tavolo, che si gira sul retro. */
@@ -1331,6 +1353,10 @@ button.link-button {
   cursor: grab;
 }
 
+.poster.is-open .poster-open-button {
+  visibility: hidden;
+}
+
 .poster.is-dragging .poster-open-button {
   cursor: grabbing;
 }
@@ -1345,7 +1371,7 @@ button.link-button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 18px 18px 20px;
+  padding: 22px 20px;
 }
 
 .poster-motto {
@@ -1357,7 +1383,7 @@ button.link-button {
 
 .poster-front-title {
   position: relative;
-  margin: auto 0 10px;
+  margin: auto 0 12px;
   font-family: 'Big Shoulders Display', sans-serif;
   font-size: 54px;
   font-weight: 900;
@@ -1389,11 +1415,21 @@ button.link-button {
   font-size: 44px;
 }
 
+.poster-soon .poster-credits {
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
 /* Retro: la scheda del tema */
 .card-band {
   flex: none;
   height: 10px;
-  background: linear-gradient(90deg, var(--poster-band-1) 0 50%, var(--poster-band-2) 50% 100%);
+  background: linear-gradient(
+    90deg,
+    var(--poster-band-1) 0 var(--poster-band-split, 50%),
+    var(--poster-band-2) var(--poster-band-split, 50%) 100%
+  );
 }
 
 .card-body {
@@ -1474,6 +1510,23 @@ button.link-button {
   background: var(--home-hard);
 }
 
+.card-chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--home-muted);
+  font-size: 14px;
+}
+
+.card-chapters strong {
+  color: var(--home-text);
+}
+
+
+
 .card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1552,6 +1605,14 @@ button.link-button {
 
   .card-title {
     font-size: 48px;
+  }
+
+  /* Il mazzo sta nel flusso della pagina, sotto l’intestazione. */
+  .home.is-deck .table-area {
+    position: relative;
+    inset: auto;
+    height: 440px;
+    margin-top: 20px;
   }
 }
 

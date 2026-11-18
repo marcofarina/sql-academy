@@ -48,7 +48,6 @@ export function themeStatsPlugin(themesDir: string): Plugin {
     resolveId: (id) => (id === VIRTUAL_ID ? RESOLVED_ID : undefined),
     async load(id) {
       if (id !== RESOLVED_ID) return;
-      this.addWatchFile(themesDir);
       return `export default ${JSON.stringify(await computeThemeStats(themesDir))};`;
     },
     handleHotUpdate({ file, server }) {

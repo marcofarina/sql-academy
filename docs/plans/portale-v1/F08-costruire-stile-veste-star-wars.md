@@ -45,7 +45,7 @@ Procedura manuale con `npm run dev`: percorri le sei sezioni di Star Wars a 1280
 
 ## 6. Passaggio di consegne
 
-**Stato al 2026-11-18: fase in corso, interrotta per limite di utilizzo.** Commit intermedio; la fase non è completata.
+**Esito: completata il 2026-11-18 09:45**, su Opus 5.5, in due sessioni. La prima, interrotta per limite di utilizzo, ha lasciato il commit intermedio `1cfc8fc`; la seconda ha scritto la pagina iniziale, verificato e chiuso la fase.
 
 ### Decisioni di Marco (2026-11-18)
 
@@ -70,10 +70,35 @@ Procedura manuale con `npm run dev`: percorri le sei sezioni di Star Wars a 1280
 - Marco ha giudicato troppo semplici le prime due versioni e ha **autorizzato un’eccezione alla regola clean room** (R8.2) per questo solo caso: aperte come riferimento di complessità `starfighter`, `space-station-moon`, `swords-laser`, `jedi` di Font Awesome, senza copiare tracciati né composizioni. Gli emblemi di Impero e Alleanza non esistono nel duotone.
 - Problemi incontrati: una sola spada laser resta sotto la copertura minima (R1.6), da cui le spade incrociate; le tacche sulla corona dell’emblema imperiale superavano R5.8 e spostavano l’ingombro (R1.4), quindi tolte; descrizioni del catalogo con «:» vanno tra virgolette nello YAML.
 
+### Seconda sessione
+
+- **Pagina iniziale** (`src/pages/HomePage.tsx`, disposizione in `src/pages/homeLayout.ts` con test): locandine lanciate in quattro fasce dal fondo della pagina, una dopo l’altra; trascinamento dopo 5 px, dentro il tavolo, con la locandina in cima; clic che porta la scheda al centro (420 × 630, a 375 px 343 × 660 o meno) e la gira; velo, Esc, «Rimetti sul tavolo» e «Rimescola». Fuoco su «Entra» all’apertura (o su «Rimetti sul tavolo» per un tema senza esercizi), confinato nella scheda, di ritorno sulla locandina alla chiusura. A 375 px il mazzo a ventaglio, sfogliato con un trascinamento di oltre 80 px o con i pulsanti ai lati di «1 di 4». Locandine «Prossimamente» fino a quattro. Movimento ridotto: nessun lancio, nessuna transizione.
+- **Correzione del plugin** `scripts/themeStatsPlugin.ts`: `this.addWatchFile(themesDir)` passava una cartella come dipendenza del modulo virtuale e con `npm run dev` Vite tentava di importarla («Failed to resolve import …/themes»). Tolta: in sviluppo il ricalcolo lo fa già `handleHotUpdate`.
+- **Allineamento alla tavola** «Neutra B3 — Le locandine sul tavolo», letta dall’Artifact «Design»: pianeta di 300 px a 110 × 190 px con alone, luna di 42 px, titolo a 68 px con interlinea 0,82, motto e crediti con larghezza massima, banda della scheda divisa al 60 % (variabile `--poster-band-split`), «Prossimamente» come titolo con «Tema N, da scegliere» sotto, capitoli della scheda con nomi brevi («una tabella 40 · join 25 …») e «105 esercizi per difficoltà».
+
+### Scostamenti dalla specifica, da confermare con Marco
+
+1. **Alone dietro titolo e crediti della locandina Star Wars** (`text-shadow` del colore del cielo). Nella tavola, come nella resa, «Wars» e i crediti finiscono sopra la parte chiara del pianeta: senza alone si leggevano male, soprattutto a 375 px. L’alone non cambia geometria né colori; il rapporto di contrasto sopra il pianeta non è misurabile con `contrasto.mjs`, che confronta colori pieni.
+2. **Ordine delle tabelle** nei crediti e nelle etichette: quello di creazione in `schema.sql` (pianeti, fazioni, specie, personaggi…), non quello della tavola, perché i numeri della scheda si leggono dal database.
+3. Il retro di una locandina «Prossimamente» ha come titolo «Tema N».
+
+### Verifiche (2026-11-18, seconda sessione)
+
+| Verifica | Esito |
+| --- | --- |
+| `npm test` | superata: 15 file, 119 test |
+| `npm run build` | superata; resta l’avviso di Vite sul pacchetto principale oltre 500 kB (771 kB, 248 kB compresso) |
+| `npm run lint` | superata |
+| `npm run check:themes` | superata: 105 esercizi, ER su sette tabelle, nessun problema |
+| `node docs/design/contrasto.mjs` | superata (exit 0) |
+| `grep -rnE '#[0-9a-fA-F]{3,8}\b' src --include='*.css' --include='*.tsx'` fuori da `src/styles.css` | superata: nessun risultato |
+| Sei sezioni di Star Wars, schemi chiaro e scuro, 1280 e 375 px | superata: `scrollWidth` uguale alla larghezza della finestra in 20 casi su 24 misurati; nello schema scuro a 1280 px misurate solo sandbox e modello logico, le altre quattro sezioni controllate sulle schermate; schermate controllate di sandbox con risultato, addestramento, esercizio, catalogo, analisi, ER e modello logico |
+| Pagina iniziale a 1280 e 375 px | superata: lancio, trascinamento senza apertura, apertura con fuoco su «Entra», Tab confinato, Esc con ritorno del fuoco, sfoglio con pulsanti e trascinamento; nessuna classe `.theme` sulla pagina iniziale |
+| Movimento ridotto | non eseguita nel browser: lo garantiscono la media query in CSS e il ramo `reducedMotion` del componente |
+
+Le verifiche nel browser sono state fatte nel pannello integrato dell’app, a tratti nascosto: lì le transizioni CSS restano ferme, per cui la scheda si apriva senza ricevere il fuoco. Da qui la funzione `focusWhenVisible`, che aspetta la fine della transizione di visibilità se al tempo previsto la faccia non è ancora visibile.
+
 ### Lavoro residuo
 
-1. Riscrivere `src/pages/HomePage.tsx` secondo `docs/design/neutra.md` (gli stili ci sono già): locandine lanciate in quattro fasce, trascinamento dopo 5 px, clic che gira la scheda (`role="dialog"`, fuoco su «Entra» e ritorno), velo, Esc, «Rimescola», mazzo a 375 px con «1 di 4», movimento ridotto, locandine «Prossimamente» fino a quattro. Crediti: «con <tabelle> e <ultima>, in N esercizi» da `theme.stats`; retro con `chapterLabel`, `DIFFICULTY_LABEL`; link al libro `https://python.rainbowbits.cloud`.
-2. Verifica visiva con `npm run dev` (sei sezioni nei due schemi, 1280 e 375 px, nessuno scorrimento orizzontale) e schermate a Marco prima di rifinire.
-3. `npm run build`, `npm run lint`, grep dei colori; aggiornare `README.md` del piano (struttura del tema, registro icone, decisioni) e `AGENTS.md`; commit di chiusura.
-
-Verifiche al commit intermedio: `tsc` superato, `npm test` 116 test superati, `check:themes` superato; build, lint e verifica visiva **non eseguiti**.
+- Confermare con Marco i tre scostamenti sopra.
+- Il pacchetto principale supera 500 kB: possibile divisione del codice (CodeMirror, rough.js) in una fase futura; non è nel perimetro di F08.
