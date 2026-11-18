@@ -11,7 +11,7 @@
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | completata | 2026-11-17 19:00 | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
 | F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 09:45 | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | completata | 2026-11-18 14:58 | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
-| F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
+| F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17, F18, F19, F20, F21 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | completata | 2026-11-18 01:24 | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
 | F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 13:18 | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
 | F13 | Definire regole dei punti e progressi versione 2 | F05 | Sonnet 5.5 `high` | medio | da fare | | [P-F13](#p-f13) | [F13](F13-definire-regole-punti-progressi.md) |
@@ -19,6 +19,10 @@
 | F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | da fare | | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
 | F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
 | F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
+| F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | da fare | | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
+| F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
+| F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
+| F21 | Portare gli esercizi del Signore degli Anelli a circa cento | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F21](#p-f21) | [F21](F21-ampliare-esercizi-signore-anelli.md) |
 
 Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
 
@@ -317,6 +321,72 @@ Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
+### P-F18
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F18-animare-indicatore-sezione-icona-sessione.md
+ID e obiettivo: F18 — Animare l’indicatore della sezione e sostituire l’icona della sessione.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F19
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F19-trasformare-analisi-in-traccia.md
+ID e obiettivo: F19 — Trasformare la sezione «Analisi» nella «Traccia».
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F20
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F20-disegnare-modello-logico-uml.md
+ID e obiettivo: F20 — Disegnare il modello logico in forma UML.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F21
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v1/README.md
+Fase: docs/plans/portale-v1/F21-ampliare-esercizi-signore-anelli.md
+ID e obiettivo: F21 — Portare gli esercizi del Signore degli Anelli a circa cento.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
 ## Obiettivo
 
 Pubblicare un portale statico di addestramento a SQL con la piattaforma comune, il tema Star Wars completo e un secondo tema ridotto, «Il Signore degli Anelli», che dimostra che un tema si aggiunge senza toccare il codice comune. Gli altri due temi richiesti da `AGENTS.md` appartengono a piani successivi.
@@ -344,6 +414,7 @@ Per ogni tema lo studente trova sei sezioni: sandbox, addestramento, tutte le qu
 - Opus 5.5 `medium` dove si decide una forma o si scrivono testi per gli studenti (F03, F05–F09).
 - Sonnet 5.5 dove si esegue una forma già decisa (F04, F10, F13). F13 parte da `high` perché ogni regola dei punti ha casi limite da coprire con i test.
 - Opus 5.5 `high` per F15: sincronizzazione fra dispositivi e cifratura, dentro un servizio già in produzione che custodisce le note degli studenti del libro. F04 parte da `high` perché ogni query va giudicata sul risultato, non solo eseguita.
+- F18–F21, aggiunte il 2026-11-18 dal feedback di Marco su F09: **Fable escluso** (Marco, 2026-11-18); tutte su Opus 5.5 `medium`, F21 per scelta di Marco perché scrive testi per gli studenti. F20 sale a `high` se la disposizione delle tabelle non converge.
 - Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al modello superiore.
 
 ## Decisioni condivise
@@ -514,3 +585,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-18 | F11 completata su Opus 5.5. Tavole nell’Artifact «Design»; specifiche `docs/design/neutra.md` e `docs/design/star-wars.md`, approvate da Marco; script `docs/design/contrasto.mjs`. Nuova decisione sul contratto: schemi chiaro e scuro per tema. Emblemi dell’Alleanza e dell’Impero da creare in F08. |
 | 2026-11-18 | F08 completata su Opus 5.5, in due sessioni (la prima interrotta per limite di utilizzo). Contratto della veste, veste Star Wars con schemi chiaro e scuro, pagina iniziale a locandine; cinque icone tematiche approvate. Dettagli e scostamenti dalla tavola nel dettaglio della fase. |
 | 2026-11-18 | F12 completata su Opus 5.5. Tavole nell’Artifact «Design» [SQL Academy — veste Il Signore degli Anelli](https://claude.ai/artifact/DtawNio6cxm36cFE3Euij7); Marco ha approvato entrambe le direzioni come schema chiaro (mappa della Contea) e scuro (porte di Moria). Specifica `docs/design/lotr.md`; sei icone tematiche create su richiesta di Marco (anticipate da F09); due lacune del contratto per F09. |
+| 2026-11-18 | F09 completata su Opus 5.5 (commit `515d142`, correzione del contratto `eb8a74d`). Dal feedback di Marco: rifiniture subito (`f7fa065`, `6ab7855`: barra di scorrimento stabile, selettore che scorre, chiavi esterne nel pannello, parole chiave solo a esercizio risolto, decorazioni LOTR più grandi) e quattro fasi nuove, F18–F21, che diventano dipendenze di F10. |

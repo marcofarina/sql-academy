@@ -22,6 +22,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-18 | F08 completata: contratto della veste (manifest con `motto`, `icons`, `schemes`; `stile.css`, `locandina.css`, `icone/`, `fonts/`), veste Star Wars con schemi chiaro e scuro, pagina iniziale a locandine (`src/pages/HomePage.tsx`), numeri della scheda calcolati al build (`virtual:theme-stats`). Tre scostamenti dalla tavola, confermati da Marco, nel dettaglio della fase. |
 | 2026-11-18 | F12 completata: specifica `docs/design/lotr.md` con schema chiaro «la mappa della Contea» e scuro «le porte di Moria», approvati da Marco; sei icone tematiche nella libreria (commit `1f16200` del repo `icone`); due lacune del contratto da risolvere in F09. |
 | 2026-11-18 | F09 completata: tema `themes/lotr/` con sette tabelle (`partecipazioni` e `tappe` molti a molti), 20 esercizi, veste chiara e scura; correzione del contratto `icons.sections` (commit `eb8a74d`); guida «Aggiungere un tema» nel `README.md`. |
+| 2026-11-18 | Feedback di Marco su F09: rifiniture fatte subito (barra di scorrimento stabile, selettore che scorre, chiavi esterne nel pannello delle tabelle, parole chiave solo a esercizio risolto, decorazioni LOTR più grandi); aggiunte al piano F18–F21 (indicatore animato e icona della sessione, sezione «Traccia», modello logico UML, esercizi LOTR a circa cento), che precedono F10. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

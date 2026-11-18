@@ -1,7 +1,7 @@
 # F10 — Pubblicare su GitHub Pages e collegare il libro
 
 - **Modello / effort:** Sonnet 5.5 `medium`. Procedura nota, forma già decisa.
-- **Dipendenze:** F07, F09, F14, F15, F17. Punti, zaino e classifica entrano prima della pubblicazione: la scelta di non migrare i progressi della versione 1 vale solo finché il portale non è online (Marco, 2026-11-17).
+- **Dipendenze:** F07, F09, F14, F15, F17, F18, F19, F20, F21 (le ultime quattro dal feedback di Marco su F09, 2026-11-18). Punti, zaino e classifica entrano prima della pubblicazione: la scelta di non migrare i progressi della versione 1 vale solo finché il portale non è online (Marco, 2026-11-17).
 - **Consumo stimato:** basso.
 - **Incertezza:** bassa sul lavoro, ma la fase si ferma più volte in attesa del via di Marco.
 - **Punto di ripresa:** workflow scritto e build di produzione verificata in locale, prima di qualunque push.
