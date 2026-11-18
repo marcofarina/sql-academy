@@ -132,11 +132,11 @@
 .theme[data-theme-id='lotr'][data-scheme='chiaro'] .page::before {
   content: '';
   position: absolute;
-  top: 96px;
-  right: 300px;
+  top: 24px;
+  right: -140px;
   z-index: -1;
-  width: 260px;
-  height: 260px;
+  width: 640px;
+  height: 640px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%232B231A' stroke='%232B231A'%3E %3Ccircle cx='100' cy='100' r='92' fill='none' stroke-width='1.5'/%3E %3Ccircle cx='100' cy='100' r='84' fill='none' stroke-width='0.8' stroke-dasharray='2 4'/%3E %3Cpath d='M100 6 L112 88 L194 100 L112 112 L100 194 L88 112 L6 100 L88 88 Z' stroke='none' opacity='.55'/%3E %3Cpath d='M100 40 L106 94 L160 100 L106 106 L100 160 L94 106 L40 100 L94 94 Z' fill='none' stroke-width='1.2' transform='rotate(45 100 100)'/%3E %3Cpath d='M100 6 L112 88 L100 100 Z M194 100 L112 112 L100 100 Z M100 194 L88 112 L100 100 Z M6 100 L88 88 L100 100 Z' stroke='none'/%3E %3C/svg%3E") center / contain no-repeat;
   opacity: 0.13;
   pointer-events: none;
@@ -327,11 +327,11 @@
 .theme[data-theme-id='lotr'][data-scheme='scuro'] .page::before {
   content: '';
   position: absolute;
-  top: 70px;
-  right: 250px;
+  top: 0;
+  right: -160px;
   z-index: -1;
-  width: 400px;
-  height: 520px;
+  width: 760px;
+  height: 988px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 520'%3E %3Cg fill='none' stroke='%23A9D8FF' stroke-width='1.2'%3E %3Cpath d='M70 520 V200 A130 130 0 0 1 330 200 V520'/%3E %3Cpath d='M92 520 V204 A108 108 0 0 1 308 204 V520' stroke-dasharray='1 7' stroke-linecap='round'/%3E %3Cpath d='M70 200 h-14 M330 200 h14'/%3E %3Cpath d='M200 92 v-26 M200 66 l5 12 l-5 -3 l-5 3 z'/%3E %3Cpath d='M200 120 l5 15 l15 5 l-15 5 l-5 15 l-5 -15 l-15 -5 l15 -5 z'/%3E %3Cpath d='M150 300 c 20 -40, 80 -40, 100 0' opacity='.6'/%3E %3C/g%3E %3C/svg%3E") center / contain no-repeat;
   opacity: 0.5;
   filter: drop-shadow(0 0 4px rgba(169, 216, 255, 0.7));
@@ -476,16 +476,16 @@
   }
 
   .theme[data-theme-id='lotr'][data-scheme='chiaro'] .page::before {
-    top: 56px;
-    right: 8px;
-    width: 160px;
-    height: 160px;
+    top: 40px;
+    right: -120px;
+    width: 340px;
+    height: 340px;
   }
 
   .theme[data-theme-id='lotr'][data-scheme='scuro'] .page::before {
-    right: -60px;
-    width: 260px;
-    height: 338px;
+    right: -170px;
+    width: 420px;
+    height: 546px;
     opacity: 0.35;
   }
 }
