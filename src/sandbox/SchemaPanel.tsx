@@ -20,6 +20,14 @@ export function SchemaPanel({ tables }: { tables: TableInfo[] }) {
                     <Icon name="key" title="Chiave primaria" />
                   </span>
                 )}
+                {column.foreignKey && (
+                  <span className="badge">
+                    <Icon
+                      name="link"
+                      title={`Chiave esterna verso ${column.foreignKey.table}.${column.foreignKey.column}`}
+                    />
+                  </span>
+                )}
               </li>
             ))}
           </ul>

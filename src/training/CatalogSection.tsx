@@ -142,11 +142,16 @@ export function CatalogSection({ themeId, training, progress }: CatalogSectionPr
                       </span>
                     </td>
                     <td>
-                      {exercise.keywords.map((k) => (
-                        <code key={k} className="keyword">
-                          {k}
-                        </code>
-                      ))}
+                      {/* Le parole chiave suggeriscono la soluzione: si vedono solo a esercizio risolto. */}
+                      {done ? (
+                        exercise.keywords.map((k) => (
+                          <code key={k} className="keyword">
+                            {k}
+                          </code>
+                        ))
+                      ) : (
+                        <span className="keywords-hidden">dopo la soluzione</span>
+                      )}
                     </td>
                   </tr>
                 );

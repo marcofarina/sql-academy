@@ -134,11 +134,13 @@ export function ExerciseWorkspace({ exercise, progress, training, onProgress, on
           <p className="exercise-meta">
             <span>{chapterLabel(exercise.chapter)}</span>
             <span className={`difficulty difficulty-${exercise.difficulty}`}>{DIFFICULTY_LABEL[exercise.difficulty]}</span>
-            {exercise.keywords.map((k) => (
-              <code key={k} className="keyword">
-                {k}
-              </code>
-            ))}
+            {/* Le parole chiave suggeriscono la soluzione: si vedono solo a esercizio risolto. */}
+            {progress.solved &&
+              exercise.keywords.map((k) => (
+                <code key={k} className="keyword">
+                  {k}
+                </code>
+              ))}
             {progress.solved && (
               <span className="solved">
                 <Icon name="circle-check" />

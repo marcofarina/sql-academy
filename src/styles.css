@@ -137,6 +137,12 @@
   box-sizing: border-box;
 }
 
+/* Nelle pagine di un tema la barra di scorrimento c’è sempre: cambiando sezione
+   il contenuto non si sposta quando la pagina diventa più corta della finestra. */
+html:has(.theme) {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   background: var(--color-bg);
@@ -282,14 +288,37 @@ h1 .icon-box {
 
 /* Selettore dello schema chiaro / scuro */
 .scheme-switch {
-  display: inline-flex;
+  position: relative;
+  display: inline-grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
   gap: 2px;
   padding: 3px;
   border: 1.5px solid var(--color-control-border);
   border-radius: 999px;
 }
 
+/* Il fondo del pulsante premuto: uno solo, che scorre da un pulsante all’altro. */
+.scheme-switch::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background: var(--color-text);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* «Scuro» è il secondo pulsante, come in SCHEMES (src/themes/contract.ts). */
+.theme[data-scheme='scuro'] .scheme-switch::before {
+  transform: translateX(calc(100% + 2px));
+}
+
 .scheme-switch button {
+  position: relative;
+  justify-content: center;
   min-height: 38px;
   padding: 0 14px;
   border: none;
@@ -297,11 +326,18 @@ h1 .icon-box {
   background: transparent;
   color: var(--color-muted);
   font-size: 15px;
+  transition: color 0.3s;
 }
 
 .scheme-switch button[aria-pressed='true'] {
-  background: var(--color-text);
   color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scheme-switch::before,
+  .scheme-switch button {
+    transition: none;
+  }
 }
 
 .sections {
@@ -647,6 +683,11 @@ kbd {
 
 .column-type {
   color: var(--color-muted);
+}
+
+.keywords-hidden {
+  color: var(--color-muted);
+  font-size: 14px;
 }
 
 .badge {
