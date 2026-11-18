@@ -2042,6 +2042,186 @@ const exercises: Exercise[] = [
     ],
     tables: ['personaggi'],
   },
+
+  // F22 — join: facile (6), medio (2), difficile (2)
+  {
+    id: 'ex-116',
+    chapter: 'join',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'JOIN'],
+    title: 'Chi guida le fazioni',
+    prompt: 'Mostra il nome di ogni fazione accanto al nome del suo leader.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, personaggi.nome AS leader
+      FROM fazioni
+      JOIN personaggi ON fazioni.leader_id = personaggi.id`,
+    hints: [
+      'Il leader di una fazione è un personaggio: la colonna leader_id della tabella fazioni contiene il suo id.',
+      'Unisci le due tabelle con JOIN personaggi ON fazioni.leader_id = personaggi.id.',
+    ],
+    tables: ['fazioni', 'personaggi'],
+  },
+  {
+    id: 'ex-117',
+    chapter: 'join',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'I Mandaloriani',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che militano nella fazione «Mandaloriani», cercandola per nome.',
+    expectedQuery: `
+      SELECT personaggi.nome, personaggi.ruolo
+      FROM personaggi
+      JOIN fazioni ON personaggi.fazione_id = fazioni.id
+      WHERE fazioni.nome = 'Mandaloriani'`,
+    hints: [
+      'Il nome della fazione è nella tabella fazioni, mentre i personaggi ne hanno solo l’id: unisci le due tabelle.',
+      'Dopo il JOIN filtra con WHERE fazioni.nome = \'Mandaloriani\'.',
+    ],
+    tables: ['personaggi', 'fazioni'],
+  },
+  {
+    id: 'ex-118',
+    chapter: 'join',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Battaglie nell’Orlo Esterno',
+    prompt: 'Mostra il nome delle battaglie combattute su pianeti dell’Orlo Esterno, con il nome del pianeta.',
+    expectedQuery: `
+      SELECT battaglie.nome AS battaglia, pianeti.nome AS pianeta
+      FROM battaglie
+      JOIN pianeti ON battaglie.pianeta_id = pianeti.id
+      WHERE pianeti.settore_galattico = 'Orlo Esterno'`,
+    hints: [
+      'Il settore galattico è una colonna di pianeti, non di battaglie.',
+      'Unisci con JOIN pianeti ON battaglie.pianeta_id = pianeti.id e filtra su pianeti.settore_galattico.',
+    ],
+    tables: ['battaglie', 'pianeti'],
+  },
+  {
+    id: 'ex-119',
+    chapter: 'join',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Personaggi di specie longeve',
+    prompt: 'Mostra il nome dei personaggi la cui specie ha un’aspettativa di vita media superiore a 300 anni, con il nome della specie.',
+    expectedQuery: `
+      SELECT personaggi.nome AS personaggio, specie.nome AS specie
+      FROM personaggi
+      JOIN specie ON personaggi.specie_id = specie.id
+      WHERE specie.aspettativa_vita_media > 300`,
+    hints: [
+      'L’aspettativa di vita è una caratteristica della specie, non del personaggio.',
+      'Unisci personaggi e specie con personaggi.specie_id = specie.id, poi filtra su specie.aspettativa_vita_media.',
+    ],
+    tables: ['personaggi', 'specie'],
+  },
+  {
+    id: 'ex-120',
+    chapter: 'join',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Le navi dei governi',
+    prompt: 'Mostra il nome delle astronavi che appartengono a fazioni di tipo «Governo», con il nome della fazione.',
+    expectedQuery: `
+      SELECT astronavi.nome AS astronave, fazioni.nome AS fazione
+      FROM astronavi
+      JOIN fazioni ON astronavi.fazione_id = fazioni.id
+      WHERE fazioni.tipo = 'Governo'`,
+    hints: [
+      'Il tipo della fazione è nella tabella fazioni.',
+      'Dopo JOIN fazioni ON astronavi.fazione_id = fazioni.id filtra con WHERE fazioni.tipo = \'Governo\'.',
+    ],
+    tables: ['astronavi', 'fazioni'],
+  },
+  {
+    id: 'ex-121',
+    chapter: 'join',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Le vittorie dell’Impero',
+    prompt: 'Mostra il nome, l’anno e le perdite stimate delle battaglie vinte dall’Impero Galattico, cercandolo per nome.',
+    expectedQuery: `
+      SELECT battaglie.nome, battaglie.anno_bby, battaglie.perdite_stimate
+      FROM battaglie
+      JOIN fazioni ON battaglie.fazione_vincitrice_id = fazioni.id
+      WHERE fazioni.nome = 'Impero Galattico'`,
+    hints: [
+      'La battaglia rimanda alla fazione che l’ha vinta con la colonna fazione_vincitrice_id.',
+      'Unisci con JOIN fazioni ON battaglie.fazione_vincitrice_id = fazioni.id e filtra su fazioni.nome.',
+    ],
+    tables: ['battaglie', 'fazioni'],
+  },
+  {
+    id: 'ex-122',
+    chapter: 'join',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'LEFT JOIN'],
+    title: 'Le flotte, anche quelle vuote',
+    prompt: 'Mostra il nome di ogni fazione accanto al nome delle sue astronavi. Le fazioni senza astronavi devono comparire lo stesso, con la colonna dell’astronave vuota.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, astronavi.nome AS astronave
+      FROM fazioni
+      LEFT JOIN astronavi ON fazioni.id = astronavi.fazione_id`,
+    hints: [
+      'Con JOIN una fazione senza navi non trova righe da abbinare e sparisce dal risultato.',
+      'LEFT JOIN tiene tutte le righe della tabella scritta a sinistra, cioè dopo FROM, e riempie di NULL le colonne dell’altra quando non c’è abbinamento.',
+    ],
+    tables: ['fazioni', 'astronavi'],
+  },
+  {
+    id: 'ex-123',
+    chapter: 'join',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'LEFT JOIN'],
+    title: 'Ogni specie con i suoi personaggi',
+    prompt: 'Mostra il nome di ogni specie accanto al nome dei personaggi che le appartengono, comprese le specie a cui l’archivio non assegna nessun personaggio.',
+    expectedQuery: `
+      SELECT specie.nome AS specie, personaggi.nome AS personaggio
+      FROM specie
+      LEFT JOIN personaggi ON specie.id = personaggi.specie_id`,
+    hints: [
+      'Le specie devono esserci tutte, anche senza personaggi: la tabella da tenere per intero è specie.',
+      'Scrivi FROM specie LEFT JOIN personaggi ON specie.id = personaggi.specie_id.',
+    ],
+    tables: ['specie', 'personaggi'],
+  },
+  {
+    id: 'ex-124',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'LEFT JOIN', 'WHERE', 'IS NULL'],
+    title: 'Pianeti mai toccati dalla guerra',
+    prompt: 'Mostra il nome e il settore dei pianeti su cui non si è combattuta nessuna battaglia, senza usare sottoquery.',
+    expectedQuery: `
+      SELECT pianeti.nome, pianeti.settore_galattico
+      FROM pianeti
+      LEFT JOIN battaglie ON pianeti.id = battaglie.pianeta_id
+      WHERE battaglie.id IS NULL`,
+    hints: [
+      'Parti da un LEFT JOIN fra pianeti e battaglie: i pianeti senza battaglie compaiono con le colonne di battaglie a NULL.',
+      'Tieni solo quelle righe: WHERE battaglie.id IS NULL. L’id di una battaglia esistente non è mai NULL, quindi il NULL viene dal LEFT JOIN.',
+    ],
+    tables: ['pianeti', 'battaglie'],
+  },
+  {
+    id: 'ex-125',
+    chapter: 'join',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Leader di una fazione altrui',
+    prompt: 'Mostra le fazioni il cui leader milita in un’altra fazione: il nome della fazione guidata, il nome del leader e il nome della fazione in cui il leader milita.',
+    expectedQuery: `
+      SELECT guidata.nome AS fazione_guidata, leader.nome AS leader, militanza.nome AS fazione_del_leader
+      FROM fazioni AS guidata
+      JOIN personaggi AS leader ON guidata.leader_id = leader.id
+      JOIN fazioni AS militanza ON leader.fazione_id = militanza.id
+      WHERE leader.fazione_id <> guidata.id`,
+    hints: [
+      'La tabella fazioni serve due volte: una per la fazione guidata, una per quella in cui il leader milita. Dai a ciascuna un alias con AS.',
+      'Collega la fazione guidata al leader con leader_id, il leader alla sua fazione con fazione_id, poi tieni le righe in cui le due fazioni sono diverse: WHERE leader.fazione_id <> guidata.id.',
+    ],
+    tables: ['fazioni', 'personaggi'],
+  },
 ];
 
 export default exercises;
