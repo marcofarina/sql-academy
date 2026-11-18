@@ -76,7 +76,7 @@ Procedura manuale con `npm run dev`: percorri le sei sezioni di Star Wars a 1280
 - **Correzione del plugin** `scripts/themeStatsPlugin.ts`: `this.addWatchFile(themesDir)` passava una cartella come dipendenza del modulo virtuale e con `npm run dev` Vite tentava di importarla («Failed to resolve import …/themes»). Tolta: in sviluppo il ricalcolo lo fa già `handleHotUpdate`.
 - **Allineamento alla tavola** «Neutra B3 — Le locandine sul tavolo», letta dall’Artifact «Design»: pianeta di 300 px a 110 × 190 px con alone, luna di 42 px, titolo a 68 px con interlinea 0,82, motto e crediti con larghezza massima, banda della scheda divisa al 60 % (variabile `--poster-band-split`), «Prossimamente» come titolo con «Tema N, da scegliere» sotto, capitoli della scheda con nomi brevi («una tabella 40 · join 25 …») e «105 esercizi per difficoltà».
 
-### Scostamenti dalla specifica, da confermare con Marco
+### Scostamenti dalla specifica, confermati da Marco il 2026-11-18
 
 1. **Alone dietro titolo e crediti della locandina Star Wars** (`text-shadow` del colore del cielo). Nella tavola, come nella resa, «Wars» e i crediti finiscono sopra la parte chiara del pianeta: senza alone si leggevano male, soprattutto a 375 px. L’alone non cambia geometria né colori; il rapporto di contrasto sopra il pianeta non è misurabile con `contrasto.mjs`, che confronta colori pieni.
 2. **Ordine delle tabelle** nei crediti e nelle etichette: quello di creazione in `schema.sql` (pianeti, fazioni, specie, personaggi…), non quello della tavola, perché i numeri della scheda si leggono dal database.
@@ -100,5 +100,4 @@ Le verifiche nel browser sono state fatte nel pannello integrato dell’app, a t
 
 ### Lavoro residuo
 
-- Confermare con Marco i tre scostamenti sopra.
 - Il pacchetto principale supera 500 kB: possibile divisione del codice (CodeMirror, rough.js) in una fase futura; non è nel perimetro di F08.
