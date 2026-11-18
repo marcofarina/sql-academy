@@ -101,3 +101,11 @@ Le verifiche nel browser sono state fatte nel pannello integrato dell’app, a t
 ### Lavoro residuo
 
 - Il pacchetto principale supera 500 kB: possibile divisione del codice (CodeMirror, rough.js) in una fase futura; non è nel perimetro di F08.
+
+### Revisione dopo la prova di Marco (2026-11-18)
+
+- **Lancio:** le locandine partono tutte insieme da sotto il bordo inferiore, con rotazioni diverse da quelle d’arrivo e durate fra 0,7 e 1,05 s (`throwStarts`, `flightDurations` in `src/pages/homeLayout.ts`). Prima partivano una dopo l’altra e sembravano uscire dall’angolo in alto a sinistra; finché il tavolo non ha una misura le locandine restano nascoste. «Rimescola» le sposta tutte insieme.
+- **Nessun mezzo nominato:** titolo «Scegli un mondo, interroga il database.»; i temi potranno venire anche da libri o videogiochi.
+- **Giro della scheda:** la scheda spariva a metà giro perché il fronte si voltava prima che il retro diventasse visibile. Ora il giro è simmetrico (0,84 s) e i cambi di faccia stanno a 0,34 s e 0,5 s; il filtro del passaggio del mouse è passato da `.poster-inner` alla faccia, perché su un elemento 3D lo appiattiva.
+- **Luna della locandina Star Wars** spostata in alto a destra, fra il motto e il titolo.
+- Verifiche: `npm test` (119), lint e build superati. Il volo e il giro non sono stati osservati nel browser, perché nel pannello nascosto le animazioni sono ferme; li controlla Marco.

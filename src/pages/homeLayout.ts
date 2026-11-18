@@ -54,6 +54,30 @@ export function scatter(count: number, width: number, random: () => number = Mat
   });
 }
 
+/**
+ * Punti di partenza del lancio: tutte le locandine partono insieme da sotto il
+ * bordo inferiore del tavolo, vicino al centro, ciascuna con una rotazione
+ * diversa da quella d’arrivo, così in volo girano su sé stesse.
+ */
+export function throwStarts(
+  targets: Placement[],
+  width: number,
+  height: number,
+  random: () => number = Math.random,
+): Placement[] {
+  return targets.map((target) => ({
+    x: width / 2 - POSTER_WIDTH / 2 + between(random, -90, 90),
+    y: height + 40 + between(random, 0, 140),
+    rotate: target.rotate + (random() < 0.5 ? -1 : 1) * between(random, 25, 70),
+    scale: target.scale,
+  }));
+}
+
+/** Durate del volo, in secondi: diverse per ogni locandina, perché non arrivino tutte nello stesso istante. */
+export function flightDurations(count: number, random: () => number = Math.random): number[] {
+  return Array.from({ length: count }, () => between(random, 0.7, 1.05));
+}
+
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }

@@ -7,18 +7,17 @@ import {
   clamp,
   credits,
   deckPlacement,
+  flightDurations,
   MIN_POSTERS,
   POSTER_HEIGHT,
   POSTER_WIDTH,
   scatter,
+  throwStarts,
   transformOf,
   type Placement,
 } from './homeLayout.ts';
 
 const BOOK_URL = 'https://python.rainbowbits.cloud';
-/** Ritardo fra una locandina e la successiva nel lancio, in secondi. */
-const LAUNCH_STAGGER = 0.11;
-const LAUNCH_DURATION = 0.85;
 /** Il cambio di faccia avviene a metà del giro: prima la faccia nuova non può ricevere il fuoco. */
 const FLIP_HALF_MS = 450;
 const DRAG_THRESHOLD = 5;
@@ -102,9 +101,10 @@ export function HomePage({ themes }: { themes: Theme[] }) {
   const [scattered, setScattered] = useState<Placement[] | null>(null);
   /** Ordine di sovrapposizione: l’ultimo è in cima. */
   const [stack, setStack] = useState(() => posters.map((_, i) => i));
-  /** All’apertura le locandine partono dal fondo, fuori dalla pagina. */
-  const [offscreen, setOffscreen] = useState(() => !window.matchMedia(REDUCED_MOTION_QUERY).matches);
-  const [staggered, setStaggered] = useState(false);
+  /** Prima del lancio: le locandine ferme sotto il bordo della pagina, da dove partono tutte insieme. */
+  const [launchStart, setLaunchStart] = useState<Placement[] | null>(null);
+  /** Durante un lancio o un rimescolamento: la durata del volo di ogni locandina, in secondi. */
+  const [flight, setFlight] = useState<number[] | null>(null);
   const [deckTop, setDeckTop] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
   const [openGeometry, setOpenGeometry] = useState<OpenGeometry | null>(null);
@@ -131,28 +131,43 @@ export function HomePage({ themes }: { themes: Theme[] }) {
     return () => observer.disconnect();
   }, []);
 
-  /** Lancio: posizioni nuove, con le locandine che arrivano una dopo l’altra. */
-  const launch = useCallback(() => {
-    if (!size) return;
-    setScattered(scatter(count, size.width));
+  /** Fa volare le locandine verso le posizioni correnti, tutte insieme, ciascuna con la sua durata. */
+  const fly = useCallback(() => {
     if (reducedMotion) return;
-    setStaggered(true);
-    later(() => setStaggered(false), (LAUNCH_DURATION + LAUNCH_STAGGER * count) * 1000);
-  }, [count, size, reducedMotion, later]);
+    const durations = flightDurations(count);
+    setFlight(durations);
+    later(() => setFlight(null), Math.max(...durations) * 1000 + 50);
+  }, [count, reducedMotion, later]);
 
-  // Primo lancio, appena il tavolo ha una misura.
+  /** Primo lancio: le locandine partono ferme da sotto la pagina e volano al loro posto. */
+  const throwIn = useCallback(
+    (width: number, height: number) => {
+      const targets = scatter(count, width);
+      setScattered(targets);
+      if (reducedMotion) return;
+      const arrivals = isDeck ? targets.map((_, i) => deckPlacement(i, width)) : targets;
+      setLaunchStart(throwStarts(arrivals, width, height));
+      // Due fotogrammi: il primo disegna le locandine ferme fuori pagina, il secondo avvia il volo.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          setLaunchStart(null);
+          fly();
+        }),
+      );
+    },
+    [count, isDeck, reducedMotion, fly],
+  );
+
+  // Il primo lancio parte appena il tavolo ha una misura.
   const launched = useRef(false);
   useEffect(() => {
     if (!size || launched.current) return;
     launched.current = true;
-    launch();
-    // Due fotogrammi: il primo disegna le locandine fuori pagina, il secondo avvia la transizione.
-    requestAnimationFrame(() => requestAnimationFrame(() => setOffscreen(false)));
-  }, [size, launch]);
+    throwIn(size.width, size.height);
+  }, [size, throwIn]);
 
   const placementOf = (index: number): Placement => {
     const width = size?.width ?? 0;
-    const height = size?.height ?? 0;
     let base: Placement;
     if (isDeck) {
       const depth = (index - deckTop + count) % count;
@@ -161,8 +176,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
       const p = scattered?.[index] ?? { x: 0, y: 0, rotate: 0, scale: 1 };
       base = { ...p, x: clamp(p.x, 0, Math.max(0, width - POSTER_WIDTH)) };
     }
-    if (offscreen) return { ...base, y: height + 80 };
-    return base;
+    return launchStart?.[index] ?? base;
   };
 
   /** Dimensioni e posizione della scheda aperta: al centro della finestra. */
@@ -210,8 +224,10 @@ export function HomePage({ themes }: { themes: Theme[] }) {
   }, [open, closeCard]);
 
   const reshuffle = () => {
+    if (!size) return;
     setOpen(null);
-    launch();
+    setScattered(scatter(count, size.width));
+    fly();
   };
 
   const turnDeck = (step: number) => setDeckTop((top) => (top + step + count) % count);
@@ -300,7 +316,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
       <header className="home-header">
         <div>
           <p className="home-brand">SQL Academy</p>
-          <h1 className="home-title">Scegli il film, interroga il database.</h1>
+          <h1 className="home-title">Scegli un mondo, interroga il database.</h1>
         </div>
         <div className="home-aside">
           {isDeck ? (
@@ -331,7 +347,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
           const themeId = poster.kind === 'theme' ? poster.theme.manifest.id : undefined;
           const title = poster.kind === 'theme' ? poster.theme.manifest.title : `Tema ${poster.number}`;
           const classes = ['poster', isOpen && 'is-open', isDragging && 'is-dragging'].filter(Boolean).join(' ');
-          const delay = staggered && !isOpen ? `${index * LAUNCH_STAGGER}s` : undefined;
+          const duration = flight && !isOpen && !isDragging ? `${flight[index]}s, 0.7s, 0.7s` : undefined;
 
           return (
             <div
@@ -340,7 +356,9 @@ export function HomePage({ themes }: { themes: Theme[] }) {
               data-theme-id={themeId}
               style={{
                 transform: transformOf(placement),
-                transitionDelay: delay,
+                transition: launchStart ? 'none' : undefined,
+                transitionDuration: duration,
+                visibility: scattered ? undefined : 'hidden',
                 width: geometry?.width,
                 height: geometry?.height,
                 zIndex: isOpen ? undefined : zIndexOf(index),

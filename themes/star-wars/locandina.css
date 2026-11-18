@@ -27,9 +27,9 @@
 }
 
 .poster[data-theme-id='star-wars'] .poster-front {
-  /* La luna, ferma sul cielo: 42 px, centro a 81 × 191 px come nella tavola */
+  /* La luna, ferma sul cielo: 42 px, sotto il motto e sopra il titolo */
   background:
-    radial-gradient(circle 21px at 81px 191px, var(--sw-moon-1) 0, var(--sw-moon-2) 12px, var(--sw-moon-3) 20px, transparent 21px),
+    radial-gradient(circle 21px at 168px 104px, var(--sw-moon-1) 0, var(--sw-moon-2) 12px, var(--sw-moon-3) 20px, transparent 21px),
     var(--sw-sky);
   color: var(--sw-base);
 }

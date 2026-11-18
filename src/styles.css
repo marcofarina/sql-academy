@@ -1291,14 +1291,15 @@ button.link-button {
   height: 100%;
   border-radius: 8px;
   transform-style: preserve-3d;
+  /* Simmetrico: il giro passa i 90° a metà, 0,42 s, fra i due cambi di faccia qui sotto. */
   transition:
-    transform 0.8s ease,
-    box-shadow 0.3s ease,
-    filter 0.2s ease;
+    transform 0.84s cubic-bezier(0.45, 0, 0.55, 1),
+    box-shadow 0.3s ease;
   box-shadow: 0 22px 30px -18px var(--home-shadow);
 }
 
-.poster:hover .poster-inner {
+/* Il filtro sta sulla faccia: su .poster-inner appiattirebbe il 3D del giro. */
+.poster:hover:not(.is-open) .poster-front {
   filter: brightness(1.06);
 }
 
@@ -1309,7 +1310,6 @@ button.link-button {
 .poster.is-open .poster-inner {
   transform: rotateY(180deg);
   box-shadow: 0 40px 60px -20px var(--home-shadow-deep);
-  filter: none;
 }
 
 .poster-face {
@@ -1318,8 +1318,20 @@ button.link-button {
   overflow: hidden;
   border-radius: 8px;
   backface-visibility: hidden;
-  /* La faccia nascosta esce dall’ordine di tabulazione a metà del giro. */
-  transition: visibility 0s linear 0.42s;
+  /*
+   * La faccia nascosta esce dall’ordine di tabulazione verso metà del giro.
+   * Quella che arriva diventa visibile poco prima dei 90°, quella che se ne va
+   * si nasconde poco dopo: `backface-visibility` le tiene comunque separate,
+   * e il giro non ha mai un istante senza nessuna faccia.
+   */
+  transition:
+    visibility 0s linear 0.5s,
+    filter 0.2s ease;
+}
+
+.poster:not(.is-open) .poster-front,
+.poster.is-open .poster-back {
+  transition-delay: 0.34s, 0s;
 }
 
 .poster-back {
