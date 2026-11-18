@@ -65,10 +65,11 @@ Fase completata il 2026-11-18 su Opus 5.5, in una sessione.
 
 ### Correzione del contratto
 
-Due aggiunte, documentate in `src/themes/contract.ts` e nella guida «Aggiungere un tema» del `README.md`:
+Tre aggiunte, documentate in `src/themes/contract.ts` e nella guida «Aggiungere un tema» del `README.md`:
 
 1. `.sections-indicator::after` disegna l’indicatore della sezione attiva; il tema non gli dà transizioni proprie.
 2. Campo facoltativo `session` in `ThemeIcons` (anche per schema): l’icona dei pulsanti della sessione al posto di `rocket`. Fuori dal perimetro iniziale, chiesto da Marco quando ha approvato `rocket`.
+3. Campo facoltativo `reset` in `ThemeIcons`: l’icona di «Azzera i progressi» al posto di `trash-can`. Chiesto da Marco a fase chiusa (commit `36e56ab`) e fatto nella stessa sessione, con un commit a parte.
 
 ### Verifiche
 
@@ -88,6 +89,7 @@ Due aggiunte, documentate in `src/themes/contract.ts` e nella guida «Aggiungere
 
 - Ricerca con `tools/search.py` per play, start, rocket, cards, carte, shuffle, mescola, sessione, session, allenamento, training, repeat, random, forward e altri: trovate solo `circle-play` (già «Esegui»), `bullseye` (già la sezione Addestramento) e `dice`. Nessuna alternativa.
 - Create con Opus 5.5 e approvate da Marco: `rocket` (commit `f6df297` del repo `icone`), `tie-fighter` e `hobbit-backpack` (commit `4b7c90f`). `hobbit-backpack` è alla seconda versione: la prima, con due cinghie che uscivano dal rotolo sopra una scatola, a Marco sembrava un detonatore.
+- Dopo la chiusura, per «Azzera i progressi»: `volcano` (LOTR) e `battle-station-damaged` (Star Wars), approvate da Marco (commit `7283f2c` del repo `icone`). Il vulcano alla terza versione, la stazione alla seconda, dal suo riferimento. Verificate nel pannello, nei due temi; `check:themes`, test, lint e build ripetuti e superati.
 - Avvisi di copertura (R1.6, non bloccanti): `rocket` 40,7%, `hobbit-backpack` 79,5%.
 - Nessun problema della skill o degli strumenti in questa fase.
 

@@ -27,7 +27,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   // Le icone del tema valide ora: quelle comuni, sostituite da quelle dello schema.
   const icons: ThemeIcons = { ...theme.manifest.icons, ...(schemes ? schemes[scheme] : {}) };
   const themeIcon = (name?: string) => (name ? theme.icons[name] : undefined);
-  const activeIcons = { emblem: themeIcon(icons.emblem), solved: themeIcon(icons.solved), empty: themeIcon(icons.empty), session: themeIcon(icons.session) };
+  const activeIcons = { emblem: themeIcon(icons.emblem), solved: themeIcon(icons.solved), empty: themeIcon(icons.empty), session: themeIcon(icons.session), reset: themeIcon(icons.reset) };
   // Icona di una sezione: quella del tema, se la dichiara, altrimenti quella comune.
   const sectionIcon = (s: (typeof SECTIONS)[number]) => {
     const svg = themeIcon(icons.sections?.[s.id]);

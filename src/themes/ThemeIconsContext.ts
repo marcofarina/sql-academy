@@ -10,6 +10,7 @@ export interface ActiveThemeIcons {
   solved?: string;
   empty?: string;
   session?: string;
+  reset?: string;
 }
 
 export const ThemeIconsContext = createContext<ActiveThemeIcons>({});

@@ -79,6 +79,8 @@ export interface ThemeIcons {
   empty?: string;
   /** Sui pulsanti che avviano una sessione di addestramento, al posto dell’icona comune `rocket`. */
   session?: string;
+  /** Sul pulsante che azzera i progressi del tema, al posto dell’icona comune `trash-can`. */
+  reset?: string;
   /** Icone che sostituiscono quelle comuni di alcune sezioni, nella barra delle sezioni e nel titolo. */
   sections?: Partial<Record<SectionId, string>>;
 }

@@ -2,6 +2,7 @@ import { Icon } from '../icons/Icon.tsx';
 import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
 import type { Exercise } from '../themes/contract.ts';
+import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { SessionIcon } from './SessionIcon.tsx';
 import { buildPath, chapterLabel, DIFFICULTY_LABEL, plural } from './exercises.ts';
 
@@ -21,6 +22,7 @@ function solvedCount(exercises: Exercise[], progress: ThemeProgress): number {
 /** Il percorso: gli esercizi per capitolo del libro e difficoltà, con lo stato di ciascuno. */
 export function PathView({ themeId, exercises, progress, sessionStatus, onReset }: PathViewProps) {
   const link = (item: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item });
+  const themeIcons = useThemeIcons();
 
   const reset = () => {
     if (window.confirm('Azzerare i progressi di questo tema? Esercizi risolti, suggerimenti e query salvate andranno persi.')) {
@@ -38,7 +40,7 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset 
           {sessionStatus ? `Riprendi la sessione (${sessionStatus})` : 'Nuova sessione'}
         </a>
         <button type="button" onClick={reset}>
-          <Icon name="trash-can" />
+          {themeIcons.reset ? <Icon svg={themeIcons.reset} /> : <Icon name="trash-can" />}
           Azzera i progressi
         </button>
       </div>

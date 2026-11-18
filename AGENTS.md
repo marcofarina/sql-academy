@@ -24,7 +24,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-18 | F09 completata: tema `themes/lotr/` con sette tabelle (`partecipazioni` e `tappe` molti a molti), 20 esercizi, veste chiara e scura; correzione del contratto `icons.sections` (commit `eb8a74d`); guida «Aggiungere un tema» nel `README.md`. |
 | 2026-11-18 | Feedback di Marco su F09: rifiniture fatte subito (barra di scorrimento stabile, selettore che scorre, chiavi esterne nel pannello delle tabelle, parole chiave solo a esercizio risolto, decorazioni LOTR più grandi); aggiunte al piano F18–F21 (indicatore animato e icona della sessione, sezione «Traccia», modello logico UML, esercizi LOTR a circa cento), che precedono F10. |
 | 2026-11-18 | Obiettivo di Marco: circa 150 esercizi distinti per tema. F21 arricchisce i dati di LOTR prima degli esercizi; nuova F22 porta Star Wars da 105 a circa 150. Entrambe precedono F10. |
-| 2026-11-18 | F18 completata: indicatore della sezione unico e animato (`src/pages/SectionIndicator.tsx`, aspetto nelle vesti con `.sections-indicator::after`); icona comune `rocket` per la sessione e campo `icons.session` del contratto (`x-wing`, `tie-fighter`, `hobbit-backpack`). |
+| 2026-11-18 | F18 completata: indicatore della sezione unico e animato (`src/pages/SectionIndicator.tsx`, aspetto nelle vesti con `.sections-indicator::after`); icona comune `rocket` per la sessione e campo `icons.session` del contratto (`x-wing`, `tie-fighter`, `hobbit-backpack`); poi `icons.reset` per «Azzera i progressi» (`volcano`, `battle-station-damaged`). |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

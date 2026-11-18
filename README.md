@@ -70,7 +70,7 @@ Esegui ogni `expectedQuery` su SQLite e controlla che il risultato sia quello ch
 | `fonts/` | i caratteri del tema, ciascuno con il suo file di licenza |
 | `icone/` | le icone RB proprie del tema, citate per nome dal manifest |
 
-Le decorazioni SVG stanno dentro i fogli di stile come `url("data:image/svg+xml,…")`. Le icone si cercano e si creano solo con la skill `icone-rb`; il manifest può assegnarle all’emblema, all’esercizio risolto, agli stati vuoti, ai pulsanti che avviano una sessione (`session`) e, con `icons.sections`, a una sezione.
+Le decorazioni SVG stanno dentro i fogli di stile come `url("data:image/svg+xml,…")`. Le icone si cercano e si creano solo con la skill `icone-rb`; il manifest può assegnarle all’emblema, all’esercizio risolto, agli stati vuoti, ai pulsanti che avviano una sessione (`session`), al pulsante che azzera i progressi (`reset`) e, con `icons.sections`, a una sezione.
 
 L’indicatore della sezione attiva lo sposta il guscio, con un’animazione propria: il tema ne decide solo l’aspetto. `.sections-indicator` ha la posizione e le misure della voce attiva, e `.sections-indicator::after` disegna il segno rispetto alla voce, per esempio una linea con `bottom: 0` o un punto con `left: 50%`. Senza regole del tema resta la linea comune del colore d’accento.
 
