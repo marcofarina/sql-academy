@@ -2222,6 +2222,165 @@ const exercises: Exercise[] = [
     ],
     tables: ['fazioni', 'personaggi'],
   },
+
+  // F22 — aggregazioni: facile (6), difficile (3)
+  {
+    id: 'ex-126',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'COUNT'],
+    title: 'Quanti sentono la Forza',
+    prompt: 'Conta i personaggi sensibili alla Forza.',
+    expectedQuery: `
+      SELECT COUNT(*) AS sensibili
+      FROM personaggi
+      WHERE sensibile_alla_forza = 1`,
+    hints: [
+      'Prima filtri le righe con WHERE, poi le conti.',
+      'COUNT(*) conta le righe rimaste dopo il WHERE.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-127',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'SUM'],
+    title: 'Il prezzo di tutte le guerre',
+    prompt: 'Calcola la somma delle perdite stimate di tutte le battaglie dell’archivio.',
+    expectedQuery: `
+      SELECT SUM(perdite_stimate) AS perdite_totali
+      FROM battaglie`,
+    hints: [
+      'Ti serve un solo numero, ottenuto da tutte le righe della tabella battaglie.',
+      'La funzione SUM somma i valori di una colonna: SUM(perdite_stimate).',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-128',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'MAX'],
+    title: 'L’equipaggio più numeroso',
+    prompt: 'Trova il numero massimo di membri dell’equipaggio fra tutte le astronavi.',
+    expectedQuery: `
+      SELECT MAX(capacita_equipaggio) AS equipaggio_massimo
+      FROM astronavi`,
+    hints: [
+      'Non ti serve ordinare: esiste una funzione che restituisce il valore più alto di una colonna.',
+      'Scrivi SELECT MAX(capacita_equipaggio) FROM astronavi.',
+    ],
+    tables: ['astronavi'],
+  },
+  {
+    id: 'ex-129',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'COUNT', 'DISTINCT'],
+    title: 'Quanti settori galattici',
+    prompt: 'Conta i settori galattici diversi in cui si trovano i pianeti dell’archivio.',
+    expectedQuery: `
+      SELECT COUNT(DISTINCT settore_galattico) AS settori
+      FROM pianeti`,
+    hints: [
+      'COUNT(*) conta i pianeti, ma molti pianeti stanno nello stesso settore.',
+      'Dentro COUNT puoi scrivere DISTINCT: COUNT(DISTINCT settore_galattico) conta ogni settore una volta sola.',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-130',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'COUNT'],
+    title: 'Anni di nascita registrati',
+    prompt: 'Conta i personaggi di cui l’archivio conosce l’anno di nascita.',
+    expectedQuery: `
+      SELECT COUNT(anno_nascita_bby) AS anni_noti
+      FROM personaggi`,
+    hints: [
+      'COUNT(*) conta tutte le righe; COUNT con il nome di una colonna conta solo le righe in cui quella colonna non è NULL.',
+      'Scrivi COUNT(anno_nascita_bby), oppure filtra con WHERE anno_nascita_bby IS NOT NULL e usa COUNT(*).',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-131',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'AVG'],
+    title: 'Popolazione media dell’Orlo Esterno',
+    prompt: 'Calcola la popolazione media dei pianeti dell’Orlo Esterno.',
+    expectedQuery: `
+      SELECT AVG(popolazione) AS popolazione_media
+      FROM pianeti
+      WHERE settore_galattico = 'Orlo Esterno'`,
+    hints: [
+      'La media riguarda solo una parte dei pianeti: filtra prima con WHERE.',
+      'AVG(popolazione) calcola la media delle righe rimaste dopo il WHERE.',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-132',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'SUM', 'CASE'],
+    title: 'Forza sì, Forza no',
+    prompt: 'Per ogni fazione mostra il nome, il numero dei membri sensibili alla Forza e il numero di quelli che non lo sono, in due colonne distinte.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione,
+        SUM(CASE WHEN personaggi.sensibile_alla_forza = 1 THEN 1 ELSE 0 END) AS sensibili,
+        SUM(CASE WHEN personaggi.sensibile_alla_forza = 0 THEN 1 ELSE 0 END) AS non_sensibili
+      FROM fazioni
+      JOIN personaggi ON fazioni.id = personaggi.fazione_id
+      GROUP BY fazioni.nome`,
+    hints: [
+      'Un WHERE terrebbe solo uno dei due gruppi di membri, ma ti servono entrambi nella stessa riga. Ogni colonna deve contare solo i membri che le spettano.',
+      'Dentro SUM metti un CASE che vale 1 per i membri da contare e 0 per gli altri: SUM(CASE WHEN personaggi.sensibile_alla_forza = 1 THEN 1 ELSE 0 END). Per la seconda colonna cambia la condizione.',
+    ],
+    tables: ['fazioni', 'personaggi'],
+  },
+  {
+    id: 'ex-133',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING', 'SUM'],
+    title: 'I settori più insanguinati',
+    prompt: 'Mostra i settori galattici in cui le battaglie hanno causato in tutto più di 10.000 perdite stimate, con il totale delle perdite.',
+    expectedQuery: `
+      SELECT pianeti.settore_galattico, SUM(battaglie.perdite_stimate) AS perdite_totali
+      FROM battaglie
+      JOIN pianeti ON battaglie.pianeta_id = pianeti.id
+      GROUP BY pianeti.settore_galattico
+      HAVING SUM(battaglie.perdite_stimate) > 10000`,
+    hints: [
+      'Il settore è una colonna di pianeti: unisci le battaglie ai pianeti, poi raggruppa per settore.',
+      'La condizione riguarda il totale del gruppo, non la singola battaglia: va in HAVING, non in WHERE.',
+    ],
+    tables: ['battaglie', 'pianeti'],
+  },
+  {
+    id: 'ex-134',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'LEFT JOIN', 'GROUP BY', 'ORDER BY', 'COUNT'],
+    title: 'L’armeria delle fazioni',
+    prompt: 'Per ogni fazione, comprese quelle che non ne hanno, mostra il nome e il numero di spade laser possedute dai suoi membri. Ordina dalla fazione con più spade e, a parità, per nome.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, COUNT(spade_laser.id) AS numero_spade
+      FROM fazioni
+      LEFT JOIN personaggi ON fazioni.id = personaggi.fazione_id
+      LEFT JOIN spade_laser ON personaggi.id = spade_laser.personaggio_id
+      GROUP BY fazioni.nome
+      ORDER BY numero_spade DESC, fazione ASC`,
+    hints: [
+      'Le spade si collegano alle fazioni passando dai personaggi. Perché le fazioni senza spade restino nel risultato, entrambi i collegamenti devono essere LEFT JOIN.',
+      'COUNT(*) conterebbe anche le righe con la spada a NULL, e una fazione senza spade avrebbe 1 o più. Conta invece COUNT(spade_laser.id).',
+    ],
+    tables: ['fazioni', 'personaggi', 'spade_laser'],
+  },
 ];
 
 export default exercises;
