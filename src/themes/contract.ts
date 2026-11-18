@@ -10,7 +10,7 @@
  *   schema.sql    CREATE TABLE, con le chiavi esterne dichiarate
  *   dati.sql      INSERT
  *   esercizi.ts   esercizi, esportati come `default` (tipo `Exercise[]`); facoltativo
- *   analisi.md    testo del dominio, in Markdown minimo (vedi `src/analysis/markdown.ts`); facoltativo
+ *   traccia.md    traccia: il testo del problema da cui nasce il database, in Markdown minimo (vedi `src/trace/markdown.ts`); facoltativo
  *   er.ts         schema ER, esportato come `default` (tipo `ErDiagram`); facoltativo
  *   stile.css     veste del guscio del tema: variabili e decorazioni; facoltativo
  *   locandina.css fronte della locandina sulla pagina iniziale; facoltativo
@@ -157,6 +157,6 @@ export interface Theme {
   loadExercises(): Promise<Exercise[]>;
   /** Carica lo schema ER del tema (`er.ts`); `undefined` se il file manca. */
   loadEr(): Promise<ErDiagram | undefined>;
-  /** Carica il testo dell’analisi (`analisi.md`); `undefined` se il file manca. */
-  loadAnalysis(): Promise<string | undefined>;
+  /** Carica il testo della traccia (`traccia.md`); `undefined` se il file manca. */
+  loadTrace(): Promise<string | undefined>;
 }

@@ -24,8 +24,8 @@ test('corsivo e grassetto dentro una riga', () => {
   ]);
 });
 
-test('l’analisi di Star Wars si carica dal registro', async () => {
-  const text = await findTheme('star-wars')!.loadAnalysis();
+test('la traccia di Star Wars si carica dal registro', async () => {
+  const text = await findTheme('star-wars')!.loadTrace();
   expect(text).toMatch(/^# /);
   expect(parseMarkdown(text!).length).toBeGreaterThan(5);
 });

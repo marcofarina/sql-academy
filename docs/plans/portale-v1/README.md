@@ -20,7 +20,7 @@
 | F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
 | F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
 | F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | completata | 2026-11-18 15:46 | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
-| F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
+| F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | completata | 2026-11-18 16:59 | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
 | F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
 | F21 | Arricchire i dati del Signore degli Anelli e portarne gli esercizi a circa 150 | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F21](#p-f21) | [F21](F21-ampliare-esercizi-signore-anelli.md) |
 | F22 | Portare gli esercizi di Star Wars a circa 150 | F07 | Opus 5.5 `medium` | alto | da fare | | [P-F22](#p-f22) | [F22](F22-ampliare-esercizi-star-wars.md) |

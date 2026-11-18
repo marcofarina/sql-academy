@@ -8,7 +8,7 @@ import { loadScheme, saveScheme } from '../scheme/scheme.ts';
 import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
 import { SectionIndicator } from './SectionIndicator.tsx';
 import { useProgress } from '../progress/useProgress.ts';
-import { AnalysisSection } from '../analysis/AnalysisSection.tsx';
+import { TraceSection } from '../trace/TraceSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
 import { LogicalSection } from '../logical/LogicalSection.tsx';
 import { CatalogSection } from '../training/CatalogSection.tsx';
@@ -88,10 +88,13 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
       </nav>
       <ThemeIconsContext value={activeIcons}>
       <main className="page">
-        <h1>
-          {sectionIcon(current)}
-          {current.label}
-        </h1>
+        {/* La traccia usa come titolo quello del suo testo. */}
+        {section !== 'traccia' && (
+          <h1>
+            {sectionIcon(current)}
+            {current.label}
+          </h1>
+        )}
         {section === 'sandbox' ? (
           <SandboxSection controller={sandbox} query={query} onQueryChange={setQuery} />
         ) : section === 'addestramento' ? (
@@ -107,8 +110,8 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
           />
         ) : section === 'query' ? (
           <CatalogSection themeId={id} training={training} progress={progress} />
-        ) : section === 'analisi' ? (
-          <AnalysisSection theme={theme} />
+        ) : section === 'traccia' ? (
+          <TraceSection theme={theme} icon={sectionIcon(current)} />
         ) : section === 'er' ? (
           <ErSection theme={theme} />
         ) : section === 'logico' ? (

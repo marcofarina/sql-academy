@@ -1,6 +1,6 @@
 # SQL Academy
 
-Portale di addestramento a SQL che accompagna il *Manuale dell’Archivista*, terzo volume di *Python Doesn’t Byte*. Ogni **tema** è un universo narrativo con un proprio database SQLite, interrogabile nel browser, i propri esercizi e una propria veste grafica. Scelto un tema, lo studente trova sei sezioni: sandbox, addestramento, tutte le query, analisi del dominio, schema ER e modello logico.
+Portale di addestramento a SQL che accompagna il *Manuale dell’Archivista*, terzo volume di *Python Doesn’t Byte*. Ogni **tema** è un universo narrativo con un proprio database SQLite, interrogabile nel browser, i propri esercizi e una propria veste grafica. Scelto un tema, lo studente trova sei sezioni: sandbox, addestramento, tutte le query, traccia, schema ER e modello logico.
 
 Temi presenti: Star Wars (`themes/star-wars/`) e Il Signore degli Anelli (`themes/lotr/`).
 
@@ -45,7 +45,7 @@ Proponi a Marco il dominio e lo schema ER prima di scrivere i file. Poi crea:
 | `schema.sql` | le istruzioni `CREATE TABLE`, con le chiavi esterne dichiarate, ogni tabella dopo quelle a cui rimanda |
 | `dati.sql` | le istruzioni `INSERT` |
 | `er.ts` | lo schema ER, nella forma del componente `<DiagrammaER>` del libro; ogni tabella deve tradurre un’entità o un’associazione |
-| `analisi.md` | il testo del dominio da cui nasce il database, come nella seconda prova dell’Esame di Stato |
+| `traccia.md` | la traccia: il testo del problema da cui nasce il database, come nella seconda prova dell’Esame di Stato; la prima riga `# …` è il titolo della pagina |
 
 Sono obbligatori solo `theme.ts`, `schema.sql` e `dati.sql`. Verifica il caricamento con le chiavi esterne attive (`foreign_key_check` non deve stampare nulla):
 

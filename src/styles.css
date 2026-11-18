@@ -1216,8 +1216,8 @@ button.link-button {
   cursor: pointer;
 }
 
-/* Analisi del dominio: testo da leggere, righe non troppo lunghe. */
-.analysis {
+/* Traccia: testo da leggere, righe non troppo lunghe; il titolo resta come gli altri h1. */
+.trace > :not(h1) {
   max-width: 42rem;
   line-height: 1.6;
 }

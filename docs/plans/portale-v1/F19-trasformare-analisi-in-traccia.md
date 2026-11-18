@@ -49,4 +49,28 @@ Procedura manuale con `npm run dev`: in entrambi i temi la barra mostra «Tracci
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, decisione sull’identificativo, osservazioni di Marco sui grassetti, lavoro residuo, consumo reale se noto.
+Fase completata il 2026-11-18 su Opus 5.5, in una sessione.
+
+### Esito
+
+- **Identificativo:** Marco ha scelto di rinominare tutto. URL `#/<tema>/traccia`, file `themes/<id>/traccia.md`, cartella `src/trace/` con `TraceSection`, nel contratto `loadTrace` al posto di `loadAnalysis`, classe CSS `.trace`. Aggiornati `src/themes/contract.ts`, `src/themes/registry.ts` e la guida «Aggiungere un tema» del `README.md`. Il vecchio URL `#/<tema>/analisi` non esiste più.
+- **Titolo della pagina:** per la sezione «Traccia» il guscio (`src/pages/ThemePage.tsx`) non scrive il proprio `h1`; `TraceSection` usa come `h1` il primo titolo `#` del testo, con l’icona della sezione accanto. Finché il testo si carica, o se manca, l’`h1` resta «Traccia». La larghezza massima delle righe vale per il testo e non per il titolo (`.trace > :not(h1)`), così il titolo resta su una riga. Il titolo del documento resta «Traccia · <tema> · SQL Academy».
+- **Grassetti**, solo aggiunti, nessun’altra modifica ai testi: l’entità alla prima presentazione, i vincoli di cardinalità, i casi di dato mancante; per LOTR anche lo schieramento nelle battaglie e «solo il primo passaggio» delle tappe. Gli attributi non sono in grassetto; nessun grassetto nel paragrafo d’apertura e in quello sugli anni. Al massimo quattro per paragrafo.
+- **Osservazioni di Marco sui grassetti:** approvati così.
+- **Passata di `scrittura-umana.md`:** sui grassetti (§10) e sui due testi; nessun difetto nuovo. Quattro grassetti per paragrafo superano «un concetto per paragrafo», ma sono le categorie chieste da Marco.
+
+### Verifiche
+
+| Verifica | Esito |
+| --- | --- |
+| `npm run check:themes` | superata: `lotr` 20 esercizi, `star-wars` 105, 0 problemi |
+| `npm test` | superata: 15 file, 119 test |
+| `npm run lint` | superata |
+| `npm run build` | superata (resta l’avviso già noto sulla dimensione dei *chunk*) |
+| `grep -rn "Analisi" src themes README.md` | superata: nessuna occorrenza |
+| Procedura manuale, quattro schemi | superata nel browser integrato: barra con «Traccia», `h1` «Le cronache di Gran Burrone» e «L’archivio della galassia», grassetti visibili in LOTR chiaro e scuro e in Star Wars chiaro e scuro |
+
+### Lavoro residuo
+
+- Restano «analisi» in documenti storici del piano e in `docs/design/star-wars.md` (elenco delle sezioni): fuori perimetro, non toccati.
+- Controllo chiesto da Marco a fine fase sulle passate anti-slop delle fasi precedenti: registrate in F02 (messaggi di esito), F07 (analisi e tutti gli esercizi di Star Wars, per campione) e F09 (analisi ed esercizi di LOTR). I testi dell’interfaccia di F05 risultano non passati dalle norme (lo dice il suo passaggio di consegne) e F07 non li ha ripresi; di F08 e F09 non c’è traccia di una passata su motti e descrizioni dei temi.

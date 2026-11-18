@@ -1,6 +1,6 @@
 /**
- * Markdown minimo per `analisi.md`: titoli (`#`), paragrafi, elenchi puntati
- * (`- `), corsivo (`*…*`) e grassetto (`**…**`). Basta per un testo di dominio;
+ * Markdown minimo per `traccia.md`: titoli (`#`), paragrafi, elenchi puntati
+ * (`- `), corsivo (`*…*`) e grassetto (`**…**`). Basta per il testo di una traccia;
  * il resto della sintassi resta testo così com’è.
  */
 

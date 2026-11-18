@@ -10,7 +10,7 @@ export const SECTIONS = [
   { id: 'sandbox', label: 'Sandbox', icon: 'terminal-window' },
   { id: 'addestramento', label: 'Addestramento', icon: 'bullseye' },
   { id: 'query', label: 'Tutte le query', icon: 'list' },
-  { id: 'analisi', label: 'Analisi', icon: 'file-lines' },
+  { id: 'traccia', label: 'Traccia', icon: 'file-lines' },
   { id: 'er', label: 'Schema ER', icon: 'entity-relationship' },
   { id: 'logico', label: 'Modello logico', icon: 'table' },
 ] as const;
