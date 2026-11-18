@@ -23,7 +23,7 @@
 | F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | completata | 2026-11-18 16:59 | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
 | F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | completata | 2026-11-18 20:22 | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
 | F21 | Arricchire i dati del Signore degli Anelli e portarne gli esercizi a circa 150 | F09 | Opus 5.5 `medium` | alto | completata | 2026-11-18 21:31 | [P-F21](#p-f21) | [F21](F21-ampliare-esercizi-signore-anelli.md) |
-| F22 | Portare gli esercizi di Star Wars a circa 150 | F07 | Opus 5.5 `medium` | alto | da fare | | [P-F22](#p-f22) | [F22](F22-ampliare-esercizi-star-wars.md) |
+| F22 | Portare gli esercizi di Star Wars a circa 150 | F07 | Opus 5.5 `medium` | alto | completata | 2026-11-18 22:25 | [P-F22](#p-f22) | [F22](F22-ampliare-esercizi-star-wars.md) |
 
 Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
 
@@ -615,3 +615,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-18 | F18 completata su Opus 5.5. Indicatore unico della sezione attiva, spostato e animato dal guscio; la veste ne disegna l’aspetto con `.sections-indicator::after`. Icona comune `rocket` e nuovo campo `icons.session` del contratto: `x-wing` e `tie-fighter` per Star Wars, `hobbit-backpack` per LOTR. Su richiesta di Marco, anche `icons.reset` per «Azzera i progressi»: `volcano` e `battle-station-damaged`. |
 | 2026-11-18 | F20 completata su Opus 5.5. Il modello logico diventa un diagramma UML generato dal database; disposizione dichiarata dal tema in `themes/<id>/logico.ts` (scelta di Marco), con linee instradate nelle corsie fra le tabelle e controllate da `check:themes`. Contratto: nuovo file facoltativo e `Theme.loadLogical`. |
 | 2026-11-18 | F21 completata su Opus 5.5. Dati di LOTR arricchiti con le forze schierate nelle battaglie e le date delle tappe (al posto dell’anno), più tre pugnali dei Tumuli; esercizi da 20 a 140 (40 / 36 / 35 / 29 per capitolo). Colonne, distribuzione e righe nuove approvate da Marco; valori e fonti nel dettaglio della fase. |
+| 2026-11-18 | F22 completata su Opus 5.5. Esercizi di Star Wars da 105 a 150 (50 / 35 / 39 / 26 per capitolo), con esercizi facili in ogni capitolo e sottoquery da 10 a 26; distribuzione approvata da Marco, nessun dato nuovo. |
