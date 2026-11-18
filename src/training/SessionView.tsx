@@ -61,8 +61,8 @@ function ConfigForm({ exercises, onStart }: { exercises: Exercise[]; onStart(con
       }}
     >
       <p className="lead">
-        Una sessione estrae a caso alcuni esercizi, senza ripetizioni, e alla fine mostra un riepilogo. Gli esercizi
-        risolti contano anche nel percorso.
+        La sessione ti propone alcuni esercizi scelti a caso, senza ripetizioni, e alla fine ti mostra un riepilogo.
+        Gli esercizi che risolvi qui risultano risolti anche nel percorso.
       </p>
       <fieldset>
         <legend>Quanti esercizi</legend>
@@ -107,7 +107,7 @@ function ConfigForm({ exercises, onStart }: { exercises: Exercise[]; onStart(con
       </fieldset>
       <fieldset>
         <legend>Parole chiave da allenare</legend>
-        <p className="hint-text">Nessuna scelta: tutte. Entra un esercizio che ne usa almeno una.</p>
+        <p className="hint-text">Se non ne scegli nessuna, valgono tutte. Nella sessione entrano gli esercizi che ne usano almeno una.</p>
         <div className="keyword-choices">
           {keywords.map((keyword) => (
             <label key={keyword}>

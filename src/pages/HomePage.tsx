@@ -418,7 +418,11 @@ export function HomePage({ themes }: { themes: Theme[] }) {
       <div className={open === null ? 'home-veil' : 'home-veil is-visible'} onClick={closeCard} aria-hidden="true" />
 
       <p className="home-footer">
-        Le query girano nel tuo browser con SQLite. Gli esercizi accompagnano <a href={BOOK_URL}>Python Doesn’t Byte</a>.
+        Le query girano nel tuo browser con SQLite. Gli esercizi accompagnano il{' '}
+        <a href={BOOK_URL}>
+          <cite>Manuale dell’Archivista</cite>
+        </a>{' '}
+        di <cite>Python Doesn’t Byte</cite>.
       </p>
     </main>
   );
@@ -458,7 +462,7 @@ function PosterCard({ poster, titleId, onClose }: { poster: Poster; titleId: str
           <h2 className="card-title" id={titleId}>
             Tema {poster.number}
           </h2>
-          <p className="card-description">Un altro mondo da interrogare, ancora da scegliere.</p>
+          <p className="card-description">Un altro mondo da interrogare, in arrivo.</p>
           <div className="card-actions">{back}</div>
         </div>
       </>

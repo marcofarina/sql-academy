@@ -100,8 +100,8 @@ function Attribute({ column }: { column: ColumnInfo }) {
   const classes = [column.primaryKey && 'pk', column.foreignKey && 'fk'].filter(Boolean).join(' ');
   return (
     <span className="attribute">
-      {column.primaryKey && <Icon name="key" title="chiave primaria" />}
-      {column.foreignKey && <Icon name="link" title="chiave esterna" />}
+      {column.primaryKey && <Icon name="key" title="Chiave primaria" />}
+      {column.foreignKey && <Icon name="link" title="Chiave esterna" />}
       <span className={classes || undefined}>{column.name}</span>
     </span>
   );
