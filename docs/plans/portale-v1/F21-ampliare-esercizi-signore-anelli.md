@@ -1,16 +1,18 @@
-# F21 — Portare gli esercizi del Signore degli Anelli a circa cento
+# F21 — Arricchire i dati del Signore degli Anelli e portarne gli esercizi a circa 150
 
 - **Modello / effort:** Opus 5.5 `medium` (scelta di Marco, 2026-11-18). Testi per gli studenti e giudizio sul risultato di ogni query.
 - **Dipendenze:** F09. Se F19 è già chiusa, le consegne rimandano alla «Traccia».
-- **Consumo stimato:** alto. Circa 80 esercizi nuovi, ciascuno con consegna, suggerimenti e query eseguita e controllata.
-- **Incertezza:** media. Cresce se il database non basta a esercizi vari sui quattro capitoli e serve aggiungere dati.
-- **Punto di ripresa:** esercizi di un capitolo completati e `npm run check:themes` verde; ogni capitolo è un blocco a sé.
+- **Consumo stimato:** alto. Colonne nuove nel database e 100–130 esercizi nuovi, ciascuno con consegna, suggerimenti e query eseguita e controllata. Probabilmente più di una sessione: si riprende dal capitolo in corso.
+- **Incertezza:** media. Cresce se le colonne numeriche nuove non si possono ricavare dall’opera e vanno stimate.
+- **Punto di ripresa:** dati arricchiti e approvati da Marco, con i 20 esercizi esistenti ancora verdi; poi ogni capitolo completato è un blocco a sé.
 
 Questa fase si esegue solo in locale: scrive testi per gli studenti e ha bisogno di `.claude/norms/`.
 
 ## 1. Obiettivo e risultato atteso
 
-`themes/lotr/esercizi.ts` passa da 20 a circa 100 esercizi, come Star Wars (105), distribuiti sui quattro capitoli e sui tre livelli, senza ripetere gli esercizi esistenti.
+`themes/lotr/esercizi.ts` passa da 20 a **120–150 esercizi**, distribuiti sui quattro capitoli e sui tre livelli, senza ripetere gli esercizi esistenti.
+
+Obiettivo fissato da Marco il 2026-11-18: circa 150 esercizi distinti per tema, cioè circa 600 nel portale con quattro temi. Oltre questa soglia, con sette tabelle, gli esercizi diventano varianti l’uno dell’altro. Il database di LOTR ha poche colonne numeriche (anni, ordine delle tappe, `immortale`) e non regge aggregazioni varie: prima degli esercizi si arricchiscono i dati. Se le colonne nuove non bastano a esercizi distinti, la fase si ferma intorno a 120 e lo dichiara.
 
 ## 2. Contesto minimo
 
@@ -22,22 +24,23 @@ Questa fase si esegue solo in locale: scrive testi per gli studenti e ha bisogno
 
 ## 3. Perimetro
 
-Dentro: esercizi nuovi; dati aggiuntivi in `dati.sql` solo se servono a un esercizio e sono coerenti con l’opera (in quel caso ricontrolla i risultati degli esercizi esistenti).
+Dentro: colonne numeriche nuove in `schema.sql` e `dati.sql`, con l’aggiornamento di `er.ts` e della traccia del dominio (`analisi.md`, o `traccia.md` dopo F19); righe nuove dove servono; esercizi nuovi.
 
-Fuori: schema del database, esercizi di Star Wars, codice comune.
+Fuori: tabelle nuove, salvo approvazione di Marco; esercizi di Star Wars (F22); codice comune.
 
 ## 4. Attività di implementazione
 
-1. Proponi a Marco la distribuzione: numero di esercizi per capitolo e per difficoltà, parole chiave da coprire (per esempio `LIKE`, `DISTINCT`, `IN`, `CASE`, `EXISTS`, `UNION`, funzioni di data e di testo se i dati lo permettono). Attendi l’approvazione.
-2. Scrivi gli esercizi un capitolo alla volta. Esegui ogni query attesa su SQLite e controlla che il risultato sia quello chiesto, con almeno una riga. Usa uno script nella cartella temporanea della sessione per eseguire tutte le query di un capitolo in una volta.
-3. Dopo ogni capitolo esegui `npm run check:themes` e committa come commit intermedio dichiarato.
-4. Applica la passata finale di `scrittura-umana.md` a consegne e suggerimenti.
+1. Proponi a Marco le colonne numeriche da aggiungere, con la fonte di ogni valore: ricavato dall’opera (per esempio l’altezza dei personaggi o la durata in giorni di una battaglia, dove Tolkien la dà) oppure stimato in modo plausibile, dichiarandolo nella traccia del dominio. Candidati: forze schierate e perdite di ogni battaglia, distanze in miglia fra le tappe, altezza dei personaggi, età alla morte. Attendi l’approvazione, poi aggiorna schema, dati, ER e traccia; ricarica con `PRAGMA foreign_keys=ON` e controlla che i 20 esercizi esistenti diano ancora il risultato chiesto.
+2. Proponi a Marco la distribuzione: numero di esercizi per capitolo e per difficoltà, parole chiave da coprire (per esempio `LIKE`, `DISTINCT`, `IN`, `CASE`, `EXISTS`, `UNION`, funzioni di data e di testo se i dati lo permettono). Attendi l’approvazione.
+3. Scrivi gli esercizi un capitolo alla volta. Esegui ogni query attesa su SQLite e controlla che il risultato sia quello chiesto, con almeno una riga. Usa uno script nella cartella temporanea della sessione per eseguire tutte le query di un capitolo in una volta.
+4. Dopo ogni capitolo esegui `npm run check:themes` e committa come commit intermedio dichiarato.
+5. Applica la passata finale di `scrittura-umana.md` a consegne e suggerimenti.
 
 ## 5. Criteri di accettazione
 
 | Comando | Risultato atteso |
 | --- | --- |
-| `npm run check:themes` | Exit 0; `lotr` con circa 100 esercizi |
+| `npm run check:themes` | Exit 0; `lotr` con 120–150 esercizi |
 | `npm test`, `npm run lint`, `npm run build` | Exit 0 |
 | `git diff --stat <hash di partenza> HEAD -- . ':!themes/lotr' ':!docs'` | Nessuna riga, salvo la riga di stato in `AGENTS.md` |
 
@@ -45,4 +48,4 @@ Procedura manuale con `npm run dev`: la locandina di LOTR riporta il nuovo numer
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, distribuzione finale, dati aggiunti, osservazioni di Marco, lavoro residuo, consumo reale se noto.
+Da compilare alla chiusura: esito, verifiche, colonne e dati aggiunti con la loro fonte, distribuzione finale, osservazioni di Marco, lavoro residuo, consumo reale se noto.
