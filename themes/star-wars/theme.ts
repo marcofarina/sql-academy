@@ -7,8 +7,8 @@ const manifest: ThemeManifest = {
   motto: 'Una galassia lontana lontana, in sette tabelle.',
   icons: { solved: 'lightsabers-crossed' },
   schemes: {
-    chiaro: { emblem: 'rebel-alliance', empty: 'x-wing' },
-    scuro: { emblem: 'galactic-empire', empty: 'battle-station' },
+    chiaro: { emblem: 'rebel-alliance', empty: 'x-wing', session: 'x-wing' },
+    scuro: { emblem: 'galactic-empire', empty: 'battle-station', session: 'tie-fighter' },
   },
 };
 

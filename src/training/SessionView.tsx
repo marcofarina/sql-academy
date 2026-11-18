@@ -1,5 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Icon } from '../icons/Icon.tsx';
+import { SessionIcon } from './SessionIcon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { exerciseProgress, type ExerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import { formatRoute } from '../routing/route.ts';
@@ -130,7 +131,7 @@ function ConfigForm({ exercises, onStart }: { exercises: Exercise[]; onStart(con
       </p>
       <div className="toolbar">
         <button type="submit" className="primary" disabled={available === 0}>
-          <Icon name="dice" />
+          <SessionIcon />
           Avvia la sessione
         </button>
       </div>
@@ -197,7 +198,7 @@ function Summary({
       </div>
       <div className="toolbar">
         <button type="button" className="primary" onClick={onNew}>
-          <Icon name="dice" />
+          <SessionIcon />
           Nuova sessione
         </button>
         <a className="button" href={formatRoute({ page: 'theme', themeId, section: 'addestramento' })}>

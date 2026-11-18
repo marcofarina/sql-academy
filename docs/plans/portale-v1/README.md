@@ -19,7 +19,7 @@
 | F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | da fare | | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
 | F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
 | F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
-| F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | da fare | | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
+| F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | completata | 2026-11-18 15:46 | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
 | F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
 | F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
 | F21 | Arricchire i dati del Signore degli Anelli e portarne gli esercizi a circa 150 | F09 | Opus 5.5 `medium` | alto | da fare | | [P-F21](#p-f21) | [F21](F21-ampliare-esercizi-signore-anelli.md) |
@@ -545,6 +545,10 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `hobbit-door` | Il Signore degli Anelli, stati vuoti nello schema chiaro (F09) | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `wizard-staff` |
 | `durin-door` | Il Signore degli Anelli, stati vuoti nello schema scuro (F09) | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `eye-of-sauron` |
 | `magic-wand` | nessuno | F12 | creata (Opus 5.5) | primo `wizard-staff`, rinominato; Marco l’ha tenuta nel catalogo senza usarla |
+| `rocket` | pulsanti che avviano una sessione, icona comune al posto di `dice` | F18 | creata (Opus 5.5) | approvata; Marco ha chiesto in più un’icona di sessione per ogni tema (`icons.session`) |
+| `x-wing` | Star Wars, pulsanti della sessione nello schema chiaro | F18 | catalogo | usata (anche per gli stati vuoti, F08) |
+| `tie-fighter` | Star Wars, pulsanti della sessione nello schema scuro | F18 | creata (Opus 5.5) | approvata |
+| `hobbit-backpack` | Il Signore degli Anelli, pulsanti della sessione | F18 | creata (Opus 5.5) | approvata la seconda versione: la prima, con le cinghie che uscivano dal rotolo sopra una scatola, sembrava «il marchingegno per far esplodere la dinamite a distanza» |
 
 ### Struttura di un tema
 
@@ -605,3 +609,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-18 | F12 completata su Opus 5.5. Tavole nell’Artifact «Design» [SQL Academy — veste Il Signore degli Anelli](https://claude.ai/artifact/DtawNio6cxm36cFE3Euij7); Marco ha approvato entrambe le direzioni come schema chiaro (mappa della Contea) e scuro (porte di Moria). Specifica `docs/design/lotr.md`; sei icone tematiche create su richiesta di Marco (anticipate da F09); due lacune del contratto per F09. |
 | 2026-11-18 | F09 completata su Opus 5.5 (commit `515d142`, correzione del contratto `eb8a74d`). Dal feedback di Marco: rifiniture subito (`f7fa065`, `6ab7855`: barra di scorrimento stabile, selettore che scorre, chiavi esterne nel pannello, parole chiave solo a esercizio risolto, decorazioni LOTR più grandi) e quattro fasi nuove, F18–F21, che diventano dipendenze di F10. |
 | 2026-11-18 | Obiettivo di Marco: circa 150 esercizi distinti per tema (circa 600 nel portale con quattro temi). F21 diventa «arricchire i dati di LOTR e portarne gli esercizi a circa 150»; nuova F22 per Star Wars (da 105 a circa 150, colmando sottoquery ed esercizi facili oltre il capitolo 6). F10 dipende anche da F22. |
+| 2026-11-18 | F18 completata su Opus 5.5. Indicatore unico della sezione attiva, spostato e animato dal guscio; la veste ne disegna l’aspetto con `.sections-indicator::after`. Icona comune `rocket` e nuovo campo `icons.session` del contratto: `x-wing` e `tie-fighter` per Star Wars, `hobbit-backpack` per LOTR. |

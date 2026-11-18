@@ -54,4 +54,45 @@ Procedura manuale con `npm run dev`, pannello del browser visibile:
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, correzione del contratto, icona e collaudo della skill, osservazioni di Marco, lavoro residuo, consumo reale se noto.
+Fase completata il 2026-11-18 su Opus 5.5, in una sessione.
+
+### Esito
+
+- **Indicatore.** `src/pages/SectionIndicator.tsx` aggiunge alla lista delle sezioni un elemento `li.sections-indicator` con `aria-hidden="true"`. Il guscio gli dà posizione (`transform`) e misure (`width`, `height`) della voce attiva, lette da `offsetLeft`, `offsetTop`, `offsetWidth`, `offsetHeight`. Al cambio di sezione viaggia con la curva del selettore dello schema, `cubic-bezier(0.65, 0, 0.35, 1)` in 0,45 s; al primo disegno e quando un `ResizeObserver` vede cambiare la lista o una voce (finestra ridimensionata, caratteri caricati, voci che vanno a capo) salta senza transizione. Con `prefers-reduced-motion: reduce` la transizione è disattivata.
+- **Scostamento dal dettaglio:** l’indicatore sta *dentro* la lista (`ul` con `position: relative`), non nella barra; così scorre con la lista a 375 px senza ascoltare l’evento `scroll`. Segue anche il ritorno a capo delle voci su due righe, perché legge pure la posizione verticale.
+- **Vesti.** Le quattro regole `.sections a[aria-current='page']::after` sono diventate `.sections-indicator::after`, con gli stessi valori; tolte le regole `box-shadow: none`, perché la linea comune ora è anch’essa `.sections-indicator::after` in `src/styles.css`.
+- **Icone.** `rocket` è l’icona comune dei pulsanti che avviano una sessione («Nuova sessione», «Riprendi la sessione», «Avvia la sessione»), con il componente `src/training/SessionIcon.tsx`. `dice` resta nel portale perché la usa «Rimescola» nella pagina iniziale.
+
+### Correzione del contratto
+
+Due aggiunte, documentate in `src/themes/contract.ts` e nella guida «Aggiungere un tema» del `README.md`:
+
+1. `.sections-indicator::after` disegna l’indicatore della sezione attiva; il tema non gli dà transizioni proprie.
+2. Campo facoltativo `session` in `ThemeIcons` (anche per schema): l’icona dei pulsanti della sessione al posto di `rocket`. Fuori dal perimetro iniziale, chiesto da Marco quando ha approvato `rocket`.
+
+### Verifiche
+
+| Verifica | Esito |
+| --- | --- |
+| `npm run check:themes` | superata: `lotr` 20 esercizi, `star-wars` 105, 0 problemi |
+| `npm test` | superata: 15 file, 119 test |
+| `npm run lint` | superata |
+| `npm run build` | superata (resta l’avviso già noto sulla dimensione dei *chunk*) |
+| Procedura 1, LOTR chiaro da Sandbox a Modello logico | superata, misurata nel pannello visibile: `translateX` 0 → 7 → 172 → 520 → 648 → 651 px a 0, 77, 210, 310, 443, 577 ms, cioè partenza lenta, accelerazione, frenata |
+| Procedura 2, altri tre schemi | superata a vista: lama di Star Wars scuro, strisce di Star Wars chiaro, *ithildin* di LOTR scuro al loro posto; il viaggio è lo stesso elemento, misurato solo in LOTR chiaro |
+| Procedura 3, 375 px con la lista che scorre | superata: bordo sinistro della voce attiva e dell’indicatore coincidono (667,4 e 667 px a lista a inizio corsa, 207,4 e 207 px a fine corsa) |
+| Procedura 4, riduzione del movimento | **non eseguita** nel sistema: il pannello non emula `prefers-reduced-motion`. Verificato solo che la regola `@media (prefers-reduced-motion: reduce) { .sections-indicator { transition: none !important } }` è caricata |
+| Procedura 5, icona di «Nuova sessione» | superata: `hobbit-backpack` in LOTR chiaro e scuro, `x-wing` in Star Wars chiaro, `tie-fighter` in Star Wars scuro. `rocket` non compare in nessuno dei due temi, perché entrambi la sostituiscono: la sua resa nel portale non è stata vista |
+
+### Icone e collaudo della skill
+
+- Ricerca con `tools/search.py` per play, start, rocket, cards, carte, shuffle, mescola, sessione, session, allenamento, training, repeat, random, forward e altri: trovate solo `circle-play` (già «Esegui»), `bullseye` (già la sezione Addestramento) e `dice`. Nessuna alternativa.
+- Create con Opus 5.5 e approvate da Marco: `rocket` (commit `f6df297` del repo `icone`), `tie-fighter` e `hobbit-backpack` (commit `4b7c90f`). `hobbit-backpack` è alla seconda versione: la prima, con due cinghie che uscivano dal rotolo sopra una scatola, a Marco sembrava un detonatore.
+- Avvisi di copertura (R1.6, non bloccanti): `rocket` 40,7%, `hobbit-backpack` 79,5%.
+- Nessun problema della skill o degli strumenti in questa fase.
+
+### Osservazioni di Marco e lavoro residuo
+
+- Marco propone il corno di Gondor come icona dei suggerimenti in LOTR: oggi i suggerimenti usano l’icona comune `lightbulb` e il contratto non ha un campo per sostituirla. Da decidere in una fase futura.
+- Durante la verifica ho svuotato il `localStorage` del pannello del browser di Claude su `localhost:5173` (schemi e progressi di prova di quel pannello). Il browser di Marco non è stato toccato.
+- Nessun push: i commit del repo `icone` restano locali, sul branch `dev`.

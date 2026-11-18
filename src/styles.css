@@ -351,6 +351,7 @@ h1 .icon-box {
 }
 
 .sections ul {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
@@ -379,7 +380,38 @@ h1 .icon-box {
 
 .sections a[aria-current='page'] {
   color: var(--color-text);
-  box-shadow: inset 0 -3px 0 var(--color-accent-ink);
+}
+
+/*
+ * Indicatore della sezione attiva (src/pages/SectionIndicator.tsx): il guscio
+ * gli dà posizione e misure della voce attiva e lo fa scorrere; la veste ne
+ * disegna l’aspetto con `.sections-indicator::after`, relativo alla voce.
+ */
+.sections-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition:
+    transform 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    width 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    height 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.sections-indicator::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--color-accent-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sections-indicator {
+    transition: none !important;
+  }
 }
 
 .sections a[aria-current='page'] .icon-box {

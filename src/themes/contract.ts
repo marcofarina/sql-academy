@@ -27,6 +27,11 @@
  * con due schemi di colori li distingue con `[data-scheme="chiaro"]` e
  * `[data-scheme="scuro"]` sulla stessa radice.
  *
+ * L’indicatore della sezione attiva è un elemento solo, `.sections-indicator`:
+ * il guscio gli dà posizione e misure della voce attiva e lo fa scorrere da una
+ * voce all’altra. Il tema ne disegna l’aspetto con `.sections-indicator::after`,
+ * posizionato rispetto alla voce (per esempio `bottom: 0`), senza transizioni proprie.
+ *
  * `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza passare
  * da Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`.
  *
@@ -72,6 +77,8 @@ export interface ThemeIcons {
   solved?: string;
   /** Negli stati vuoti: nessun esercizio corrisponde ai filtri. */
   empty?: string;
+  /** Sui pulsanti che avviano una sessione di addestramento, al posto dell’icona comune `rocket`. */
+  session?: string;
   /** Icone che sostituiscono quelle comuni di alcune sezioni, nella barra delle sezioni e nel titolo. */
   sections?: Partial<Record<SectionId, string>>;
 }

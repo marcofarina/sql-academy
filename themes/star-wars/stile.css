@@ -117,11 +117,7 @@
 }
 
 /* Sezione attiva: le stesse due strisce, in piccolo */
-.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sections a[aria-current='page'] {
-  box-shadow: none;
-}
-
-.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sections a[aria-current='page']::after {
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sections-indicator::after {
   content: '';
   position: absolute;
   left: 0.5rem;
@@ -300,11 +296,7 @@
 }
 
 /* Sezione attiva: una lama */
-.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sections a[aria-current='page'] {
-  box-shadow: none;
-}
-
-.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sections a[aria-current='page']::after {
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sections-indicator::after {
   content: '';
   position: absolute;
   left: 0.5rem;

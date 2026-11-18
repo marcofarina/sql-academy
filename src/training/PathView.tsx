@@ -2,6 +2,7 @@ import { Icon } from '../icons/Icon.tsx';
 import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
 import type { Exercise } from '../themes/contract.ts';
+import { SessionIcon } from './SessionIcon.tsx';
 import { buildPath, chapterLabel, DIFFICULTY_LABEL, plural } from './exercises.ts';
 
 interface PathViewProps {
@@ -33,7 +34,7 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset 
     <div className="path">
       <div className="toolbar">
         <a className="button primary" href={link(SESSION_ITEM)}>
-          <Icon name="dice" />
+          <SessionIcon />
           {sessionStatus ? `Riprendi la sessione (${sessionStatus})` : 'Nuova sessione'}
         </a>
         <button type="button" onClick={reset}>

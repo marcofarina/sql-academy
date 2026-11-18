@@ -6,6 +6,7 @@ import { useSandbox } from '../sandbox/useSandbox.ts';
 import { SCHEMES, type Scheme, type Theme, type ThemeIcons } from '../themes/contract.ts';
 import { loadScheme, saveScheme } from '../scheme/scheme.ts';
 import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
+import { SectionIndicator } from './SectionIndicator.tsx';
 import { useProgress } from '../progress/useProgress.ts';
 import { AnalysisSection } from '../analysis/AnalysisSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
@@ -26,7 +27,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   // Le icone del tema valide ora: quelle comuni, sostituite da quelle dello schema.
   const icons: ThemeIcons = { ...theme.manifest.icons, ...(schemes ? schemes[scheme] : {}) };
   const themeIcon = (name?: string) => (name ? theme.icons[name] : undefined);
-  const activeIcons = { emblem: themeIcon(icons.emblem), solved: themeIcon(icons.solved), empty: themeIcon(icons.empty) };
+  const activeIcons = { emblem: themeIcon(icons.emblem), solved: themeIcon(icons.solved), empty: themeIcon(icons.empty), session: themeIcon(icons.session) };
   // Icona di una sezione: quella del tema, se la dichiara, altrimenti quella comune.
   const sectionIcon = (s: (typeof SECTIONS)[number]) => {
     const svg = themeIcon(icons.sections?.[s.id]);
@@ -82,6 +83,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
               </a>
             </li>
           ))}
+          <SectionIndicator section={section} />
         </ul>
       </nav>
       <ThemeIconsContext value={activeIcons}>
