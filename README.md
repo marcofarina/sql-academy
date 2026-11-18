@@ -1,0 +1,88 @@
+# SQL Academy
+
+Portale di addestramento a SQL che accompagna il *Manuale dell’Archivista*, terzo volume di *Python Doesn’t Byte*. Ogni **tema** è un universo narrativo con un proprio database SQLite, interrogabile nel browser, i propri esercizi e una propria veste grafica. Scelto un tema, lo studente trova sei sezioni: sandbox, addestramento, tutte le query, analisi del dominio, schema ER e modello logico.
+
+Temi presenti: Star Wars (`themes/star-wars/`) e Il Signore degli Anelli (`themes/lotr/`).
+
+## Comandi
+
+Richiede Node 22.18 o successivo.
+
+| Comando | Che cosa fa |
+| --- | --- |
+| `npm install` | installa le dipendenze |
+| `npm run dev` | avvia il portale in locale, su `http://localhost:5173/` |
+| `npm run check:themes` | controlla ogni tema: database, esercizi, schema ER, fogli di stile; esce con 1 se trova un problema |
+| `npm test` | esegue i test |
+| `npm run lint` | controlla il codice con ESLint |
+| `npm run build` | controlla i tipi e costruisce il sito statico in `dist/` |
+
+## Aggiungere un tema
+
+Un tema è una cartella `themes/<id>/`, scoperta al build: non va registrato in nessun elenco e non richiede modifiche al codice comune. L’`id` è fatto di minuscole, cifre e trattini, compare negli URL (`#/<id>/sandbox`) e nelle chiavi dei progressi in `localStorage`: dopo la pubblicazione non va cambiato.
+
+Il contratto completo, con il tipo di ogni file, è il commento in testa a `src/themes/contract.ts`. Il tema `themes/lotr/` è l’esempio più recente.
+
+### 1. Studia la veste
+
+Prima di scrivere codice, studia la veste del tema con l’Artifact «Design»: tavole della sandbox a 1280 e 375 px, stati della sandbox e fronte della locandina per la pagina iniziale. Un tema può avere uno schema chiaro e uno scuro.
+
+Fai approvare le tavole a Marco e scrivi la specifica in `docs/design/<id>.md`, sul modello di `docs/design/lotr.md`: colori come valori delle variabili di `src/styles.css`, caratteri con licenza e fonte, decorazioni, locandina, icone. Aggiungi la palette a `docs/design/contrasto.mjs` e misura i contrasti:
+
+```bash
+node docs/design/contrasto.mjs <id>-chiaro
+```
+
+Lo script esce con 1 se una coppia di colori è sotto la soglia (4,5:1 per il testo, 3:1 per icone e bordi).
+
+### 2. Progetta il database
+
+Proponi a Marco il dominio e lo schema ER prima di scrivere i file. Poi crea:
+
+| File | Contenuto |
+| --- | --- |
+| `theme.ts` | manifest (`id`, `title`, `description`, `motto`, icone, schemi), esportato come `default` |
+| `schema.sql` | le istruzioni `CREATE TABLE`, con le chiavi esterne dichiarate, ogni tabella dopo quelle a cui rimanda |
+| `dati.sql` | le istruzioni `INSERT` |
+| `er.ts` | lo schema ER, nella forma del componente `<DiagrammaER>` del libro; ogni tabella deve tradurre un’entità o un’associazione |
+| `analisi.md` | il testo del dominio da cui nasce il database, come nella seconda prova dell’Esame di Stato |
+
+Sono obbligatori solo `theme.ts`, `schema.sql` e `dati.sql`. Verifica il caricamento con le chiavi esterne attive (`foreign_key_check` non deve stampare nulla):
+
+```bash
+sqlite3 :memory: "PRAGMA foreign_keys=ON;" ".read themes/<id>/schema.sql" ".read themes/<id>/dati.sql" "PRAGMA foreign_key_check;"
+```
+
+Poi esegui `npm run check:themes` e apri la sezione «Schema ER» in `npm run dev`: lo script controlla la coerenza fra ER e tabelle, non la leggibilità del disegno.
+
+### 3. Scrivi gli esercizi
+
+`esercizi.ts` esporta un elenco di oggetti `Exercise`. Distribuisci gli esercizi sui quattro capitoli (`una-tabella`, `join`, `aggregazioni`, `sottoquery-viste`) e sui tre livelli di difficoltà. Il capitolo di un esercizio è la clausola più avanzata della query attesa.
+
+Esegui ogni `expectedQuery` su SQLite e controlla che il risultato sia quello chiesto dalla consegna. Le regole del confronto fra le risposte sono nel commento di `Exercise` in `src/themes/contract.ts`: se la query attesa ha un `ORDER BY` esterno, la consegna deve chiedere quell’ordine, e l’ordine deve essere completo anche a parità di chiave.
+
+### 4. Applica la veste
+
+| File | Contenuto |
+| --- | --- |
+| `stile.css` | le variabili di `src/styles.css` ridefinite per il tema, e le decorazioni; ogni selettore comincia con `.theme[data-theme-id="<id>"]`, per schema con `[data-scheme="chiaro"]` o `[data-scheme="scuro"]` |
+| `locandina.css` | il fronte della locandina sulla pagina iniziale; ogni selettore comincia con `.poster[data-theme-id="<id>"]` |
+| `fonts/` | i caratteri del tema, ciascuno con il suo file di licenza |
+| `icone/` | le icone RB proprie del tema, citate per nome dal manifest |
+
+Le decorazioni SVG stanno dentro i fogli di stile come `url("data:image/svg+xml,…")`. Le icone si cercano e si creano solo con la skill `icone-rb`; il manifest può assegnarle all’emblema, all’esercizio risolto, agli stati vuoti e, con `icons.sections`, a una sezione.
+
+### Vincoli sulle opere protette
+
+Di un’opera protetta si usano nomi, luoghi e ambientazioni. Non si usano immagini né caratteri ufficiali dei film o dei libri. Loghi ed emblemi entrano solo come icone RB stilizzate, non identiche agli originali.
+
+### 5. Controlla
+
+```bash
+npm run check:themes
+npm test
+npm run lint
+npm run build
+```
+
+Poi, con `npm run dev`, controlla che la pagina iniziale mostri la locandina del tema, che le sei sezioni di `#/<id>/…` funzionino nei due schemi a 1280 e a 375 px, e che i progressi del nuovo tema restino separati da quelli degli altri.

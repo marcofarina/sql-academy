@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · hobbit-door -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M256 48A208 208 0 0 1 256 464A208 208 0 0 1 256 48ZM256 216A40 40 0 0 0 256 296A40 40 0 0 0 256 216ZM176 144A16 16 0 0 0 144 144V368A16 16 0 0 0 176 368ZM368 144A16 16 0 0 0 336 144V368A16 16 0 0 0 368 368Z"/>
+  <path class="rb-primary" fill="currentColor" d="M106.8 464A256 256 0 1 1 405.2 464ZM256 48A208 208 0 0 0 256 464A208 208 0 0 0 256 48ZM56 464H456A24 24 0 0 1 456 512H56A24 24 0 0 1 56 464ZM256 216A40 40 0 0 1 256 296A40 40 0 0 1 256 216Z"/>
+</svg>

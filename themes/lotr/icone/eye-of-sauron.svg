@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+  <!-- RB Icons · eye-of-sauron -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M0 256L64 193.8L106 92.1L176 117.8L210 44.9L272 91.2L320 32L368 91.2L430 44.9L464 117.8L534 92.1L576 193.8L640 256L576 318.2L534 419.9L464 394.2L430 467.1L368 420.8L320 480L272 420.8L210 467.1L176 394.2L106 419.9L64 318.2ZM320 96A290.7 290.7 0 0 0 320 416A290.7 290.7 0 0 0 320 96Z"/>
+  <path class="rb-primary" fill="currentColor" d="M320 96A290.7 290.7 0 0 1 320 416A290.7 290.7 0 0 1 320 96Z"/>
+</svg>

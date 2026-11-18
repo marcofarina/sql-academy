@@ -1,0 +1,52 @@
+/*
+ * Fronte della locandina del Signore degli Anelli sulla pagina iniziale
+ * (docs/design/lotr.md, sezione «Locandina»): carta da mappa con doppia
+ * cornice, una catena di monti, il villaggio e il percorso tratteggiato fino al
+ * vulcano. Il disegno è l’SVG della tavola, incluso come data URI. Ogni
+ * selettore comincia con la radice della locandina del tema (vedi src/themes/contract.ts).
+ */
+
+.poster[data-theme-id='lotr'] {
+  --poster-band-1: #2f5233;
+  --poster-band-2: #a3301f;
+  --poster-band-split: 60%;
+  --lotr-paper: #e8e1cd;
+  --lotr-frame: #b8a883;
+  --lotr-ink: #2b231a;
+  --lotr-credits: #5c4f3d;
+}
+
+.poster[data-theme-id='lotr'] .poster-front {
+  padding: 20px 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 230 345'%3E %3Cg fill='none' stroke='%232B231A' stroke-width='1.1' opacity='.55'%3E %3Cpath d='M120 150 l8 -14 l8 14 M134 152 l9 -16 l9 16 M150 150 l8 -13 l8 13 M164 154 l10 -18 l10 18 M181 151 l7 -12 l7 12'/%3E %3Cpath d='M128 136 l-2 4 M143 136 l-2 4 M174 136 l-2 4' opacity='.7'/%3E %3C/g%3E %3Cg fill='%232B231A' opacity='.5'%3E %3Ccircle cx='48' cy='214' r='2'/%3E%3Ccircle cx='58' cy='208' r='2'/%3E%3Ccircle cx='52' cy='222' r='2'/%3E %3C/g%3E %3Cpath d='M40 232 C 70 210, 92 200, 118 186 S 168 170, 186 128' fill='none' stroke='%23A3301F' stroke-width='2' stroke-dasharray='6 5' stroke-linecap='round'/%3E %3Ccircle cx='40' cy='232' r='4.5' fill='%23A3301F'/%3E %3Cpath d='M186 116 l6 12 l-12 0 z' fill='%23A3301F'/%3E %3Cpath transform='translate(190 64)' fill='%232B231A' opacity='.6' d='M0 -16 L3 -3 L16 0 L3 3 L0 16 L-3 3 L-16 0 L-3 -3 Z'/%3E %3C/svg%3E") center / 100% 100% no-repeat, var(--lotr-paper);
+  box-shadow:
+    inset 0 0 0 6px var(--lotr-paper),
+    inset 0 0 0 7px var(--lotr-frame),
+    inset 0 0 0 9px var(--lotr-paper),
+    inset 0 0 0 10px var(--lotr-frame);
+  color: var(--lotr-ink);
+}
+
+.poster[data-theme-id='lotr'] .poster-motto {
+  max-width: 150px;
+  font-family: 'IM Fell English', serif;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.poster[data-theme-id='lotr'] .poster-front-title {
+  margin-bottom: 10px;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.poster[data-theme-id='lotr'] .poster-credits {
+  font-family: 'Atkinson Hyperlegible Next', sans-serif;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.35;
+  color: var(--lotr-credits);
+}

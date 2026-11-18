@@ -10,7 +10,7 @@
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | completata | 2026-11-17 16:19 | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | completata | 2026-11-17 19:00 | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
 | F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 09:45 | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
-| F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
+| F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | completata | 2026-11-18 14:58 | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
 | F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | completata | 2026-11-18 01:24 | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
 | F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 13:18 | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
@@ -450,11 +450,11 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `lightsabers-crossed` | Star Wars, esercizio risolto | F08 | creata (Opus 5.5) | approvata alla terza versione; una spada sola restava sotto la copertura minima (R1.6) |
 | `x-wing` | Star Wars, stati vuoti nello schema chiaro | F08 | creata (Opus 5.5) | approvata alla terza versione |
 | `battle-station` | Star Wars, stati vuoti nello schema scuro | F08 | creata (Opus 5.5) | approvata alla terza versione |
-| `one-ring` | Il Signore degli Anelli, sezione Sandbox (da collegare in F09) | F12 | creata (Opus 5.5) | approvata alla terza versione: Marco ha chiesto una catenella doppia a parabola invece della maglia infilata |
-| `wizard-staff` | Il Signore degli Anelli, emblema dello schema chiaro (da collegare in F09) | F12 | creata (Opus 5.5) | approvata la seconda versione, disegnata da una foto di riferimento di Marco: la prima sembrava una bacchetta |
-| `eye-of-sauron` | Il Signore degli Anelli, emblema dello schema scuro (da collegare in F09) | F12 | creata (Opus 5.5) | approvata la terza versione, con contorno a fiamme: la seconda, a raggi, sembrava un ragno |
-| `hobbit-door` | Il Signore degli Anelli, proposta per lo stato vuoto chiaro | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `wizard-staff` |
-| `durin-door` | Il Signore degli Anelli, proposta per lo stato vuoto scuro | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `eye-of-sauron` |
+| `one-ring` | Il Signore degli Anelli, sezione Sandbox (voce e titolo, con `icons.sections`, F09) | F12 | creata (Opus 5.5) | approvata alla terza versione: Marco ha chiesto una catenella doppia a parabola invece della maglia infilata |
+| `wizard-staff` | Il Signore degli Anelli, emblema dello schema chiaro (collegata in F09) | F12 | creata (Opus 5.5) | approvata la seconda versione, disegnata da una foto di riferimento di Marco: la prima sembrava una bacchetta |
+| `eye-of-sauron` | Il Signore degli Anelli, emblema dello schema scuro (collegata in F09) | F12 | creata (Opus 5.5) | approvata la terza versione, con contorno a fiamme: la seconda, a raggi, sembrava un ragno |
+| `hobbit-door` | Il Signore degli Anelli, stati vuoti nello schema chiaro (F09) | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `wizard-staff` |
+| `durin-door` | Il Signore degli Anelli, stati vuoti nello schema scuro (F09) | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `eye-of-sauron` |
 | `magic-wand` | nessuno | F12 | creata (Opus 5.5) | primo `wizard-staff`, rinominato; Marco l’ha tenuta nel catalogo senza usarla |
 
 ### Struttura di un tema

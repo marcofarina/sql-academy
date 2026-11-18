@@ -1,0 +1,491 @@
+/*
+ * Veste Il Signore degli Anelli (docs/design/lotr.md, approvata in F12): schema
+ * chiaro «la mappa della Contea» e schema scuro «le porte di Moria». Ogni
+ * selettore comincia con la radice del guscio del tema (vedi src/themes/contract.ts).
+ *
+ * Caratteri del tema, SIL OFL 1.1, file originali di github.com/google/fonts,
+ * licenze in fonts/. IM FELL ha nomi riservati: i file non vanno modificati né
+ * ritagliati. Le decorazioni (rosa dei venti, arco) sono i disegni SVG delle
+ * tavole, inclusi come data URI.
+ */
+
+@font-face {
+  font-family: 'IM Fell English';
+  src: url('./fonts/IMFeENrm28P.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IM Fell English';
+  src: url('./fonts/IMFeENit28P.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IM Fell English SC';
+  src: url('./fonts/IMFeENsc28P.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  src: url('./fonts/Cinzel[wght].ttf') format('truetype');
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------- comuni */
+
+.theme[data-theme-id='lotr'] {
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+  --focus-color: var(--color-accent-ink);
+}
+
+.theme[data-theme-id='lotr'] .theme-name .icon {
+  color: var(--color-accent-ink);
+}
+
+.theme[data-theme-id='lotr'] .scheme-switch button {
+  font-weight: 700;
+}
+
+.theme[data-theme-id='lotr'] .page {
+  position: relative;
+}
+
+.theme[data-theme-id='lotr'] main {
+  isolation: isolate;
+}
+
+/* ------------------------------------------ chiaro: la mappa della Contea */
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] {
+  --color-bg: #e8e1cd;
+  --color-surface: #f5f0e2;
+  --color-surface-2: #eae2cb;
+  --color-border: #b8a883;
+  --color-rule: #ddd3b8;
+  --color-text: #2b231a;
+  --color-muted: #5c4f3d;
+  --color-accent: #2f5233;
+  --color-accent-hover: #24402a;
+  --color-accent-text: #ffffff;
+  --color-accent-ink: #a3301f;
+  --color-link: #2c5131;
+  --color-link-hover: #1b3320;
+  --color-control-border: #7a6b52;
+  --color-null: #6a3d9e;
+  --color-error: #8e1f18;
+  --color-error-bg: #f6e2de;
+  --color-error-border: #c98a82;
+  --color-warning: #6e4300;
+  --color-warning-bg: #f7ebcf;
+  --color-warning-border: #c9a04a;
+  --color-success: #1d5e37;
+  --color-success-bg: #e0efe5;
+  --color-success-border: #8dbb9c;
+  --editor-bg: #231d16;
+  --editor-text: #f1ebdd;
+  --editor-rule: #3a3127;
+  --editor-selection: rgba(244, 165, 130, 0.28);
+  --code-gutter: #a0937d;
+  --code-keyword: #f4a582;
+  --code-number: #a9d6a0;
+  --code-punct: #cfc4ae;
+  --code-string: #e8cf8a;
+  --code-comment: #a39883;
+  --font-display: 'IM Fell English', serif;
+  --display-weight: 400;
+  --display-tracking: 0;
+  --h1-size: 56px;
+  --theme-name-size: 26px;
+  --radius: 3px;
+  --sections-rule: var(--color-border);
+  --lotr-route: #a3301f;
+  --lotr-grid: rgba(43, 35, 26, 0.05);
+
+  color-scheme: light;
+  /* Reticolo di meridiani e paralleli */
+  background:
+    repeating-linear-gradient(90deg, var(--lotr-grid) 0 1px, transparent 1px 160px),
+    repeating-linear-gradient(180deg, var(--lotr-grid) 0 1px, transparent 1px 160px),
+    var(--color-bg);
+}
+
+/* Nome del tema e «Tabelle» in maiuscoletto */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .theme-name,
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .schema-panel h2 {
+  font-family: 'IM Fell English SC', serif;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .schema-panel h2 {
+  font-size: 26px;
+}
+
+/* Rosa dei venti dietro il titolo */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .page::before {
+  content: '';
+  position: absolute;
+  top: 96px;
+  right: 300px;
+  z-index: -1;
+  width: 260px;
+  height: 260px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%232B231A' stroke='%232B231A'%3E %3Ccircle cx='100' cy='100' r='92' fill='none' stroke-width='1.5'/%3E %3Ccircle cx='100' cy='100' r='84' fill='none' stroke-width='0.8' stroke-dasharray='2 4'/%3E %3Cpath d='M100 6 L112 88 L194 100 L112 112 L100 194 L88 112 L6 100 L88 88 Z' stroke='none' opacity='.55'/%3E %3Cpath d='M100 40 L106 94 L160 100 L106 106 L100 160 L94 106 L40 100 L94 94 Z' fill='none' stroke-width='1.2' transform='rotate(45 100 100)'/%3E %3Cpath d='M100 6 L112 88 L100 100 Z M194 100 L112 112 L100 100 Z M100 194 L88 112 L100 100 Z M6 100 L88 88 L100 100 Z' stroke='none'/%3E %3C/svg%3E") center / contain no-repeat;
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+/* Percorso tratteggiato sotto la barra delle sezioni */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--lotr-route) 0 9px, transparent 9px 16px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections {
+  position: relative;
+}
+
+/* Tappa attiva: un punto sul percorso */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections a[aria-current='page'] {
+  box-shadow: none;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: var(--lotr-route);
+  box-shadow:
+    0 0 0 3px var(--color-bg),
+    0 0 0 4.5px var(--lotr-route);
+}
+
+/* Riquadri: bordo e cornice doppia */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sql-editor,
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .table-scroll,
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .er-figure,
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .schema-panel details {
+  box-shadow:
+    inset 0 0 0 3px var(--color-surface),
+    inset 0 0 0 4px var(--color-rule);
+}
+
+/* L’editor sta dentro la cornice, a 6 px dal bordo */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sql-editor {
+  padding: 6px;
+  background: var(--color-surface);
+}
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .sql-editor .cm-editor {
+  border-radius: 1px;
+  background: var(--editor-bg);
+}
+
+/* Didascalia del risultato in corsivo, con un tratto di percorso */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .result figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-family: 'IM Fell English', serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .result figcaption::after {
+  content: '';
+  flex: none;
+  width: 46px;
+  height: 2px;
+  margin-left: auto;
+  background: repeating-linear-gradient(90deg, var(--lotr-route) 0 9px, transparent 9px 16px);
+}
+
+/* Pulsante primario pieno con ombra interna */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] button.primary,
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] a.button.primary {
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Query interrotta: una strada sbarrata sul lato sinistro */
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .notice-warning {
+  position: relative;
+  padding-left: 22px;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='chiaro'] .notice-warning::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  background: repeating-linear-gradient(180deg, var(--lotr-route) 0 6px, transparent 6px 11px);
+}
+
+/* --------------------------------------------- scuro: le porte di Moria */
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] {
+  --color-bg: #10151c;
+  --color-surface: #18202a;
+  --color-surface-2: #202a36;
+  --color-border: #34414f;
+  --color-rule: #243040;
+  --color-text: #e4e9ef;
+  --color-muted: #a2aebc;
+  --color-accent: #c8d5e3;
+  --color-accent-hover: #d9e3ee;
+  --color-accent-text: #10151c;
+  --color-accent-ink: #8fc3f0;
+  --color-link: #9ccbf5;
+  --color-link-hover: #cfe6fb;
+  --color-control-border: #6c7b8d;
+  --color-null: #d3a6ff;
+  --color-error: #ffa3a3;
+  --color-error-bg: #2a1418;
+  --color-error-border: #7e2a2f;
+  --color-warning: #ffd27a;
+  --color-warning-bg: #262010;
+  --color-warning-border: #7e6420;
+  --color-success: #a8e0be;
+  --color-success-bg: #12251b;
+  --color-success-border: #2e6b49;
+  --editor-bg: #0a0e13;
+  --editor-text: #e4e9ef;
+  --editor-rule: #1e2631;
+  --editor-selection: rgba(143, 195, 240, 0.28);
+  --code-gutter: #7f8b99;
+  --code-keyword: #8fc3f0;
+  --code-number: #e8c98a;
+  --code-punct: #a7b2bf;
+  --code-string: #a8ddb5;
+  --code-comment: #8a96a4;
+  --font-display: 'Cinzel', serif;
+  --display-weight: 600;
+  --display-tracking: 0.05em;
+  --h1-size: 42px;
+  --theme-name-size: 20px;
+  --radius: 2px;
+  --sections-rule: var(--color-rule);
+  --lotr-ithildin: #a9d8ff;
+  --lotr-ithildin-core: #e8f4ff;
+  --lotr-glow: rgba(169, 216, 255, 0.45);
+  --lotr-stone-line: rgba(255, 255, 255, 0.022);
+  --lotr-header-shade: #141b24;
+  --lotr-warning-line: #ffe9b0;
+
+  color-scheme: dark;
+  /* Luce dall’alto e venature verticali della pietra */
+  background:
+    linear-gradient(180deg, rgba(169, 216, 255, 0.05), transparent 340px),
+    repeating-linear-gradient(90deg, var(--lotr-stone-line) 0 1px, transparent 1px 96px),
+    var(--color-bg);
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .theme-name {
+  letter-spacing: 0.06em;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .theme-name .icon {
+  filter: drop-shadow(0 0 4px rgba(169, 216, 255, 0.6));
+}
+
+/* «Tabelle» e didascalia del risultato in Cinzel */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .schema-panel h2 {
+  font-size: 20px;
+  letter-spacing: 0.06em;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .result figcaption {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* Arco luminoso dietro il titolo */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .page::before {
+  content: '';
+  position: absolute;
+  top: 70px;
+  right: 250px;
+  z-index: -1;
+  width: 400px;
+  height: 520px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 520'%3E %3Cg fill='none' stroke='%23A9D8FF' stroke-width='1.2'%3E %3Cpath d='M70 520 V200 A130 130 0 0 1 330 200 V520'/%3E %3Cpath d='M92 520 V204 A108 108 0 0 1 308 204 V520' stroke-dasharray='1 7' stroke-linecap='round'/%3E %3Cpath d='M70 200 h-14 M330 200 h14'/%3E %3Cpath d='M200 92 v-26 M200 66 l5 12 l-5 -3 l-5 3 z'/%3E %3Cpath d='M200 120 l5 15 l15 5 l-15 5 l-5 15 l-5 -15 l-15 -5 l15 -5 z'/%3E %3Cpath d='M150 300 c 20 -40, 80 -40, 100 0' opacity='.6'/%3E %3C/g%3E %3C/svg%3E") center / contain no-repeat;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 4px rgba(169, 216, 255, 0.7));
+  pointer-events: none;
+}
+
+/* Intestazione: sfumatura verso il fondo */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .theme-header::before {
+  content: '';
+  position: absolute;
+  inset: 0 -100vmax;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--lotr-header-shade), transparent);
+  pointer-events: none;
+}
+
+/* Sezione attiva: una linea di ithildin */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .sections a[aria-current='page'] {
+  box-shadow: none;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .sections a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -1px;
+  height: 1.5px;
+  background: var(--lotr-ithildin-core);
+  box-shadow:
+    0 0 4px 1px var(--lotr-ithildin),
+    0 0 12px 3px var(--lotr-glow);
+}
+
+/* Riquadri: due angoli luminosi, in alto a sinistra e in basso a destra */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .table-scroll,
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .er-figure,
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .schema-panel details {
+  background:
+    linear-gradient(var(--lotr-ithildin), var(--lotr-ithildin)) top left / 12px 1px no-repeat,
+    linear-gradient(var(--lotr-ithildin), var(--lotr-ithildin)) top left / 1px 12px no-repeat,
+    linear-gradient(var(--lotr-ithildin), var(--lotr-ithildin)) bottom right / 12px 1px no-repeat,
+    linear-gradient(var(--lotr-ithildin), var(--lotr-ithildin)) bottom right / 1px 12px no-repeat,
+    var(--color-surface);
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .sql-editor::before,
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .sql-editor::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  border: 0 solid var(--lotr-ithildin);
+  opacity: 0.75;
+  filter: drop-shadow(0 0 3px rgba(169, 216, 255, 0.8));
+  pointer-events: none;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .sql-editor::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .sql-editor::after {
+  right: 0;
+  bottom: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* Pulsante primario d’argento: gradiente, filo interno e alone */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] button.primary,
+.theme[data-theme-id='lotr'][data-scheme='scuro'] a.button.primary {
+  background: linear-gradient(180deg, #e6edf5, #afc0d2);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 0 18px -6px rgba(169, 216, 255, 0.9);
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] button.primary:hover:not(:disabled),
+.theme[data-theme-id='lotr'][data-scheme='scuro'] a.button.primary:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Query interrotta: una linea calda sul bordo superiore */
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .notice-warning {
+  position: relative;
+}
+
+.theme[data-theme-id='lotr'][data-scheme='scuro'] .notice-warning::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--lotr-warning-line);
+  box-shadow:
+    0 0 4px 1px var(--color-warning),
+    0 0 10px 2px rgba(255, 210, 122, 0.4);
+}
+
+/* ---------------------------------------------------------------- 375 px */
+
+@media (max-width: 40rem) {
+  .theme[data-theme-id='lotr'][data-scheme='chiaro'] {
+    --theme-name-size: 23px;
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='scuro'] {
+    --theme-name-size: 18px;
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='chiaro'] h1 {
+    font-size: 42px;
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='scuro'] h1 {
+    font-size: 32px;
+  }
+
+  .theme[data-theme-id='lotr'] .theme-name .icon {
+    height: 28px;
+  }
+
+  /* Le sezioni scorrono: il punto sta nel margine della lista, sul percorso */
+  .theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections ul {
+    padding-bottom: 7px;
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections::after {
+    bottom: 6px;
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='chiaro'] .sections a[aria-current='page']::after {
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    box-shadow: 0 0 0 2px var(--color-bg);
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='chiaro'] .page::before {
+    top: 56px;
+    right: 8px;
+    width: 160px;
+    height: 160px;
+  }
+
+  .theme[data-theme-id='lotr'][data-scheme='scuro'] .page::before {
+    right: -60px;
+    width: 260px;
+    height: 338px;
+    opacity: 0.35;
+  }
+}
