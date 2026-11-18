@@ -45,7 +45,14 @@ const diagram: ErDiagram = {
       col: 4,
       riga: 2,
       latoAttributi: 'destra',
-      attributi: [{ nome: 'id', identificatore: true }, 'nome', 'anno', 'vincitore'],
+      attributi: [
+        { nome: 'id', identificatore: true },
+        'nome',
+        'anno',
+        'vincitore',
+        { nome: 'forze_popoli_liberi', card: '(0,1)' },
+        { nome: 'forze_ombra', card: '(0,1)' },
+      ],
     },
     {
       id: 'luogo',
@@ -105,7 +112,7 @@ const diagram: ErDiagram = {
         { entita: 'personaggio', card: '(0,N)' },
         { entita: 'luogo', card: '(0,N)' },
       ],
-      attributi: ['ordine', 'anno'],
+      attributi: ['ordine', 'data'],
       latoAttributi: 'sotto',
     },
     {

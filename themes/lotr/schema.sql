@@ -1,6 +1,6 @@
 -- Database del tema Il Signore degli Anelli: sette tabelle.
 -- Ordine di creazione: ogni tabella dopo quelle a cui rimanda.
--- Gli anni sono anni della Terza Era.
+-- Gli anni sono anni della Terza Era, anche dentro le date delle tappe.
 
 CREATE TABLE popoli (
   id        INTEGER PRIMARY KEY,
@@ -38,7 +38,10 @@ CREATE TABLE battaglie (
   nome      TEXT NOT NULL,
   luogo_id  INTEGER NOT NULL REFERENCES luoghi (id),
   anno      INTEGER NOT NULL,
-  vincitore TEXT NOT NULL
+  vincitore TEXT NOT NULL,
+  -- Combattenti schierati da ciascuna parte; NULL quando non si conoscono.
+  forze_popoli_liberi INTEGER,
+  forze_ombra         INTEGER
 );
 
 -- Chi ha combattuto in quale battaglia, e da quale parte.
@@ -55,6 +58,6 @@ CREATE TABLE tappe (
   personaggio_id INTEGER NOT NULL REFERENCES personaggi (id),
   luogo_id       INTEGER NOT NULL REFERENCES luoghi (id),
   ordine         INTEGER NOT NULL,
-  anno           INTEGER NOT NULL,
+  data           TEXT NOT NULL, -- giorno di arrivo, nel formato AAAA-MM-GG
   PRIMARY KEY (personaggio_id, luogo_id)
 );
