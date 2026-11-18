@@ -1,9 +1,10 @@
 import type { Exercise } from '../../src/themes/contract.ts';
 
-// Esercizi portati dal prototipo jedi-academy (F04) e verificati su SQLite.
-// Titoli, consegne e suggerimenti sono stati riscritti in F07.
+// Esercizi verificati su SQLite: ex-001–ex-105 portati dal prototipo jedi-academy (F04),
+// con titoli, consegne e suggerimenti riscritti in F07; ex-106–ex-150 scritti in F22.
 // Il capitolo di ogni esercizio è la clausola più avanzata della query attesa:
 // sottoquery, poi raggruppamenti e funzioni di aggregazione, poi join, poi una tabella.
+// WITH e UNION compongono più query, e contano come sottoquery.
 
 const exercises: Exercise[] = [
   // Facile (35)
@@ -2037,7 +2038,7 @@ const exercises: Exercise[] = [
       ORDER BY anno_nascita_bby ASC, nome ASC
       LIMIT 3`,
     hints: [
-      'Il più giovane è nato più vicino a Yavin, cioè ha l’anno di nascita più piccolo. Prova la query senza filtri: chi compare in cima?',
+      'Il più giovane è nato più vicino a Yavin, cioè ha l’anno di nascita più piccolo. Prova la query senza filtri e guarda chi compare in cima.',
       'In ordine crescente SQLite mette i NULL prima di tutti gli altri valori, così Greef Karga, di cui l’anno manca, finisce primo. Escludilo con WHERE anno_nascita_bby IS NOT NULL.',
     ],
     tables: ['personaggi'],
@@ -2377,9 +2378,354 @@ const exercises: Exercise[] = [
       ORDER BY numero_spade DESC, fazione ASC`,
     hints: [
       'Le spade si collegano alle fazioni passando dai personaggi. Perché le fazioni senza spade restino nel risultato, entrambi i collegamenti devono essere LEFT JOIN.',
-      'COUNT(*) conterebbe anche le righe con la spada a NULL, e una fazione senza spade avrebbe 1 o più. Conta invece COUNT(spade_laser.id).',
+      'COUNT(*) conterebbe anche le righe con la spada a NULL: una fazione senza spade avrebbe tante righe quanti sono i suoi membri, invece di 0. Conta invece COUNT(spade_laser.id).',
     ],
     tables: ['fazioni', 'personaggi', 'spade_laser'],
+  },
+
+  // F22 — sottoquery: facile (6), medio (8), difficile (2)
+  {
+    id: 'ex-135',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'Chi possiede una spada laser',
+    prompt: 'Mostra il nome e il ruolo dei personaggi che possiedono almeno una spada laser, usando una sottoquery.',
+    expectedQuery: `
+      SELECT nome, ruolo
+      FROM personaggi
+      WHERE id IN (
+        SELECT personaggio_id
+        FROM spade_laser
+      )`,
+    hints: [
+      'La colonna personaggio_id della tabella spade_laser elenca gli id di chi possiede una spada.',
+      'Tieni i personaggi il cui id compare in quell’elenco: WHERE id IN (SELECT personaggio_id FROM spade_laser).',
+    ],
+    tables: ['personaggi', 'spade_laser'],
+  },
+  {
+    id: 'ex-136',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Lo stesso clima di Naboo',
+    prompt: 'Mostra il nome e il terreno dei pianeti che hanno lo stesso clima di Naboo, Naboo compreso.',
+    expectedQuery: `
+      SELECT nome, terreno
+      FROM pianeti
+      WHERE clima = (
+        SELECT clima
+        FROM pianeti
+        WHERE nome = 'Naboo'
+      )`,
+    hints: [
+      'La consegna non dice qual è il clima di Naboo: lo trova una sottoquery.',
+      'La sottoquery restituisce un solo valore, quindi può stare a destra di un =: WHERE clima = (SELECT clima FROM pianeti WHERE nome = \'Naboo\').',
+    ],
+    tables: ['pianeti'],
+  },
+  {
+    id: 'ex-137',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'MAX'],
+    title: 'La battaglia più sanguinosa',
+    prompt: 'Mostra il nome, l’anno e le perdite stimate della battaglia con più perdite.',
+    expectedQuery: `
+      SELECT nome, anno_bby, perdite_stimate
+      FROM battaglie
+      WHERE perdite_stimate = (
+        SELECT MAX(perdite_stimate)
+        FROM battaglie
+      )`,
+    hints: [
+      'MAX(perdite_stimate) trova il numero più alto, ma da solo non ti dà il nome della battaglia.',
+      'Usa quel massimo dentro una sottoquery: WHERE perdite_stimate = (SELECT MAX(perdite_stimate) FROM battaglie).',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-138',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'Specie che sentono la Forza',
+    prompt: 'Mostra il nome delle specie a cui appartiene almeno un personaggio sensibile alla Forza.',
+    expectedQuery: `
+      SELECT nome
+      FROM specie
+      WHERE id IN (
+        SELECT specie_id
+        FROM personaggi
+        WHERE sensibile_alla_forza = 1
+      )`,
+    hints: [
+      'Una sottoquery sui personaggi può restituire gli id delle specie dei soli sensibili alla Forza.',
+      'Filtra le specie con WHERE id IN (SELECT specie_id FROM personaggi WHERE sensibile_alla_forza = 1).',
+    ],
+    tables: ['specie', 'personaggi'],
+  },
+  {
+    id: 'ex-139',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE'],
+    title: 'Le navi della fazione di Boba Fett',
+    prompt: 'Mostra il nome e il modello delle astronavi che appartengono alla fazione in cui milita Boba Fett.',
+    expectedQuery: `
+      SELECT nome, modello
+      FROM astronavi
+      WHERE fazione_id = (
+        SELECT fazione_id
+        FROM personaggi
+        WHERE nome = 'Boba Fett'
+      )`,
+    hints: [
+      'La fazione di Boba Fett è scritta nella sua riga della tabella personaggi.',
+      'Recuperala con una sottoquery: WHERE fazione_id = (SELECT fazione_id FROM personaggi WHERE nome = \'Boba Fett\').',
+    ],
+    tables: ['astronavi', 'personaggi'],
+  },
+  {
+    id: 'ex-140',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Specie senza personaggi',
+    prompt: 'Mostra il nome e la lingua delle specie a cui non appartiene nessun personaggio dell’archivio.',
+    expectedQuery: `
+      SELECT nome, linguaggio
+      FROM specie
+      WHERE id NOT IN (
+        SELECT specie_id
+        FROM personaggi
+      )`,
+    hints: [
+      'La colonna specie_id dei personaggi elenca le specie che hanno almeno un personaggio.',
+      'Tieni le specie il cui id non compare in quell’elenco: WHERE id NOT IN (SELECT specie_id FROM personaggi).',
+    ],
+    tables: ['specie', 'personaggi'],
+  },
+  {
+    id: 'ex-141',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'EXISTS'],
+    title: 'Culle di specie',
+    prompt: 'Mostra il nome dei pianeti che sono il pianeta d’origine di almeno una specie, usando EXISTS.',
+    expectedQuery: `
+      SELECT nome
+      FROM pianeti
+      WHERE EXISTS (
+        SELECT 1
+        FROM specie
+        WHERE specie.pianeta_madre_id = pianeti.id
+      )`,
+    hints: [
+      'EXISTS (sottoquery) è vero quando la sottoquery restituisce almeno una riga, qualunque cosa contenga.',
+      'Dentro la sottoquery cerca le specie di quel pianeta: WHERE specie.pianeta_madre_id = pianeti.id. La sottoquery usa pianeti.id, una colonna della query esterna: per questo SQLite la esegue di nuovo per ogni pianeta.',
+    ],
+    tables: ['pianeti', 'specie'],
+  },
+  {
+    id: 'ex-142',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT EXISTS'],
+    title: 'Fazioni senza flotta',
+    prompt: 'Mostra il nome e il tipo delle fazioni che non possiedono nessuna astronave, usando NOT EXISTS.',
+    expectedQuery: `
+      SELECT nome, tipo
+      FROM fazioni
+      WHERE NOT EXISTS (
+        SELECT 1
+        FROM astronavi
+        WHERE astronavi.fazione_id = fazioni.id
+      )`,
+    hints: [
+      'Per ogni fazione cerca le sue astronavi con una sottoquery che rimanda a fazioni.id.',
+      'NOT EXISTS è vero quando quella sottoquery non trova nessuna riga: WHERE NOT EXISTS (SELECT 1 FROM astronavi WHERE astronavi.fazione_id = fazioni.id).',
+    ],
+    tables: ['fazioni', 'astronavi'],
+  },
+  {
+    id: 'ex-143',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'GROUP BY', 'COUNT', 'AVG'],
+    title: 'Quanti membri ha in media una fazione',
+    prompt: 'Calcola il numero medio di membri per fazione.',
+    expectedQuery: `
+      SELECT AVG(membri) AS media_membri
+      FROM (
+        SELECT fazione_id, COUNT(*) AS membri
+        FROM personaggi
+        GROUP BY fazione_id
+      )`,
+    hints: [
+      'Il calcolo ha due passi: prima i membri di ogni fazione, poi la media di quei numeri. AVG(COUNT(*)) non è ammesso.',
+      'Scrivi la query che conta i membri per fazione e mettila fra parentesi dopo FROM: la query esterna la tratta come una tabella e ne calcola AVG(membri).',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-144',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['WITH', 'SELECT', 'FROM', 'WHERE', 'AVG'],
+    title: 'Più anziani della media',
+    prompt: 'Mostra il nome e l’anno di nascita dei personaggi nati prima dell’anno di nascita medio dell’archivio. Calcola la media in una query a cui dai un nome con WITH.',
+    expectedQuery: `
+      WITH media AS (
+        SELECT AVG(anno_nascita_bby) AS anno_medio
+        FROM personaggi
+      )
+      SELECT personaggi.nome, personaggi.anno_nascita_bby
+      FROM personaggi, media
+      WHERE personaggi.anno_nascita_bby > media.anno_medio`,
+    hints: [
+      'Nato prima vuol dire, nel calendario dell’archivio, un anno di nascita più grande: i numeri contano gli anni prima di Yavin.',
+      'WITH media AS (SELECT AVG(anno_nascita_bby) AS anno_medio FROM personaggi) dà un nome alla query; dopo la puoi usare nel FROM come una tabella di una riga sola, accanto a personaggi.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-145',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'UNION'],
+    title: 'L’appello dei Ribelli',
+    prompt: 'In un’unica colonna mostra i nomi dei personaggi e i nomi delle astronavi dell’Alleanza Ribelle.',
+    expectedQuery: `
+      SELECT nome
+      FROM personaggi
+      WHERE fazione_id = 1
+      UNION
+      SELECT nome
+      FROM astronavi
+      WHERE fazione_id = 1`,
+    hints: [
+      'Ti servono due query, una sui personaggi e una sulle astronavi, entrambe con fazione_id = 1, e i loro risultati uno sotto l’altro.',
+      'UNION accoda il risultato della seconda query alla prima; le due query devono restituire lo stesso numero di colonne.',
+    ],
+    tables: ['personaggi', 'astronavi'],
+  },
+  {
+    id: 'ex-146',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING', 'COUNT'],
+    title: 'Più numerose dell’Ordine Jedi',
+    prompt: 'Mostra il nome e il numero di membri delle fazioni che hanno più membri dell’Ordine Jedi.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, COUNT(*) AS membri
+      FROM fazioni
+      JOIN personaggi ON fazioni.id = personaggi.fazione_id
+      GROUP BY fazioni.nome
+      HAVING COUNT(*) > (
+        SELECT COUNT(*)
+        FROM personaggi
+        WHERE fazione_id = (
+          SELECT id
+          FROM fazioni
+          WHERE nome = 'Ordine Jedi'
+        )
+      )`,
+    hints: [
+      'Conta i membri di ogni fazione con JOIN e GROUP BY; il confronto con l’Ordine Jedi riguarda i gruppi, quindi va in HAVING.',
+      'A destra del confronto metti una sottoquery che conta i membri dell’Ordine Jedi: HAVING COUNT(*) > (SELECT COUNT(*) FROM personaggi WHERE fazione_id = …).',
+    ],
+    tables: ['fazioni', 'personaggi'],
+  },
+  {
+    id: 'ex-147',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Nati lontano dai campi di battaglia',
+    prompt: 'Mostra il nome dei personaggi nati su un pianeta noto su cui non si è combattuta nessuna battaglia, con l’id del pianeta.',
+    expectedQuery: `
+      SELECT nome, pianeta_origine_id
+      FROM personaggi
+      WHERE pianeta_origine_id NOT IN (
+        SELECT pianeta_id
+        FROM battaglie
+      )`,
+    hints: [
+      'La colonna pianeta_id della tabella battaglie elenca i pianeti su cui si è combattuto.',
+      'Con WHERE pianeta_origine_id NOT IN (…) i personaggi senza pianeta natale restano fuori da soli: per un NULL il confronto non è né vero né falso, e WHERE scarta la riga.',
+    ],
+    tables: ['personaggi', 'battaglie'],
+  },
+  {
+    id: 'ex-148',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'L’armeria del Tempio',
+    prompt: 'Mostra il colore della lama e il tipo di cristallo delle spade laser possedute dai membri dell’Ordine Jedi, cercando la fazione per nome e senza usare JOIN.',
+    expectedQuery: `
+      SELECT colore_lama, tipo_cristallo
+      FROM spade_laser
+      WHERE personaggio_id IN (
+        SELECT id
+        FROM personaggi
+        WHERE fazione_id = (
+          SELECT id
+          FROM fazioni
+          WHERE nome = 'Ordine Jedi'
+        )
+      )`,
+    hints: [
+      'Le sottoquery si possono annidare. Parti dalla più interna: l’id della fazione a partire dal nome.',
+      'La sottoquery di mezzo restituisce gli id dei membri di quella fazione; la query esterna tiene le spade con WHERE personaggio_id IN (…).',
+    ],
+    tables: ['spade_laser', 'personaggi', 'fazioni'],
+  },
+  {
+    id: 'ex-149',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'AVG'],
+    title: 'Sopra la media della propria flotta',
+    prompt: 'Mostra il nome, la fazione e la lunghezza delle astronavi più lunghe della lunghezza media delle astronavi della loro stessa fazione.',
+    expectedQuery: `
+      SELECT nome, fazione_id, lunghezza_metri
+      FROM astronavi AS nave
+      WHERE lunghezza_metri > (
+        SELECT AVG(lunghezza_metri)
+        FROM astronavi
+        WHERE astronavi.fazione_id = nave.fazione_id
+      )`,
+    hints: [
+      'La media cambia da una fazione all’altra: la sottoquery va ricalcolata per ogni astronave della query esterna, con la fazione di quell’astronave.',
+      'Dai un alias alla tabella esterna, per esempio FROM astronavi AS nave, e nella sottoquery filtra con WHERE astronavi.fazione_id = nave.fazione_id.',
+    ],
+    tables: ['astronavi'],
+  },
+  {
+    id: 'ex-150',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'MAX'],
+    title: 'L’ammiraglia di ogni fazione',
+    prompt: 'Per ogni fazione che possiede astronavi mostra il nome della fazione, il nome della sua astronave più lunga e la lunghezza.',
+    expectedQuery: `
+      SELECT fazioni.nome AS fazione, astronavi.nome AS astronave, astronavi.lunghezza_metri
+      FROM astronavi
+      JOIN fazioni ON astronavi.fazione_id = fazioni.id
+      JOIN (
+        SELECT fazione_id, MAX(lunghezza_metri) AS lunghezza_massima
+        FROM astronavi
+        GROUP BY fazione_id
+      ) AS massimi ON astronavi.fazione_id = massimi.fazione_id
+        AND astronavi.lunghezza_metri = massimi.lunghezza_massima`,
+    hints: [
+      'Con GROUP BY fazione_id e MAX trovi la lunghezza massima di ogni fazione, ma non il nome della nave. SQLite accetterebbe astronavi.nome accanto a MAX, mentre quasi tutti gli altri DBMS rifiutano una colonna che non sta né in GROUP BY né in una funzione di aggregazione: risolvi con una sottoquery.',
+      'Metti quella query fra parentesi nel FROM, con un alias, e uniscila ad astronavi su due condizioni: stessa fazione e lunghezza uguale al massimo. Un altro JOIN con fazioni dà il nome della fazione.',
+    ],
+    tables: ['astronavi', 'fazioni'],
   },
 ];
 
