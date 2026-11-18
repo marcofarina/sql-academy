@@ -48,4 +48,44 @@ Procedura manuale con `npm run dev`: la locandina di LOTR riporta il nuovo numer
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, colonne e dati aggiunti con la loro fonte, distribuzione finale, osservazioni di Marco, lavoro residuo, consumo reale se noto.
+**Esito:** completata il 2026-11-18 su Opus 5.5 (effort non verificabile dalla sessione), in una sessione. Commit intermedi: `c4fe691` (dati), `d1a0d42` (capitoli 6 e 7), `3c7064a` (capitolo 8); il capitolo 9, la passata finale e i documenti sono nel commit di chiusura.
+
+**Decisioni di Marco (2026-11-18):**
+
+- colonne: le forze schierate nelle battaglie e la data delle tappe al posto dell’anno; scartate `anno_morte` e `altezza_cm`;
+- righe nuove: solo tre «Pugnale dei Tumuli», per Frodo, Sam e Pipino (i nomi ripetuti servono a `DISTINCT`);
+- 140 esercizi, circa 35% facili, 40% medi e 25% difficili.
+
+**Colonne e dati, con la fonte:**
+
+- `battaglie.forze_popoli_liberi` e `battaglie.forze_ombra`, `INTEGER` che ammettono `NULL`. Dall’opera vengono soltanto l’ordine di grandezza dei seimila cavalieri di Rohan al Pelennor e dei settemila del Cancello Nero; tutti gli altri valori sono stime plausibili. L’Assalto a Isengard ha `forze_ombra` `NULL`, apposta: serve agli esercizi su `SUM` e `NULL`. La traccia dichiara che quasi tutte le cifre sono stime.
+- `tappe.data`, `TEXT NOT NULL` nel formato `AAAA-MM-GG`, al posto di `tappe.anno`, che nessun esercizio usava. Le date seguono la cronologia dell’Appendice B riportata al calendario gregoriano. Sono ricostruite le partenze di Legolas e Gimli, le date di Gandalf prima della Compagnia, Lothlórien per Gandalf e Minas Tirith per Frodo e Sam. Le date di ogni viaggio crescono con l’ordine (controllato). Un 29 o un 30 febbraio del calendario della Contea diventa il 1° marzo. La traccia lo dichiara: «riportata al nostro calendario».
+- `armi` 11–13: «Pugnale dei Tumuli» per Frodo, Sam e Pipino.
+- `er.ts` (attributi `forze_*` con cardinalità `(0,1)`, `data` sull’associazione `tappa`), `traccia.md` e il commento di `schema.sql` aggiornati. I 20 esercizi di F09 restano verdi.
+
+**Distribuzione finale:**
+
+| Capitolo | Facili | Medi | Difficili | Totale |
+| --- | --- | --- | --- | --- |
+| Una tabella | 16 | 15 | 9 | 40 |
+| Join | 12 | 15 | 9 | 36 |
+| Aggregazioni | 12 | 14 | 9 | 35 |
+| Sottoquery | 9 | 11 | 9 | 29 |
+| Totale | 49 | 55 | 36 | 140 |
+
+Un esercizio in più nei join e uno in meno nelle sottoquery rispetto alla proposta (40 / 35 / 35 / 30). Parole chiave nuove: `DISTINCT`, `LIKE`/`NOT LIKE`, `IN`, `OR`, `LIMIT … OFFSET`, `COALESCE`, `CASE`, `ABS`, `ROUND`, `LENGTH`, `UPPER`, `INSTR`, `SUBSTR`, `||`, `strftime`, `julianday`, `COUNT(DISTINCT …)`, self-join con `AS`, `EXISTS`/`NOT EXISTS`, sottoquery nella `SELECT` e correlate, `WITH`, `UNION`. Niente viste: la query attesa non può creare oggetti. Decisione locale: `WITH` e `UNION` stanno nel capitolo delle sottoquery, e il commento in testa a `esercizi.ts` lo dice.
+
+**Come sono stati scritti:** uno script nella cartella temporanea eseguiva le query di un capitolo con `sqlite3` di Python (`PRAGMA foreign_keys=ON`), ne stampava i risultati e generava il TypeScript; ogni risultato è stato letto contro la consegna. Due correzioni nate da quella lettura: «Dalla parte dell’Ombra» restituiva il Re Stregone due volte (aggiunto `DISTINCT`, consegna e suggerimento corretti); «I primi ad arrivare» dava 76 righe (limitato a Rohan, 11 righe). Passata finale di `scrittura-umana.md`: nessuno dei termini vietati; tolta la formula ricorrente «da solo/da sola», che compariva cinque volte nei suggerimenti.
+
+**Verifiche:**
+
+| Verifica | Esito |
+| --- | --- |
+| `npm run check:themes` | superata: exit 0, `lotr` 140 esercizi, 0 problemi; `star-wars` invariato |
+| `npm test`, `npm run lint`, `npm run build` | superate: exit 0, 127 test (resta l’avviso già noto sui blocchi oltre 500 kB) |
+| `git diff --stat <partenza> HEAD -- . ':!themes/lotr' ':!docs'` | superata: solo `AGENTS.md`, con la riga di stato |
+| Procedura manuale, `npm run dev` | superata nel pannello del browser: la locandina dice «in 140 esercizi»; nel catalogo join + difficile dà 9, sottoquery + facile 9, una tabella + medio 15, come la tabella sopra; risolti `ex-030` (facile), `ex-040` (medio, `strftime` in sql.js) e `ex-115` (difficile), dove la risposta sbagliata `SUM(a + b)` viene respinta su Rohan (17200 invece di 17250) |
+
+**Osservazioni di Marco:** le scelte sopra; nessun commento sui testi, che non ha ancora letto.
+
+**Lavoro residuo:** Marco può rileggere le stime delle forze e le date ricostruite (`themes/lotr/dati.sql`). F22 può riusare lo script di appoggio, che però resta nella cartella temporanea della sessione e non nel repo.

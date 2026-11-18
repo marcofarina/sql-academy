@@ -1,8 +1,9 @@
 import type { Exercise } from '../../src/themes/contract.ts';
 
-// Esercizi del tema Il Signore degli Anelli, cinque per capitolo, verificati su SQLite.
+// Esercizi del tema Il Signore degli Anelli, verificati su SQLite: ex-001–ex-020 da F09, gli altri da F21.
 // Il capitolo di ogni esercizio è la clausola più avanzata della query attesa:
 // sottoquery, poi raggruppamenti e funzioni di aggregazione, poi join, poi una tabella.
+// WITH e UNION compongono più query, e contano come sottoquery.
 
 const exercises: Exercise[] = [
   // Una tabella
@@ -842,7 +843,7 @@ const exercises: Exercise[] = [
       JOIN luoghi ON personaggi.provenienza_id = luoghi.id`,
     hints: [
       'Il nome del luogo è nella tabella luoghi; la tabella personaggi ne contiene solo l’id, in provenienza_id.',
-      'JOIN luoghi ON personaggi.provenienza_id = luoghi.id. Un JOIN scarta da solo i personaggi con provenienza_id NULL.',
+      'JOIN luoghi ON personaggi.provenienza_id = luoghi.id. I personaggi con provenienza_id NULL non trovano un luogo corrispondente, e il JOIN li scarta.',
     ],
     tables: ['personaggi', 'luoghi'],
   },
@@ -1385,7 +1386,7 @@ const exercises: Exercise[] = [
         AND po.schieramento = 'Ombra'`,
     hints: [
       'Ti servono due copie di partecipazioni, una per ogni schieramento, unite sulla stessa battaglia; e due copie di personaggi per i due nomi.',
-      'Filtra con pl.schieramento = \'Popoli liberi\' AND po.schieramento = \'Ombra\'. Le battaglie senza nessuno dalla parte dell’Ombra spariscono da sole.',
+      'Filtra con pl.schieramento = \'Popoli liberi\' AND po.schieramento = \'Ombra\'. Le battaglie in cui nessuno ha combattuto per l’Ombra non hanno righe in po, e il JOIN le scarta.',
     ],
     tables: ['partecipazioni', 'battaglie', 'personaggi'],
   },
@@ -1590,7 +1591,7 @@ const exercises: Exercise[] = [
       FROM battaglie`,
     hints: [
       'SUM somma i valori di una colonna su tutte le righe.',
-      'SUM(forze_ombra) salta da sola la battaglia in cui il valore è NULL.',
+      'SUM(forze_ombra) ignora i NULL: non serve escludere con WHERE la battaglia in cui il dato manca.',
     ],
     tables: ['battaglie'],
   },
@@ -2197,6 +2198,557 @@ const exercises: Exercise[] = [
       'Una sottoquery correlata calcola MAX(ordine) solo per le tappe dello stesso personaggio della riga esterna: dai un alias alla tabella interna (tappe AS t) e confronta t.personaggio_id con tappe.personaggio_id.',
     ],
     tables: ['tappe', 'personaggi', 'luoghi'],
+  },
+  {
+    id: 'ex-117',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'AVG'],
+    title: 'Sopra la media dell’Ombra',
+    prompt:
+      'Mostra il nome e le forze dell’Ombra delle battaglie in cui l’Ombra ha schierato più combattenti della media.',
+    expectedQuery: `
+      SELECT nome, forze_ombra
+      FROM battaglie
+      WHERE forze_ombra > (
+        SELECT AVG(forze_ombra)
+        FROM battaglie
+      )`,
+    hints: [
+      'La media non è scritta nella consegna: la calcola una sottoquery, SELECT AVG(forze_ombra) FROM battaglie.',
+      'Metti la sottoquery fra parentesi a destra del confronto: WHERE forze_ombra > (SELECT AVG(forze_ombra) FROM battaglie).',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-118',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'I personaggi armati',
+    prompt: 'Mostra il nome dei personaggi che portano almeno una delle armi dell’archivio.',
+    expectedQuery: `
+      SELECT nome
+      FROM personaggi
+      WHERE id IN (
+        SELECT portatore_id
+        FROM armi
+      )`,
+    hints: [
+      'La sottoquery SELECT portatore_id FROM armi restituisce l’elenco degli id dei portatori.',
+      'WHERE id IN (SELECT portatore_id FROM armi). Con IN, Frodo compare una volta sola anche se porta due armi.',
+    ],
+    tables: ['personaggi', 'armi'],
+  },
+  {
+    id: 'ex-119',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Mai in battaglia',
+    prompt: 'Mostra il nome dei personaggi che non hanno partecipato a nessuna battaglia.',
+    expectedQuery: `
+      SELECT nome
+      FROM personaggi
+      WHERE id NOT IN (
+        SELECT personaggio_id
+        FROM partecipazioni
+      )`,
+    hints: [
+      'Gli id di chi ha combattuto sono nella colonna personaggio_id della tabella partecipazioni.',
+      'WHERE id NOT IN (SELECT personaggio_id FROM partecipazioni).',
+    ],
+    tables: ['personaggi', 'partecipazioni'],
+  },
+  {
+    id: 'ex-120',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'MIN'],
+    title: 'I più anziani',
+    prompt: 'Mostra il nome e l’anno di nascita dei personaggi nati nell’anno più antico dell’archivio.',
+    expectedQuery: `
+      SELECT nome, anno_nascita
+      FROM personaggi
+      WHERE anno_nascita = (
+        SELECT MIN(anno_nascita)
+        FROM personaggi
+      )`,
+    hints: [
+      'L’anno più antico lo calcola una sottoquery con MIN.',
+      'WHERE anno_nascita = (SELECT MIN(anno_nascita) FROM personaggi). Se due personaggi sono nati in quell’anno, compaiono tutti e due.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-121',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'MAX'],
+    title: 'L’esercito più grande, per nome',
+    prompt: 'Mostra il nome della battaglia in cui l’Ombra ha schierato più combattenti.',
+    expectedQuery: `
+      SELECT nome
+      FROM battaglie
+      WHERE forze_ombra = (
+        SELECT MAX(forze_ombra)
+        FROM battaglie
+      )`,
+    hints: [
+      'MAX(forze_ombra) ti dà il numero, ma non il nome della battaglia: usalo in una sottoquery.',
+      'WHERE forze_ombra = (SELECT MAX(forze_ombra) FROM battaglie).',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-122',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'I popoli della Compagnia, per nome',
+    prompt: 'Mostra il nome dei popoli che hanno almeno un membro nella Compagnia dell’Anello.',
+    expectedQuery: `
+      SELECT nome
+      FROM popoli
+      WHERE id IN (
+        SELECT popolo_id
+        FROM personaggi
+        WHERE membro_compagnia = 1
+      )`,
+    hints: [
+      'La sottoquery cerca in personaggi i popoli dei membri della Compagnia.',
+      'WHERE id IN (SELECT popolo_id FROM personaggi WHERE membro_compagnia = 1).',
+    ],
+    tables: ['popoli', 'personaggi'],
+  },
+  {
+    id: 'ex-123',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'I luoghi d’origine',
+    prompt: 'Mostra il nome e la regione dei luoghi da cui proviene almeno un personaggio.',
+    expectedQuery: `
+      SELECT nome, regione
+      FROM luoghi
+      WHERE id IN (
+        SELECT provenienza_id
+        FROM personaggi
+      )`,
+    hints: [
+      'Gli id dei luoghi di provenienza sono nella colonna provenienza_id della tabella personaggi.',
+      'WHERE id IN (SELECT provenienza_id FROM personaggi). Ogni luogo compare una volta sola, anche se ne provengono più personaggi.',
+    ],
+    tables: ['luoghi', 'personaggi'],
+  },
+  {
+    id: 'ex-124',
+    chapter: 'sottoquery-viste',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'DISTINCT', 'FROM', 'WHERE', 'IN'],
+    title: 'Le regioni dei campi di battaglia',
+    prompt:
+      'Mostra, ciascuna una volta sola, le regioni in cui si trova almeno un luogo dove si è combattuta una battaglia.',
+    expectedQuery: `
+      SELECT DISTINCT regione
+      FROM luoghi
+      WHERE id IN (
+        SELECT luogo_id
+        FROM battaglie
+      )`,
+    hints: [
+      'La sottoquery SELECT luogo_id FROM battaglie restituisce i luoghi delle battaglie.',
+      'Tieni i luoghi con WHERE id IN (…) e mostra la regione con DISTINCT, perché in una regione possono esserci più campi di battaglia.',
+    ],
+    tables: ['luoghi', 'battaglie'],
+  },
+  {
+    id: 'ex-125',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    title: 'Un popolo senza personaggi',
+    prompt: 'Mostra il nome dei popoli a cui non appartiene nessun personaggio dell’archivio.',
+    expectedQuery: `
+      SELECT nome
+      FROM popoli
+      WHERE id NOT IN (
+        SELECT popolo_id
+        FROM personaggi
+      )`,
+    hints: [
+      'Gli id dei popoli che hanno personaggi sono nella colonna popolo_id della tabella personaggi.',
+      'WHERE id NOT IN (SELECT popolo_id FROM personaggi). La colonna popolo_id non ammette NULL, quindi NOT IN qui funziona senza sorprese.',
+    ],
+    tables: ['popoli', 'personaggi'],
+  },
+  {
+    id: 'ex-126',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN', 'GROUP BY', 'HAVING'],
+    title: 'Le armi dei veterani',
+    prompt: 'Mostra il nome delle armi portate da personaggi che hanno partecipato ad almeno tre battaglie.',
+    expectedQuery: `
+      SELECT nome
+      FROM armi
+      WHERE portatore_id IN (
+        SELECT personaggio_id
+        FROM partecipazioni
+        GROUP BY personaggio_id
+        HAVING COUNT(*) >= 3
+      )`,
+    hints: [
+      'La sottoquery può contenere GROUP BY e HAVING: trova gli id di chi ha almeno tre partecipazioni.',
+      'WHERE portatore_id IN (SELECT personaggio_id FROM partecipazioni GROUP BY personaggio_id HAVING COUNT(*) >= 3).',
+    ],
+    tables: ['armi', 'partecipazioni'],
+  },
+  {
+    id: 'ex-127',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'EXISTS'],
+    title: 'Chi ha un viaggio registrato',
+    prompt: 'Mostra il nome dei personaggi di cui l’archivio registra almeno una tappa.',
+    expectedQuery: `
+      SELECT nome
+      FROM personaggi
+      WHERE EXISTS (
+        SELECT 1
+        FROM tappe
+        WHERE tappe.personaggio_id = personaggi.id
+      )`,
+    hints: [
+      'EXISTS (sottoquery) è vero quando la sottoquery restituisce almeno una riga.',
+      'La sottoquery si riferisce al personaggio della query esterna: WHERE tappe.personaggio_id = personaggi.id. Cosa scrivi nella sua SELECT non conta; si usa SELECT 1.',
+    ],
+    tables: ['personaggi', 'tappe'],
+  },
+  {
+    id: 'ex-128',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT EXISTS'],
+    title: 'Senza nemici registrati',
+    prompt: 'Mostra il nome delle battaglie in cui l’archivio non registra nessun personaggio schierato con l’Ombra.',
+    expectedQuery: `
+      SELECT nome
+      FROM battaglie
+      WHERE NOT EXISTS (
+        SELECT 1
+        FROM partecipazioni
+        WHERE partecipazioni.battaglia_id = battaglie.id
+          AND partecipazioni.schieramento = 'Ombra'
+      )`,
+    hints: [
+      'NOT EXISTS è vero quando la sottoquery non restituisce nessuna riga.',
+      'La sottoquery cerca le partecipazioni della battaglia esterna con schieramento = \'Ombra\': partecipazioni.battaglia_id = battaglie.id.',
+    ],
+    tables: ['battaglie', 'partecipazioni'],
+  },
+  {
+    id: 'ex-129',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'LIKE', 'UNION'],
+    title: 'Tutto ciò che è nero',
+    prompt: 'Mostra in un’unica colonna i nomi delle armi e dei luoghi che contengono «Ner», come «Nero» o «Nera».',
+    expectedQuery: `
+      SELECT nome
+      FROM armi
+      WHERE nome LIKE '%Ner%'
+      UNION
+      SELECT nome
+      FROM luoghi
+      WHERE nome LIKE '%Ner%'`,
+    hints: [
+      'UNION mette in fila i risultati di due SELECT con lo stesso numero di colonne.',
+      'Una SELECT su armi e una su luoghi, ciascuna con WHERE nome LIKE \'%Ner%\', unite da UNION.',
+    ],
+    tables: ['armi', 'luoghi'],
+  },
+  {
+    id: 'ex-130',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'AVG'],
+    title: 'Battaglie sopra la media',
+    prompt:
+      'Fra le battaglie di cui si conoscono entrambe le forze, mostra il nome e il totale dei combattenti di quelle in cui il totale supera la media dei totali.',
+    expectedQuery: `
+      SELECT nome, forze_popoli_liberi + forze_ombra
+      FROM battaglie
+      WHERE forze_popoli_liberi + forze_ombra > (
+        SELECT AVG(forze_popoli_liberi + forze_ombra)
+        FROM battaglie
+      )`,
+    hints: [
+      'AVG può lavorare su un’espressione: AVG(forze_popoli_liberi + forze_ombra). Le righe in cui la somma è NULL non entrano nella media.',
+      'Confronta la stessa espressione con la sottoquery. Non serve escludere la battaglia con forze_ombra NULL: il confronto con un NULL non è mai vero.',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-131',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'COUNT'],
+    title: 'Quante armi ciascuno',
+    prompt: 'Per ogni membro della Compagnia dell’Anello mostra il nome e il numero di armi che porta, zero compreso.',
+    expectedQuery: `
+      SELECT nome,
+             (SELECT COUNT(*)
+              FROM armi
+              WHERE armi.portatore_id = personaggi.id)
+      FROM personaggi
+      WHERE membro_compagnia = 1`,
+    hints: [
+      'Una sottoquery che restituisce un solo valore può stare anche nella SELECT, come una colonna.',
+      'Per ogni personaggio la sottoquery conta le sue armi: (SELECT COUNT(*) FROM armi WHERE armi.portatore_id = personaggi.id). Dove non trova armi, COUNT dà 0.',
+    ],
+    tables: ['personaggi', 'armi'],
+  },
+  {
+    id: 'ex-132',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    title: 'Prima di Boromir a Gran Burrone',
+    prompt:
+      'Boromir ha id 9. Mostra il nome dei personaggi arrivati a Gran Burrone prima di lui, con la data di arrivo.',
+    expectedQuery: `
+      SELECT personaggi.nome, tappe.data
+      FROM tappe
+      JOIN personaggi ON tappe.personaggio_id = personaggi.id
+      JOIN luoghi ON tappe.luogo_id = luoghi.id
+      WHERE luoghi.nome = 'Gran Burrone'
+        AND tappe.data < (
+          SELECT tappe.data
+          FROM tappe
+          JOIN luoghi ON tappe.luogo_id = luoghi.id
+          WHERE tappe.personaggio_id = 9
+            AND luoghi.nome = 'Gran Burrone'
+        )`,
+    hints: [
+      'La data di arrivo di Boromir a Gran Burrone non è nella consegna: la restituisce una sottoquery.',
+      'La sottoquery cerca la tappa con personaggio_id = 9 e luogo Gran Burrone. La query esterna tiene le tappe a Gran Burrone con data minore.',
+    ],
+    tables: ['tappe', 'personaggi', 'luoghi'],
+  },
+  {
+    id: 'ex-133',
+    chapter: 'sottoquery-viste',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN'],
+    title: 'Le battaglie degli spadaccini',
+    prompt:
+      'Mostra il nome delle battaglie a cui ha partecipato almeno un personaggio che porta un’arma di tipo «spada».',
+    expectedQuery: `
+      SELECT nome
+      FROM battaglie
+      WHERE id IN (
+        SELECT battaglia_id
+        FROM partecipazioni
+        WHERE personaggio_id IN (
+          SELECT portatore_id
+          FROM armi
+          WHERE tipo = 'spada'
+        )
+      )`,
+    hints: [
+      'Lavora dall’interno verso l’esterno: prima gli id dei portatori di spade, poi le battaglie a cui hanno partecipato.',
+      'Due sottoquery annidate: battaglie con id IN (partecipazioni con personaggio_id IN (SELECT portatore_id FROM armi WHERE tipo = \'spada\')).',
+    ],
+    tables: ['battaglie', 'partecipazioni', 'armi'],
+  },
+  {
+    id: 'ex-134',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN', 'IS NOT NULL'],
+    title: 'Luoghi dimenticati',
+    prompt:
+      'Mostra il nome dei luoghi da cui non proviene nessun personaggio e in cui non si è combattuta nessuna battaglia.',
+    expectedQuery: `
+      SELECT nome
+      FROM luoghi
+      WHERE id NOT IN (
+          SELECT provenienza_id
+          FROM personaggi
+          WHERE provenienza_id IS NOT NULL
+        )
+        AND id NOT IN (
+          SELECT luogo_id
+          FROM battaglie
+        )`,
+    hints: [
+      'Due condizioni NOT IN, unite da AND. Se la query non restituisce niente, guarda i valori della prima sottoquery.',
+      'provenienza_id è NULL per alcuni personaggi, e x NOT IN (…, NULL) non è mai vero: aggiungi WHERE provenienza_id IS NOT NULL dentro la sottoquery.',
+    ],
+    tables: ['luoghi', 'personaggi', 'battaglie'],
+  },
+  {
+    id: 'ex-135',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'COUNT', 'DISTINCT', 'IN'],
+    title: 'Dove è passata tutta la Compagnia',
+    prompt:
+      'Mostra il nome dei luoghi per cui sono passati, durante il viaggio, tutti i membri della Compagnia dell’Anello.',
+    expectedQuery: `
+      SELECT nome
+      FROM luoghi
+      WHERE (
+        SELECT COUNT(DISTINCT personaggio_id)
+        FROM tappe
+        WHERE tappe.luogo_id = luoghi.id
+          AND personaggio_id IN (
+            SELECT id
+            FROM personaggi
+            WHERE membro_compagnia = 1
+          )
+      ) = (
+        SELECT COUNT(*)
+        FROM personaggi
+        WHERE membro_compagnia = 1
+      )`,
+    hints: [
+      'Per ogni luogo conta quanti membri della Compagnia ci sono passati, e confronta il numero con quanti sono i membri in tutto.',
+      'A sinistra del confronto una sottoquery correlata al luogo con COUNT(DISTINCT personaggio_id); a destra una sottoquery che conta i membri con COUNT(*).',
+    ],
+    tables: ['luoghi', 'tappe', 'personaggi'],
+  },
+  {
+    id: 'ex-136',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'MAX', 'AS'],
+    title: 'Il campo più affollato di ogni regione',
+    prompt:
+      'Per ogni regione in cui si è combattuto, mostra la regione e il nome della battaglia in cui l’Ombra ha schierato più combattenti.',
+    expectedQuery: `
+      SELECT luoghi.regione, battaglie.nome
+      FROM battaglie
+      JOIN luoghi ON battaglie.luogo_id = luoghi.id
+      WHERE battaglie.forze_ombra = (
+        SELECT MAX(b.forze_ombra)
+        FROM battaglie AS b
+        JOIN luoghi AS l ON b.luogo_id = l.id
+        WHERE l.regione = luoghi.regione
+      )`,
+    hints: [
+      'Il massimo va calcolato regione per regione: la sottoquery deve riferirsi alla regione della riga esterna.',
+      'Nella sottoquery usa alias diversi, battaglie AS b e luoghi AS l, e collega con WHERE l.regione = luoghi.regione.',
+    ],
+    tables: ['battaglie', 'luoghi'],
+  },
+  {
+    id: 'ex-137',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['WITH', 'SELECT', 'FROM', 'JOIN', 'WHERE', 'COUNT', 'AVG', 'GROUP BY'],
+    title: 'Viaggiatori sopra la media',
+    prompt:
+      'Mostra il nome e il numero di tappe dei personaggi il cui viaggio ha più tappe della media dei viaggi registrati.',
+    expectedQuery: `
+      WITH conteggi AS (
+        SELECT personaggio_id, COUNT(*) AS numero
+        FROM tappe
+        GROUP BY personaggio_id
+      )
+      SELECT personaggi.nome, conteggi.numero
+      FROM conteggi
+      JOIN personaggi ON conteggi.personaggio_id = personaggi.id
+      WHERE conteggi.numero > (
+        SELECT AVG(numero)
+        FROM conteggi
+      )`,
+    hints: [
+      'Ti servono due passaggi: contare le tappe di ogni viaggio, poi fare la media dei conteggi. WITH dà un nome al primo risultato e permette di usarlo due volte.',
+      'WITH conteggi AS (SELECT personaggio_id, COUNT(*) AS numero FROM tappe GROUP BY personaggio_id), poi una SELECT su conteggi con WHERE numero > (SELECT AVG(numero) FROM conteggi).',
+    ],
+    tables: ['tappe', 'personaggi'],
+  },
+  {
+    id: 'ex-138',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'MIN', 'AS'],
+    title: 'I primi ad arrivare',
+    prompt:
+      'Per ogni luogo della regione «Rohan» toccato da almeno un viaggio, mostra il nome del luogo, il nome del primo personaggio arrivato e la data. Se più personaggi sono arrivati per primi lo stesso giorno, compaiono tutti.',
+    expectedQuery: `
+      SELECT luoghi.nome, personaggi.nome, tappe.data
+      FROM tappe
+      JOIN luoghi ON tappe.luogo_id = luoghi.id
+      JOIN personaggi ON tappe.personaggio_id = personaggi.id
+      WHERE luoghi.regione = 'Rohan'
+        AND tappe.data = (
+          SELECT MIN(t.data)
+          FROM tappe AS t
+          WHERE t.luogo_id = tappe.luogo_id
+        )`,
+    hints: [
+      'Per ogni tappa chiediti se la sua data è la più piccola fra le tappe dello stesso luogo.',
+      'Una sottoquery correlata calcola il minimo luogo per luogo: (SELECT MIN(t.data) FROM tappe AS t WHERE t.luogo_id = tappe.luogo_id). La condizione luoghi.regione = \'Rohan\' sta nella query esterna.',
+    ],
+    tables: ['tappe', 'luoghi', 'personaggi'],
+  },
+  {
+    id: 'ex-139',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'WHERE', 'EXISTS', 'JOIN', 'IN'],
+    title: 'Combattere lungo la strada',
+    prompt:
+      'Mostra il nome dei personaggi che hanno combattuto in almeno una battaglia svolta in un luogo per cui sono passati durante il loro viaggio.',
+    expectedQuery: `
+      SELECT nome
+      FROM personaggi
+      WHERE EXISTS (
+        SELECT 1
+        FROM partecipazioni
+        JOIN battaglie ON partecipazioni.battaglia_id = battaglie.id
+        WHERE partecipazioni.personaggio_id = personaggi.id
+          AND battaglie.luogo_id IN (
+            SELECT luogo_id
+            FROM tappe
+            WHERE tappe.personaggio_id = personaggi.id
+          )
+      )`,
+    hints: [
+      'Per ogni personaggio cerca una sua partecipazione la cui battaglia si è svolta in uno dei luoghi delle sue tappe.',
+      'EXISTS con una sottoquery su partecipazioni e battaglie; dentro, battaglie.luogo_id IN (SELECT luogo_id FROM tappe WHERE tappe.personaggio_id = personaggi.id). Con EXISTS ogni personaggio compare una volta sola.',
+    ],
+    tables: ['personaggi', 'partecipazioni', 'battaglie', 'tappe'],
+  },
+  {
+    id: 'ex-140',
+    chapter: 'sottoquery-viste',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'UNION', 'ORDER BY'],
+    title: 'Al Fosso di Helm o a Edoras',
+    prompt:
+      'Mostra in un unico elenco, senza ripetizioni e in ordine alfabetico, il nome dei personaggi che hanno combattuto nella Battaglia del Fosso di Helm oppure sono passati da Edoras durante il viaggio.',
+    expectedQuery: `
+      SELECT personaggi.nome
+      FROM partecipazioni
+      JOIN personaggi ON partecipazioni.personaggio_id = personaggi.id
+      JOIN battaglie ON partecipazioni.battaglia_id = battaglie.id
+      WHERE battaglie.nome = 'Battaglia del Fosso di Helm'
+      UNION
+      SELECT personaggi.nome
+      FROM tappe
+      JOIN personaggi ON tappe.personaggio_id = personaggi.id
+      JOIN luoghi ON tappe.luogo_id = luoghi.id
+      WHERE luoghi.nome = 'Edoras'
+      ORDER BY 1`,
+    hints: [
+      'Due SELECT, una sulle partecipazioni e una sulle tappe, unite da UNION, che toglie anche le righe doppie.',
+      'L’ORDER BY si scrive una volta sola, in fondo, e ordina il risultato dell’unione: ORDER BY 1 indica la prima colonna.',
+    ],
+    tables: ['partecipazioni', 'personaggi', 'battaglie', 'tappe', 'luoghi'],
   },
 ];
 

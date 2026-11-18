@@ -27,6 +27,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-18 | F18 completata: indicatore della sezione unico e animato (`src/pages/SectionIndicator.tsx`, aspetto nelle vesti con `.sections-indicator::after`); icona comune `rocket` per la sessione e campo `icons.session` del contratto (`x-wing`, `tie-fighter`, `hobbit-backpack`); poi `icons.reset` per «Azzera i progressi» (`volcano`, `battle-station-damaged`). |
 | 2026-11-18 | F19 completata: la sezione «Analisi» diventa «Traccia» (`#/<tema>/traccia`, `themes/<id>/traccia.md`, `src/trace/`, `loadTrace`); la pagina si apre con il titolo del testo; grassetti su entità, cardinalità e dati mancanti nei due testi, approvati da Marco. |
 | 2026-11-18 | F20 completata: sezione «Modello logico» come diagramma UML generato dal database (`src/logical/`), posizioni delle tabelle dichiarate in `themes/<id>/logico.ts` (nuovo file facoltativo del contratto, `Theme.loadLogical`), linee e sovrapposizioni controllate da `check:themes`. |
+| 2026-11-18 | F21 completata: LOTR con forze schierate nelle battaglie (`forze_popoli_liberi`, `forze_ombra`, quasi tutte stime), date delle tappe (`tappe.data` al posto di `anno`, dalla cronologia delle Appendici) e tre pugnali dei Tumuli; 140 esercizi su SQLite, con date, testo, `CASE`, `WITH`, `EXISTS` e `UNION`. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 
