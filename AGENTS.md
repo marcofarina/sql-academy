@@ -18,6 +18,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-17 | Brainstorming sul sistema a punti con Marco: aggiunte al piano F13–F17 (regole dei punti, interfaccia, progressi nello zaino di PDB, servizio e pagina della classifica). Nessun codice. CTF, gradi e traguardi rinviati a un piano successivo. |
 | 2026-11-17 | F06 completata: sezione «Modello logico» generata dal database (`src/logical/`), sezione «Schema ER» con il componente del libro (`src/er/`, dipendenza `roughjs`, carattere Excalifont) e `themes/star-wars/er.ts`; `check:themes` controlla la coerenza fra ER e tabelle. |
 | 2026-11-17 | F07 completata: analisi del dominio in `themes/star-wars/analisi.md`, approvata da Marco, e sezione «Analisi» (`src/analysis/`); titoli, consegne e suggerimenti dei 105 esercizi riscritti; pianeta Yavin 4 aggiunto ai dati; ex-088 riscritto sui pianeti. |
+| 2026-11-18 | F11 completata: tavole della veste nell’Artifact «Design», approvate da Marco; specifiche `docs/design/neutra.md` (locandine sul tavolo) e `docs/design/star-wars.md` (schema chiaro X-wing e scuro Morte Nera); contrasti con `node docs/design/contrasto.mjs`. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 
@@ -80,6 +81,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Visibilità del repo | Pubblica |
 | Studio della veste | Ogni tema ha una propria fase di studio con l’Artifact «Design» prima di essere costruito; specifica in `docs/design/<id>.md` (2026-11-17) |
 | Temi tratti da opere protette | Nomi e ambientazioni sì; immagini e font ufficiali no; loghi ed emblemi solo come icone RB stilizzate, non identiche agli originali (2026-11-17) |
+| Schemi di un tema | Un tema può avere uno schema chiaro e uno scuro, con un selettore; Star Wars: X-wing e Morte Nera. Pagina iniziale: locandine dei temi su un tavolo. Specifiche in `docs/design/` (2026-11-18) |
 
 ## Norme condivise (workspace)
 
