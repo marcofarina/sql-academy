@@ -27,6 +27,11 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   const icons: ThemeIcons = { ...theme.manifest.icons, ...(schemes ? schemes[scheme] : {}) };
   const themeIcon = (name?: string) => (name ? theme.icons[name] : undefined);
   const activeIcons = { emblem: themeIcon(icons.emblem), solved: themeIcon(icons.solved), empty: themeIcon(icons.empty) };
+  // Icona di una sezione: quella del tema, se la dichiara, altrimenti quella comune.
+  const sectionIcon = (s: (typeof SECTIONS)[number]) => {
+    const svg = themeIcon(icons.sections?.[s.id]);
+    return svg ? <Icon svg={svg} /> : <Icon name={s.icon} />;
+  };
   // La sandbox vive con il tema, non con la sezione: cambiando sezione query e database restano.
   const sandbox = useSandbox(theme);
   const [query, setQuery] = useState('');
@@ -72,7 +77,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
                 href={formatRoute({ page: 'theme', themeId: id, section: s.id })}
                 aria-current={s.id === section ? 'page' : undefined}
               >
-                <Icon name={s.icon} />
+                {sectionIcon(s)}
                 {s.label}
               </a>
             </li>
@@ -82,7 +87,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
       <ThemeIconsContext value={activeIcons}>
       <main className="page">
         <h1>
-          <Icon name={current.icon} />
+          {sectionIcon(current)}
           {current.label}
         </h1>
         {section === 'sandbox' ? (

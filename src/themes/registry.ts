@@ -39,7 +39,8 @@ function iconsByFolder(modules: Record<string, string>): Map<string, Record<stri
 function checkIcons(where: string, manifest: ThemeManifest, icons: Record<string, string>): void {
   const sets = [manifest.icons, ...Object.values(manifest.schemes ?? {})];
   for (const set of sets) {
-    for (const name of Object.values(set ?? {})) {
+    const { sections, ...single } = set ?? {};
+    for (const name of [...Object.values(single), ...Object.values(sections ?? {})]) {
       if (!icons[name]) throw new Error(`${where}/theme.ts: l’icona «${name}» non è in icone/`);
     }
   }

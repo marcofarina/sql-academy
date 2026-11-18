@@ -53,6 +53,8 @@ test('trova le icone del tema e ne controlla i nomi citati dal manifest', () => 
 
   const missing = { '../../themes/prova/theme.ts': { ...manifest, schemes: { chiaro: {}, scuro: { emblem: 'altro' } } } };
   expect(() => buildRegistry(missing, sql, sql, {}, {}, {}, icons)).toThrow(/«altro»/);
+  const missingSection = { '../../themes/prova/theme.ts': { ...manifest, icons: { sections: { sandbox: 'anello' } } } };
+  expect(() => buildRegistry(missingSection, sql, sql, {}, {}, {}, icons)).toThrow(/«anello»/);
 });
 
 test('i conteggi del build arrivano al tema', () => {

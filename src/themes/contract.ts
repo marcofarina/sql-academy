@@ -34,6 +34,7 @@
  */
 
 import type { ErDiagram } from '../er/types.ts';
+import type { SectionId } from '../routing/route.ts';
 
 export type { ErDiagram } from '../er/types.ts';
 
@@ -71,6 +72,8 @@ export interface ThemeIcons {
   solved?: string;
   /** Negli stati vuoti: nessun esercizio corrisponde ai filtri. */
   empty?: string;
+  /** Icone che sostituiscono quelle comuni di alcune sezioni, nella barra delle sezioni e nel titolo. */
+  sections?: Partial<Record<SectionId, string>>;
 }
 
 /** Conteggi di un tema calcolati al build (`virtual:theme-stats`), per la scheda della locandina. */
