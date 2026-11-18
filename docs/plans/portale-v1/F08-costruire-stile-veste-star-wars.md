@@ -108,4 +108,4 @@ Le verifiche nel browser sono state fatte nel pannello integrato dell’app, a t
 - **Nessun mezzo nominato:** titolo «Scegli un mondo, interroga il database.»; i temi potranno venire anche da libri o videogiochi.
 - **Giro della scheda:** la scheda spariva a metà giro perché il fronte si voltava prima che il retro diventasse visibile. Ora il giro è simmetrico (0,84 s) e i cambi di faccia stanno a 0,34 s e 0,5 s; il filtro del passaggio del mouse è passato da `.poster-inner` alla faccia, perché su un elemento 3D lo appiattiva.
 - **Luna della locandina Star Wars** spostata in alto a destra, fra il motto e il titolo.
-- Verifiche: `npm test` (119), lint e build superati. Il volo e il giro non sono stati osservati nel browser, perché nel pannello nascosto le animazioni sono ferme; li controlla Marco.
+- Verifiche: `npm test` (119), lint e build superati. Volo e giro provati da Marco nel browser e approvati il 2026-11-18.
