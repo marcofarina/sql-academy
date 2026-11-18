@@ -2,7 +2,7 @@ import { readdirSync } from 'node:fs';
 import { expect, test } from 'vitest';
 import { buildRegistry, findTheme, themes } from './registry.ts';
 
-const manifest = { id: 'prova', title: 'Prova', description: '' };
+const manifest = { id: 'prova', title: 'Prova', description: '', motto: '' };
 const sql = { '../../themes/prova/x.sql': async () => 'SELECT 1;' };
 
 test('scopre un tema per ogni cartella di themes/', () => {
@@ -42,4 +42,21 @@ test('rifiuta un tema senza schema.sql o dati.sql', () => {
   const manifests = { '../../themes/prova/theme.ts': manifest };
   expect(() => buildRegistry(manifests, {}, sql)).toThrow(/manca schema\.sql/);
   expect(() => buildRegistry(manifests, sql, {})).toThrow(/manca dati\.sql/);
+});
+
+test('trova le icone del tema e ne controlla i nomi citati dal manifest', () => {
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"></svg>';
+  const icons = { '../../themes/prova/icone/stemma.svg': svg };
+  const withIcon = { '../../themes/prova/theme.ts': { ...manifest, icons: { emblem: 'stemma' } } };
+  const [theme] = buildRegistry(withIcon, sql, sql, {}, {}, {}, icons);
+  expect(theme.icons.stemma).toBe(svg);
+
+  const missing = { '../../themes/prova/theme.ts': { ...manifest, schemes: { chiaro: {}, scuro: { emblem: 'altro' } } } };
+  expect(() => buildRegistry(missing, sql, sql, {}, {}, {}, icons)).toThrow(/«altro»/);
+});
+
+test('i conteggi del build arrivano al tema', () => {
+  const stats = findTheme('star-wars')!.stats!;
+  expect(stats.tables.map((t) => t.name)).toContain('personaggi');
+  expect(stats.exercises).toBe(stats.byDifficulty.facile + stats.byDifficulty.medio + stats.byDifficulty.difficile);
 });

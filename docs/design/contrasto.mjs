@@ -1,5 +1,5 @@
 // Contrasto WCAG delle palette approvate in docs/design/<id>.md.
-// Uso: node docs/design/contrasto.mjs [neutra|star-wars-chiaro|star-wars-scuro]
+// Uso: node docs/design/contrasto.mjs [neutra|guscio-neutro|star-wars-chiaro|star-wars-scuro]
 // Senza argomenti misura tutte le palette. Esce con codice 1 se una coppia è sotto la soglia.
 
 const PALETTES = {
@@ -28,6 +28,29 @@ const PALETTES = {
     ['locandina «Prossimamente» 4: titolo', '#E4E7EC', '#4A4F5C'],
     ['locandina «Prossimamente» 4: riga', '#C3CADB', '#4A4F5C'],
   ],
+  // Guscio di un tema senza stile.css (F08): i valori di :root in src/styles.css.
+  'guscio-neutro': [
+    ['testo / fondo', '#172131', '#F3F5F8'],
+    ['testo / superficie', '#172131', '#FBFBFC'],
+    ['testo / superficie 2', '#172131', '#EBEEF2'],
+    ['secondario / fondo', '#46536A', '#F3F5F8'],
+    ['secondario / superficie 2', '#46536A', '#EBEEF2'],
+    ['link / fondo', '#22324A', '#F3F5F8'],
+    ['pulsante primario', '#FFFFFF', '#172131'],
+    ['NULL / superficie', '#6A3D9E', '#FBFBFC'],
+    ['errore', '#8E1F18', '#F6E2DE'],
+    ['avviso', '#6E4300', '#F7EBCF'],
+    ['ripristino', '#1D5E37', '#E0EFE5'],
+    ['editor: testo', '#F3F5F8', '#172131'],
+    ['editor: numeri di riga', '#9AA6BA', '#172131'],
+    ['editor: parole chiave', '#FF9C92', '#172131'],
+    ['editor: numeri', '#9FD3FF', '#172131'],
+    ['editor: punteggiatura', '#C3CADB', '#172131'],
+    ['editor: stringhe', '#B5E3A0', '#172131'],
+    ['editor: commenti', '#A3ADBD', '#172131'],
+    ['icone d’accento / fondo', '#22324A', '#F3F5F8', 3],
+    ['bordo dei controlli / fondo', '#6E7A8E', '#F3F5F8', 3],
+  ],
   'star-wars-chiaro': [
     ['testo / fondo', '#1B1E22', '#E4E7EA'],
     ['testo / superficie', '#1B1E22', '#F7F8F9'],
@@ -45,6 +68,8 @@ const PALETTES = {
     ['editor: parole chiave', '#FF8F87', '#1D2126'],
     ['editor: numeri', '#9FD3FF', '#1D2126'],
     ['editor: punteggiatura', '#B5BCC3', '#1D2126'],
+    ['editor: stringhe (F08)', '#B5E3A0', '#1D2126'],
+    ['editor: commenti (F08)', '#9AA3AD', '#1D2126'],
     ['NULL / superficie', '#6A3D9E', '#F7F8F9'],
     ['errore', '#8E1F18', '#F6E2DE'],
     ['avviso', '#6E4300', '#F7EBCF'],
@@ -71,6 +96,8 @@ const PALETTES = {
     ['editor: parole chiave', '#FF6B71', '#08090B'],
     ['editor: numeri', '#F4C27A', '#08090B'],
     ['editor: punteggiatura', '#A9B0B9', '#08090B'],
+    ['editor: stringhe (F08)', '#9FE0B0', '#08090B'],
+    ['editor: commenti (F08)', '#8A939E', '#08090B'],
     ['NULL / superficie', '#D3A6FF', '#171A1E'],
     ['errore', '#FFA3A3', '#2B1214'],
     ['avviso', '#FFD27A', '#262010'],

@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { describeVerdict, ExerciseError, verifyAnswer, type Verdict } from '../exercises/verify.ts';
 import { Icon } from '../icons/Icon.tsx';
+import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import type { ExerciseProgress } from '../progress/progress.ts';
 import { ResultTable, ResultsView } from '../sandbox/ResultsView.tsx';
 import { SchemaPanel } from '../sandbox/SchemaPanel.tsx';
@@ -64,6 +65,7 @@ function VerdictView({ verdict, student }: { verdict: Verdict; student: ResultSe
 
 /** Un esercizio: consegna, tabelle coinvolte, editor, esecuzione, verifica, suggerimenti e soluzione. */
 export function ExerciseWorkspace({ exercise, progress, training, onProgress, onEvent, footer }: ExerciseWorkspaceProps) {
+  const themeIcons = useThemeIcons();
   const [query, setQuery] = useState(progress.lastQuery);
   const [output, setOutput] = useState<Output>();
   const [busy, setBusy] = useState(false);
@@ -141,6 +143,11 @@ export function ExerciseWorkspace({ exercise, progress, training, onProgress, on
               <span className="solved">
                 <Icon name="circle-check" />
                 Risolto
+                {themeIcons.solved && (
+                  <span className="theme-mark">
+                    <Icon svg={themeIcons.solved} />
+                  </span>
+                )}
               </span>
             )}
           </p>

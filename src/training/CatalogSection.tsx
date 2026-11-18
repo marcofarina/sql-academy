@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Icon } from '../icons/Icon.tsx';
+import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import { formatRoute } from '../routing/route.ts';
 import { CHAPTERS, DIFFICULTIES, type Chapter, type Difficulty } from '../themes/contract.ts';
@@ -25,6 +26,7 @@ interface CatalogSectionProps {
 /** «Tutte le query»: l’elenco completo degli esercizi del tema, con ricerca e filtri. */
 export function CatalogSection({ themeId, training, progress }: CatalogSectionProps) {
   const [filters, setFilters] = useState<CatalogFilters>({ text: '' });
+  const themeIcons = useThemeIcons();
   if (training.status !== 'ready') return <TrainingStatus training={training} />;
 
   const { exercises } = training;
@@ -102,6 +104,12 @@ export function CatalogSection({ themeId, training, progress }: CatalogSectionPr
           ? `${plural(exercises.length, 'esercizio', 'esercizi')}.`
           : `${plural(found.length, 'esercizio', 'esercizi')} su ${exercises.length}.`}
       </p>
+      {found.length === 0 && (
+        <p className="empty-state">
+          {themeIcons.empty && <Icon svg={themeIcons.empty} />}
+          Nessun esercizio corrisponde alla ricerca: prova a togliere un filtro.
+        </p>
+      )}
       {found.length > 0 && (
         <div className="table-scroll">
           <table className="catalog-table">

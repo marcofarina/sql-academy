@@ -1,27 +1,132 @@
 /*
- * Stile neutro comune. Le variabili sono il punto d’aggancio della veste di
- * ogni tema (F08): un tema le ridefinisce in `themes/<id>/stile.css`.
+ * Stile comune. Le variabili di :root sono il contratto della veste (F08):
+ * un tema le ridefinisce in `themes/<id>/stile.css`, sotto la radice del suo
+ * guscio `.theme[data-theme-id="<id>"]`, eventualmente per schema
+ * (`[data-scheme="chiaro"]`, `[data-scheme="scuro"]`). I valori qui sotto sono
+ * la veste neutra: quella della pagina iniziale e del guscio di un tema senza
+ * `stile.css`. È l’unico file del codice comune con colori scritti per esteso.
+ *
+ * Caratteri comuni, licenza SIL OFL 1.1, file originali di github.com/google/fonts
+ * con la licenza accanto in src/assets/fonts/.
  */
 
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('./assets/fonts/AtkinsonHyperlegibleNext-wght.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('./assets/fonts/AtkinsonHyperlegibleNext-Italic-wght.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Mono';
+  src: url('./assets/fonts/AtkinsonHyperlegibleMono-wght.ttf') format('truetype');
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Big Shoulders Display';
+  src: url('./assets/fonts/BigShouldersDisplay-wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
-  --color-bg: #f7f7f5;
-  --color-surface: #ffffff;
-  --color-text: #1f2328;
-  --color-muted: #59636e;
-  --color-border: #d1d5da;
-  --color-accent: #1d5fa8;
+  /* Superfici e testo */
+  --color-bg: #f3f5f8;
+  --color-surface: #fbfbfc;
+  --color-surface-2: #ebeef2;
+  --color-border: #c5ccd6;
+  --color-rule: #d6dbe2;
+  --color-text: #172131;
+  --color-muted: #46536a;
+
+  /* Accento: pulsante primario, icone d’accento, link, controlli */
+  --color-accent: #172131;
+  --color-accent-hover: #2c3b55;
   --color-accent-text: #ffffff;
-  --color-error: #b42318;
-  --color-error-bg: #fdecea;
-  --color-warning: #8a5300;
-  --color-warning-bg: #fff4e0;
-  --color-null: #8250df;
-  --color-success: #1a7f37;
-  --color-success-bg: #e8f5ec;
-  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  --radius: 8px;
-  --page-width: 72rem;
+  --color-accent-ink: #22324a;
+  --color-link: #22324a;
+  --color-link-hover: #0f1b2d;
+  --color-control-border: #6e7a8e;
+  --focus-color: var(--color-link);
+
+  /* Esiti */
+  --color-null: #6a3d9e;
+  --color-error: #8e1f18;
+  --color-error-bg: #f6e2de;
+  --color-error-border: #c98a82;
+  --color-warning: #6e4300;
+  --color-warning-bg: #f7ebcf;
+  --color-warning-border: #c9a04a;
+  --color-success: #1d5e37;
+  --color-success-bg: #e0efe5;
+  --color-success-border: #8dbb9c;
+
+  /* Editor SQL: scuro in ogni veste, come la strumentazione di una cabina */
+  --editor-bg: #172131;
+  --editor-text: #f3f5f8;
+  --editor-rule: #2c3b55;
+  --editor-selection: rgba(159, 211, 255, 0.28);
+  --code-gutter: #9aa6ba;
+  --code-keyword: #ff9c92;
+  --code-number: #9fd3ff;
+  --code-punct: #c3cadb;
+  --code-string: #b5e3a0;
+  --code-comment: #a3adbd;
+
+  /* Caratteri */
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+  --font-display: 'Big Shoulders Display', 'Atkinson Hyperlegible Next', sans-serif;
+  --display-weight: 900;
+  --display-tracking: 0.01em;
+  --h1-size: 52px;
+  --theme-name-size: 24px;
+
+  /* Forme */
+  --radius: 6px;
+  --page-width: 76rem;
+  --sections-rule: var(--color-border);
+
+  /* Pagina iniziale (docs/design/neutra.md) */
+  --home-wall: #e4e7ec;
+  --home-wall-light: #f3f5f8;
+  --home-wall-edge: #d3d8e0;
+  --home-text: #172131;
+  --home-muted: #46536a;
+  --home-link: #22324a;
+  --home-link-hover: #0f1b2d;
+  --home-card: #fbfbfc;
+  --home-chip: #ebeef2;
+  --home-rule: #d6dbe2;
+  --home-control-border: #6e7a8e;
+  --home-primary-hover: #2c3b55;
+  --home-on-primary: #ffffff;
+  --home-easy: #3f8f67;
+  --home-medium: #2a5f8a;
+  --home-hard: #22324a;
+  --home-veil: rgba(23, 33, 49, 0.5);
+  --home-shadow: rgba(7, 11, 26, 0.5);
+  --home-shadow-deep: rgba(7, 11, 26, 0.6);
+  --soon-a1: #3a4252;
+  --soon-a2: #343b4a;
+  --soon-b1: #4a4f5c;
+  --soon-b2: #444956;
+  --soon-title: #e4e7ec;
+  --soon-line: #c3cadb;
+  /* Banda del retro della locandina: il tema la ridefinisce in locandina.css */
+  --poster-band-1: var(--home-text);
+  --poster-band-2: var(--home-wall);
 
   color-scheme: light;
 }
@@ -37,11 +142,27 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
+  font-size: 17px;
   line-height: 1.5;
 }
 
+@media (max-width: 40rem) {
+  body {
+    font-size: 16px;
+  }
+}
+
 a {
-  color: var(--color-accent);
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-color);
+  outline-offset: 2px;
 }
 
 code,
@@ -50,7 +171,7 @@ kbd {
   font-family: var(--font-mono);
 }
 
-/* Icone RB inline: alte quanto il testo, del suo colore. */
+/* Icone RB inline: alte quanto il testo, del suo colore (STILE.md, sezione 6). */
 .icon-box {
   display: inline-flex;
   flex: none;
@@ -62,6 +183,15 @@ kbd {
   vertical-align: -0.2em;
 }
 
+.rb-primary {
+  fill: var(--rb-primary-color, currentColor);
+}
+
+.rb-secondary {
+  fill: var(--rb-secondary-color, currentColor);
+  opacity: var(--rb-secondary-opacity, 0.4);
+}
+
 .page {
   max-width: var(--page-width);
   margin: 0 auto;
@@ -71,9 +201,24 @@ kbd {
 h1 {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin: 0 0 1rem;
-  font-size: 1.75rem;
+  font-family: var(--font-display);
+  font-size: var(--h1-size);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  line-height: 1.05;
+}
+
+h1 .icon-box {
+  font-size: 0.9em;
+  color: var(--color-accent-ink);
+}
+
+@media (max-width: 40rem) {
+  h1 {
+    font-size: calc(var(--h1-size) * 0.7);
+  }
 }
 
 .lead {
@@ -81,46 +226,19 @@ h1 {
   margin-top: 0;
 }
 
-/* Elenco dei temi */
-
-.theme-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  gap: 1rem;
-  padding: 0;
-  list-style: none;
-}
-
-.theme-list a {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  height: 100%;
-  padding: 1rem 1.25rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  color: inherit;
-  text-decoration: none;
-}
-
-.theme-list a:hover,
-.theme-list a:focus-visible {
-  border-color: var(--color-accent);
-}
-
-.theme-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.theme-description {
-  color: var(--color-muted);
-}
-
 /* Guscio del tema */
 
+.theme {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  /* Le decorazioni del tema possono uscire dal bordo: la pagina non scorre in orizzontale. */
+  overflow-x: clip;
+}
+
 .theme-header {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -135,18 +253,62 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 44px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.theme-identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
 }
 
 .theme-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin: 0;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--theme-name-size);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+}
+
+.theme-name .icon {
+  height: 1.3em;
+}
+
+/* Selettore dello schema chiaro / scuro */
+.scheme-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: 999px;
+}
+
+.scheme-switch button {
+  min-height: 38px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 15px;
+}
+
+.scheme-switch button[aria-pressed='true'] {
+  background: var(--color-text);
+  color: var(--color-bg);
 }
 
 .sections {
   max-width: var(--page-width);
   margin: 0 auto;
   padding: 0.75rem 1rem 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--sections-rule);
 }
 
 .sections ul {
@@ -159,13 +321,17 @@ h1 {
 }
 
 .sections a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius) var(--radius) 0 0;
+  min-height: 44px;
+  padding: 0 0.75rem;
   color: var(--color-muted);
+  font-size: 15px;
+  font-weight: 700;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .sections a:hover {
@@ -173,21 +339,46 @@ h1 {
 }
 
 .sections a[aria-current='page'] {
-  background: var(--color-surface);
-  color: var(--color-accent);
-  box-shadow: inset 0 -3px 0 var(--color-accent);
-  font-weight: 600;
+  color: var(--color-text);
+  box-shadow: inset 0 -3px 0 var(--color-accent-ink);
+}
+
+.sections a[aria-current='page'] .icon-box {
+  color: var(--color-accent-ink);
+}
+
+@media (max-width: 40rem) {
+  .sections ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .sections ul::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .placeholder {
   color: var(--color-muted);
 }
 
+.empty-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.empty-state .icon {
+  height: 2.5em;
+  color: var(--color-accent-ink);
+}
+
 /* Sandbox */
 
 .sandbox {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 16rem;
+  grid-template-columns: minmax(0, 1fr) 280px;
   gap: 1.5rem;
   align-items: start;
 }
@@ -199,19 +390,27 @@ h1 {
 }
 
 .sql-editor {
+  position: relative;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: var(--color-surface);
+  background: var(--editor-bg);
   overflow: hidden;
 }
 
 .sql-editor .cm-editor {
   min-height: 8rem;
-  font-size: 0.95rem;
+  font-size: 15px;
+}
+
+@media (max-width: 40rem) {
+  .sql-editor .cm-editor {
+    font-size: 14px;
+  }
 }
 
 .sql-editor .cm-editor.cm-focused {
-  outline: 2px solid var(--color-accent);
+  outline: 3px solid var(--focus-color);
+  outline-offset: -3px;
 }
 
 .sql-editor .cm-scroller {
@@ -226,35 +425,34 @@ h1 {
   margin: 0.75rem 0 1rem;
 }
 
-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font: inherit;
-  cursor: pointer;
-}
-
+button,
 a.button {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  border: 1px solid var(--color-border);
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid var(--color-control-border);
   border-radius: var(--radius);
-  background: var(--color-surface);
+  background: transparent;
   color: var(--color-text);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
   text-decoration: none;
+  cursor: pointer;
 }
 
 button.primary,
 a.button.primary {
-  border-color: var(--color-accent);
+  border-color: transparent;
   background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+button.primary:hover:not(:disabled),
+a.button.primary:hover {
+  background: var(--color-accent-hover);
   color: var(--color-accent-text);
 }
 
@@ -265,13 +463,21 @@ button:disabled {
 
 .shortcut {
   color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 14px;
+}
+
+@media (max-width: 40rem) {
+  .shortcut {
+    display: none;
+  }
 }
 
 kbd {
   padding: 0 0.3em;
   border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
   border-radius: 4px;
+  background: var(--color-surface);
   font-size: 0.85em;
 }
 
@@ -286,7 +492,7 @@ kbd {
 }
 
 .notice .icon {
-  height: 1.4em;
+  height: 22px;
 }
 
 .notice p {
@@ -295,29 +501,36 @@ kbd {
 
 .notice pre {
   margin: 0.25rem 0 0;
+  font-size: 14px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
 .notice-title {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .notice-error {
-  border-color: var(--color-error);
+  border-color: var(--color-error-border);
   background: var(--color-error-bg);
   color: var(--color-error);
 }
 
 .notice-warning {
-  border-color: var(--color-warning);
+  border-color: var(--color-warning-border);
   background: var(--color-warning-bg);
   color: var(--color-warning);
 }
 
+.notice-success {
+  border-color: var(--color-success-border);
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
 .results-summary {
   color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .result {
@@ -326,7 +539,7 @@ kbd {
 
 .result figcaption {
   margin-bottom: 0.4rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .truncated {
@@ -343,13 +556,13 @@ kbd {
 
 .table-scroll table {
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 15px;
 }
 
 .table-scroll th,
 .table-scroll td {
   padding: 0.35rem 0.75rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-rule);
   text-align: left;
   white-space: nowrap;
 }
@@ -357,46 +570,79 @@ kbd {
 .table-scroll th {
   position: sticky;
   top: 0;
-  background: var(--color-bg);
+  background: var(--color-surface-2);
   font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 .table-scroll td.number {
   text-align: right;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
 .null,
 .blob {
+  padding: 0 0.25em;
+  border: 1px solid currentColor;
+  border-radius: 3px;
   color: var(--color-null);
   font-family: var(--font-mono);
-  font-size: 0.8em;
-  font-style: italic;
+  font-size: 0.85em;
 }
 
 .schema-panel h2 {
   margin: 0 0 0.5rem;
-  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
 }
 
 .schema-panel details {
+  position: relative;
   margin-bottom: 0.5rem;
-  padding: 0.4rem 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
 }
 
 .schema-panel summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
+  list-style: none;
+}
+
+.schema-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Triangolo d’apertura disegnato in CSS, non con un carattere. */
+.schema-panel summary::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
+  transition: transform 0.15s;
+}
+
+.schema-panel details[open] summary::before {
+  transform: rotate(90deg);
 }
 
 .schema-panel ul {
-  margin: 0.4rem 0 0;
-  padding: 0;
+  margin: 0;
+  padding: 0 0.75rem 0.6rem;
   list-style: none;
-  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 .column-type {
@@ -404,18 +650,10 @@ kbd {
 }
 
 .badge {
+  display: inline-flex;
   margin-left: 0.4rem;
-  padding: 0 0.3rem;
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  color: var(--color-accent);
-  font-size: 0.75rem;
-}
-
-.notice-success {
-  border-color: var(--color-success);
-  background: var(--color-success-bg);
-  color: var(--color-success);
+  color: var(--color-accent-ink);
+  vertical-align: middle;
 }
 
 .visually-hidden {
@@ -428,10 +666,12 @@ kbd {
 }
 
 button.link-button {
+  min-height: 0;
   padding: 0;
   border: none;
   background: none;
-  color: var(--color-accent);
+  color: var(--color-link);
+  font-weight: 400;
   text-decoration: underline;
 }
 
@@ -439,7 +679,10 @@ button.link-button {
 
 .chapter h2 {
   margin: 1.75rem 0 0.25rem;
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
 }
 
 .chapter-progress {
@@ -448,7 +691,7 @@ button.link-button {
   gap: 0.6rem;
   margin: 0 0 0.75rem;
   color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .chapter-progress progress {
@@ -458,7 +701,7 @@ button.link-button {
 
 .exercise-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
   gap: 0.4rem;
   margin: 0;
   padding: 0;
@@ -469,6 +712,7 @@ button.link-button {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  min-height: 44px;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -479,7 +723,7 @@ button.link-button {
 
 .exercise-list a:hover,
 .exercise-list a:focus-visible {
-  border-color: var(--color-accent);
+  border-color: var(--color-control-border);
 }
 
 .exercise-list .exercise-title {
@@ -496,7 +740,7 @@ button.link-button {
   padding: 0 0.4rem;
   border: 1px solid currentColor;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -516,8 +760,8 @@ button.link-button {
   margin-right: 0.3rem;
   padding: 0 0.3rem;
   border-radius: 4px;
-  background: var(--color-bg);
-  font-size: 0.8rem;
+  background: var(--color-surface-2);
+  font-size: 13px;
 }
 
 /* Addestramento: esercizio */
@@ -534,7 +778,7 @@ button.link-button {
   gap: 0.4rem;
   margin: 0 0 0.75rem;
   color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .solved,
@@ -546,7 +790,11 @@ button.link-button {
 
 .solved {
   color: var(--color-success);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.solved .theme-mark .icon {
+  color: var(--color-accent-ink);
 }
 
 .prompt {
@@ -557,7 +805,7 @@ button.link-button {
 .help {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-rule);
 }
 
 .hints {
@@ -572,11 +820,9 @@ button.link-button {
   gap: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-warning-border);
   border-radius: var(--radius);
   background: var(--color-warning-bg);
-}
-
-.hints .icon {
   color: var(--color-warning);
 }
 
@@ -585,7 +831,7 @@ button.link-button {
   align-items: center;
   gap: 0.4rem;
   margin-bottom: 0.4rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .solution {
@@ -617,7 +863,7 @@ button.link-button {
   border-radius: var(--radius);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .session-config fieldset {
@@ -633,20 +879,21 @@ button.link-button {
 
 .session-config legend {
   padding: 0 0.3rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .session-config label {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  min-height: 32px;
 }
 
 .hint-text {
   flex-basis: 100%;
   margin: 0;
   color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .keyword-choices {
@@ -676,7 +923,8 @@ button.link-button {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  font-size: 0.875rem;
+  max-width: 100%;
+  font-size: 14px;
   color: var(--color-muted);
 }
 
@@ -690,8 +938,9 @@ button.link-button {
 .catalog-filters input,
 .catalog-filters select {
   min-width: 0;
-  padding: 0.45rem 0.6rem;
-  border: 1px solid var(--color-border);
+  min-height: 44px;
+  padding: 0 0.6rem;
+  border: 1.5px solid var(--color-control-border);
   border-radius: var(--radius);
   background: var(--color-surface);
   color: var(--color-text);
@@ -724,9 +973,9 @@ button.link-button {
 }
 
 .view-switch button[aria-pressed='true'] {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
-  color: var(--color-accent-text);
+  border-color: transparent;
+  background: var(--color-text);
+  color: var(--color-bg);
 }
 
 .logical-legend {
@@ -734,7 +983,7 @@ button.link-button {
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 15px;
 }
 
 .relations {
@@ -745,7 +994,7 @@ button.link-button {
 
 .relations > li {
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-rule);
 }
 
 .relation {
@@ -779,7 +1028,7 @@ button.link-button {
   list-style: none;
   margin: 0.4rem 0 0;
   padding: 0;
-  font-size: 0.9rem;
+  font-size: 15px;
 }
 
 .foreign-keys li {
@@ -803,7 +1052,7 @@ button.link-button {
 
 .copy-status {
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 15px;
 }
 
 .sql-code {
@@ -811,9 +1060,10 @@ button.link-button {
   padding: 1rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: var(--color-surface);
+  background: var(--editor-bg);
+  color: var(--editor-text);
   overflow-x: auto;
-  font-size: 0.9rem;
+  font-size: 15px;
 }
 
 /* Schema ER: tratto di Excalidraw come nel libro. Excalifont (licenza OFL,
@@ -840,7 +1090,7 @@ button.link-button {
 
 .er-diagram {
   --er-stroke: var(--color-text);
-  --er-shape-bg: #f3f5f9;
+  --er-shape-bg: var(--color-surface-2);
   --er-page-bg: var(--color-surface);
   display: block;
   width: 100%;
@@ -894,4 +1144,423 @@ button.link-button {
 .analysis {
   max-width: 42rem;
   line-height: 1.6;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Pagina iniziale: le locandine sul tavolo (docs/design/neutra.md)         */
+/* ------------------------------------------------------------------------ */
+
+.home {
+  position: relative;
+  min-height: max(100vh, 820px);
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse 75% 65% at 50% 68%,
+    var(--home-wall-light) 0%,
+    var(--home-wall) 55%,
+    var(--home-wall-edge) 100%
+  );
+  color: var(--home-text);
+  --focus-color: var(--home-link);
+}
+
+.home a {
+  color: var(--home-link);
+}
+
+.home a:hover {
+  color: var(--home-link-hover);
+}
+
+.home-header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  padding: 32px 40px 0;
+}
+
+.home-brand {
+  margin: 0 0 0.5rem;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.home-title {
+  display: block;
+  max-width: 760px;
+  margin: 0;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: 0;
+}
+
+.home-aside {
+  width: 308px;
+  max-width: 100%;
+}
+
+.home-aside p {
+  margin: 0.25rem 0 1rem;
+  color: var(--home-muted);
+}
+
+.home-footer {
+  position: absolute;
+  left: 40px;
+  bottom: 24px;
+  margin: 0;
+  color: var(--home-muted);
+  font-size: 15px;
+}
+
+.home button {
+  border-color: var(--home-control-border);
+  border-radius: 6px;
+  min-height: 46px;
+  color: var(--home-text);
+  font-size: 17px;
+}
+
+.home button.primary {
+  border-color: transparent;
+  background: var(--home-text);
+  color: var(--home-on-primary);
+}
+
+.home button.primary:hover:not(:disabled) {
+  background: var(--home-primary-hover);
+  color: var(--home-on-primary);
+}
+
+.table-area {
+  position: absolute;
+  inset: 0;
+}
+
+/* Locandina: un contenitore posizionato sul tavolo, che si gira sul retro. */
+.poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 230px;
+  height: 345px;
+  perspective: 1600px;
+  touch-action: none;
+  transition:
+    transform 0.85s cubic-bezier(0.2, 0.85, 0.25, 1.04),
+    width 0.7s ease,
+    height 0.7s ease;
+  will-change: transform;
+}
+
+.poster.is-dragging {
+  transition: none;
+}
+
+.poster-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.8s ease,
+    box-shadow 0.3s ease,
+    filter 0.2s ease;
+  box-shadow: 0 22px 30px -18px var(--home-shadow);
+}
+
+.poster:hover .poster-inner {
+  filter: brightness(1.06);
+}
+
+.poster.is-dragging .poster-inner {
+  box-shadow: 0 40px 50px -20px var(--home-shadow-deep);
+}
+
+.poster.is-open .poster-inner {
+  transform: rotateY(180deg);
+  box-shadow: 0 40px 60px -20px var(--home-shadow-deep);
+  filter: none;
+}
+
+.poster-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  /* La faccia nascosta esce dall’ordine di tabulazione a metà del giro. */
+  transition: visibility 0s linear 0.42s;
+}
+
+.poster-back {
+  display: flex;
+  flex-direction: column;
+  transform: rotateY(180deg);
+  background: var(--home-card);
+  color: var(--home-text);
+  visibility: hidden;
+}
+
+.poster.is-open .poster-front {
+  visibility: hidden;
+}
+
+.poster.is-open .poster-back {
+  visibility: visible;
+}
+
+.poster-open-button {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: grab;
+}
+
+.poster.is-dragging .poster-open-button {
+  cursor: grabbing;
+}
+
+.poster-open-button:focus-visible {
+  outline: 3px solid var(--home-link);
+  outline-offset: 5px;
+}
+
+/* Fronte: struttura comune, colori e decorazioni del tema in locandina.css */
+.poster-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 18px 20px;
+}
+
+.poster-motto {
+  position: relative;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+.poster-front-title {
+  position: relative;
+  margin: auto 0 10px;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.88;
+}
+
+.poster-credits {
+  position: relative;
+  margin: 0;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+/* Locandine «Prossimamente» */
+.poster-soon {
+  background: repeating-linear-gradient(-45deg, var(--soon-a1) 0 14px, var(--soon-a2) 14px 28px);
+  color: var(--soon-line);
+}
+
+.poster-soon.is-b {
+  background: repeating-linear-gradient(-45deg, var(--soon-b1) 0 14px, var(--soon-b2) 14px 28px);
+}
+
+.poster-soon .poster-front-title {
+  color: var(--soon-title);
+  font-size: 44px;
+}
+
+/* Retro: la scheda del tema */
+.card-band {
+  flex: none;
+  height: 10px;
+  background: linear-gradient(90deg, var(--poster-band-1) 0 50%, var(--poster-band-2) 50% 100%);
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 22px 26px 24px;
+  overflow-y: auto;
+  font-size: 15px;
+}
+
+.card-title {
+  margin: 0;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 0.9;
+}
+
+.card-description {
+  margin: 0;
+  font-size: 17px;
+}
+
+.card-section {
+  padding-top: 10px;
+  border-top: 1px solid var(--home-rule);
+}
+
+.card-section p {
+  margin: 0 0 6px;
+}
+
+.card-muted {
+  color: var(--home-muted);
+  font-size: 14px;
+}
+
+.card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card-chips li {
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--home-chip);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.difficulty-bar {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  margin: 6px 0;
+}
+
+.difficulty-bar span {
+  border-radius: 5px;
+}
+
+.difficulty-bar .easy {
+  background: var(--home-easy);
+}
+
+.difficulty-bar .medium {
+  background: var(--home-medium);
+}
+
+.difficulty-bar .hard {
+  background: var(--home-hard);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.home-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: var(--home-veil);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.home-veil.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.poster.is-open {
+  z-index: 1000;
+}
+
+/* Il mazzo, a 375 px */
+.deck-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.home .deck-controls button {
+  width: 48px;
+  min-height: 48px;
+  justify-content: center;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 22px;
+}
+
+.deck-count {
+  min-width: 4.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+@media (max-width: 40rem) {
+  .home-header {
+    padding: 20px 16px 0;
+  }
+
+  .home-brand {
+    font-size: 22px;
+  }
+
+  .home-title {
+    font-size: 50px;
+  }
+
+  .home-aside p {
+    margin-bottom: 0;
+  }
+
+  .home-footer {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster,
+  .poster-inner,
+  .poster-face,
+  .home-veil,
+  .schema-panel summary::before {
+    transition: none;
+  }
 }

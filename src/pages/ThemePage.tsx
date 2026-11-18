@@ -3,7 +3,9 @@ import { Icon } from '../icons/Icon.tsx';
 import { SECTIONS, formatRoute, type SectionId } from '../routing/route.ts';
 import { SandboxSection } from '../sandbox/SandboxSection.tsx';
 import { useSandbox } from '../sandbox/useSandbox.ts';
-import type { Theme } from '../themes/contract.ts';
+import { SCHEMES, type Scheme, type Theme, type ThemeIcons } from '../themes/contract.ts';
+import { loadScheme, saveScheme } from '../scheme/scheme.ts';
+import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
 import { useProgress } from '../progress/useProgress.ts';
 import { AnalysisSection } from '../analysis/AnalysisSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
@@ -15,7 +17,16 @@ import { useTraining } from '../training/useTraining.ts';
 
 /** Guscio delle pagine di un tema: intestazione, le sei sezioni, il contenuto della sezione scelta. */
 export function ThemePage({ theme, section, item }: { theme: Theme; section: SectionId; item?: string }) {
-  const { id, title } = theme.manifest;
+  const { id, title, schemes } = theme.manifest;
+  const [scheme, setScheme] = useState<Scheme>(() => loadScheme(id));
+  const chooseScheme = (next: Scheme) => {
+    setScheme(next);
+    saveScheme(id, next);
+  };
+  // Le icone del tema valide ora: quelle comuni, sostituite da quelle dello schema.
+  const icons: ThemeIcons = { ...theme.manifest.icons, ...(schemes ? schemes[scheme] : {}) };
+  const themeIcon = (name?: string) => (name ? theme.icons[name] : undefined);
+  const activeIcons = { emblem: themeIcon(icons.emblem), solved: themeIcon(icons.solved), empty: themeIcon(icons.empty) };
   // La sandbox vive con il tema, non con la sezione: cambiando sezione query e database restano.
   const sandbox = useSandbox(theme);
   const [query, setQuery] = useState('');
@@ -30,13 +41,28 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   }, [current, title]);
 
   return (
-    <div className="theme" data-theme-id={id}>
+    <div className="theme" data-theme-id={id} data-scheme={schemes ? scheme : undefined}>
       <header className="theme-header">
         <a className="back-link" href="#/">
           <Icon name="circle-arrow-left" />
           Tutti i temi
         </a>
-        <p className="theme-name">{title}</p>
+        <div className="theme-identity">
+          <p className="theme-name">
+            {activeIcons.emblem && <Icon svg={activeIcons.emblem} />}
+            {title}
+          </p>
+          {schemes && (
+            <div className="scheme-switch" role="group" aria-label="Schema di colori">
+              {SCHEMES.map((s) => (
+                <button key={s} type="button" aria-pressed={scheme === s} onClick={() => chooseScheme(s)}>
+                  {themeIcon(schemes[s].emblem) && <Icon svg={themeIcon(schemes[s].emblem)} />}
+                  {s === 'chiaro' ? 'Chiaro' : 'Scuro'}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </header>
       <nav className="sections" aria-label="Sezioni del tema">
         <ul>
@@ -53,6 +79,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
           ))}
         </ul>
       </nav>
+      <ThemeIconsContext value={activeIcons}>
       <main className="page">
         <h1>
           <Icon name={current.icon} />
@@ -83,6 +110,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
           <p className="placeholder">Questa sezione è in preparazione.</p>
         )}
       </main>
+      </ThemeIconsContext>
     </div>
   );
 }

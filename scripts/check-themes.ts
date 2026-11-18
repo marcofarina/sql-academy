@@ -1,5 +1,5 @@
 /**
- * `npm run check:themes`: controlla esercizi e schema ER di tutti i temi fuori
+ * `npm run check:themes`: controlla esercizi, schema ER e fogli di stile di tutti i temi fuori
  * dal browser ed esce con un codice diverso da 0 se trova un problema.
  *
  * Gira in Node senza Vite, quindi non usa il registro (`import.meta.glob`):
@@ -10,6 +10,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { checkErCoherence } from '../src/er/coherence.ts';
 import { calcola } from '../src/er/layout.ts';
 import { checkTheme } from '../src/exercises/check.ts';
+import { unscopedSelectors } from '../src/themes/cssScope.ts';
 import { readTables } from '../src/sandbox/session.ts';
 import { createNodeEngine } from '../src/sql/testing/nodeEngine.ts';
 import type { ErDiagram, Exercise, ThemeManifest } from '../src/themes/contract.ts';
@@ -52,6 +53,15 @@ try {
         }
         found.push(...erProblems);
         er = `schema ER su ${tables.length} tabelle`;
+      }
+
+      // Fogli di stile: ogni selettore resta dentro il tema.
+      const scopes = { 'stile.css': `.theme[data-theme-id="${folder}"]`, 'locandina.css': `.poster[data-theme-id="${folder}"]` };
+      for (const [name, scope] of Object.entries(scopes)) {
+        if (!existsSync(file(name))) continue;
+        for (const selector of unscopedSelectors(readFileSync(file(name), 'utf8'), scope)) {
+          found.push(`${folder}/${name}: il selettore «${selector}» non comincia con ${scope}`);
+        }
       }
 
       problems.push(...found);

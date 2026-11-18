@@ -1,0 +1,370 @@
+/*
+ * Veste Star Wars (docs/design/star-wars.md, approvata in F11): schema chiaro
+ * «X-wing» e schema scuro «Morte Nera». Ogni selettore comincia con la radice
+ * del guscio del tema (vedi src/themes/contract.ts).
+ *
+ * Caratteri del tema, SIL OFL 1.1, file originali di github.com/google/fonts,
+ * licenze in fonts/. Saira ha il nome riservato «Saira»: i file non vanno
+ * modificati né ritagliati.
+ */
+
+@font-face {
+  font-family: 'Saira Condensed';
+  src: url('./fonts/SairaCondensed-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Saira Condensed';
+  src: url('./fonts/SairaCondensed-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Michroma';
+  src: url('./fonts/Michroma-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------- comuni */
+
+.theme[data-theme-id='star-wars'] {
+  --radius: 3px;
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+  --focus-color: var(--color-accent-ink);
+}
+
+/* ------------------------------------------------------- chiaro: X-wing */
+
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] {
+  --color-bg: #e4e7ea;
+  --color-surface: #f7f8f9;
+  --color-surface-2: #edeff1;
+  --color-border: #b4bac1;
+  --color-rule: #d6dadf;
+  --color-text: #1b1e22;
+  --color-muted: #4c535b;
+  --color-accent: #b3242b;
+  --color-accent-hover: #9a1e24;
+  --color-accent-text: #ffffff;
+  --color-accent-ink: #b3242b;
+  --color-link: #a1232a;
+  --color-link-hover: #6f1519;
+  --color-control-border: #6e757d;
+  --color-null: #6a3d9e;
+  --color-error: #8e1f18;
+  --color-error-bg: #f6e2de;
+  --color-error-border: #c98a82;
+  --color-warning: #6e4300;
+  --color-warning-bg: #f7ebcf;
+  --color-warning-border: #c9a04a;
+  --color-success: #1d5e37;
+  --color-success-bg: #e0efe5;
+  --color-success-border: #8dbb9c;
+  --editor-bg: #1d2126;
+  --editor-text: #eceef0;
+  --editor-rule: #31363d;
+  --editor-selection: rgba(159, 211, 255, 0.25);
+  --code-gutter: #8e969f;
+  --code-keyword: #ff8f87;
+  --code-number: #9fd3ff;
+  --code-punct: #b5bcc3;
+  --code-string: #b5e3a0;
+  --code-comment: #9aa3ad;
+  --font-display: 'Saira Condensed', sans-serif;
+  --display-weight: 800;
+  --display-tracking: 0.01em;
+  --h1-size: 52px;
+  --theme-name-size: 22px;
+  --sections-rule: var(--color-border);
+  --livery: #b3242b;
+  --panel-line: rgba(27, 30, 34, 0.055);
+  --wing: rgba(27, 30, 34, 0.07);
+  --wing-stripe: rgba(179, 36, 43, 0.35);
+  --hazard-dark: #1b1e22;
+  --hazard-light: #e0a526;
+
+  color-scheme: light;
+  /* Linee dei pannelli dello scafo */
+  background:
+    repeating-linear-gradient(90deg, var(--panel-line) 0 1px, transparent 1px 112px),
+    repeating-linear-gradient(180deg, var(--panel-line) 0 1px, transparent 1px 168px),
+    var(--color-bg);
+}
+
+/* Livrea: due strisce rosse in cima all’intestazione */
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .theme-header {
+  padding-top: calc(1rem + 14px);
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .theme-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 14px;
+  background: linear-gradient(
+    180deg,
+    var(--livery) 0 7px,
+    transparent 7px 11px,
+    var(--livery) 11px 14px
+  );
+}
+
+/* Sezione attiva: le stesse due strisce, in piccolo */
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sections a[aria-current='page'] {
+  box-shadow: none;
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sections a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0;
+  height: 7px;
+  background: linear-gradient(180deg, var(--livery) 0 4px, transparent 4px 5px, var(--livery) 5px 7px);
+}
+
+/* Ali a X dietro il titolo, in alto a destra */
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .page {
+  position: relative;
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .page::before,
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .page::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  right: -120px;
+  z-index: -1;
+  width: 560px;
+  height: 22px;
+  background: linear-gradient(
+    90deg,
+    var(--wing) 0 70%,
+    var(--wing-stripe) 70% 78%,
+    var(--wing) 78% 86%,
+    var(--wing-stripe) 86% 94%,
+    var(--wing) 94%
+  );
+  opacity: 0.5;
+  pointer-events: none;
+  transform: rotate(16deg);
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .page::after {
+  transform: rotate(-16deg);
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] main {
+  isolation: isolate;
+}
+
+/* Riquadri: due tratti rossi sul bordo superiore, a destra */
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sql-editor::after,
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .schema-panel details::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 12px;
+  width: 46px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--livery) 0 14px, transparent 14px 20px, var(--livery) 20px 46px);
+  pointer-events: none;
+}
+
+/* Pulsante primario pieno con ombra interna */
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] button.primary,
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] a.button.primary {
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.22);
+}
+
+/* Query interrotta: bordo a strisce di pericolo */
+.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .notice-warning {
+  border-left: 8px solid transparent;
+  border-image: repeating-linear-gradient(
+      -45deg,
+      var(--hazard-dark) 0 6px,
+      var(--hazard-light) 6px 12px
+    )
+    8;
+  border-image-width: 0 0 0 8px;
+}
+
+/* ---------------------------------------------------- scuro: Morte Nera */
+
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] {
+  --color-bg: #0e1013;
+  --color-surface: #171a1e;
+  --color-surface-2: #1f2328;
+  --color-border: #3a4048;
+  --color-rule: #262b31;
+  --color-text: #e7e9ec;
+  --color-muted: #a4abb4;
+  --color-accent: #b3161e;
+  --color-accent-hover: #c81b24;
+  --color-accent-text: #ffffff;
+  --color-accent-ink: #ff4f57;
+  --color-link: #ff8a8f;
+  --color-link-hover: #ffb3b6;
+  --color-control-border: #6b737d;
+  --color-null: #d3a6ff;
+  --color-error: #ffa3a3;
+  --color-error-bg: #2b1214;
+  --color-error-border: #7e2a2f;
+  --color-warning: #ffd27a;
+  --color-warning-bg: #262010;
+  --color-warning-border: #7e6420;
+  --color-success: #a8e0be;
+  --color-success-bg: #12251b;
+  --color-success-border: #2e6b49;
+  --editor-bg: #08090b;
+  --editor-text: #e7e9ec;
+  --editor-rule: #24282d;
+  --editor-selection: rgba(255, 79, 87, 0.28);
+  --code-gutter: #868e98;
+  --code-keyword: #ff6b71;
+  --code-number: #f4c27a;
+  --code-punct: #a9b0b9;
+  --code-string: #9fe0b0;
+  --code-comment: #8a939e;
+  --font-display: 'Michroma', sans-serif;
+  --display-weight: 400;
+  --display-tracking: 0.06em;
+  --h1-size: 34px;
+  --theme-name-size: 17px;
+  --sections-rule: var(--color-rule);
+  --saber: #ff2a35;
+  --saber-core: #ffe9ea;
+  --saber-glow: rgba(255, 42, 53, 0.55);
+  --saber-halo: rgba(255, 42, 53, 0.9);
+  --plate-line: rgba(255, 255, 255, 0.028);
+  --header-shade: #14171b;
+  --station-light: #2e3339;
+  --station-mid: #1a1d21;
+  --station-dark: #101215;
+  --station-dish: #2b3036;
+  --station-trench: #0b0d10;
+  --station-glint: rgba(255, 42, 53, 0.35);
+  --accent-top: #c81b24;
+  --accent-bottom: #9e1219;
+
+  color-scheme: dark;
+  /* Piastre della stazione */
+  background:
+    repeating-linear-gradient(90deg, var(--plate-line) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(180deg, var(--plate-line) 0 1px, transparent 1px 180px),
+    var(--color-bg);
+}
+
+/* La stazione, in alto a destra, in parte fuori pagina */
+.theme[data-theme-id='star-wars'][data-scheme='scuro']::before {
+  content: '';
+  position: absolute;
+  top: -260px;
+  right: -240px;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg, transparent calc(50% - 5px), var(--station-trench) calc(50% - 5px) calc(50% + 5px), transparent calc(50% + 5px)),
+    radial-gradient(circle at 34% 64%, var(--station-glint) 0 6px, transparent 7px),
+    radial-gradient(circle at 34% 64%, var(--station-dark) 0 58px, var(--station-dish) 58px 72px, transparent 73px),
+    radial-gradient(circle at 38% 36%, var(--station-light) 0%, var(--station-mid) 45%, var(--station-dark) 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] > * {
+  position: relative;
+}
+
+/* Intestazione: sfumatura verso il fondo */
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .theme-header {
+  padding-top: 1.25rem;
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .theme-header::before {
+  content: '';
+  position: absolute;
+  inset: 0 -100vmax;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--header-shade), transparent);
+  pointer-events: none;
+}
+
+/* Sezione attiva: una lama */
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sections a[aria-current='page'] {
+  box-shadow: none;
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sections a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--saber-core);
+  box-shadow:
+    0 0 4px 1px var(--saber),
+    0 0 14px 4px var(--saber-glow);
+}
+
+/* Riquadri: bordo superiore di 2 px e una spia accesa */
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sql-editor,
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .table-scroll,
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .er-figure,
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sql-code {
+  border-top-width: 2px;
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .sql-editor::after,
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] .schema-panel details::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--saber);
+  box-shadow: 0 0 6px 1px var(--saber-glow);
+  pointer-events: none;
+}
+
+/* Pulsante primario: gradiente, filo interno e alone */
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] button.primary,
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] a.button.primary {
+  background: linear-gradient(180deg, var(--accent-top), var(--accent-bottom));
+  box-shadow:
+    inset 0 0 0 1px var(--color-accent-ink),
+    0 0 20px -6px var(--saber-halo);
+}
+
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] button.primary:hover:not(:disabled),
+.theme[data-theme-id='star-wars'][data-scheme='scuro'] a.button.primary:hover {
+  background: var(--color-accent-hover);
+}
+
+@media (max-width: 40rem) {
+  .theme[data-theme-id='star-wars'][data-scheme='scuro']::before {
+    top: -200px;
+    right: -260px;
+    width: 420px;
+    height: 420px;
+  }
+
+  .theme[data-theme-id='star-wars'][data-scheme='chiaro'] .page::before,
+  .theme[data-theme-id='star-wars'][data-scheme='chiaro'] .page::after {
+    width: 320px;
+    right: -100px;
+  }
+}

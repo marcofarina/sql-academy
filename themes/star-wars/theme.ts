@@ -4,6 +4,12 @@ const manifest: ThemeManifest = {
   id: 'star-wars',
   title: 'Star Wars',
   description: 'Pianeti, personaggi e fazioni di una galassia lontana lontana.',
+  motto: 'Una galassia lontana lontana, in sette tabelle.',
+  icons: { solved: 'lightsabers-crossed' },
+  schemes: {
+    chiaro: { emblem: 'rebel-alliance', empty: 'x-wing' },
+    scuro: { emblem: 'galactic-empire', empty: 'battle-station' },
+  },
 };
 
 export default manifest;

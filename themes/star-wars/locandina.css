@@ -1,0 +1,101 @@
+/*
+ * Fronte della locandina Star Wars sulla pagina iniziale (docs/design/neutra.md,
+ * sezione «Locandine»): cielo stellato, un pianeta che sorge in basso a destra,
+ * una luna. Solo gradienti CSS, nessuna immagine. Ogni selettore comincia con
+ * la radice della locandina del tema (vedi src/themes/contract.ts).
+ */
+
+.poster[data-theme-id='star-wars'] {
+  --poster-band-1: #070b1a;
+  --poster-band-2: #f2c94c;
+  --sw-sky: #070b1a;
+  --sw-star-white: #ffffff;
+  --sw-star-blue: #c9d4ff;
+  --sw-star-gold: #ffe9a8;
+  --sw-planet-1: #fbe6a8;
+  --sw-planet-2: #e7a247;
+  --sw-planet-3: #a9481c;
+  --sw-planet-4: #3a1508;
+  --sw-moon-1: #dde4f2;
+  --sw-moon-2: #7c88a8;
+  --sw-moon-3: #2c3350;
+  --sw-title: #f2c94c;
+  --sw-line: #c3cadb;
+  --sw-base: #f4f1e6;
+}
+
+.poster[data-theme-id='star-wars'] .poster-front {
+  /* La luna, ferma sul cielo */
+  background:
+    radial-gradient(circle at 26% 34%, var(--sw-moon-1) 0, var(--sw-moon-2) 9px, var(--sw-moon-3) 16px, transparent 17px),
+    var(--sw-sky);
+  color: var(--sw-base);
+}
+
+/* Stelle: puntini che pulsano piano */
+.poster[data-theme-id='star-wars'] .poster-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1.2px 1.2px at 12% 18%, var(--sw-star-white), transparent),
+    radial-gradient(1px 1px at 28% 42%, var(--sw-star-blue), transparent),
+    radial-gradient(1.4px 1.4px at 46% 12%, var(--sw-star-gold), transparent),
+    radial-gradient(1px 1px at 64% 30%, var(--sw-star-white), transparent),
+    radial-gradient(1.2px 1.2px at 82% 16%, var(--sw-star-blue), transparent),
+    radial-gradient(1px 1px at 90% 44%, var(--sw-star-white), transparent),
+    radial-gradient(1.3px 1.3px at 18% 62%, var(--sw-star-gold), transparent),
+    radial-gradient(1px 1px at 38% 74%, var(--sw-star-white), transparent),
+    radial-gradient(1.1px 1.1px at 56% 54%, var(--sw-star-blue), transparent),
+    radial-gradient(1px 1px at 8% 86%, var(--sw-star-white), transparent),
+    radial-gradient(1.2px 1.2px at 72% 8%, var(--sw-star-white), transparent),
+    radial-gradient(1px 1px at 34% 28%, var(--sw-star-white), transparent);
+  animation: sw-stars 3.5s ease-in-out infinite alternate;
+}
+
+/* Il pianeta che sorge, in basso a destra */
+.poster[data-theme-id='star-wars'] .poster-front::after {
+  content: '';
+  position: absolute;
+  right: -70px;
+  bottom: -110px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--sw-planet-1) 0%,
+    var(--sw-planet-2) 28%,
+    var(--sw-planet-3) 58%,
+    var(--sw-planet-4) 100%
+  );
+  pointer-events: none;
+}
+
+.poster[data-theme-id='star-wars'] .poster-motto,
+.poster[data-theme-id='star-wars'] .poster-credits {
+  z-index: 1;
+  color: var(--sw-line);
+}
+
+.poster[data-theme-id='star-wars'] .poster-front-title {
+  z-index: 1;
+  color: var(--sw-title);
+  font-size: 64px;
+  font-weight: 900;
+}
+
+@keyframes sw-stars {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster[data-theme-id='star-wars'] .poster-front::before {
+    animation: none;
+  }
+}

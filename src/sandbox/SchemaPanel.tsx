@@ -1,3 +1,4 @@
+import { Icon } from '../icons/Icon.tsx';
 import type { TableInfo } from './session.ts';
 
 /** Le tabelle del tema con colonne e tipi, lette dal database. */
@@ -14,7 +15,11 @@ export function SchemaPanel({ tables }: { tables: TableInfo[] }) {
             {table.columns.map((column) => (
               <li key={column.name}>
                 <code>{column.name}</code> <span className="column-type">{column.type || 'senza tipo'}</span>
-                {column.primaryKey && <span className="badge" title="Chiave primaria">PK</span>}
+                {column.primaryKey && (
+                  <span className="badge">
+                    <Icon name="key" title="Chiave primaria" />
+                  </span>
+                )}
               </li>
             ))}
           </ul>

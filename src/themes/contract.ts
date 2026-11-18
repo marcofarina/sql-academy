@@ -12,9 +12,20 @@
  *   esercizi.ts   esercizi, esportati come `default` (tipo `Exercise[]`); facoltativo
  *   analisi.md    testo del dominio, in Markdown minimo (vedi `src/analysis/markdown.ts`); facoltativo
  *   er.ts         schema ER, esportato come `default` (tipo `ErDiagram`); facoltativo
- *   stile.css     variabili e decorazioni del tema (F08)
+ *   stile.css     veste del guscio del tema: variabili e decorazioni; facoltativo
+ *   locandina.css fronte della locandina sulla pagina iniziale; facoltativo
+ *   icone/*.svg   icone RB proprie del tema, citate per nome dal manifest; facoltative
+ *   fonts/        caratteri del tema con il loro file di licenza, citati da `stile.css`
  *
  * Sono obbligatori `theme.ts`, `schema.sql` e `dati.sql`.
+ *
+ * I fogli di stile del tema entrano nella pagina sempre, quindi ogni loro regola
+ * deve restare confinata: in `stile.css` ogni selettore comincia con
+ * `.theme[data-theme-id="<id>"]`, in `locandina.css` con
+ * `.poster[data-theme-id="<id>"]` (lo controlla `npm run check:themes`).
+ * Le variabili che `stile.css` può ridefinire sono in `src/styles.css`. Un tema
+ * con due schemi di colori li distingue con `[data-scheme="chiaro"]` e
+ * `[data-scheme="scuro"]` sulla stessa radice.
  *
  * `theme.ts`, `esercizi.ts` ed `er.ts` sono caricati anche da Node senza passare
  * da Vite (`npm run check:themes`): dal codice comune importano solo tipi, con `import type`.
@@ -32,8 +43,43 @@ export interface ThemeManifest {
   id: string;
   /** Nome mostrato allo studente. */
   title: string;
-  /** Una o due frasi per l’elenco dei temi. */
+  /** Una o due frasi per l’elenco dei temi e per il retro della locandina. */
   description: string;
+  /** Motto in cima al fronte della locandina, sulla pagina iniziale. */
+  motto: string;
+  /** Icone del tema valide in ogni schema; `schemes` le può sostituire per schema. */
+  icons?: ThemeIcons;
+  /**
+   * Se presente, il tema ha uno schema chiaro e uno scuro e il guscio mostra il
+   * selettore; per ogni schema le icone che cambiano (per esempio l’emblema).
+   * Senza, il tema ha un solo schema e nessun selettore.
+   */
+  schemes?: Record<Scheme, ThemeIcons>;
+}
+
+export const SCHEMES = ['chiaro', 'scuro'] as const;
+export type Scheme = (typeof SCHEMES)[number];
+
+/**
+ * Icone proprie di un tema: nomi di file in `themes/<id>/icone/`, senza estensione.
+ * Tutte decorative; i componenti comuni le mostrano solo se il tema le dichiara.
+ */
+export interface ThemeIcons {
+  /** Emblema accanto al nome del tema, nell’intestazione e sul selettore dello schema. */
+  emblem?: string;
+  /** Accanto a «Risolto», quando lo studente ha risolto un esercizio. */
+  solved?: string;
+  /** Negli stati vuoti: nessun esercizio corrisponde ai filtri. */
+  empty?: string;
+}
+
+/** Conteggi di un tema calcolati al build (`virtual:theme-stats`), per la scheda della locandina. */
+export interface ThemeStats {
+  /** Tabelle del database iniziale, in ordine di creazione, con il numero di righe. */
+  tables: { name: string; rows: number }[];
+  exercises: number;
+  byDifficulty: Record<Difficulty, number>;
+  byChapter: Record<Chapter, number>;
 }
 
 /** Forma ammessa per l’`id` di un tema (compare negli URL e nelle chiavi di `localStorage`). */
@@ -86,6 +132,10 @@ export interface Exercise {
 /** Un tema scoperto: il manifest, subito disponibile, e i contenuti caricati a richiesta. */
 export interface Theme {
   manifest: ThemeManifest;
+  /** Le icone di `themes/<id>/icone/`, per nome: testo SVG da passare a `Icon`. */
+  icons: Record<string, string>;
+  /** Conteggi calcolati al build; `undefined` se il database del tema non si è costruito. */
+  stats?: ThemeStats;
   /**
    * Carica lo script che costruisce il database del tema: `schema.sql` seguito
    * da `dati.sql`. I file si scaricano solo alla prima chiamata.

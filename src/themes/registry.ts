@@ -5,7 +5,9 @@
  * i file SQL, gli esercizi, l’analisi e lo schema ER diventano moduli separati, scaricati quando lo studente apre il tema.
  */
 
-import { THEME_ID_PATTERN, type ErDiagram, type Exercise, type Theme, type ThemeManifest } from './contract.ts';
+import themeStats from 'virtual:theme-stats';
+import { THEME_ID_PATTERN, type ErDiagram, type Exercise, type Theme, type ThemeManifest, type ThemeStats } from './contract.ts';
+import { iconName } from '../icons/registry.ts';
 
 type Loader<T> = () => Promise<T>;
 
@@ -20,6 +22,29 @@ function byFolder<T>(modules: Record<string, T>): Map<string, T> {
   return new Map(Object.entries(modules).map(([path, value]) => [folderOf(path), value]));
 }
 
+/** Dalle icone trovate nelle cartelle `icone/` dei temi alle icone di ogni tema, per nome. */
+function iconsByFolder(modules: Record<string, string>): Map<string, Record<string, string>> {
+  const result = new Map<string, Record<string, string>>();
+  for (const [path, svg] of Object.entries(modules)) {
+    const match = /\/themes\/([^/]+)\/icone\/[^/]+\.svg$/.exec(path);
+    if (!match) throw new Error(`Percorso di icona di tema non riconosciuto: ${path}`);
+    const icons = result.get(match[1]) ?? {};
+    icons[iconName(path)] = svg;
+    result.set(match[1], icons);
+  }
+  return result;
+}
+
+/** Le icone che il manifest cita devono esistere in `icone/`. */
+function checkIcons(where: string, manifest: ThemeManifest, icons: Record<string, string>): void {
+  const sets = [manifest.icons, ...Object.values(manifest.schemes ?? {})];
+  for (const set of sets) {
+    for (const name of Object.values(set ?? {})) {
+      if (!icons[name]) throw new Error(`${where}/theme.ts: l’icona «${name}» non è in icone/`);
+    }
+  }
+}
+
 /**
  * Costruisce l’elenco dei temi dai moduli trovati e controlla il contratto.
  * Separata da `import.meta.glob` per poterla provare con moduli finti.
@@ -31,7 +56,10 @@ export function buildRegistry(
   exerciseModules: Record<string, Loader<Exercise[]>> = {},
   erModules: Record<string, Loader<ErDiagram>> = {},
   analysisModules: Record<string, Loader<string>> = {},
+  iconModules: Record<string, string> = {},
+  stats: Record<string, ThemeStats> = {},
 ): Theme[] {
+  const icons = iconsByFolder(iconModules);
   const schemas = byFolder(schemaModules);
   const data = byFolder(dataModules);
   const exercises = byFolder(exerciseModules);
@@ -55,9 +83,13 @@ export function buildRegistry(
       const loadData = data.get(folder);
       if (!loadSchema) throw new Error(`${where}: manca schema.sql`);
       if (!loadData) throw new Error(`${where}: manca dati.sql`);
+      const themeIcons = icons.get(folder) ?? {};
+      checkIcons(where, manifest, themeIcons);
 
       return {
         manifest,
+        icons: themeIcons,
+        stats: stats[folder],
         loadDatabaseScript: async () => `${await loadSchema()}\n${await loadData()}`,
         loadExercises: exercises.get(folder) ?? (async () => []),
         loadEr: ers.get(folder) ?? (async () => undefined),
@@ -74,7 +106,13 @@ export const themes: Theme[] = buildRegistry(
   import.meta.glob<Exercise[]>('../../themes/*/esercizi.ts', { import: 'default' }),
   import.meta.glob<ErDiagram>('../../themes/*/er.ts', { import: 'default' }),
   import.meta.glob<string>('../../themes/*/analisi.md', { query: '?raw', import: 'default' }),
+  import.meta.glob<string>('../../themes/*/icone/*.svg', { query: '?raw', import: 'default', eager: true }),
+  themeStats,
 );
+
+// I fogli di stile dei temi entrano tutti nella pagina: ogni regola è confinata al proprio tema (vedi contract.ts).
+import.meta.glob('../../themes/*/stile.css', { eager: true });
+import.meta.glob('../../themes/*/locandina.css', { eager: true });
 
 export function findTheme(id: string): Theme | undefined {
   return themes.find((theme) => theme.manifest.id === id);

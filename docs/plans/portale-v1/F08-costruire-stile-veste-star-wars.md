@@ -45,4 +45,35 @@ Procedura manuale con `npm run dev`: percorri le sei sezioni di Star Wars a 1280
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, elenco dei punti di personalizzazione, caratteri scelti e loro licenza, valori di contrasto misurati, icone del tema e problemi con la skill, osservazioni di Marco, lavoro residuo, consumo reale se noto.
+**Stato al 2026-11-18: fase in corso, interrotta per limite di utilizzo.** Commit intermedio; la fase non è completata.
+
+### Decisioni di Marco (2026-11-18)
+
+- Contratto: manifest con `motto`, `icons`, `schemes` (per schema `emblem`, `empty`; `solved` comune); file del tema `stile.css` (radice `.theme[data-theme-id="<id>"]`), `locandina.css` (radice `.poster[data-theme-id="<id>"]`, scelta di Claude per dare al tema anche la banda del retro), `icone/`, `fonts/`.
+- Numeri della scheda calcolati **al build**: plugin `scripts/themeStatsPlugin.ts`, modulo `virtual:theme-stats`, funzioni in `src/themes/stats.ts`.
+- Icone tematiche: emblemi più spada laser, X-wing, stazione da battaglia. Emblema dell’intestazione che cambia con lo schema.
+- Caratteri scaricati con il via di Marco da `github.com/google/fonts`, TTF originali non ritagliati, con `OFL.txt` accanto: comuni in `src/assets/fonts/`, del tema in `themes/star-wars/fonts/`. Totale circa 770 KB, più della stima.
+
+### Fatto
+
+- Icone (skill `icone-rb`): `rebel-alliance`, `galactic-empire`, `lightsabers-crossed`, `x-wing`, `battle-station`, approvate da Marco alla terza versione; commit `9216917` nel repo `icone` (branch `dev`, nessun push), nuova categoria `intrattenimento`; copiate in `themes/star-wars/icone/`.
+- Contratto, registro (icone, CSS dei temi, conteggi), `check:themes` con controllo di confinamento dei CSS (`src/themes/cssScope.ts`).
+- `src/styles.css` riscritto: variabili del contratto (unico file con colori esadecimali), guscio neutro, stili della pagina iniziale (tavolo, locandine, scheda, mazzo).
+- `themes/star-wars/stile.css` (schemi chiaro e scuro con decorazioni) e `locandina.css`.
+- Schema chiaro/scuro: `src/scheme/scheme.ts` (chiave `sql-academy:<tema>:schema`), selettore ed emblema in `ThemePage`; icone del tema via `src/themes/ThemeIconsContext.ts` (risolto, stati vuoti di sessione e catalogo).
+- Editor: tema CodeMirror e colori della sintassi dalle variabili `--editor-*`, `--code-*` (importa `@codemirror/language` e `@lezer/highlight`, dipendenze transitive come `@codemirror/state`). Chiave primaria nel pannello delle tabelle con l’icona `key`.
+- Contrasti: aggiunte a `docs/design/contrasto.mjs` stringhe e commenti dell’editor e la palette `guscio-neutro`; tutto sopra soglia (exit 0).
+
+### Collaudo della skill `icone-rb`
+
+- Ricerca: nessun soggetto presente (25 termini).
+- Marco ha giudicato troppo semplici le prime due versioni e ha **autorizzato un’eccezione alla regola clean room** (R8.2) per questo solo caso: aperte come riferimento di complessità `starfighter`, `space-station-moon`, `swords-laser`, `jedi` di Font Awesome, senza copiare tracciati né composizioni. Gli emblemi di Impero e Alleanza non esistono nel duotone.
+- Problemi incontrati: una sola spada laser resta sotto la copertura minima (R1.6), da cui le spade incrociate; le tacche sulla corona dell’emblema imperiale superavano R5.8 e spostavano l’ingombro (R1.4), quindi tolte; descrizioni del catalogo con «:» vanno tra virgolette nello YAML.
+
+### Lavoro residuo
+
+1. Riscrivere `src/pages/HomePage.tsx` secondo `docs/design/neutra.md` (gli stili ci sono già): locandine lanciate in quattro fasce, trascinamento dopo 5 px, clic che gira la scheda (`role="dialog"`, fuoco su «Entra» e ritorno), velo, Esc, «Rimescola», mazzo a 375 px con «1 di 4», movimento ridotto, locandine «Prossimamente» fino a quattro. Crediti: «con <tabelle> e <ultima>, in N esercizi» da `theme.stats`; retro con `chapterLabel`, `DIFFICULTY_LABEL`; link al libro `https://python.rainbowbits.cloud`.
+2. Verifica visiva con `npm run dev` (sei sezioni nei due schemi, 1280 e 375 px, nessuno scorrimento orizzontale) e schermate a Marco prima di rifinire.
+3. `npm run build`, `npm run lint`, grep dei colori; aggiornare `README.md` del piano (struttura del tema, registro icone, decisioni) e `AGENTS.md`; commit di chiusura.
+
+Verifiche al commit intermedio: `tsc` superato, `npm test` 116 test superati, `check:themes` superato; build, lint e verifica visiva **non eseguiti**.

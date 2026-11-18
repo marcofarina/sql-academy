@@ -9,7 +9,7 @@
 | F05 | Costruire addestramento, catalogo delle query e progressi | F02, F03, F04 | Opus 5.5 `medium` | alto | completata | 2026-11-17 15:10 | [P-F05](#p-f05) | [F05](F05-costruire-addestramento-catalogo-progressi.md) |
 | F06 | Generare il modello logico e disegnare l’ER dichiarativo | F03, F04 | Opus 5.5 `medium` | medio | completata | 2026-11-17 16:19 | [P-F06](#p-f06) | [F06](F06-generare-logico-disegnare-er.md) |
 | F07 | Scrivere l’analisi Star Wars e rivedere consegne e suggerimenti | F04, F06 | Opus 5.5 `medium` | medio-alto | completata | 2026-11-17 19:00 | [P-F07](#p-f07) | [F07](F07-scrivere-analisi-rivedere-testi.md) |
-| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
+| F08 | Costruire il sistema di stile per tema e la veste Star Wars | F03, F11 | Opus 5.5 `medium` | medio | in corso | | [P-F08](#p-f08) | [F08](F08-costruire-stile-veste-star-wars.md) |
 | F09 | Aggiungere il tema di prova «Il Signore degli Anelli» | F05, F06, F08, F12 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F09](#p-f09) | [F09](F09-aggiungere-tema-signore-anelli.md) |
 | F10 | Pubblicare su GitHub Pages e collegare il libro | F07, F09, F14, F15, F17 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-pubblicare-github-pages.md) |
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | completata | 2026-11-18 01:24 | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |

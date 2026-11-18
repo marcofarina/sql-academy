@@ -1,5 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Icon } from '../icons/Icon.tsx';
+import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { exerciseProgress, type ExerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import { formatRoute } from '../routing/route.ts';
 import { CHAPTERS, DIFFICULTIES, type Chapter, type Exercise } from '../themes/contract.ts';
@@ -46,6 +47,7 @@ function ConfigForm({ exercises, onStart }: { exercises: Exercise[]; onStart(con
   const keywords = keywordsOf(exercises);
   const [config, setConfig] = useState<SessionConfig>({ length: 5, difficulty: 'bilanciata', chapters, keywords: [] });
   const available = eligibleExercises(exercises, config).length;
+  const themeIcons = useThemeIcons();
 
   const toggle = <T,>(list: T[], item: T) => (list.includes(item) ? list.filter((x) => x !== item) : [...list, item]);
 
@@ -118,7 +120,8 @@ function ConfigForm({ exercises, onStart }: { exercises: Exercise[]; onStart(con
           ))}
         </div>
       </fieldset>
-      <p role="status">
+      <p role="status" className={available === 0 ? 'empty-state' : undefined}>
+        {available === 0 && themeIcons.empty && <Icon svg={themeIcons.empty} />}
         {available === 0
           ? 'Nessun esercizio corrisponde a questi filtri.'
           : available < config.length
