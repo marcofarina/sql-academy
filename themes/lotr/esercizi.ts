@@ -1528,6 +1528,560 @@ const exercises: Exercise[] = [
     tables: ['popoli', 'personaggi'],
   },
 
+  {
+    id: 'ex-087',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'COUNT', 'FROM'],
+    title: 'Quanti personaggi',
+    prompt: 'Conta i personaggi registrati nell’archivio.',
+    expectedQuery: `
+      SELECT COUNT(*)
+      FROM personaggi`,
+    hints: [
+      'Una funzione di aggregazione riassume tutte le righe in un solo valore.',
+      'COUNT(*) conta le righe della tabella personaggi.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-088',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'WHERE'],
+    title: 'Quanti nella Compagnia',
+    prompt: 'Conta i membri della Compagnia dell’Anello.',
+    expectedQuery: `
+      SELECT COUNT(*)
+      FROM personaggi
+      WHERE membro_compagnia = 1`,
+    hints: [
+      'WHERE filtra le righe prima che COUNT le conti.',
+      'SELECT COUNT(*) FROM personaggi WHERE membro_compagnia = 1.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-089',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'MIN', 'FROM'],
+    title: 'L’anno di nascita più antico',
+    prompt: 'Mostra l’anno di nascita più antico registrato nell’archivio.',
+    expectedQuery: `
+      SELECT MIN(anno_nascita)
+      FROM personaggi`,
+    hints: [
+      'L’anno più antico è il più piccolo.',
+      'MIN(anno_nascita) restituisce il valore più piccolo della colonna e ignora i NULL.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-090',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'SUM', 'FROM'],
+    title: 'Tutti gli eserciti dell’Ombra',
+    prompt:
+      'Calcola il numero totale di combattenti schierati dall’Ombra in tutte le battaglie di cui si conoscono le forze.',
+    expectedQuery: `
+      SELECT SUM(forze_ombra)
+      FROM battaglie`,
+    hints: [
+      'SUM somma i valori di una colonna su tutte le righe.',
+      'SUM(forze_ombra) salta da sola la battaglia in cui il valore è NULL.',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-091',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'AVG', 'FROM'],
+    title: 'La media dei Popoli liberi',
+    prompt: 'Calcola il numero medio di combattenti schierati dai Popoli liberi in una battaglia.',
+    expectedQuery: `
+      SELECT AVG(forze_popoli_liberi)
+      FROM battaglie`,
+    hints: [
+      'La media di una colonna si calcola con AVG.',
+      'SELECT AVG(forze_popoli_liberi) FROM battaglie.',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-092',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'MAX', 'FROM'],
+    title: 'L’esercito più grande',
+    prompt: 'Mostra il numero più alto di combattenti che l’Ombra ha schierato in una sola battaglia.',
+    expectedQuery: `
+      SELECT MAX(forze_ombra)
+      FROM battaglie`,
+    hints: [
+      'Il valore più alto di una colonna si trova con MAX.',
+      'SELECT MAX(forze_ombra) FROM battaglie.',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-093',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'GROUP BY'],
+    title: 'Luoghi per regione',
+    prompt: 'Per ogni regione mostra il nome della regione e il numero di luoghi dell’archivio che vi si trovano.',
+    expectedQuery: `
+      SELECT regione, COUNT(*)
+      FROM luoghi
+      GROUP BY regione`,
+    hints: [
+      'GROUP BY regione forma un gruppo di righe per ogni regione.',
+      'Con GROUP BY, COUNT(*) conta le righe di ciascun gruppo invece che della tabella intera.',
+    ],
+    tables: ['luoghi'],
+  },
+  {
+    id: 'ex-094',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'GROUP BY'],
+    title: 'Armi per tipo',
+    prompt: 'Per ogni tipo di arma mostra il tipo e quante armi di quel tipo sono registrate.',
+    expectedQuery: `
+      SELECT tipo, COUNT(*)
+      FROM armi
+      GROUP BY tipo`,
+    hints: [
+      'Raggruppa le armi per tipo.',
+      'SELECT tipo, COUNT(*) FROM armi GROUP BY tipo.',
+    ],
+    tables: ['armi'],
+  },
+  {
+    id: 'ex-095',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'GROUP BY'],
+    title: 'Vittorie per parte',
+    prompt: 'Mostra quante battaglie ha vinto ciascuna delle due parti: il vincitore e il numero di battaglie.',
+    expectedQuery: `
+      SELECT vincitore, COUNT(*)
+      FROM battaglie
+      GROUP BY vincitore`,
+    hints: [
+      'Il vincitore è nella colonna vincitore: ti serve un gruppo per ogni valore.',
+      'GROUP BY vincitore e COUNT(*).',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-096',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'MIN', 'MAX', 'FROM', 'WHERE'],
+    title: 'L’inizio e la fine del viaggio di Frodo',
+    prompt: 'Frodo ha id 1. Mostra la data della prima e quella dell’ultima tappa del suo viaggio.',
+    expectedQuery: `
+      SELECT MIN(data), MAX(data)
+      FROM tappe
+      WHERE personaggio_id = 1`,
+    hints: [
+      'Nel formato AAAA-MM-GG la data più antica è anche la più piccola come testo: MIN e MAX funzionano anche sulle date.',
+      'SELECT MIN(data), MAX(data) FROM tappe WHERE personaggio_id = 1.',
+    ],
+    tables: ['tappe'],
+  },
+  {
+    id: 'ex-097',
+    chapter: 'aggregazioni',
+    difficulty: 'facile',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'WHERE', 'LIKE'],
+    title: 'Le tappe del 3018',
+    prompt: 'Conta le tappe raggiunte nell’anno 3018, da qualunque personaggio.',
+    expectedQuery: `
+      SELECT COUNT(*)
+      FROM tappe
+      WHERE data LIKE '3018-%'`,
+    hints: [
+      'L’anno è la prima parte della data: tutte le date del 3018 cominciano con «3018-».',
+      'WHERE data LIKE \'3018-%\', poi COUNT(*).',
+    ],
+    tables: ['tappe'],
+  },
+  {
+    id: 'ex-098',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'FROM'],
+    title: 'Anni conosciuti e sconosciuti',
+    prompt:
+      'Mostra in una sola riga il numero totale di personaggi e il numero di personaggi di cui si conosce l’anno di nascita.',
+    expectedQuery: `
+      SELECT COUNT(*), COUNT(anno_nascita)
+      FROM personaggi`,
+    hints: [
+      'COUNT(*) conta le righe; COUNT(colonna) conta solo le righe in cui quella colonna non è NULL.',
+      'SELECT COUNT(*), COUNT(anno_nascita) FROM personaggi.',
+    ],
+    tables: ['personaggi'],
+  },
+  {
+    id: 'ex-099',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'DISTINCT', 'FROM'],
+    title: 'Quante regioni',
+    prompt: 'Conta le regioni diverse in cui si trovano i luoghi dell’archivio.',
+    expectedQuery: `
+      SELECT COUNT(DISTINCT regione)
+      FROM luoghi`,
+    hints: [
+      'COUNT(regione) conterebbe una volta per luogo, anche le regioni ripetute.',
+      'COUNT(DISTINCT regione) conta i valori diversi.',
+    ],
+    tables: ['luoghi'],
+  },
+  {
+    id: 'ex-100',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'JOIN', 'GROUP BY', 'ORDER BY'],
+    title: 'I veterani',
+    prompt:
+      'Per ogni personaggio che ha partecipato ad almeno una battaglia, mostra il nome e il numero di battaglie, dal più alto. A parità di numero, in ordine alfabetico.',
+    expectedQuery: `
+      SELECT personaggi.nome, COUNT(*)
+      FROM partecipazioni
+      JOIN personaggi ON partecipazioni.personaggio_id = personaggi.id
+      GROUP BY personaggi.id, personaggi.nome
+      ORDER BY COUNT(*) DESC, personaggi.nome`,
+    hints: [
+      'Ogni riga di partecipazioni è una battaglia di un personaggio: raggruppale per personaggio.',
+      'Raggruppa per personaggi.id e personaggi.nome, poi ORDER BY COUNT(*) DESC, personaggi.nome.',
+    ],
+    tables: ['partecipazioni', 'personaggi'],
+  },
+  {
+    id: 'ex-101',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING'],
+    title: 'Più di un’arma',
+    prompt: 'Mostra il nome dei personaggi che portano più di un’arma, con il numero delle loro armi.',
+    expectedQuery: `
+      SELECT personaggi.nome, COUNT(*)
+      FROM armi
+      JOIN personaggi ON armi.portatore_id = personaggi.id
+      GROUP BY personaggi.id, personaggi.nome
+      HAVING COUNT(*) > 1`,
+    hints: [
+      'Conta le armi per portatore con GROUP BY.',
+      'La condizione sul conteggio va in HAVING, dopo GROUP BY: HAVING COUNT(*) > 1.',
+    ],
+    tables: ['armi', 'personaggi'],
+  },
+  {
+    id: 'ex-102',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'SUM', 'FROM', 'GROUP BY'],
+    title: 'Le forze di chi vince',
+    prompt:
+      'Per ciascuna delle due parti vincitrici, mostra il vincitore, il totale dei combattenti dei Popoli liberi e il totale dei combattenti dell’Ombra nelle battaglie che ha vinto.',
+    expectedQuery: `
+      SELECT vincitore, SUM(forze_popoli_liberi), SUM(forze_ombra)
+      FROM battaglie
+      GROUP BY vincitore`,
+    hints: [
+      'Un gruppo per ogni valore di vincitore, e due somme per gruppo.',
+      'SELECT vincitore, SUM(forze_popoli_liberi), SUM(forze_ombra) FROM battaglie GROUP BY vincitore.',
+    ],
+    tables: ['battaglie'],
+  },
+  {
+    id: 'ex-103',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'AVG', 'ROUND', 'FROM', 'JOIN', 'WHERE', 'GROUP BY'],
+    title: 'L’anno medio di nascita per popolo',
+    prompt:
+      'Per ogni popolo con almeno un personaggio di cui si conosce l’anno di nascita, mostra il nome del popolo e l’anno medio di nascita, arrotondato all’intero.',
+    expectedQuery: `
+      SELECT popoli.nome, ROUND(AVG(personaggi.anno_nascita))
+      FROM personaggi
+      JOIN popoli ON personaggi.popolo_id = popoli.id
+      WHERE personaggi.anno_nascita IS NOT NULL
+      GROUP BY popoli.id, popoli.nome`,
+    hints: [
+      'Escludi con WHERE i personaggi senza anno: altrimenti i popoli in cui l’anno manca a tutti compaiono con una media NULL.',
+      'ROUND(AVG(personaggi.anno_nascita)) arrotonda la media all’intero; raggruppa per popoli.id e popoli.nome.',
+    ],
+    tables: ['personaggi', 'popoli'],
+  },
+  {
+    id: 'ex-104',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'JOIN', 'GROUP BY', 'ORDER BY'],
+    title: 'Le regioni più attraversate',
+    prompt:
+      'Per ogni regione toccata da almeno una tappa, mostra la regione e il numero di tappe che vi si trovano, dalla più attraversata. A parità di numero, in ordine alfabetico di regione.',
+    expectedQuery: `
+      SELECT luoghi.regione, COUNT(*)
+      FROM tappe
+      JOIN luoghi ON tappe.luogo_id = luoghi.id
+      GROUP BY luoghi.regione
+      ORDER BY COUNT(*) DESC, luoghi.regione`,
+    hints: [
+      'La regione di una tappa è quella del suo luogo: unisci tappe e luoghi.',
+      'GROUP BY luoghi.regione, poi ORDER BY COUNT(*) DESC, luoghi.regione.',
+    ],
+    tables: ['tappe', 'luoghi'],
+  },
+  {
+    id: 'ex-105',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING'],
+    title: 'Luoghi d’origine affollati',
+    prompt: 'Mostra il nome dei luoghi da cui provengono almeno due personaggi, con il numero di quei personaggi.',
+    expectedQuery: `
+      SELECT luoghi.nome, COUNT(*)
+      FROM personaggi
+      JOIN luoghi ON personaggi.provenienza_id = luoghi.id
+      GROUP BY luoghi.id, luoghi.nome
+      HAVING COUNT(*) >= 2`,
+    hints: [
+      'Unisci personaggi e luoghi sul luogo di provenienza e conta i personaggi di ogni luogo.',
+      'GROUP BY luoghi.id, luoghi.nome e HAVING COUNT(*) >= 2.',
+    ],
+    tables: ['personaggi', 'luoghi'],
+  },
+  {
+    id: 'ex-106',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'DISTINCT', 'FROM', 'GROUP BY'],
+    title: 'Combattenti per schieramento',
+    prompt:
+      'Per ciascuno dei due schieramenti mostra lo schieramento e quanti personaggi diversi hanno combattuto in quello schieramento.',
+    expectedQuery: `
+      SELECT schieramento, COUNT(DISTINCT personaggio_id)
+      FROM partecipazioni
+      GROUP BY schieramento`,
+    hints: [
+      'Lo stesso personaggio compare in più battaglie: COUNT(*) conterebbe le partecipazioni, non i personaggi.',
+      'GROUP BY schieramento e COUNT(DISTINCT personaggio_id).',
+    ],
+    tables: ['partecipazioni'],
+  },
+  {
+    id: 'ex-107',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'MIN', 'MAX', 'FROM', 'JOIN', 'GROUP BY'],
+    title: 'Partenze e arrivi',
+    prompt:
+      'Per ogni personaggio di cui l’archivio registra il viaggio, mostra il nome, la data della prima tappa e la data dell’ultima.',
+    expectedQuery: `
+      SELECT personaggi.nome, MIN(tappe.data), MAX(tappe.data)
+      FROM tappe
+      JOIN personaggi ON tappe.personaggio_id = personaggi.id
+      GROUP BY personaggi.id, personaggi.nome`,
+    hints: [
+      'Un gruppo per personaggio, con due aggregazioni sulla stessa colonna.',
+      'MIN(tappe.data) e MAX(tappe.data), con GROUP BY personaggi.id, personaggi.nome.',
+    ],
+    tables: ['tappe', 'personaggi'],
+  },
+  {
+    id: 'ex-108',
+    chapter: 'aggregazioni',
+    difficulty: 'medio',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'JOIN', 'WHERE', 'GROUP BY'],
+    title: 'I popoli della Compagnia',
+    prompt:
+      'Per ogni popolo rappresentato nella Compagnia dell’Anello, mostra il nome del popolo e quanti suoi membri ne fanno parte.',
+    expectedQuery: `
+      SELECT popoli.nome, COUNT(*)
+      FROM personaggi
+      JOIN popoli ON personaggi.popolo_id = popoli.id
+      WHERE personaggi.membro_compagnia = 1
+      GROUP BY popoli.id, popoli.nome`,
+    hints: [
+      'Prima filtra i membri della Compagnia con WHERE, poi raggruppa per popolo.',
+      'WHERE personaggi.membro_compagnia = 1, GROUP BY popoli.id, popoli.nome, COUNT(*).',
+    ],
+    tables: ['personaggi', 'popoli'],
+  },
+  {
+    id: 'ex-109',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'MIN', 'MAX', 'JULIANDAY', 'FROM', 'JOIN', 'GROUP BY', 'ORDER BY'],
+    title: 'I viaggi più lunghi in giorni',
+    prompt:
+      'Per ogni personaggio di cui l’archivio registra il viaggio, mostra il nome e quanti giorni separano la prima tappa dall’ultima, come numero intero, dal viaggio più lungo. A parità di giorni, in ordine alfabetico.',
+    expectedQuery: `
+      SELECT personaggi.nome, CAST(julianday(MAX(tappe.data)) - julianday(MIN(tappe.data)) AS INTEGER)
+      FROM tappe
+      JOIN personaggi ON tappe.personaggio_id = personaggi.id
+      GROUP BY personaggi.id, personaggi.nome
+      ORDER BY 2 DESC, personaggi.nome`,
+    hints: [
+      'Una funzione può lavorare sul risultato di un’aggregazione: julianday(MAX(tappe.data)) - julianday(MIN(tappe.data)).',
+      'CAST(… AS INTEGER) rende intero il risultato. In ORDER BY puoi ripetere l’espressione, oppure indicare la colonna con il suo numero: ORDER BY 2 DESC.',
+    ],
+    tables: ['tappe', 'personaggi'],
+  },
+  {
+    id: 'ex-110',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'COUNT', 'SUM', 'CASE', 'FROM', 'JOIN', 'GROUP BY', 'ORDER BY'],
+    title: 'Battaglie combattute e vinte',
+    prompt:
+      'Per ogni personaggio che ha partecipato ad almeno una battaglia, mostra il nome, il numero di battaglie combattute e il numero di quelle vinte dalla sua parte, in ordine alfabetico di nome.',
+    expectedQuery: `
+      SELECT personaggi.nome,
+             COUNT(*),
+             SUM(CASE WHEN partecipazioni.schieramento = battaglie.vincitore THEN 1 ELSE 0 END)
+      FROM partecipazioni
+      JOIN personaggi ON partecipazioni.personaggio_id = personaggi.id
+      JOIN battaglie ON partecipazioni.battaglia_id = battaglie.id
+      GROUP BY personaggi.id, personaggi.nome
+      ORDER BY personaggi.nome`,
+    hints: [
+      'Una battaglia è vinta dalla parte del personaggio quando lo schieramento della partecipazione è uguale al vincitore della battaglia.',
+      'Per contare solo alcune righe del gruppo, somma un CASE che vale 1 o 0: SUM(CASE WHEN partecipazioni.schieramento = battaglie.vincitore THEN 1 ELSE 0 END).',
+    ],
+    tables: ['partecipazioni', 'personaggi', 'battaglie'],
+  },
+  {
+    id: 'ex-111',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'COUNT', 'DISTINCT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING'],
+    title: 'Battaglie di molti popoli',
+    prompt:
+      'Mostra il nome delle battaglie a cui hanno partecipato personaggi di almeno tre popoli diversi, con il numero di popoli.',
+    expectedQuery: `
+      SELECT battaglie.nome, COUNT(DISTINCT personaggi.popolo_id)
+      FROM partecipazioni
+      JOIN personaggi ON partecipazioni.personaggio_id = personaggi.id
+      JOIN battaglie ON partecipazioni.battaglia_id = battaglie.id
+      GROUP BY battaglie.id, battaglie.nome
+      HAVING COUNT(DISTINCT personaggi.popolo_id) >= 3`,
+    hints: [
+      'Il popolo di un partecipante è in personaggi.popolo_id: unisci partecipazioni, personaggi e battaglie.',
+      'Raggruppa per battaglia e conta i popoli diversi con COUNT(DISTINCT personaggi.popolo_id), anche nella condizione di HAVING.',
+    ],
+    tables: ['partecipazioni', 'personaggi', 'battaglie'],
+  },
+  {
+    id: 'ex-112',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'COUNT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING'],
+    title: 'Popoli senza date',
+    prompt:
+      'Mostra il nome dei popoli che hanno almeno un personaggio nell’archivio, ma di nessuno dei quali si conosce l’anno di nascita.',
+    expectedQuery: `
+      SELECT popoli.nome
+      FROM personaggi
+      JOIN popoli ON personaggi.popolo_id = popoli.id
+      GROUP BY popoli.id, popoli.nome
+      HAVING COUNT(personaggi.anno_nascita) = 0`,
+    hints: [
+      'Se filtri con WHERE anno_nascita IS NULL perdi l’informazione che ti serve: un popolo può avere personaggi con l’anno e personaggi senza.',
+      'Raggruppa per popolo e controlla in HAVING che COUNT(personaggi.anno_nascita), che non conta i NULL, valga 0.',
+    ],
+    tables: ['personaggi', 'popoli'],
+  },
+  {
+    id: 'ex-113',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'AVG', 'ROUND', 'FROM', 'JOIN'],
+    title: 'Quanti sono immortali',
+    prompt:
+      'Calcola la percentuale di personaggi dell’archivio che appartengono a un popolo immortale, arrotondata a una cifra decimale.',
+    expectedQuery: `
+      SELECT ROUND(AVG(popoli.immortale) * 100, 1)
+      FROM personaggi
+      JOIN popoli ON personaggi.popolo_id = popoli.id`,
+    hints: [
+      'La colonna immortale vale 1 o 0: la sua media su tutti i personaggi è la frazione di immortali.',
+      'ROUND(AVG(popoli.immortale) * 100, 1). AVG restituisce un numero decimale anche se la colonna è intera.',
+    ],
+    tables: ['personaggi', 'popoli'],
+  },
+  {
+    id: 'ex-114',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'MAX', 'JULIANDAY', 'FROM', 'JOIN', 'AS', 'GROUP BY', 'ORDER BY'],
+    title: 'Il tratto più lungo',
+    prompt:
+      'Per ogni personaggio di cui l’archivio registra il viaggio, mostra il nome e il numero massimo di giorni passati fra due tappe consecutive, come numero intero, dal più alto. A parità, in ordine alfabetico.',
+    expectedQuery: `
+      SELECT personaggi.nome,
+             MAX(CAST(julianday(arrivo.data) - julianday(partenza.data) AS INTEGER))
+      FROM tappe AS partenza
+      JOIN tappe AS arrivo ON arrivo.personaggio_id = partenza.personaggio_id
+                          AND arrivo.ordine = partenza.ordine + 1
+      JOIN personaggi ON partenza.personaggio_id = personaggi.id
+      GROUP BY personaggi.id, personaggi.nome
+      ORDER BY 2 DESC, personaggi.nome`,
+    hints: [
+      'Prima costruisci i tratti: unisci tappe con sé stessa sulle tappe consecutive dello stesso personaggio, arrivo.ordine = partenza.ordine + 1.',
+      'Per ogni tratto i giorni sono julianday(arrivo.data) - julianday(partenza.data); MAX di questa espressione, raggruppando per personaggio.',
+    ],
+    tables: ['tappe', 'personaggi'],
+  },
+  {
+    id: 'ex-115',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'SUM', 'FROM', 'JOIN', 'GROUP BY'],
+    title: 'Combattenti per regione',
+    prompt:
+      'Per ogni regione in cui si è combattuto, mostra la regione e il totale dei combattenti schierati dalle due parti, contando tutte le forze conosciute.',
+    expectedQuery: `
+      SELECT luoghi.regione, SUM(battaglie.forze_popoli_liberi) + SUM(battaglie.forze_ombra)
+      FROM battaglie
+      JOIN luoghi ON battaglie.luogo_id = luoghi.id
+      GROUP BY luoghi.regione`,
+    hints: [
+      'Nell’Assalto a Isengard le forze dell’Ombra sono NULL, ma quelle dei Popoli liberi si conoscono e vanno contate.',
+      'SUM(forze_popoli_liberi + forze_ombra) scarta l’intera battaglia, perché la somma con un NULL è NULL. Somma le due colonne separatamente: SUM(…) + SUM(…).',
+    ],
+    tables: ['battaglie', 'luoghi'],
+  },
+  {
+    id: 'ex-116',
+    chapter: 'aggregazioni',
+    difficulty: 'difficile',
+    keywords: ['SELECT', 'COUNT', 'STRFTIME', 'FROM', 'WHERE', 'GROUP BY', 'ORDER BY'],
+    title: 'Le tappe mese per mese',
+    prompt:
+      'Per ogni mese del 3019 in cui è stata raggiunta almeno una tappa, mostra il mese, come numero di due cifre, e il numero di tappe, in ordine di mese.',
+    expectedQuery: `
+      SELECT strftime('%m', data), COUNT(*)
+      FROM tappe
+      WHERE data LIKE '3019-%'
+      GROUP BY strftime('%m', data)
+      ORDER BY strftime('%m', data)`,
+    hints: [
+      'strftime(\'%m\', data) estrae il mese come testo di due cifre, da \'01\' a \'12\'.',
+      'Filtra il 3019 con WHERE, poi raggruppa e ordina per strftime(\'%m\', data).',
+    ],
+    tables: ['tappe'],
+  },
+
   // Sottoquery
   {
     id: 'ex-016',
