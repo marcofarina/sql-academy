@@ -10,7 +10,8 @@ export const ZAINO_DEL_LIBRO = 'https://python.rainbowbits.cloud/zaino';
 export const TESTI_APRI: Record<Exclude<EsitoApri, 'aperto'>, string> = {
   'non-supportato': 'Questo browser non sa aprire lo zaino: serve una connessione https.',
   'gia-collegato': 'Questo browser ha già uno zaino aperto.',
-  'codice-non-valido': 'Il codice non è scritto bene: sono 20 caratteri, fra lettere e numeri.',
+  'codice-non-valido':
+    'Il codice non è scritto bene: sono quattro parole, separate da spazi o trattini, e di ogni parola bastano le prime quattro lettere. I codici degli zaini più vecchi sono invece 20 caratteri, fra lettere e numeri.',
   inesistente: 'Non trovo nessuno zaino con questo codice. Controlla di averlo scritto giusto.',
   offline: 'Non riesco a raggiungere il servizio: controlla la rete.',
   servizio: 'Il servizio dello zaino non risponde. Riprova fra un po’.',

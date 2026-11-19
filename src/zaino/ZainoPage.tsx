@@ -21,7 +21,7 @@ async function copia(testo: string): Promise<boolean> {
   }
 }
 
-/** Il codice a gruppi di quattro, con «Copia il codice». */
+/** Il codice (le parole, o un codice di prima a gruppi di quattro), con «Copia il codice». */
 function BloccoCodice({ codice }: { codice: string }) {
   const [copiato, setCopiato] = useState<boolean | null>(null);
   return (
@@ -64,7 +64,10 @@ function Apri() {
   return (
     <section className="zaino-scheda" aria-labelledby="zaino-apri">
       <h2 id="zaino-apri">Apri il tuo zaino</h2>
-      <p>Hai già uno zaino, creato qui o nel libro? Scrivi il suo codice.</p>
+      <p>
+        Hai già uno zaino, creato qui o nel libro? Scrivi le quattro parole del suo codice: di ogni parola bastano le prime quattro lettere,
+        maiuscole e accenti non contano.
+      </p>
       <form className="zaino-modulo" onSubmit={invia}>
         <label htmlFor="zaino-input">Codice dello zaino</label>
         <input
@@ -73,9 +76,9 @@ function Apri() {
           className="zaino-input"
           value={scritto}
           onChange={(event) => setScritto(event.target.value)}
-          placeholder="XXXX-XXXX-XXXX-XXXX-XXXX"
+          placeholder="parola parola parola parola"
           autoComplete="off"
-          autoCapitalize="characters"
+          autoCapitalize="none"
           spellCheck={false}
           translate="no"
         />
@@ -122,8 +125,8 @@ function Crea({ onCreato }: { onCreato: (codice: string) => void }) {
     <section className="zaino-scheda" aria-labelledby="zaino-crea">
       <h2 id="zaino-crea">Crea uno zaino</h2>
       <p>
-        Il sito genera un codice di 20 caratteri e ci mette dentro i progressi che hai già in questo browser. Sugli altri dispositivi, e nel
-        libro, apri lo zaino con quel codice.
+        Il sito sceglie a caso un codice di quattro parole, per esempio <span translate="no">volpe-faro-miele-trono</span>, e ci mette dentro i
+        progressi che hai già in questo browser. Sugli altri dispositivi, e nel libro, apri lo zaino con quel codice.
       </p>
       <p className="zaino-avvertenza">
         Il codice non si può recuperare. Se lo perdi su tutti i dispositivi, lo zaino è perso: nemmeno chi gestisce il sito può aprirlo.
@@ -190,7 +193,9 @@ function Collegato({ codice, codiceNuovo, themes }: { codice: string; codiceNuov
       {codiceNuovo && (
         <section className="zaino-scheda" aria-labelledby="zaino-nuovo">
           <h2 id="zaino-nuovo">Il codice del tuo zaino</h2>
-          <p>Scrivilo da qualche parte o mandalo a te stesso: ti serve per aprire lo zaino su un altro dispositivo e nel libro.</p>
+          <p>
+            Imparalo a memoria, scrivilo sul diario o mandalo a te stesso: ti serve per aprire lo zaino su un altro dispositivo e nel libro.
+          </p>
           <BloccoCodice codice={codiceNuovo} />
         </section>
       )}

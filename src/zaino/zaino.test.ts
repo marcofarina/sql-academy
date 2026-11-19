@@ -1,6 +1,7 @@
 import { expect, test } from 'vitest';
 import { EMPTY_EXERCISE_PROGRESS, type ThemeProgress } from '../progress/progress.ts';
-import { cifra, decifra, derivaChiavi, formattaCodice, normalizzaCodice } from './cifra.ts';
+import { cifra, decifra, derivaChiavi, formattaCodice, normalizzaCodice, nuovoCodice } from './cifra.ts';
+import { PAROLE } from './parole.ts';
 import { NOME_SEZIONE, unisciDati, validaDati, type DatiSqlAcademy } from './sezione.ts';
 import { canonico, unisciContenuti } from './sezioni.ts';
 import type { ContenutoZaino } from './tipi.ts';
@@ -39,11 +40,41 @@ test('cifrare e decifrare restituisce il contenuto; il testo non resta in chiaro
   await expect(decifra(blob.buffer, altra.chiave)).rejects.toThrow();
 });
 
-test('codici: normalizzazione di Crockford e gruppi da quattro', () => {
+test('codici di prima: normalizzazione di Crockford e gruppi da quattro', () => {
   expect(normalizzaCodice('0123-4567 89ab cdef ghjk')).toBe(CODICE);
   expect(normalizzaCodice('O1234567890123456789'.replace('O', 'o'))).toBe('01234567890123456789');
   expect(normalizzaCodice('troppo corto')).toBeNull();
   expect(formattaCodice(CODICE)).toBe('0123-4567-89AB-CDEF-GHJK');
+});
+
+test('elenco delle parole: 2048 diverse, a–z, 4–9 lettere, prime quattro uniche', () => {
+  expect(PAROLE).toHaveLength(2048);
+  expect(new Set(PAROLE).size).toBe(2048);
+  for (const p of PAROLE) expect(p).toMatch(/^[a-z]{4,9}$/);
+  expect(new Set(PAROLE.map((p) => p.slice(0, 4))).size).toBe(2048);
+});
+
+test('nuovoCodice: quattro parole dell’elenco, già nella forma canonica', () => {
+  for (let i = 0; i < 200; i += 1) {
+    const c = nuovoCodice();
+    expect(c.split('-').every((p) => PAROLE.includes(p))).toBe(true);
+    expect(c.split('-')).toHaveLength(4);
+    expect(normalizzaCodice(c)).toBe(c);
+    expect(formattaCodice(c)).toBe(c);
+  }
+});
+
+test('codici a parole: maiuscole, accenti, separatori e prime quattro lettere', () => {
+  const c = 'volpe-faro-miele-trono';
+  for (const scritto of ['volpe faro miele trono', ' Volpe  FARO miele trono ', 'vòlpe-fàro-mièle-tronò', 'volpefaromieletrono', 'volp faro miel tron'])
+    expect(normalizzaCodice(scritto)).toBe(c);
+  for (const scritto of ['volpe faro miele', 'volpe faro miele xyzw', 'vol faro miele trono', 'volpfaromieltron'])
+    expect(normalizzaCodice(scritto)).toBeNull();
+});
+
+test('codice a parole: lo stesso id del libro', async () => {
+  // Calcolato il 2026-11-19 con `src/lib/zaino/cifra.ts` del libro (commit 6fe2e49).
+  expect((await derivaChiavi('volpe-faro-miele-trono')).id).toBe('NQEq8sscP7-vuar6sKFfQUf-Aj6JlWUAYsO5cpYa86k');
 });
 
 test('la sezione del quaderno, che il portale non conosce, passa intatta in tutti e due gli ordini', () => {

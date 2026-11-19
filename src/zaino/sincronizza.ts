@@ -336,7 +336,7 @@ interface OpzioniCiclo {
 async function ciclo(o: OpzioniCiclo): Promise<void> {
   const m = leggiMemoria();
   if (!m) return;
-  const chiavi = await chiaviDi(m.codice);
+  let chiavi = await chiaviDi(m.codice);
   cambiaStato({ fase: 'in-corso', motivo: null });
   let rileggi = o.completa || m.versione === null || !m.ultimo;
   let letto = o.letto ?? null;
@@ -386,6 +386,14 @@ async function ciclo(o: OpzioniCiclo): Promise<void> {
       body: blob,
       keepalive: !!o.keepalive && blob.byteLength < MAX_KEEPALIVE,
     });
+    if (r.status === 412 && o.nuovo && versione === null) {
+      // Il codice appena estratto è già di un altro zaino: se ne estrae un
+      // altro, invece di leggere (e unire) lo zaino di qualcun altro.
+      m.codice = nuovoCodice();
+      salvaMemoria(m);
+      chiavi = await chiaviDi(m.codice);
+      continue;
+    }
     if (r.status === 412) {
       rileggi = true;
       continue;
@@ -537,10 +545,12 @@ export type EsitoApri =
 export async function crea(): Promise<string> {
   if (!zainoSupportato()) throw new Error('zaino: browser non supportato');
   if (leggiMemoria()) throw new Error('zaino: già collegato');
-  const codice = nuovoCodice();
-  salvaMemoria({ codice, versione: null, ultimo: null });
+  salvaMemoria({ codice: nuovoCodice(), versione: null, ultimo: null });
   await sincronizza({ completa: true, nuovo: true });
-  return codice;
+  // Il codice può essere cambiato durante la creazione (412: già usato).
+  const m = leggiMemoria();
+  if (!m) throw new Error('zaino: creazione non riuscita');
+  return m.codice;
 }
 
 export interface OpzioniApri {
