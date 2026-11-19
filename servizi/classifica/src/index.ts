@@ -17,10 +17,14 @@
  * cambiano. I punti li ricalcola `punti.ts`; un progresso impossibile è 422.
  * Se i punti di un tema crescono più in fretta di quanto uno studente possa
  * guadagnarli (CRESCITA), l’invio è 429 con `Retry-After` e nulla cambia:
- * riprovando più tardi passa.
+ * riprovando più tardi passa. Anche un’iscrizione nuova oltre i limiti è 429:
+ * dopo un minuto se è il limite per IP, alla mezzanotte UTC se è il tetto
+ * giornaliero.
  *
  * Protezioni: corpo fino a 128 KB, limite di frequenza per IP (binding
- * `LIMITE`), CORS solo per il portale, `Cache-Control` di un minuto sulla
+ * `LIMITE`), iscrizioni nuove limitate per IP (binding `ISCRIZIONI`) e per
+ * giorno su tutto il servizio (ISCRIZIONI_AL_GIORNO, tabella `iscrizioni`),
+ * CORS solo per il portale, `Cache-Control` di un minuto sulla
  * classifica pubblica, partecipanti fermi da 18 mesi cancellati dal Cron
  * Trigger. Il Worker non scrive log e non conserva indirizzi né User-Agent.
  */
@@ -31,6 +35,7 @@ import { ricalcola, temaEsiste } from './punti';
 export interface Env {
   DB: D1Database;
   LIMITE?: RateLimit;
+  ISCRIZIONI?: RateLimit;
 }
 
 const MAX_CORPO = 128 * 1024;
@@ -42,6 +47,13 @@ const DURATA_MS = 548 * 24 * 60 * 60 * 1000;
  * 60 al minuto sono due difficili al minuto, senza pause.
  */
 const CRESCITA = { scatto: 300, ritmo: 60 };
+/**
+ * Iscrizioni nuove al giorno (UTC) su tutto il servizio. Insieme al limite per
+ * IP impedisce a uno script di esaurire i 103.974 nomi o la quota di scritture
+ * di D1: al peggio blocca le iscrizioni fino al giorno dopo, mentre chi è già
+ * in classifica continua a inviare punti.
+ */
+const ISCRIZIONI_AL_GIORNO = 1000;
 const PRIMI = 50;
 const VICINI = 2;
 
@@ -122,8 +134,33 @@ const cercaPartecipante = (env: Env, imp: string) =>
     .bind(imp)
     .first<Partecipante>();
 
-/** Il partecipante del gettone; al primo invio lo crea con un nome libero. */
-async function partecipante(env: Env, imp: string, adesso: number): Promise<Partecipante> {
+/** Secondi da `adesso` alla prossima mezzanotte UTC, quando riparte il conto delle iscrizioni. */
+const finoADomani = (adesso: number) => Math.ceil((86_400_000 - (adesso % 86_400_000)) / 1000);
+
+/**
+ * Il partecipante del gettone; al primo invio lo crea con un nome libero.
+ * Un’iscrizione nuova oltre i limiti dà i secondi da aspettare.
+ */
+async function partecipante(
+  env: Env,
+  imp: string,
+  ip: string,
+  adesso: number,
+): Promise<Partecipante | { attesa: number }> {
+  const gia = await cercaPartecipante(env, imp);
+  if (gia) return gia;
+
+  if (env.ISCRIZIONI && !(await env.ISCRIZIONI.limit({ key: ip })).success) return { attesa: 60 };
+  // Prenota un posto fra le iscrizioni di oggi; se sono finite, nessuna scrittura.
+  const giorno = new Date(adesso).toISOString().slice(0, 10);
+  const posto = await env.DB.prepare(
+    'INSERT INTO iscrizioni (giorno, numero) VALUES (?1, 1) ' +
+      'ON CONFLICT (giorno) DO UPDATE SET numero = numero + 1 WHERE numero < ?2 RETURNING numero',
+  )
+    .bind(giorno, ISCRIZIONI_AL_GIORNO)
+    .first<{ numero: number }>();
+  if (!posto) return { attesa: finoADomani(adesso) };
+
   for (let tentativo = 0; tentativo < 20; tentativo++) {
     const trovato = await cercaPartecipante(env, imp);
     if (trovato) return trovato;
@@ -140,7 +177,7 @@ async function partecipante(env: Env, imp: string, adesso: number): Promise<Part
   throw new Error('nessun nome libero');
 }
 
-async function invia(env: Env, imp: string, r: Request, o: string | null) {
+async function invia(env: Env, imp: string, ip: string, r: Request, o: string | null) {
   const testo = await leggiCorpo(r);
   if (testo === 'troppo') return risposta(413, o, 'corpo troppo grande');
   let corpo: unknown;
@@ -161,7 +198,9 @@ async function invia(env: Env, imp: string, r: Request, o: string | null) {
   }
 
   const adesso = Date.now();
-  const p = await partecipante(env, imp, adesso);
+  const p = await partecipante(env, imp, ip, adesso);
+  if ('attesa' in p)
+    return risposta(429, o, 'troppe iscrizioni nuove', { 'Retry-After': String(p.attesa) });
   const { results: righe } = await env.DB.prepare(
     'SELECT tema, punti, raggiunto FROM punteggi WHERE partecipante = ?',
   )
@@ -286,8 +325,8 @@ export default {
       return new Response(null, { status: 204, headers: h });
     }
 
+    const ip = richiesta.headers.get('CF-Connecting-IP') ?? 'sconosciuto';
     if (env.LIMITE) {
-      const ip = richiesta.headers.get('CF-Connecting-IP') ?? 'sconosciuto';
       const { success } = await env.LIMITE.limit({ key: ip });
       if (!success) return risposta(429, origine, 'troppe richieste', { 'Retry-After': '60' });
     }
@@ -304,13 +343,18 @@ export default {
     const imp = await impronta(richiesta);
     if (!imp) return risposta(401, origine, 'gettone mancante o non valido');
     if (percorso === '/v1/posizione') return posizione(env, imp, tema, origine);
-    return richiesta.method === 'PUT' ? invia(env, imp, richiesta, origine) : esci(env, imp, origine);
+    return richiesta.method === 'PUT' ? invia(env, imp, ip, richiesta, origine) : esci(env, imp, origine);
   },
 
-  /** Cron Trigger giornaliero: via i partecipanti fermi da 18 mesi, con i loro punti. */
+  /**
+   * Cron Trigger giornaliero: via i partecipanti fermi da 18 mesi, con i loro
+   * punti, e i conti delle iscrizioni dei giorni passati.
+   */
   async scheduled(_evento: ScheduledController, env: Env): Promise<void> {
-    const limite = Date.now() - DURATA_MS;
+    const adesso = Date.now();
+    const limite = adesso - DURATA_MS;
     await env.DB.batch([
+      env.DB.prepare('DELETE FROM iscrizioni WHERE giorno < ?').bind(new Date(adesso).toISOString().slice(0, 10)),
       env.DB.prepare(
         'DELETE FROM punteggi WHERE partecipante IN (SELECT id FROM partecipanti WHERE aggiornato < ?)',
       ).bind(limite),

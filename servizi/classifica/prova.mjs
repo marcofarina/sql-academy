@@ -3,16 +3,23 @@
  * F16): protocollo, ricalcolo dei punti, controlli di plausibilità e CORS,
  * contro un servizio vivo.
  *
- * Uso: npm run prova -- http://localhost:8787
+ * Uso: npm run prova -- http://localhost:8787 [--iscrizioni]
  *
  * Iscrive due partecipanti con gettoni casuali e li cancella alla fine. Esce
  * con 1 se un caso fallisce, 2 se il servizio non risponde.
+ *
+ * Con --iscrizioni prova anche il limite di 30 iscrizioni al minuto per IP:
+ * iscrive altri 28 partecipanti, si aspetta il 429 al successivo e li
+ * cancella. Consuma le iscrizioni del minuto: per ripetere la prova aspetta un
+ * minuto.
  */
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
-const BASE = (process.argv[2] ?? 'http://localhost:8787').replace(/\/$/, '');
+const argomenti = process.argv.slice(2);
+const BASE = (argomenti.find((a) => !a.startsWith('--')) ?? 'http://localhost:8787').replace(/\/$/, '');
+const ISCRIZIONI = argomenti.includes('--iscrizioni');
 const PORTALE = 'http://localhost:5173';
 const DATI = JSON.parse(readFileSync(new URL('./src/esercizi.json', import.meta.url), 'utf8'));
 
@@ -276,6 +283,22 @@ async function main() {
   });
 
   await chiama('/v1/punteggio', { metodo: 'DELETE', gettone: altro });
+
+  if (ISCRIZIONI)
+    await caso('iscrizioni oltre 30 al minuto dallo stesso IP → 429 con Retry-After', async () => {
+      // `io` e `altro` hanno già usato due iscrizioni del minuto.
+      const nuovi = Array.from({ length: 28 }, gettone);
+      try {
+        for (const g of nuovi) assert.equal((await invia(g, {})).status, 200);
+        const r = await invia(gettone(), {});
+        assert.equal(r.status, 429);
+        assert.ok(Number(r.headers.get('Retry-After')) > 0);
+        // Chi è già iscritto continua a inviare.
+        assert.equal((await invia(nuovi[0], {})).status, 200);
+      } finally {
+        for (const g of nuovi) await chiama('/v1/punteggio', { metodo: 'DELETE', gettone: g });
+      }
+    });
 
   for (const e of esiti) console.log(`${e.ok ? '✓' : '✗'} ${e.nome}${e.ok ? '' : `\n    ${e.errore}`}`);
   const falliti = esiti.filter((e) => !e.ok).length;

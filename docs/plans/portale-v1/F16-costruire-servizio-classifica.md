@@ -93,7 +93,7 @@ Gettone: 32 byte casuali in base64url (43 caratteri), generati dal portale, in `
 
 | Richiesta | Corpo o parametri | Risposte |
 | --- | --- | --- |
-| `PUT /v1/punteggio` | `{ "themes": { "<tema>": <ThemeProgress> } }`; i temi assenti non cambiano; dei progressi si leggono solo `freeHintUsed` e, per esercizio, `solved`, `hintsRevealed`, `solutionBeforeSolve`, `pointsSpent` (il resto, `lastQuery` compresa, si ignora: il portale farà bene a non inviarlo) | 200 `{ name, themes: { <tema>: punti }, total }` (tutti i temi del partecipante) · 400 JSON rotto o `themes` mancante · 401 gettone · 413 oltre 128 KB · 422 progresso impossibile, motivo in testo · 429 crescita troppo rapida o limite per IP, con `Retry-After` in secondi |
+| `PUT /v1/punteggio` | `{ "themes": { "<tema>": <ThemeProgress> } }`; i temi assenti non cambiano; dei progressi si leggono solo `freeHintUsed` e, per esercizio, `solved`, `hintsRevealed`, `solutionBeforeSolve`, `pointsSpent` (il resto, `lastQuery` compresa, si ignora: il portale farà bene a non inviarlo) | 200 `{ name, themes: { <tema>: punti }, total }` (tutti i temi del partecipante) · 400 JSON rotto o `themes` mancante · 401 gettone · 413 oltre 128 KB · 422 progresso impossibile, motivo in testo · 429 crescita troppo rapida, limite per IP o iscrizioni nuove oltre i limiti, con `Retry-After` in secondi |
 | `DELETE /v1/punteggio` | — | 204, anche se il partecipante non c’è; cancella nome e punti |
 | `GET /v1/classifica[?tema=<id>]` | senza gettone | 200 `{ theme, entries: [{ rank, name, points }] }`, primi 50, `Cache-Control: public, max-age=60` · 400 tema sconosciuto |
 | `GET /v1/posizione[?tema=<id>]` | gettone | 200 `{ name, theme, rank, points, neighbors: [{ rank, name, points, me }] }`, due sopra e due sotto; `rank` è `null` se non ci sono punti in quella classifica · 404 se il gettone non partecipa |
@@ -108,7 +108,7 @@ Crescita: i punti di un tema possono salire di **300 subito più 60 al minuto** 
 
 ### Protezioni
 
-300 richieste al minuto per IP (`[[ratelimits]]`, `namespace_id = "1002"`; lo zaino usa 1001); corpo fino a 128 KB; CORS solo per `http://localhost:5173`, altre origini 403; log spenti; Cron Trigger alle 03:47 UTC che cancella i partecipanti fermi da 18 mesi (contati dall’ultimo `PUT`) con i loro punti.
+300 richieste al minuto per IP (`[[ratelimits]]`, `namespace_id = "1002"`; lo zaino usa 1001); iscrizioni nuove limitate a 30 al minuto per IP (`ISCRIZIONI`, `namespace_id = "1003"`) e a 1000 al giorno UTC su tutto il servizio (tabella `iscrizioni`, migrazione `0002`), oltre i limiti 429 con `Retry-After` (aggiunto dopo la revisione pre-produzione del 2026-11-19, scelta di Marco: uno script non deve poter esaurire i nomi o la quota di D1); corpo fino a 128 KB; CORS solo per `http://localhost:5173`, altre origini 403; log spenti; Cron Trigger alle 03:47 UTC che cancella i partecipanti fermi da 18 mesi (contati dall’ultimo `PUT`) con i loro punti.
 
 ### Nomi
 

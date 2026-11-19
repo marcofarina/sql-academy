@@ -30,6 +30,14 @@ name = "LIMITE"
 namespace_id = "1002"
 simple = { limit = 300, period = 60 }
 
-# Ogni giorno alle 03:47 UTC: via i partecipanti fermi da 18 mesi.
+# Iscrizioni nuove: 30 al minuto per IP, una classe intera che si iscrive
+# insieme. Il resto lo ferma il tetto giornaliero in src/index.ts.
+[[ratelimits]]
+name = "ISCRIZIONI"
+namespace_id = "1003"
+simple = { limit = 30, period = 60 }
+
+# Ogni giorno alle 03:47 UTC: via i partecipanti fermi da 18 mesi e i conti
+# delle iscrizioni dei giorni passati.
 [triggers]
 crons = ["47 3 * * *"]
