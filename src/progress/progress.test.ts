@@ -42,6 +42,7 @@ const sample: ThemeProgress = {
       pointsEarned: 10,
       pointsSpent: 3,
       lastQuery: 'SELECT * FROM pianeti',
+      queryAt: 1_763_500_000_000,
     },
   },
 };
@@ -151,9 +152,13 @@ test('azzerare svuota saldo e aiuto gratuito e fa salire l’epoca di uno', () =
   expect(resetProgress(reset).epoch).toBe(4);
 });
 
-test('salvare la query lascia intatto il resto', () => {
-  const next = withQuery(sample, 'ex-001', 'SELECT 1');
-  expect(next.exercises['ex-001']).toEqual({ ...sample.exercises['ex-001'], lastQuery: 'SELECT 1' });
+test('salvare la query lascia intatto il resto e ne registra l’ora', () => {
+  const next = withQuery(sample, 'ex-001', 'SELECT 1', 2000);
+  expect(next.exercises['ex-001']).toEqual({ ...sample.exercises['ex-001'], lastQuery: 'SELECT 1', queryAt: 2000 });
   expect(next.freeHintUsed).toBe(true);
-  expect(withQuery(emptyProgress(), 'ex-009', 'x').exercises['ex-009']).toEqual({ ...EMPTY_EXERCISE_PROGRESS, lastQuery: 'x' });
+  expect(withQuery(emptyProgress(), 'ex-009', 'x', 5).exercises['ex-009']).toEqual({ ...EMPTY_EXERCISE_PROGRESS, lastQuery: 'x', queryAt: 5 });
+});
+
+test('la stessa query non cambia nulla, nemmeno l’ora', () => {
+  expect(withQuery(sample, 'ex-001', 'SELECT * FROM pianeti', 9999)).toBe(sample);
 });

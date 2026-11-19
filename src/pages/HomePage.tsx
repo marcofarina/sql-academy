@@ -3,7 +3,9 @@ import { Icon } from '../icons/Icon.tsx';
 import { formatRoute } from '../routing/route.ts';
 import { CHAPTERS, DIFFICULTIES, type Theme } from '../themes/contract.ts';
 import { plural } from '../training/exercises.ts';
-import { balanceOf, browserStorage, loadProgress } from '../progress/progress.ts';
+import { balanceOf } from '../progress/progress.ts';
+import { useThemeProgress } from '../progress/useProgress.ts';
+import { ZainoLink } from '../zaino/ZainoLink.tsx';
 import { pointsLabel } from '../points/labels.ts';
 import {
   clamp,
@@ -321,6 +323,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
           <h1 className="home-title">Scegli un mondo, interroga il database.</h1>
         </div>
         <div className="home-aside">
+          <ZainoLink />
           {isDeck ? (
             <p>Sfoglia le locandine, toccane una per aprire la sua scheda.</p>
           ) : (
@@ -430,9 +433,9 @@ export function HomePage({ themes }: { themes: Theme[] }) {
   );
 }
 
-/** Il saldo di un tema, letto dai progressi salvati con le funzioni di F13. */
+/** Il saldo di un tema, letto dai progressi salvati (anche quelli arrivati dallo zaino). */
 function ThemeBalance({ themeId }: { themeId: string }) {
-  const balance = balanceOf(loadProgress(browserStorage(), themeId));
+  const balance = balanceOf(useThemeProgress(themeId));
   return (
     <p className="theme-balance">
       <Icon name="coin" />

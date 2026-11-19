@@ -31,6 +31,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-18 | F22 completata: Star Wars da 105 a 150 esercizi su SQLite (`ex-106`–`ex-150`), con facili in ogni capitolo e sottoquery da 10 a 26 (`EXISTS`, correlate, nel `FROM`, `WITH`, `UNION`); nessun dato nuovo. |
 | 2026-11-19 | F13 completata: regole dei punti (`src/points/`), progressi versione 2 (`sql-academy:<tema>:v2`, con epoca di azzeramento), saldo ricavato dai record; aiuti pagati con il saldo, primo aiuto del tema gratuito. Saldo e costi ancora non visibili: F14. |
 | 2026-11-19 | F14 completata: saldo nell’intestazione del tema (`src/points/Balance.tsx`, evidenza e annuncio cortese), costi e motivi sui pulsanti d’aiuto, premi in percorso e catalogo, punti nel riepilogo della sessione, saldo sulle locandine; testi in `src/points/labels.ts`. Icone `coin`, `circle-plus`, `circle-minus`, `lock`. |
+| 2026-11-19 | F15 completata: progressi nello zaino di PDB, sezione `sql-academy` (`src/zaino/`, client copiato dal libro, stesso codice e stessa cifratura), archivio comune `src/progress/store.ts`, pagina `#/zaino` e collegamento «Zaino»; campo `queryAt` negli esercizi. In PDB, branch `dev`: CORS per `localhost:5173` e privacy policy; deploy del Worker in F10. Icone `backpack`, `right-from-bracket`, `cloud-arrow-up`. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

@@ -8,6 +8,7 @@
 import themeStats from 'virtual:theme-stats';
 import { THEME_ID_PATTERN, type ErDiagram, type Exercise, type LogicalLayout, type Theme, type ThemeManifest, type ThemeStats } from './contract.ts';
 import { iconName } from '../icons/registry.ts';
+import { ZAINO_PAGE } from '../routing/route.ts';
 
 type Loader<T> = () => Promise<T>;
 
@@ -78,6 +79,9 @@ export function buildRegistry(
       }
       if (!THEME_ID_PATTERN.test(manifest.id)) {
         throw new Error(`${where}/theme.ts: id «${manifest.id}» non valido (minuscole, cifre, trattini)`);
+      }
+      if (manifest.id === ZAINO_PAGE) {
+        throw new Error(`${where}/theme.ts: l’id «${ZAINO_PAGE}» è riservato alla pagina dello zaino`);
       }
       if (manifest.id !== folder) {
         throw new Error(`${where}/theme.ts: l’id «${manifest.id}» è diverso dal nome della cartella`);

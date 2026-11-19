@@ -16,7 +16,7 @@
 | F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 13:18 | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
 | F13 | Definire regole dei punti e progressi versione 2 | F05 | Sonnet 5.5 `high` | medio | completata | 2026-11-19 01:00 | [P-F13](#p-f13) | [F13](F13-definire-regole-punti-progressi.md) |
 | F14 | Mostrare saldo, costi e punti nell’interfaccia | F13 | Opus 5.5 `medium` | medio | completata | 2026-11-19 01:55 | [P-F14](#p-f14) | [F14](F14-mostrare-saldo-costi-punti.md) |
-| F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | da fare | | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
+| F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | completata | 2026-11-19 08:30 | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
 | F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
 | F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
 | F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | completata | 2026-11-18 15:46 | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
@@ -483,6 +483,9 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Numeri della scheda di un tema | Tabelle, righe ed esercizi per difficoltà e capitolo calcolati al build dal plugin `scripts/themeStatsPlugin.ts` (modulo `virtual:theme-stats`) (Marco, 2026-11-18, in F08) | La pagina iniziale non scarica SQLite e i numeri non si scrivono a mano |
 | Caratteri | Serviti dal progetto, TTF originali di `google/fonts` con il loro `OFL.txt`: comuni in `src/assets/fonts/`, di un tema in `themes/<id>/fonts/` (Marco, 2026-11-18, in F08) | Nessuna richiesta a servizi esterni; licenze accanto ai file |
 | Veste Il Signore degli Anelli | Due schemi: chiaro «la mappa della Contea» (carta, inchiostro seppia, verde della Contea, percorso rosso tra le sezioni) e scuro «le porte di Moria» (pietra ardesia, *ithildin*, pulsante d’argento); emblemi `wizard-staff` e `eye-of-sauron`, sandbox con `one-ring`; locandina chiara. Specifica in `docs/design/lotr.md` (Marco, 2026-11-18, in F12) | Marco ha approvato entrambe le direzioni proposte, una per schema |
+| Interfaccia dello zaino | Pagina `#/zaino` con apri (anche «Non è il mio computer»), crea, stato, contenuto, mostra e copia il codice, esci; QR, link con il codice, «Cambia codice» e «Cancella lo zaino» restano nel libro. Collegamento «Zaino» nelle intestazioni. `zaino` è un id di tema riservato (Marco, 2026-11-19, in F15) | Nei laboratori servono la modalità temporanea e «Esci»; il resto c’è già nel libro, e il link con il codice cozza con il routing a hash |
+| Ultima query nello zaino | Sì: ogni esercizio ha `queryAt` (millisecondi) e fra due copie vince la query più recente (Marco, 2026-11-19, in F15) | Lo studente ritrova a casa anche il testo che stava scrivendo; senza data l’unione non saprebbe quale tenere |
+| Archivio dei progressi | `src/progress/store.ts`: un solo archivio per tutti i temi, letto dall’area dello zaino e osservato con `useSyncExternalStore`; la sezione `sql-academy` dello zaino lo legge e lo scrive (Claude, in F15) | I progressi arrivati dallo zaino o da un’altra scheda devono comparire subito, e la modalità temporanea deve spostarli tutti insieme |
 | Contrasto delle palette | `node docs/design/contrasto.mjs [palette]` misura ogni coppia delle specifiche ed esce con errore sotto 4,5:1 (testo) o 3:1 (bordi e icone) (Claude, in F11) | F08 e F12 devono misurare con uno strumento, non a occhio |
 
 ### Icone
@@ -555,6 +558,11 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `hobbit-backpack` | Il Signore degli Anelli, pulsanti della sessione | F18 | creata (Opus 5.5) | approvata la seconda versione: la prima, con le cinghie che uscivano dal rotolo sopra una scatola, sembrava «il marchingegno per far esplodere la dinamite a distanza» |
 | `volcano` | Il Signore degli Anelli, pulsante «Azzera i progressi» (`icons.reset`) | F18 | creata (Opus 5.5) | approvata la terza versione: la prima, con tre lapilli, sembrava un volto; nella seconda Marco voleva la lava che trabocca da tutta la bocca |
 | `battle-station-damaged` | Star Wars, pulsante «Azzera i progressi» (`icons.reset`) | F18 | creata (Opus 5.5) | approvata la seconda versione, disegnata da un riferimento di Marco (stazione con il lato a gradini); la prima, frammenti attorno a un lampo, rendeva male l’esplosione |
+| `backpack` | zaino: collegamento nelle intestazioni, titolo della pagina, «Apri» e «Crea lo zaino» | F15 | creata (Opus 5.5) | approvata alla prima versione; `hobbit-backpack` era troppo legata a LOTR per un’icona comune |
+| `right-from-bracket` | «Esci dallo zaino» | F15 | creata (Opus 5.5) | approvata alla prima versione; avviso di copertura del validatore (34%, consigliato 45–70%), non bloccante |
+| `cloud-arrow-up` | zaino in sincronizzazione o con modifiche in sospeso | F15 | catalogo | usata |
+| `key` | «Mostra il codice» dello zaino | F15 | catalogo | usata (anche per «soluzione» e chiave primaria) |
+| `copy` | «Copia il codice» dello zaino | F15 | catalogo | usata (anche per il codice SQL, F06) |
 
 ### Struttura di un tema
 
@@ -620,4 +628,5 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-18 | F20 completata su Opus 5.5. Il modello logico diventa un diagramma UML generato dal database; disposizione dichiarata dal tema in `themes/<id>/logico.ts` (scelta di Marco), con linee instradate nelle corsie fra le tabelle e controllate da `check:themes`. Contratto: nuovo file facoltativo e `Theme.loadLogical`. |
 | 2026-11-18 | F21 completata su Opus 5.5. Dati di LOTR arricchiti con le forze schierate nelle battaglie e le date delle tappe (al posto dell’anno), più tre pugnali dei Tumuli; esercizi da 20 a 140 (40 / 36 / 35 / 29 per capitolo). Colonne, distribuzione e righe nuove approvate da Marco; valori e fonti nel dettaglio della fase. |
 | 2026-11-18 | F22 completata su Opus 5.5. Esercizi di Star Wars da 105 a 150 (50 / 35 / 39 / 26 per capitolo), con esercizi facili in ogni capitolo e sottoquery da 10 a 26; distribuzione approvata da Marco, nessun dato nuovo. |
+| 2026-11-19 | F15 completata su Opus 5.5. Client dello zaino del libro copiato in `src/zaino/` (compatibilità verificata con un vettore calcolato dal libro), sezione `sql-academy` con unione tema per tema, archivio comune dei progressi, pagina `#/zaino` e collegamento nelle intestazioni. In PDB, su `dev`, CORS per `localhost:5173` e privacy policy (commit approvati da Marco); deploy del Worker rinviato a F10. |
 | 2026-11-19 | F13 completata su Sonnet 5.5. Regole dei punti in `src/points/points.ts` (funzioni pure, riusabili da F16), progressi versione 2 con epoca di azzeramento e importi effettivi, hook con operazioni che applicano le regole; 34 test in più. Il saldo non si mostra ancora: tocca a F14. Forma dei dati e firme nel dettaglio della fase. |

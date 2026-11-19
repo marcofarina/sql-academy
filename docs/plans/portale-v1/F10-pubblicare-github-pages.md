@@ -21,6 +21,8 @@ Dentro: `vite.config.ts` (`base`), workflow in `.github/workflows/`, `README.md`
 
 Dentro anche: l’origine di produzione del portale nel CORS dello zaino di PDB (`servizi/zaino/src/index.ts` nel repo `python-doesnt-byte`) e in quello della classifica (`servizi/classifica/`), con un nuovo deploy di ciascuno.
 
+Dentro anche (da F15): un’informativa sulla privacy raggiungibile dal portale, che è un sito diverso dal libro. Dal 2026-11-19 la privacy policy del libro descrive i progressi di SQL Academy nello zaino, ma non l’uso di `localStorage` del portale né la classifica: decidi con Marco se linkarla o scriverne una per il portale.
+
 Fuori: dominio personalizzato, statistiche di accesso (nessuna: gli studenti sono minori). Il link dal libro al portale è una modifica al repo `python-doesnt-byte`: descrivila a Marco, non farla da questa sessione.
 
 ## 4. Attività di implementazione

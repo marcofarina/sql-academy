@@ -9,6 +9,7 @@ import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
 import { SectionIndicator } from './SectionIndicator.tsx';
 import { useProgress } from '../progress/useProgress.ts';
 import { Balance } from '../points/Balance.tsx';
+import { ZainoLink } from '../zaino/ZainoLink.tsx';
 import { TraceSection } from '../trace/TraceSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
 import { LogicalSection } from '../logical/LogicalSection.tsx';
@@ -60,6 +61,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
             {title}
           </p>
           <Balance balance={balance} />
+          <ZainoLink />
           {schemes && (
             <div className="scheme-switch" role="group" aria-label="Schema di colori">
               {SCHEMES.map((s) => (

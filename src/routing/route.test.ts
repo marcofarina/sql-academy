@@ -55,3 +55,10 @@ test('addestramento: esercizio o sessione', () => {
   expect(hash).toBe('#/star-wars/addestramento/ex-001');
   expect(canonicalHash(hash)).toBeUndefined();
 });
+
+test('la pagina dello zaino', () => {
+  expect(parseRoute('#/zaino')).toEqual({ page: 'zaino' });
+  expect(parseRoute('#/zaino/')).toEqual({ page: 'zaino' });
+  expect(formatRoute({ page: 'zaino' })).toBe('#/zaino');
+  expect(canonicalHash('#/zaino')).toBeUndefined();
+});

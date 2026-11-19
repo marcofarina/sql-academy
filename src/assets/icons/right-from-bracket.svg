@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · right-from-bracket -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M64 32H192A32 32 0 0 1 192 96H64V416H192A32 32 0 0 1 192 480H64A64 64 0 0 1 0 416V96A64 64 0 0 1 64 32Z"/>
+  <path class="rb-primary" fill="currentColor" d="M160 224H320V129.2A16 16 0 0 1 346 116.7L505.3 243.5A16 16 0 0 1 505.3 268.5L346 395.3A16 16 0 0 1 320 382.8V288H160A32 32 0 0 1 160 224Z"/>
+</svg>

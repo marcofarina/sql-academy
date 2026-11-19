@@ -1951,3 +1951,140 @@ button.link-button {
     transition: none;
   }
 }
+
+/* Zaino (F15): collegamento nelle intestazioni e pagina #/zaino */
+
+.zaino-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-header .zaino-link {
+  color: var(--home-link);
+}
+
+.zaino-link.has-problem,
+.home-header .zaino-link.has-problem {
+  color: var(--color-warning);
+}
+
+.zaino-page .lead {
+  max-width: 46rem;
+}
+
+.zaino-page h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.zaino-scheda {
+  max-width: 46rem;
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.zaino-scheda p {
+  margin: 0.5rem 0;
+}
+
+.zaino-scheda ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.zaino-scelte {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1.25rem;
+  max-width: 60rem;
+}
+
+.zaino-scelte .zaino-scheda {
+  max-width: none;
+  margin: 0;
+}
+
+.zaino-modulo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.zaino-modulo > label:first-child {
+  font-weight: 700;
+}
+
+.zaino-input {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 0 0.6rem;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+}
+
+.zaino-casella {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-weight: 700;
+}
+
+.zaino-casella input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0.2rem 0 0;
+}
+
+.zaino-nota {
+  display: block;
+  color: var(--color-muted);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.zaino-avvertenza {
+  color: var(--color-warning);
+}
+
+.zaino-errore {
+  color: var(--color-error);
+}
+
+.zaino-codice {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
+}
+
+.zaino-stato {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+@media (max-width: 40rem) {
+  .zaino-input {
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+
+  .zaino-codice {
+    font-size: 19px;
+    letter-spacing: 0.02em;
+  }
+}

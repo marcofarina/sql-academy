@@ -12,6 +12,7 @@ import { calcola } from '../src/er/layout.ts';
 import { checkTheme } from '../src/exercises/check.ts';
 import { checkLayoutCoherence, defaultLayout, drawingProblems, layoutDiagram } from '../src/logical/layout.ts';
 import { unscopedSelectors } from '../src/themes/cssScope.ts';
+import { ZAINO_PAGE } from '../src/routing/route.ts';
 import { readTables } from '../src/sandbox/session.ts';
 import { createNodeEngine } from '../src/sql/testing/nodeEngine.ts';
 import type { ErDiagram, Exercise, LogicalLayout, ThemeManifest } from '../src/themes/contract.ts';
@@ -31,6 +32,7 @@ try {
     try {
       const manifest = ((await import(file('theme.ts').href)) as { default: ThemeManifest }).default;
       if (manifest?.id !== folder) throw new Error('l’id del manifest è diverso dal nome della cartella');
+      if (folder === ZAINO_PAGE) throw new Error(`l’id «${ZAINO_PAGE}» è riservato alla pagina dello zaino`);
 
       const script = `${readFileSync(file('schema.sql'), 'utf8')}\n${readFileSync(file('dati.sql'), 'utf8')}`;
       const exercises = existsSync(file('esercizi.ts'))

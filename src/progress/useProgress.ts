@@ -1,14 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useSyncExternalStore } from 'react';
 import { withHint, withSolution, withVerification, type PointsExercise } from '../points/points.ts';
-import {
-  balanceOf,
-  browserStorage,
-  loadProgress,
-  resetProgress,
-  saveProgress,
-  withQuery,
-  type ThemeProgress,
-} from './progress.ts';
+import { balanceOf, resetProgress, withQuery, type ThemeProgress } from './progress.ts';
+import { readProgress, subscribeProgress, updateProgress } from './store.ts';
 
 /** Le operazioni sui progressi di un tema; ognuna applica le regole dei punti in un solo aggiornamento. */
 export interface ProgressActions {
@@ -30,30 +23,31 @@ export interface ProgressController extends ProgressActions {
   balance: number;
 }
 
-/** I progressi di un tema: letti all’apertura, salvati a ogni cambiamento. */
+/**
+ * I progressi di un tema, dall’archivio comune (`store.ts`): si aggiornano
+ * anche quando arrivano dallo zaino o da un’altra scheda.
+ */
 export function useProgress(themeId: string): ProgressController {
-  const [progress, setProgress] = useState(() => loadProgress(browserStorage(), themeId));
-  const loaded = useRef(true);
+  const progress = useThemeProgress(themeId);
 
-  useEffect(() => {
-    // Il primo giro rilegge ciò che è appena stato caricato: non serve riscriverlo.
-    if (loaded.current) {
-      loaded.current = false;
-      return;
-    }
-    saveProgress(browserStorage(), themeId, progress);
-  }, [progress, themeId]);
-
-  const actions = useMemo<ProgressActions>(
-    () => ({
-      saveQuery: (id, query) => setProgress((current) => withQuery(current, id, query)),
-      recordVerification: (exercise, correct) => setProgress((current) => withVerification(current, exercise, correct)),
-      openHint: (exercise) => setProgress((current) => withHint(current, exercise)),
-      openSolution: (exercise) => setProgress((current) => withSolution(current, exercise)),
-      reset: () => setProgress(resetProgress),
-    }),
-    [],
-  );
+  const actions = useMemo<ProgressActions>(() => {
+    const update = (change: (current: ThemeProgress) => ThemeProgress) => updateProgress(themeId, change);
+    return {
+      saveQuery: (id, query) => update((current) => withQuery(current, id, query)),
+      recordVerification: (exercise, correct) => update((current) => withVerification(current, exercise, correct)),
+      openHint: (exercise) => update((current) => withHint(current, exercise)),
+      openSolution: (exercise) => update((current) => withSolution(current, exercise)),
+      reset: () => update(resetProgress),
+    };
+  }, [themeId]);
 
   return { progress, balance: balanceOf(progress), ...actions };
+}
+
+/** I soli progressi di un tema, che si aggiornano con l’archivio (locandine, pagina dello zaino). */
+export function useThemeProgress(themeId: string): ThemeProgress {
+  return useSyncExternalStore(
+    subscribeProgress,
+    useCallback(() => readProgress(themeId), [themeId]),
+  );
 }

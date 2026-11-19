@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+  <!-- RB Icons · cloud-arrow-up -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M144 480A144 144 0 0 1 114.2 195.1A192 192 0 0 1 496 225A128 128 0 1 1 512 480ZM223 263A24 24 0 0 0 257 297L296 257.9V392A24 24 0 0 0 344 392V257.9L383 297A24 24 0 0 0 417 263L337 183A24 24 0 0 0 303 183L223 263Z"/>
+  <path class="rb-primary" fill="currentColor" d="M223 263L303 183A24 24 0 0 1 337 183L417 263A24 24 0 0 1 383 297L344 257.9V392A24 24 0 0 1 296 392V257.9L257 297A24 24 0 0 1 223 263Z"/>
+</svg>
