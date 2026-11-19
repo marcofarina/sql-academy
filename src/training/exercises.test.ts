@@ -1,7 +1,6 @@
 import { expect, test } from 'vitest';
-import { EMPTY_EXERCISE_PROGRESS } from '../progress/progress.ts';
 import type { Exercise } from '../themes/contract.ts';
-import { buildPath, canRevealHint, canRevealSolution, filterCatalog, formatQuery } from './exercises.ts';
+import { buildPath, filterCatalog, formatQuery } from './exercises.ts';
 
 const base = { expectedQuery: 'SELECT 1', hints: ['uno', 'due'] };
 const bank: Exercise[] = [
@@ -22,17 +21,6 @@ test('catalogo: filtri per parola chiave, tabella, capitolo e testo senza accent
   expect(filterCatalog(bank, { text: '', chapter: 'una-tabella' }).map((e) => e.id)).toEqual(['a']);
   expect(filterCatalog(bank, { text: 'CITTA calde' }).map((e) => e.id)).toEqual(['a']);
   expect(filterCatalog(bank, { text: 'navi', difficulty: 'facile' })).toEqual([]);
-});
-
-test('aiuti: suggerimenti uno alla volta, soluzione dopo l’ultimo o a esercizio risolto', () => {
-  const ex = bank[0];
-  expect(canRevealHint(ex, EMPTY_EXERCISE_PROGRESS)).toBe(true);
-  expect(canRevealSolution(ex, EMPTY_EXERCISE_PROGRESS)).toBe(false);
-  expect(canRevealSolution(ex, { ...EMPTY_EXERCISE_PROGRESS, hintsRevealed: 1 })).toBe(false);
-  const allHints = { ...EMPTY_EXERCISE_PROGRESS, hintsRevealed: 2 };
-  expect(canRevealHint(ex, allHints)).toBe(false);
-  expect(canRevealSolution(ex, allHints)).toBe(true);
-  expect(canRevealSolution(ex, { ...EMPTY_EXERCISE_PROGRESS, solved: true })).toBe(true);
 });
 
 test('la query mostrata perde il rientro comune', () => {

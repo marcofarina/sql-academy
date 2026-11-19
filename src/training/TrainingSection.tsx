@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { Icon } from '../icons/Icon.tsx';
-import { exerciseProgress, type ExerciseProgress, type ThemeProgress } from '../progress/progress.ts';
+import type { ThemeProgress } from '../progress/progress.ts';
+import type { ProgressActions } from '../progress/useProgress.ts';
 import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
 import { ExerciseWorkspace } from './ExerciseWorkspace.tsx';
 import { sortExercises } from './exercises.ts';
@@ -14,8 +15,7 @@ interface TrainingSectionProps {
   item: string | undefined;
   training: TrainingState;
   progress: ThemeProgress;
-  onProgress(id: string, change: (current: ExerciseProgress) => ExerciseProgress): void;
-  onResetProgress(): void;
+  actions: ProgressActions;
   session: ActiveSession | undefined;
   onSession: Dispatch<SetStateAction<ActiveSession | undefined>>;
 }
@@ -36,7 +36,7 @@ export function TrainingStatus({ training }: { training: Exclude<TrainingState, 
 
 /** L’addestramento: percorso, esercizio singolo o sessione, secondo l’indirizzo. */
 export function TrainingSection(props: TrainingSectionProps) {
-  const { themeId, item, training, progress, onProgress, session } = props;
+  const { themeId, item, training, progress, actions, session } = props;
   if (training.status !== 'ready') return <TrainingStatus training={training} />;
 
   const link = (target?: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item: target });
@@ -50,7 +50,7 @@ export function TrainingSection(props: TrainingSectionProps) {
         exercises={training.exercises}
         progress={progress}
         sessionStatus={sessionStatus}
-        onReset={props.onResetProgress}
+        onReset={actions.reset}
       />
     );
   }
@@ -61,7 +61,7 @@ export function TrainingSection(props: TrainingSectionProps) {
         themeId={themeId}
         training={training}
         progress={progress}
-        onProgress={onProgress}
+        actions={actions}
         session={session}
         onSession={props.onSession}
       />
@@ -90,9 +90,9 @@ export function TrainingSection(props: TrainingSectionProps) {
     <ExerciseWorkspace
       key={exercise.id}
       exercise={exercise}
-      progress={exerciseProgress(progress, exercise.id)}
+      progress={progress}
       training={training}
-      onProgress={(change) => onProgress(exercise.id, change)}
+      actions={actions}
       footer={
         <>
           <a className="button" href={link()}>

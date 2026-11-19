@@ -82,4 +82,86 @@ Procedura manuale con `npm run dev`, tema Star Wars, progressi azzerati:
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase: esito, verifiche (superate, fallite, non eseguite), forma esatta dei dati versione 2, firme esposte dall’hook per F14 e F15, decisioni nuove, limiti, lavoro residuo, consumo reale se noto.
+**Esito:** completata il 2026-11-19 01:00 su Sonnet 5.5, il modello richiesto. Effort non verificabile dalla sessione. Fase non divisa.
+
+### Verifiche
+
+| Verifica | Esito |
+| --- | --- |
+| `npm test` | superata: 161 test in 17 file (127 prima, 34 in più: 31 in `src/points/points.test.ts`, che coprono ognuna le regole 1–11 del § 2, più i progressi versione 2) |
+| `npm run build` | superata; resta l’avviso di Vite sul pacchetto principale, già noto da F03 |
+| `npm run lint` | superata |
+| `npm run check:themes` | superata: esce con 0 (`lotr` 140 esercizi, `star-wars` 150, 0 problemi) |
+| Manuale 1 — `ex-001`, primo suggerimento gratis | superata: si apre senza costo; il secondo è disattivato con `title` «Mancano 3 punti.» |
+| Manuale 2 — query attesa, «Verifica» | superata: «Esercizio risolto»; `pointsEarned: 10` per `ex-001` in `sql-academy:star-wars:v2` |
+| Manuale 3 — primo suggerimento di `ex-002` | superata: costa 3 (`pointsSpent: 3`, `freeHintUsed: true`), saldo ricavato 7 |
+| Manuale 4 — riverifica `ex-001` | superata: `attempts` sale a 2, saldo ancora 7 |
+| Manuale 5 — «Azzera i progressi» | superata: archivio `{"version":2,"epoch":1,"freeHintUsed":false,"exercises":{}}`; il primo suggerimento di `ex-001` è di nuovo gratuito |
+
+Le verifiche manuali sono state fatte nel browser integrato con `npm run dev`. Non eseguite: la sessione a punti nel browser (le regole sono le stesse funzioni, coperte dai test) e il controllo a 375 px (nessun cambiamento di layout). In console compare un avviso di React sulla proprietà `transition` dell’indicatore di sezione (F18): preesistente, non toccato.
+
+### Forma dei dati versione 2
+
+Chiave `sql-academy:<tema>:v2`; la versione 1 si ignora, senza migrazione. Forma documentata in testa a `src/progress/progress.ts`:
+
+```json
+{
+  "version": 2,
+  "epoch": 0,
+  "freeHintUsed": true,
+  "exercises": {
+    "ex-001": {
+      "solved": true, "attempts": 2, "hintsRevealed": 1,
+      "solutionSeen": false, "solutionBeforeSolve": false,
+      "pointsEarned": 10, "pointsSpent": 0,
+      "lastQuery": "SELECT * FROM pianeti"
+    }
+  }
+}
+```
+
+- **Saldo** non salvato: somma di `pointsEarned − pointsSpent`, mai sotto zero (`balanceOf`). Si salvano gli importi effettivi, non si ricalcolano dalle tabelle.
+- **Solo crescita:** `attempts`, `hintsRevealed`, `pointsEarned`, `pointsSpent` sono contatori; `solved`, `solutionSeen`, `solutionBeforeSolve` e `freeHintUsed` passano solo da `false` a `true`. L’unione di due copie (F15) è il massimo campo per campo. L’azzeramento non cresce: lo registra `epoch`, che sale di uno (`resetProgress`); i dati con epoca maggiore vincono.
+- **Per F16:** da ogni esercizio si ricavano suggerimenti aperti (`hintsRevealed`), risoluzione (`solved`) e soluzione vista prima di risolvere (`solutionBeforeSolve`). Con `freeHintUsed` il server verifica che `pointsSpent` stia nel massimo consentito (suggerimenti pagati meno al più un aiuto gratuito) e che `pointsEarned` sia 0 oppure il premio della difficoltà, mai con `solutionBeforeSolve`.
+- Lettura difensiva: JSON rotto o versione diversa danno progressi vuoti; contatori negativi, non interi o di altro tipo diventano zero; booleani solo se esattamente `true`.
+
+### Regole e firme
+
+| Percorso | Contenuto |
+| --- | --- |
+| `src/points/points.ts` | Tabelle `REWARD`, `HINT_COST`, `SOLUTION_COST`; `Wallet`, `walletOf`; `hintOffer`, `solutionOffer` (esito `Offer`: `unavailable`, `locked`, oppure `available` con `cost`, `waiver` `'first' \| 'solved' \| null` e `missing`); `canRevealHint`, `canRevealSolution` (unico punto che decide); transizioni pure `withHint`, `withSolution`, `withVerification` |
+| `src/progress/progress.ts` | Forma v2, `balanceOf`, `resetProgress`, `withQuery`, lettura e scrittura difensive |
+| `src/progress/useProgress.ts` | `useProgress(themeId): { progress, balance } & ProgressActions` |
+
+`ProgressActions` (esportata da `useProgress.ts`), per F14 e F15:
+
+```ts
+saveQuery(id: string, query: string): void
+recordVerification(exercise: PointsExercise, correct: boolean): void
+openHint(exercise: PointsExercise): void
+openSolution(exercise: PointsExercise): void
+reset(): void
+```
+
+`PointsExercise` è `{ id, difficulty, hints, solutionAvailable? }`: `Exercise` lo soddisfa. Con `solutionAvailable: false` (CTF) la soluzione risulta `unavailable`. F14 legge costi e motivi dalle offerte (`hintOffer(exercise, stato, walletOf(progress))`) senza rifare i conti.
+
+### Decisioni nuove
+
+- **Aiuto gratuito e aiuto «gratis perché risolto»** (Claude): un suggerimento aperto a esercizio risolto non consuma l’aiuto gratuito del tema, che resta per un esercizio ancora da risolvere. Coperto da test.
+- **Aiuto gratuito solo per i suggerimenti** (Claude, dalla regola 3): un esercizio senza suggerimenti non regala la soluzione.
+- **`update` generico dell’hook sostituito da operazioni con nome** (Claude): `onProgress(id, change)` e `onResetProgress` sono diventati `actions: ProgressActions` nei componenti; ogni operazione applica le regole in un solo aggiornamento, quindi nessun componente scrive punti a mano.
+- **Azzeramento senza `removeItem`** (Claude): `reset` salva progressi vuoti con l’epoca avanzata, perché l’epoca deve sopravvivere. `clearProgress` resta esportata e provata, ma non è più usata dal hook.
+- **Regole provvisorie di F05 rimosse**: `canRevealHint` e `canRevealSolution` non stanno più in `src/training/exercises.ts`.
+- **Testo di conferma dell’azzeramento**: aggiunto «punti» all’elenco di ciò che si perde.
+
+### Limiti e lavoro residuo
+
+- Saldo, costi sui pulsanti e riepiloghi con i punti: F14. Oggi un aiuto non pagabile è solo disattivato, con `title`; sui dispositivi touch il `title` non si vede.
+- Il riepilogo della sessione non mostra ancora i punti.
+- Un solo aiuto gratuito per tema, registrato con un booleano: l’unione di due dispositivi che l’hanno usato su esercizi diversi dà due aiuti gratuiti sul server; F15 e F16 lo trattano come tolleranza, perché non altera i premi.
+- `hintsRevealed` oltre il numero di suggerimenti di un esercizio (se un tema ne toglie) non viene corretto.
+- Testi dell’interfaccia scritti da me senza passare dalle norme di scrittura, come in F05.
+
+### Consumo reale
+
+Non noto.

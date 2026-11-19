@@ -25,7 +25,7 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset 
   const themeIcons = useThemeIcons();
 
   const reset = () => {
-    if (window.confirm('Azzerare i progressi di questo tema? Esercizi risolti, suggerimenti e query salvate andranno persi.')) {
+    if (window.confirm('Azzerare i progressi di questo tema? Esercizi risolti, punti, suggerimenti e query salvate andranno persi.')) {
       onReset();
     }
   };

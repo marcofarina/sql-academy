@@ -38,7 +38,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   const [query, setQuery] = useState('');
   // Esercizi, progressi e sessione vivono anch’essi con il tema: passano da una sezione all’altra.
   const training = useTraining(theme);
-  const { progress, update, reset } = useProgress(id);
+  const { progress, ...progressActions } = useProgress(id);
   const [session, setSession] = useState<ActiveSession>();
   const current = SECTIONS.find((s) => s.id === section)!;
 
@@ -103,8 +103,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
             item={item}
             training={training}
             progress={progress}
-            onProgress={update}
-            onResetProgress={reset}
+            actions={progressActions}
             session={session}
             onSession={setSession}
           />

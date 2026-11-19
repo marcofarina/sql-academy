@@ -29,6 +29,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-18 | F20 completata: sezione «Modello logico» come diagramma UML generato dal database (`src/logical/`), posizioni delle tabelle dichiarate in `themes/<id>/logico.ts` (nuovo file facoltativo del contratto, `Theme.loadLogical`), linee e sovrapposizioni controllate da `check:themes`. |
 | 2026-11-18 | F21 completata: LOTR con forze schierate nelle battaglie (`forze_popoli_liberi`, `forze_ombra`, quasi tutte stime), date delle tappe (`tappe.data` al posto di `anno`, dalla cronologia delle Appendici) e tre pugnali dei Tumuli; 140 esercizi su SQLite, con date, testo, `CASE`, `WITH`, `EXISTS` e `UNION`. |
 | 2026-11-18 | F22 completata: Star Wars da 105 a 150 esercizi su SQLite (`ex-106`–`ex-150`), con facili in ogni capitolo e sottoquery da 10 a 26 (`EXISTS`, correlate, nel `FROM`, `WITH`, `UNION`); nessun dato nuovo. |
+| 2026-11-19 | F13 completata: regole dei punti (`src/points/`), progressi versione 2 (`sql-academy:<tema>:v2`, con epoca di azzeramento), saldo ricavato dai record; aiuti pagati con il saldo, primo aiuto del tema gratuito. Saldo e costi ancora non visibili: F14. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

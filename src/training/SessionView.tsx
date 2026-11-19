@@ -2,7 +2,8 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { SessionIcon } from './SessionIcon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
-import { exerciseProgress, type ExerciseProgress, type ThemeProgress } from '../progress/progress.ts';
+import type { ThemeProgress } from '../progress/progress.ts';
+import type { ProgressActions } from '../progress/useProgress.ts';
 import { formatRoute } from '../routing/route.ts';
 import { CHAPTERS, DIFFICULTIES, type Chapter, type Exercise } from '../themes/contract.ts';
 import { chapterLabel, DIFFICULTY_LABEL, keywordsOf, plural } from './exercises.ts';
@@ -38,7 +39,7 @@ interface SessionViewProps {
   themeId: string;
   training: Extract<TrainingState, { status: 'ready' }>;
   progress: ThemeProgress;
-  onProgress(id: string, change: (current: ExerciseProgress) => ExerciseProgress): void;
+  actions: ProgressActions;
   session: ActiveSession | undefined;
   onSession: Dispatch<SetStateAction<ActiveSession | undefined>>;
 }
@@ -211,7 +212,7 @@ function Summary({
 }
 
 /** La sessione configurabile: configurazione, esercizi uno dopo l’altro, riepilogo. */
-export function SessionView({ themeId, training, progress, onProgress, session, onSession }: SessionViewProps) {
+export function SessionView({ themeId, training, progress, actions, session, onSession }: SessionViewProps) {
   const byId = new Map(training.exercises.map((e) => [e.id, e]));
 
   if (!session) {
@@ -264,9 +265,9 @@ export function SessionView({ themeId, training, progress, onProgress, session, 
       <ExerciseWorkspace
         key={id}
         exercise={exercise}
-        progress={exerciseProgress(progress, id)}
+        progress={progress}
         training={training}
-        onProgress={(change) => onProgress(id, change)}
+        actions={actions}
         onEvent={record}
         footer={
           <button type="button" className="primary" onClick={advance}>

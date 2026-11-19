@@ -1,9 +1,8 @@
 /**
  * Logica dell’addestramento senza React: capitoli del libro, percorso,
- * filtri del catalogo, regola che decide quando un aiuto si può aprire.
+ * filtri del catalogo. Le regole degli aiuti sono in `src/points/points.ts`.
  */
 
-import type { ExerciseProgress } from '../progress/progress.ts';
 import { CHAPTERS, DIFFICULTIES, type Chapter, type Difficulty, type Exercise } from '../themes/contract.ts';
 
 /** I capitoli del *Manuale dell’Archivista* allenati dal portale, con numero e titolo del libro. */
@@ -88,22 +87,6 @@ export function filterCatalog(exercises: Exercise[], filters: CatalogFilters): E
     const haystack = fold(`${e.id} ${e.title} ${e.prompt}`);
     return words.every((word) => haystack.includes(word));
   });
-}
-
-/**
- * Quando un aiuto si può aprire. È l’unico punto che lo decide: un futuro
- * sistema a punti cambierà queste due funzioni, non i componenti.
- *
- * Regola provvisoria (Marco, 2026-11-17, in F05): i suggerimenti sono liberi,
- * uno alla volta; la soluzione si apre dopo l’ultimo suggerimento oppure a
- * esercizio risolto.
- */
-export function canRevealHint(exercise: Exercise, progress: ExerciseProgress): boolean {
-  return progress.hintsRevealed < exercise.hints.length;
-}
-
-export function canRevealSolution(exercise: Exercise, progress: ExerciseProgress): boolean {
-  return progress.solved || progress.hintsRevealed >= exercise.hints.length;
 }
 
 /** La query attesa come si mostra allo studente: senza il rientro comune e senza righe vuote ai bordi. */

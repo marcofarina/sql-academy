@@ -1,21 +1,33 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { withHint, withSolution, withVerification, type PointsExercise } from '../points/points.ts';
 import {
-  EMPTY_EXERCISE_PROGRESS,
+  balanceOf,
   browserStorage,
-  clearProgress,
-  emptyProgress,
   loadProgress,
+  resetProgress,
   saveProgress,
-  type ExerciseProgress,
+  withQuery,
   type ThemeProgress,
 } from './progress.ts';
 
-export interface ProgressController {
-  progress: ThemeProgress;
-  /** Aggiorna lo stato di un esercizio a partire da quello attuale. */
-  update(id: string, change: (current: ExerciseProgress) => ExerciseProgress): void;
-  /** Azzera i progressi del tema, anche nell’archivio. */
+/** Le operazioni sui progressi di un tema; ognuna applica le regole dei punti in un solo aggiornamento. */
+export interface ProgressActions {
+  /** Salva l’ultima query scritta per un esercizio. */
+  saveQuery(id: string, query: string): void;
+  /** Registra una pressione di «Verifica»; alla prima risposta corretta incassa il premio. */
+  recordVerification(exercise: PointsExercise, correct: boolean): void;
+  /** Apre il prossimo suggerimento, se il saldo e le regole lo permettono. */
+  openHint(exercise: PointsExercise): void;
+  /** Apre la soluzione, se il saldo e le regole lo permettono. */
+  openSolution(exercise: PointsExercise): void;
+  /** Azzera i progressi del tema, saldo e aiuto gratuito compresi; l’epoca sale di uno. */
   reset(): void;
+}
+
+export interface ProgressController extends ProgressActions {
+  progress: ThemeProgress;
+  /** Il saldo del tema: punti guadagnati meno punti spesi. */
+  balance: number;
 }
 
 /** I progressi di un tema: letti all’apertura, salvati a ogni cambiamento. */
@@ -32,16 +44,16 @@ export function useProgress(themeId: string): ProgressController {
     saveProgress(browserStorage(), themeId, progress);
   }, [progress, themeId]);
 
-  const update = useCallback((id: string, change: (current: ExerciseProgress) => ExerciseProgress) => {
-    setProgress((current) => ({
-      exercises: { ...current.exercises, [id]: change(current.exercises[id] ?? EMPTY_EXERCISE_PROGRESS) },
-    }));
-  }, []);
+  const actions = useMemo<ProgressActions>(
+    () => ({
+      saveQuery: (id, query) => setProgress((current) => withQuery(current, id, query)),
+      recordVerification: (exercise, correct) => setProgress((current) => withVerification(current, exercise, correct)),
+      openHint: (exercise) => setProgress((current) => withHint(current, exercise)),
+      openSolution: (exercise) => setProgress((current) => withSolution(current, exercise)),
+      reset: () => setProgress(resetProgress),
+    }),
+    [],
+  );
 
-  const reset = useCallback(() => {
-    clearProgress(browserStorage(), themeId);
-    setProgress(emptyProgress());
-  }, [themeId]);
-
-  return { progress, update, reset };
+  return { progress, balance: balanceOf(progress), ...actions };
 }

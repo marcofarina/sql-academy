@@ -2,7 +2,9 @@ import { useState, type ReactNode } from 'react';
 import { describeVerdict, ExerciseError, verifyAnswer, type Verdict } from '../exercises/verify.ts';
 import { Icon } from '../icons/Icon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
-import type { ExerciseProgress } from '../progress/progress.ts';
+import { canRevealHint, canRevealSolution, hintOffer, solutionOffer, walletOf, type Offer } from '../points/points.ts';
+import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
+import type { ProgressActions } from '../progress/useProgress.ts';
 import { ResultTable, ResultsView } from '../sandbox/ResultsView.tsx';
 import { SchemaPanel } from '../sandbox/SchemaPanel.tsx';
 import type { SandboxOutcome } from '../sandbox/session.ts';
@@ -10,13 +12,7 @@ import { SqlEditor } from '../sandbox/SqlEditor.tsx';
 import { engine } from '../sql/browser.ts';
 import type { ResultSet } from '../sql/engine.ts';
 import type { Exercise } from '../themes/contract.ts';
-import {
-  canRevealHint,
-  canRevealSolution,
-  chapterLabel,
-  DIFFICULTY_LABEL,
-  formatQuery,
-} from './exercises.ts';
+import { chapterLabel, DIFFICULTY_LABEL, formatQuery, plural } from './exercises.ts';
 import type { TrainingState } from './useTraining.ts';
 
 /** Righe del risultato dello studente mostrate sotto l’esito della verifica. */
@@ -32,9 +28,10 @@ export type WorkspaceEvent = { kind: 'verify'; correct: boolean } | { kind: 'hin
 
 interface ExerciseWorkspaceProps {
   exercise: Exercise;
-  progress: ExerciseProgress;
+  /** I progressi del tema: servono il saldo e l’aiuto gratuito, oltre allo stato dell’esercizio. */
+  progress: ThemeProgress;
   training: Extract<TrainingState, { status: 'ready' }>;
-  onProgress(change: (current: ExerciseProgress) => ExerciseProgress): void;
+  actions: ProgressActions;
   onEvent?(event: WorkspaceEvent): void;
   /** Comandi di navigazione sotto l’esercizio. */
   footer?: ReactNode;
@@ -64,8 +61,10 @@ function VerdictView({ verdict, student }: { verdict: Verdict; student: ResultSe
 }
 
 /** Un esercizio: consegna, tabelle coinvolte, editor, esecuzione, verifica, suggerimenti e soluzione. */
-export function ExerciseWorkspace({ exercise, progress, training, onProgress, onEvent, footer }: ExerciseWorkspaceProps) {
+export function ExerciseWorkspace({ exercise, progress: themeProgress, training, actions, onEvent, footer }: ExerciseWorkspaceProps) {
   const themeIcons = useThemeIcons();
+  const progress = exerciseProgress(themeProgress, exercise.id);
+  const wallet = walletOf(themeProgress);
   const [query, setQuery] = useState(progress.lastQuery);
   const [output, setOutput] = useState<Output>();
   const [busy, setBusy] = useState(false);
@@ -95,7 +94,7 @@ export function ExerciseWorkspace({ exercise, progress, training, onProgress, on
       try {
         const { verdict, student } = await verifyAnswer(engine, training.source, exercise.expectedQuery, query);
         const correct = verdict.kind === 'correct';
-        onProgress((p) => ({ ...p, attempts: p.attempts + 1, solved: p.solved || correct }));
+        actions.recordVerification(exercise, correct);
         onEvent?.({ kind: 'verify', correct });
         return { kind: 'verify', verdict, student };
       } catch (error) {
@@ -108,20 +107,25 @@ export function ExerciseWorkspace({ exercise, progress, training, onProgress, on
 
   const changeQuery = (value: string) => {
     setQuery(value);
-    onProgress((p) => ({ ...p, lastQuery: value }));
+    actions.saveQuery(exercise.id, value);
   };
 
   const revealHint = () => {
-    if (!canRevealHint(exercise, progress)) return;
-    onProgress((p) => ({ ...p, hintsRevealed: Math.min(p.hintsRevealed + 1, exercise.hints.length) }));
+    if (!canRevealHint(exercise, progress, wallet)) return;
+    actions.openHint(exercise);
     onEvent?.({ kind: 'hint' });
   };
 
   const revealSolution = () => {
-    if (!canRevealSolution(exercise, progress)) return;
-    onProgress((p) => ({ ...p, solutionSeen: true }));
+    if (!canRevealSolution(exercise, progress, wallet)) return;
+    actions.openSolution(exercise);
     onEvent?.({ kind: 'solution' });
   };
+
+  const hint = hintOffer(exercise, progress, wallet);
+  const solution = solutionOffer(exercise, progress, wallet);
+  const missingTitle = (offer: Offer) =>
+    offer.status === 'available' && offer.missing > 0 ? `Mancano ${plural(offer.missing, 'punto', 'punti')}.` : undefined;
 
   const tables = training.db.tables.filter((t) => exercise.tables.includes(t.name));
   const hints = exercise.hints.slice(0, progress.hintsRevealed);
@@ -202,22 +206,22 @@ export function ExerciseWorkspace({ exercise, progress, training, onProgress, on
             </ol>
           )}
           <div className="toolbar">
-            {canRevealHint(exercise, progress) && (
-              <button type="button" onClick={revealHint}>
+            {hint.status === 'available' && (
+              <button type="button" onClick={revealHint} disabled={hint.missing > 0} title={missingTitle(hint)}>
                 <Icon name="lightbulb" />
                 {progress.hintsRevealed === 0 ? 'Mostra un suggerimento' : 'Mostra il suggerimento successivo'} (
                 {progress.hintsRevealed + 1} di {exercise.hints.length})
               </button>
             )}
-            {!progress.solutionSeen &&
-              (canRevealSolution(exercise, progress) ? (
-                <button type="button" onClick={revealSolution}>
-                  <Icon name="key" />
-                  Mostra la soluzione
-                </button>
-              ) : (
-                <span className="shortcut">La soluzione si apre dopo l’ultimo suggerimento o a esercizio risolto.</span>
-              ))}
+            {solution.status === 'available' && (
+              <button type="button" onClick={revealSolution} disabled={solution.missing > 0} title={missingTitle(solution)}>
+                <Icon name="key" />
+                Mostra la soluzione
+              </button>
+            )}
+            {solution.status === 'locked' && (
+              <span className="shortcut">La soluzione si apre dopo l’ultimo suggerimento o a esercizio risolto.</span>
+            )}
           </div>
           {progress.solutionSeen && (
             <figure className="solution">
