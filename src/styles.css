@@ -1940,6 +1940,12 @@ button.link-button {
     height: 440px;
     margin-top: 20px;
   }
+
+  /* Anche il piè di pagina, sotto il mazzo: in fondo allo schermo lo coprirebbe. */
+  .home.is-deck .home-footer {
+    position: static;
+    margin: 24px 16px 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

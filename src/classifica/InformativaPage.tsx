@@ -45,7 +45,7 @@ export function InformativaPage() {
         <p>
           Lo <a href={formatRoute({ page: 'zaino' })}>zaino</a> è una copia dei tuoi progressi salvata su un servizio in rete, cioè un
           programma che funziona su un server e conserva i dati che riceve. Ti permette di ritrovare i progressi su un altro computer, per esempio
-          a casa dopo una lezione in laboratorio. Lo zaino può essere aperto con un codice di 20 caratteri,
+          a casa dopo una lezione in laboratorio. Lo zaino si apre con un codice di quattro parole,
           senza account. È lo stesso zaino del libro <cite>Python Doesn’t Byte</cite>, e usarlo è una tua scelta.
         </p>
         <p>

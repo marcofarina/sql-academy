@@ -4,6 +4,8 @@ Portale di addestramento a SQL che accompagna il *Manuale dell’Archivista*, te
 
 Temi presenti: Star Wars (`themes/star-wars/`) e Il Signore degli Anelli (`themes/lotr/`).
 
+Il portale è pubblicato su <https://sql.rainbowbits.cloud/>; il libro è su <https://python.rainbowbits.cloud/>.
+
 ## Comandi
 
 Richiede Node 22.18 o successivo.
@@ -16,6 +18,12 @@ Richiede Node 22.18 o successivo.
 | `npm test` | esegue i test |
 | `npm run lint` | controlla il codice con ESLint |
 | `npm run build` | controlla i tipi e costruisce il sito statico in `dist/` |
+
+## Pubblicazione
+
+Il workflow `.github/workflows/pubblica.yml` parte a ogni push su `main`: esegue lint, test, `check:themes`, il controllo dei dati della classifica e la build, poi pubblica `dist/` su GitHub Pages, con il dominio `sql.rainbowbits.cloud`. Si lavora su `dev`; il merge in `main` è la pubblicazione.
+
+I servizi in rete stanno su Cloudflare Workers: lo zaino nel repo del libro (`servizi/zaino/`), la classifica qui in `servizi/classifica/`. Entrambi ammettono nel CORS l’origine `https://sql.rainbowbits.cloud`.
 
 ## Aggiungere un tema
 
@@ -97,3 +105,9 @@ npm run build
 ```
 
 Poi, con `npm run dev`, controlla che la pagina iniziale mostri la locandina del tema, che le sei sezioni di `#/<id>/…` funzionino nei due schemi a 1280 e a 375 px, e che i progressi del nuovo tema restino separati da quelli degli altri.
+
+## Licenza
+
+Il codice è rilasciato sotto licenza MIT (`LICENSE-MIT`); i contenuti didattici — esercizi, consegne, suggerimenti, tracce e dati dei temi — sotto licenza [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (`LICENSE`). I caratteri tipografici hanno ciascuno la propria licenza SIL Open Font License, nel file `*-OFL.txt` accanto.
+
+I temi si ispirano a opere di altri autori: SQL Academy ne usa nomi e ambientazioni e non è affiliato ai titolari delle opere.

@@ -429,7 +429,8 @@ export function HomePage({ themes }: { themes: Theme[] }) {
         <a href={BOOK_URL}>
           <cite>Manuale dell’Archivista</cite>
         </a>{' '}
-        di <cite>Python Doesn’t Byte</cite>.
+        di <cite>Python Doesn’t Byte</cite>. I mondi dei temi appartengono ai loro autori: SQL Academy ne usa nomi e ambientazioni e non è
+        affiliato ai titolari delle opere. <a href={formatRoute({ page: 'informativa' })}>I tuoi dati</a>
       </p>
     </main>
   );

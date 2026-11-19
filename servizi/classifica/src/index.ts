@@ -57,7 +57,7 @@ const ISCRIZIONI_AL_GIORNO = 1000;
 const PRIMI = 50;
 const VICINI = 2;
 
-const ORIGINI = new Set(['http://localhost:5173']);
+const ORIGINI = new Set(['https://sql.rainbowbits.cloud', 'http://localhost:5173']);
 
 function intestazioniCors(origine: string | null): Headers {
   const h = new Headers();
