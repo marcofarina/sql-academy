@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!-- RB Icons · shield-check -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M224 0C272 0 336 56 416 56A32 32 0 0 1 448 88V256C448 368 352 464 224 512C96 464 0 368 0 256V88A32 32 0 0 1 32 56C112 56 176 0 224 0ZM137 223A24 24 0 0 0 103 257L175 329A24 24 0 0 0 209 329L345 193A24 24 0 0 0 311 159L192 278.1L137 223Z"/>
+  <path class="rb-primary" fill="currentColor" d="M137 223L192 278.1L311 159A24 24 0 0 1 345 193L209 329A24 24 0 0 1 175 329L103 257A24 24 0 0 1 137 223Z"/>
+</svg>

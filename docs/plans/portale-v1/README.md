@@ -18,7 +18,7 @@
 | F14 | Mostrare saldo, costi e punti nell’interfaccia | F13 | Opus 5.5 `medium` | medio | completata | 2026-11-19 01:55 | [P-F14](#p-f14) | [F14](F14-mostrare-saldo-costi-punti.md) |
 | F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | completata | 2026-11-19 08:30 | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
 | F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | completata | 2026-11-19 11:50 | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
-| F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
+| F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | completata | 2026-11-19 19:01 | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
 | F18 | Animare l’indicatore della sezione e sostituire l’icona della sessione | F09 | Opus 5.5 `medium` | medio | completata | 2026-11-18 15:46 | [P-F18](#p-f18) | [F18](F18-animare-indicatore-sezione-icona-sessione.md) |
 | F19 | Trasformare la sezione «Analisi» nella «Traccia» | F09 | Opus 5.5 `medium` | basso-medio | completata | 2026-11-18 16:59 | [P-F19](#p-f19) | [F19](F19-trasformare-analisi-in-traccia.md) |
 | F20 | Disegnare il modello logico in forma UML | F09 | Opus 5.5 `medium` | alto | completata | 2026-11-18 20:22 | [P-F20](#p-f20) | [F20](F20-disegnare-modello-logico-uml.md) |
@@ -487,6 +487,7 @@ Prese da Marco il 2026-11-16, salvo dove indicato.
 | Interfaccia dello zaino | Pagina `#/zaino` con apri (anche «Non è il mio computer»), crea, stato, contenuto, mostra e copia il codice, esci; QR, link con il codice, «Cambia codice» e «Cancella lo zaino» restano nel libro. Collegamento «Zaino» nelle intestazioni. `zaino` è un id di tema riservato (Marco, 2026-11-19, in F15) | Nei laboratori servono la modalità temporanea e «Esci»; il resto c’è già nel libro, e il link con il codice cozza con il routing a hash |
 | Ultima query nello zaino | Sì: ogni esercizio ha `queryAt` (millisecondi) e fra due copie vince la query più recente (Marco, 2026-11-19, in F15) | Lo studente ritrova a casa anche il testo che stava scrivendo; senza data l’unione non saprebbe quale tenere |
 | Archivio dei progressi | `src/progress/store.ts`: un solo archivio per tutti i temi, letto dall’area dello zaino e osservato con `useSyncExternalStore`; la sezione `sql-academy` dello zaino lo legge e lo scrive (Claude, in F15) | I progressi arrivati dallo zaino o da un’altra scheda devono comparire subito, e la modalità temporanea deve spostarli tutti insieme |
+| Adesione alla classifica | Solo con lo zaino aperto; interruttore nella pagina `#/classifica`; token nella sezione `sql-academy` dello zaino, vince la scelta più recente; informativa in `#/informativa`, senza la parte sui limiti della classifica, contatto `privacy@rainbowbits.cloud` (Marco, 2026-11-19, in F17; il funzionamento dell’invio è di Claude, nel dettaglio della fase) | Il nome resta lo stesso su ogni dispositivo; ai minorenni l’informativa dice quali dati vanno dove senza spiegare come ingannare la classifica |
 | Contrasto delle palette | `node docs/design/contrasto.mjs [palette]` misura ogni coppia delle specifiche ed esce con errore sotto 4,5:1 (testo) o 3:1 (bordi e icone) (Claude, in F11) | F08 e F12 devono misurare con uno strumento, non a occhio |
 
 ### Icone
@@ -564,6 +565,9 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `cloud-arrow-up` | zaino in sincronizzazione o con modifiche in sospeso | F15 | catalogo | usata |
 | `key` | «Mostra il codice» dello zaino | F15 | catalogo | usata (anche per «soluzione» e chiave primaria) |
 | `copy` | «Copia il codice» dello zaino | F15 | catalogo | usata (anche per il codice SQL, F06) |
+| `trophy` | classifica: collegamento nelle intestazioni, titolo della pagina | F17 | creata (Opus 5.5) | approvata alla prima versione; soggetto scelto da Marco fra coppa e podio |
+| `id-badge` | partecipazione alla classifica | F17 | creata (Opus 5.5) | approvata; la prima versione, verticale, superava il 90% di copertura (R1.6): ridisegnata orizzontale |
+| `shield-check` | titolo della pagina «I tuoi dati» (informativa) | F17 | catalogo | usata |
 
 ### Struttura di un tema
 
@@ -632,3 +636,4 @@ I comandi `npm …` citati nelle fasi dipendono da codice non ancora scritto: al
 | 2026-11-19 | F15 completata su Opus 5.5. Client dello zaino del libro copiato in `src/zaino/` (compatibilità verificata con un vettore calcolato dal libro), sezione `sql-academy` con unione tema per tema, archivio comune dei progressi, pagina `#/zaino` e collegamento nelle intestazioni. In PDB, su `dev`, CORS per `localhost:5173` e privacy policy (commit approvati da Marco); deploy del Worker rinviato a F10. |
 | 2026-11-19 | F16 completata su Opus 5.5. Worker della classifica in `servizi/classifica/` con ricalcolo dei punti, controlli di plausibilità e di crescita, nomi casuali approvati da Marco; 31 prove su `wrangler dev` e 4000 partite simulate accettate. Deploy, D1 remoto e dominio `sql-classifica.rainbowbits.cloud` rinviati a F10 su scelta di Marco. |
 | 2026-11-19 | F13 completata su Sonnet 5.5. Regole dei punti in `src/points/points.ts` (funzioni pure, riusabili da F16), progressi versione 2 con epoca di azzeramento e importi effettivi, hook con operazioni che applicano le regole; 34 test in più. Il saldo non si mostra ancora: tocca a F14. Forma dei dati e firme nel dettaglio della fase. |
+| 2026-11-19 | F17 completata su Opus 5.5. Interruttore «Partecipa alla classifica» con lo zaino, invio dei punti con attesa, pagine `#/classifica` e `#/informativa`; icone `trophy` e `id-badge` approvate da Marco; nuova sezione 12 di `norms/scrittura-umana.md` dalle sue correzioni ai testi. |

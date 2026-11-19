@@ -3,6 +3,8 @@
 interface ImportMetaEnv {
   /** Indirizzo del servizio dello zaino (F15), senza `/` finale. */
   readonly VITE_ZAINO_URL?: string;
+  /** Indirizzo del servizio della classifica (F17), senza `/` finale. */
+  readonly VITE_CLASSIFICA_URL?: string;
 }
 
 declare module 'virtual:theme-stats' {

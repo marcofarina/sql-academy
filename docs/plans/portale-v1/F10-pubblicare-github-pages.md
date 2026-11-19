@@ -34,7 +34,8 @@ Fuori: dominio personalizzato, statistiche di accesso (nessuna: gli studenti son
 5. Aggiungi nel portale il link al libro e una pagina di informazioni: che cos’è il portale, dove stanno i progressi (rimanda all’informativa di F17), che i temi non sono affiliati ai titolari delle opere.
 6. **Con il via di Marco**, in quest’ordine e chiedendo a ogni passo: crea il repo pubblico e il remote; push di `dev`; merge in `main`; attivazione di Pages.
 7. **Con il via di Marco:** a Pages attivo, aggiungi l’origine di produzione al CORS dello zaino di PDB e della classifica, commit nei rispettivi repo e deploy dei due Worker. La classifica non è mai stata pubblicata (F16): prima del deploy `npx wrangler d1 create sql-academy-classifica`, id nel `wrangler.toml`, `npx wrangler d1 migrations apply sql-academy-classifica --remote`, `routes` attivo su `sql-classifica.rainbowbits.cloud`; dopo, `npm run prova -- https://sql-classifica.rainbowbits.cloud` in `servizi/classifica`. Nel workflow conviene anche `node scripts/classifica-dati.ts --controlla`.
-8. Aggiorna la tabella «Stato» di `AGENTS.md` con l’indirizzo del sito.
+8. Prima della pubblicazione, chiedi a Marco se ha creato la casella `privacy@rainbowbits.cloud`, citata dall’informativa del portale (F17).
+9. Aggiorna la tabella «Stato» di `AGENTS.md` con l’indirizzo del sito.
 
 ## 5. Criteri di accettazione
 

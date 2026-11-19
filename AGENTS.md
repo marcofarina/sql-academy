@@ -33,6 +33,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-19 | F14 completata: saldo nell’intestazione del tema (`src/points/Balance.tsx`, evidenza e annuncio cortese), costi e motivi sui pulsanti d’aiuto, premi in percorso e catalogo, punti nel riepilogo della sessione, saldo sulle locandine; testi in `src/points/labels.ts`. Icone `coin`, `circle-plus`, `circle-minus`, `lock`. |
 | 2026-11-19 | F15 completata: progressi nello zaino di PDB, sezione `sql-academy` (`src/zaino/`, client copiato dal libro, stesso codice e stessa cifratura), archivio comune `src/progress/store.ts`, pagina `#/zaino` e collegamento «Zaino»; campo `queryAt` negli esercizi. In PDB, branch `dev`: CORS per `localhost:5173` e privacy policy; deploy del Worker in F10. Icone `backpack`, `right-from-bracket`, `cloud-arrow-up`. |
 | 2026-11-19 | F16 completata: servizio della classifica in `servizi/classifica/` (Worker, D1, ricalcolo dei punti, nomi casuali approvati da Marco), `npm run classifica:dati`; provato con `wrangler dev`. Deploy, D1 remoto e dominio `sql-classifica.rainbowbits.cloud` in F10. |
+| 2026-11-19 | F17 completata: classifica nel portale (`src/classifica/`): adesione solo con lo zaino, token nella sezione `sql-academy`, invio dei punti con attesa, pagine `#/classifica` e `#/informativa`. Icone `trophy`, `id-badge`, `shield-check`. Casella `privacy@rainbowbits.cloud` da creare prima di F10. |
 
 **Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
 

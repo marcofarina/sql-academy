@@ -2,7 +2,9 @@
  * Routing con hash: `#/` è l’elenco dei temi, `#/<tema>/<sezione>` una sezione
  * di un tema. GitHub Pages non riscrive gli URL, quindi il percorso sta nell’hash.
  *
- * `#/zaino` è la pagina dello zaino (F15): nessun tema può chiamarsi `zaino`.
+ * `#/zaino` è la pagina dello zaino (F15), `#/classifica` quella della
+ * classifica e `#/informativa` quella dei dati (F17): nessun tema può usare
+ * questi nomi come `id`.
  *
  * Solo l’addestramento ha un elemento in più: `#/<tema>/addestramento/<id>` apre
  * un esercizio, `#/<tema>/addestramento/sessione` la sessione configurabile.
@@ -35,7 +37,19 @@ export type ThemeRoute = {
 /** La pagina dello zaino; il suo nome è riservato e nessun tema può usarlo come `id`. */
 export const ZAINO_PAGE = 'zaino';
 
-export type Route = { page: 'home' } | { page: 'zaino' } | ThemeRoute | { page: 'not-found' };
+/** Le pagine del portale fuori dai temi: i loro nomi sono riservati (F15, F17). */
+export const PORTAL_PAGES = [ZAINO_PAGE, 'classifica', 'informativa'] as const;
+
+export type PortalPage = (typeof PORTAL_PAGES)[number];
+
+function isPortalPage(value: string): value is PortalPage {
+  return (PORTAL_PAGES as readonly string[]).includes(value);
+}
+
+/** Una pagina del portale; distribuita su ogni nome, così `route.page` restringe il tipo. */
+export type PortalRoute = { [P in PortalPage]: { page: P } }[PortalPage];
+
+export type Route = { page: 'home' } | PortalRoute | ThemeRoute | { page: 'not-found' };
 
 function isSection(value: string): value is SectionId {
   return SECTIONS.some((section) => section.id === value);
@@ -45,7 +59,7 @@ function isSection(value: string): value is SectionId {
 export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#/, '').split('/').filter(Boolean).map(decodeURIComponent);
   if (parts.length === 0) return { page: 'home' };
-  if (parts.length === 1 && parts[0] === ZAINO_PAGE) return { page: 'zaino' };
+  if (parts.length === 1 && isPortalPage(parts[0])) return { page: parts[0] } as PortalRoute;
   const [themeId, section = DEFAULT_SECTION, ...rest] = parts;
   if (!isSection(section)) return { page: 'not-found' };
   if (rest.length === 0) return { page: 'theme', themeId, section };
@@ -53,9 +67,9 @@ export function parseRoute(hash: string): Route {
   return { page: 'not-found' };
 }
 
-export function formatRoute(route: { page: 'home' } | { page: 'zaino' } | ThemeRoute): string {
+export function formatRoute(route: { page: 'home' } | PortalRoute | ThemeRoute): string {
   if (route.page === 'home') return '#/';
-  if (route.page === 'zaino') return `#/${ZAINO_PAGE}`;
+  if (route.page !== 'theme') return `#/${route.page}`;
   const base = `#/${encodeURIComponent(route.themeId)}/${route.section}`;
   return route.item === undefined ? base : `${base}/${encodeURIComponent(route.item)}`;
 }

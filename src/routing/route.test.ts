@@ -62,3 +62,11 @@ test('la pagina dello zaino', () => {
   expect(formatRoute({ page: 'zaino' })).toBe('#/zaino');
   expect(canonicalHash('#/zaino')).toBeUndefined();
 });
+
+test('le pagine della classifica e dell’informativa', () => {
+  expect(parseRoute('#/classifica')).toEqual({ page: 'classifica' });
+  expect(parseRoute('#/informativa/')).toEqual({ page: 'informativa' });
+  expect(formatRoute({ page: 'classifica' })).toBe('#/classifica');
+  expect(formatRoute({ page: 'informativa' })).toBe('#/informativa');
+  expect(canonicalHash('#/classifica')).toBeUndefined();
+});

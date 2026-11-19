@@ -1972,11 +1972,15 @@ button.link-button {
   color: var(--color-warning);
 }
 
-.zaino-page .lead {
+.zaino-page .lead,
+.classifica-page .lead,
+.informativa-page .lead {
   max-width: 46rem;
 }
 
-.zaino-page h2 {
+.zaino-page h2,
+.classifica-page h2,
+.informativa-page h2 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
 }
@@ -2086,5 +2090,118 @@ button.link-button {
   .zaino-codice {
     font-size: 19px;
     letter-spacing: 0.02em;
+  }
+}
+
+/* Classifica (F17): pagina #/classifica e informativa #/informativa */
+
+.classifica-adesione h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.classifica-interruttore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.classifica-interruttore input {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 48px;
+  height: 28px;
+  margin: 0;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: 14px;
+  background: var(--color-bg);
+  cursor: inherit;
+}
+
+.classifica-interruttore input::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--color-muted);
+}
+
+.classifica-interruttore input:checked {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.classifica-interruttore input:checked::after {
+  left: 23px;
+  background: var(--color-accent-text);
+}
+
+.classifica-interruttore input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.classifica-interruttore input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .classifica-interruttore input::after {
+    transition: left 150ms ease;
+  }
+}
+
+.classifica-nome strong {
+  font-size: 1.15em;
+}
+
+.classifica-elenco {
+  max-width: 46rem;
+  margin: 0 0 1.25rem;
+}
+
+.classifica-elenco h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.classifica-elenco .table-scroll {
+  max-height: none;
+}
+
+.classifica-tabella {
+  width: 100%;
+}
+
+.classifica-tabella tr.is-me td {
+  background: var(--color-surface-2);
+  font-weight: 700;
+}
+
+.classifica-limiti {
+  max-width: 46rem;
+}
+
+.classifica-tabella td:nth-child(2) {
+  white-space: normal;
+}
+
+.home-aside .classifica-link {
+  margin-left: 1.25rem;
+}
+
+@media (max-width: 40rem) {
+  .classifica-tabella th,
+  .classifica-tabella td {
+    padding: 0.35rem 0.5rem;
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { pointsLabel } from '../points/labels.ts';
+import { formatRoute } from '../routing/route.ts';
 import { balanceOf } from '../progress/progress.ts';
 import { useThemeProgress } from '../progress/useProgress.ts';
 import type { Theme } from '../themes/contract.ts';
@@ -160,7 +161,10 @@ function Contenuto({ themes }: { themes: Theme[] }) {
           <RigaTema key={theme.manifest.id} theme={theme} />
         ))}
       </ul>
-      <p className="zaino-nota">Nello zaino ci sono anche le note del libro, se ne hai.</p>
+      <p className="zaino-nota">
+        Nello zaino ci sono anche le note del libro, se ne hai, e, se partecipi alla
+        <a href={formatRoute({ page: 'classifica' })}>classifica</a>, il codice con cui la classifica ti riconosce.
+      </p>
     </section>
   );
 }
@@ -261,7 +265,8 @@ export function ZainoPage({ themes }: { themes: Theme[] }) {
       <p className="lead">
         Lo zaino porta i tuoi progressi da un dispositivo all’altro: esercizi risolti, punti, suggerimenti aperti e l’ultima query di ogni
         esercizio. È lo stesso zaino del libro <cite>Python Doesn’t Byte</cite>, e lo apri con lo stesso codice. Il contenuto è cifrato nel
-        tuo browser: senza il codice nessuno può leggerlo.
+        tuo browser: senza il codice nessuno può leggerlo. Che cosa contiene e dove si trova lo spiega l’
+        <a href={formatRoute({ page: 'informativa' })}>informativa</a>.
       </p>
       {!stato.supportato ? (
         <p className="notice notice-warning">

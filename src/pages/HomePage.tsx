@@ -5,6 +5,7 @@ import { CHAPTERS, DIFFICULTIES, type Theme } from '../themes/contract.ts';
 import { plural } from '../training/exercises.ts';
 import { balanceOf } from '../progress/progress.ts';
 import { useThemeProgress } from '../progress/useProgress.ts';
+import { ClassificaLink } from '../classifica/ClassificaLink.tsx';
 import { ZainoLink } from '../zaino/ZainoLink.tsx';
 import { pointsLabel } from '../points/labels.ts';
 import {
@@ -324,6 +325,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
         </div>
         <div className="home-aside">
           <ZainoLink />
+          <ClassificaLink />
           {isDeck ? (
             <p>Sfoglia le locandine, toccane una per aprire la sua scheda.</p>
           ) : (
