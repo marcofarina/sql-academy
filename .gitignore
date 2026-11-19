@@ -8,3 +8,6 @@ dist/
 # Symlink locale alle norme del workspace
 .claude/norms
 .claude/settings.local.json
+
+# Stato locale di wrangler (D1 locale del servizio della classifica)
+.wrangler/

@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
-    "check:themes": "node scripts/check-themes.ts"
+    "check:themes": "node scripts/check-themes.ts",
+    "classifica:dati": "node scripts/classifica-dati.ts"
   },
   "dependencies": {
     "@codemirror/lang-sql": "^6.10.0",

@@ -9,6 +9,6 @@ export default defineConfig({
   plugins: [react(), themeStatsPlugin(fileURLToPath(new URL('./themes', import.meta.url)))],
   worker: { format: 'es' },
   test: {
-    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'servizi/*/src/**/*.test.ts'],
   },
 });

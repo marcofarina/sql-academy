@@ -62,6 +62,14 @@ Poi esegui `npm run check:themes` e apri le sezioni «Schema ER» e «Modello lo
 
 Esegui ogni `expectedQuery` su SQLite e controlla che il risultato sia quello chiesto dalla consegna. Le regole del confronto fra le risposte sono nel commento di `Exercise` in `src/themes/contract.ts`: se la query attesa ha un `ORDER BY` esterno, la consegna deve chiedere quell’ordine, e l’ordine deve essere completo anche a parità di chiave.
 
+### Classifica
+
+Il servizio della classifica (`servizi/classifica/`) ricalcola i punti con un elenco degli esercizi di tutti i temi. Ogni volta che aggiungi un tema o cambi esercizi o suggerimenti, rigenera l’elenco e fai ripubblicare il servizio da Marco: fino ad allora gli esercizi nuovi non entrano in classifica.
+
+```bash
+npm run classifica:dati
+```
+
 ### 4. Applica la veste
 
 | File | Contenuto |

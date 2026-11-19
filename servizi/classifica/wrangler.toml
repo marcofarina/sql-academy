@@ -1,0 +1,35 @@
+# Servizio della classifica (piano docs/plans/portale-v1, fase F16).
+name = "sql-academy-classifica"
+main = "src/index.ts"
+compatibility_date = "2026-10-30"
+
+# Solo il dominio suo: niente *.workers.dev né URL di anteprima.
+# Dominio scelto da Marco (2026-11-19); si attiva al deploy, in F10:
+# routes = [{ pattern = "sql-classifica.rainbowbits.cloud", custom_domain = true }]
+workers_dev = false
+preview_urls = false
+
+# Log spenti: il servizio non registra richieste né indirizzi.
+logpush = false
+[observability]
+enabled = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sql-academy-classifica"
+# Da sostituire con l'id di `npx wrangler d1 create sql-academy-classifica`,
+# in F10. In locale (`wrangler dev`) basta questo segnaposto.
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# 300 richieste al minuto per IP e per sede di Cloudflare, come lo zaino: una
+# classe dietro lo stesso indirizzo della scuola ci sta, uno script no.
+# namespace_id diverso da quello dello zaino (1001), stesso account.
+[[ratelimits]]
+name = "LIMITE"
+namespace_id = "1002"
+simple = { limit = 300, period = 60 }
+
+# Ogni giorno alle 03:47 UTC: via i partecipanti fermi da 18 mesi.
+[triggers]
+crons = ["47 3 * * *"]

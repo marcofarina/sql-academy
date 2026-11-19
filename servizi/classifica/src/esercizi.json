@@ -1,0 +1,1183 @@
+{
+ "reward": {
+  "facile": 10,
+  "medio": 20,
+  "difficile": 30
+ },
+ "hintCost": {
+  "facile": 3,
+  "medio": 5,
+  "difficile": 8
+ },
+ "solutionCost": {
+  "facile": 20,
+  "medio": 40,
+  "difficile": 60
+ },
+ "themes": {
+  "lotr": {
+   "ex-001": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-002": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-003": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-004": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-005": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-021": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-022": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-023": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-024": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-025": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-026": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-027": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-028": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-029": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-030": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-031": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-032": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-033": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-034": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-035": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-036": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-037": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-038": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-039": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-040": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-041": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-042": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-043": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-044": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-045": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-046": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-047": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-048": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-049": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-050": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-051": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-052": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-053": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-054": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-055": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-006": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-007": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-008": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-009": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-010": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-056": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-057": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-058": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-059": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-060": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-061": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-062": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-063": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-064": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-065": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-066": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-067": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-068": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-069": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-070": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-071": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-072": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-073": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-074": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-075": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-076": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-077": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-078": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-079": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-080": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-081": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-082": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-083": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-084": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-085": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-086": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-011": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-012": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-013": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-014": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-015": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-087": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-088": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-089": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-090": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-091": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-092": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-093": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-094": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-095": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-096": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-097": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-098": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-099": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-100": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-101": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-102": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-103": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-104": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-105": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-106": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-107": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-108": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-109": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-110": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-111": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-112": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-113": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-114": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-115": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-116": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-016": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-017": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-018": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-019": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-020": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-117": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-118": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-119": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-120": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-121": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-122": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-123": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-124": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-125": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-126": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-127": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-128": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-129": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-130": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-131": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-132": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-133": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-134": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-135": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-136": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-137": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-138": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-139": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-140": {
+    "difficulty": "difficile",
+    "hints": 2
+   }
+  },
+  "star-wars": {
+   "ex-001": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-002": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-003": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-004": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-005": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-006": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-007": {
+    "difficulty": "facile",
+    "hints": 3
+   },
+   "ex-008": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-009": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-010": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-011": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-012": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-013": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-014": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-015": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-016": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-017": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-018": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-019": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-020": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-021": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-022": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-023": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-024": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-025": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-026": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-027": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-028": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-029": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-030": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-031": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-032": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-033": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-034": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-035": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-036": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-037": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-038": {
+    "difficulty": "medio",
+    "hints": 3
+   },
+   "ex-039": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-040": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-041": {
+    "difficulty": "medio",
+    "hints": 3
+   },
+   "ex-042": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-043": {
+    "difficulty": "medio",
+    "hints": 3
+   },
+   "ex-044": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-045": {
+    "difficulty": "medio",
+    "hints": 3
+   },
+   "ex-046": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-047": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-048": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-049": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-050": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-051": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-052": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-053": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-054": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-055": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-056": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-057": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-058": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-059": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-060": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-061": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-062": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-063": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-064": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-065": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-066": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-067": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-068": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-069": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-070": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-071": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-072": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-073": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-074": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-075": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-076": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-077": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-078": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-079": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-080": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-081": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-082": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-083": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-084": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-085": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-086": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-087": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-088": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-089": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-090": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-091": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-092": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-093": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-094": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-095": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-096": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-097": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-098": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-099": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-100": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-101": {
+    "difficulty": "difficile",
+    "hints": 3
+   },
+   "ex-102": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-103": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-104": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-105": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-106": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-107": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-108": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-109": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-110": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-111": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-112": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-113": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-114": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-115": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-116": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-117": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-118": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-119": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-120": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-121": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-122": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-123": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-124": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-125": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-126": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-127": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-128": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-129": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-130": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-131": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-132": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-133": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-134": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-135": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-136": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-137": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-138": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-139": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-140": {
+    "difficulty": "facile",
+    "hints": 2
+   },
+   "ex-141": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-142": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-143": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-144": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-145": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-146": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-147": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-148": {
+    "difficulty": "medio",
+    "hints": 2
+   },
+   "ex-149": {
+    "difficulty": "difficile",
+    "hints": 2
+   },
+   "ex-150": {
+    "difficulty": "difficile",
+    "hints": 2
+   }
+  }
+ }
+}

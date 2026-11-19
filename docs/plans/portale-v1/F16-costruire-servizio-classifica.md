@@ -56,4 +56,77 @@ Più: liste dei nomi approvate da Marco; il D1 locale non contiene gettoni in ch
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase: esito, verifiche, protocollo definitivo, soglie dei controlli, dominio e stato del deploy, limiti, consumo reale se noto.
+**Esito:** completata il 2026-11-19 su Opus 5.5 (effort non verificabile dalla sessione). Servizio scritto e provato in locale; liste dei nomi approvate da Marco; dominio scelto; **deploy rinviato a F10** per scelta di Marco, come lo zaino in F15. Nessuna azione remota su Cloudflare.
+
+### Verifiche
+
+| Directory | Comando | Esito |
+| --- | --- | --- |
+| `servizi/classifica` | `npm run typecheck` | superata |
+| `servizi/classifica` | `npx wrangler d1 migrations apply sql-academy-classifica --local`, poi `npx wrangler dev` e `npm run prova -- http://localhost:8787` | superata: 31 casi su 31 |
+| radice | `npm test` | superata: 191 test, compresi i 3 nuovi di `servizi/classifica/src/punti.test.ts` |
+| radice | `npm run build`, `npm run lint`, `npm run check:themes` | superate |
+| radice | `node scripts/classifica-dati.ts --controlla` | superata: il JSON è aggiornato |
+| `servizi/classifica` | gettone inviato con `curl`, poi `npx wrangler d1 execute … --local` su `partecipanti` | superata: il D1 contiene l’impronta SHA-256 del gettone, non il gettone |
+
+Non eseguite: migrazione remota, deploy e prova sul dominio (F10).
+
+### File
+
+| File | Contenuto |
+| --- | --- |
+| `servizi/classifica/src/index.ts` | Worker: protocollo, identità, controllo della crescita, CORS, Cron Trigger |
+| `servizi/classifica/src/punti.ts` | ricalcolo dei punti di un tema e controlli di plausibilità |
+| `servizi/classifica/src/nomi.ts` | liste dei nomi approvate e scelta casuale |
+| `servizi/classifica/src/esercizi.json` | generato: tabelle di `src/points/points.ts` e, per tema, difficoltà e numero di suggerimenti di ogni esercizio |
+| `servizi/classifica/src/punti.test.ts` | 4000 partite oneste simulate con le funzioni di F13: il server le accetta tutte con il saldo del portale |
+| `servizi/classifica/migrations/0001_classifica.sql` | tabelle `partecipanti` e `punteggi` |
+| `servizi/classifica/prova.mjs` | prova contro un servizio vivo |
+| `servizi/classifica/wrangler.toml`, `package.json`, `tsconfig.json` | come lo zaino; il typecheck del Worker esclude i test |
+| `scripts/classifica-dati.ts` | `npm run classifica:dati` scrive il JSON; con `--controlla` esce con 1 se è vecchio |
+
+Fuori dal Worker cambiano solo `package.json` (script `classifica:dati`), `vite.config.ts` (Vitest legge anche `servizi/*/src/**/*.test.ts`) e `.gitignore` (`.wrangler/`).
+
+### Protocollo definitivo
+
+Gettone: 32 byte casuali in base64url (43 caratteri), generati dal portale, in `Authorization: Bearer <gettone>`. Il server conserva solo l’impronta SHA-256 esadecimale.
+
+| Richiesta | Corpo o parametri | Risposte |
+| --- | --- | --- |
+| `PUT /v1/punteggio` | `{ "themes": { "<tema>": <ThemeProgress> } }`; i temi assenti non cambiano; dei progressi si leggono solo `freeHintUsed` e, per esercizio, `solved`, `hintsRevealed`, `solutionBeforeSolve`, `pointsSpent` (il resto, `lastQuery` compresa, si ignora: il portale farà bene a non inviarlo) | 200 `{ name, themes: { <tema>: punti }, total }` (tutti i temi del partecipante) · 400 JSON rotto o `themes` mancante · 401 gettone · 413 oltre 128 KB · 422 progresso impossibile, motivo in testo · 429 crescita troppo rapida o limite per IP, con `Retry-After` in secondi |
+| `DELETE /v1/punteggio` | — | 204, anche se il partecipante non c’è; cancella nome e punti |
+| `GET /v1/classifica[?tema=<id>]` | senza gettone | 200 `{ theme, entries: [{ rank, name, points }] }`, primi 50, `Cache-Control: public, max-age=60` · 400 tema sconosciuto |
+| `GET /v1/posizione[?tema=<id>]` | gettone | 200 `{ name, theme, rank, points, neighbors: [{ rank, name, points, me }] }`, due sopra e due sotto; `rank` è `null` se non ci sono punti in quella classifica · 404 se il gettone non partecipa |
+
+Il primo `PUT` crea il partecipante e gli assegna il nome; un `PUT` con `themes: {}` iscrive senza punti. A pari punti viene prima chi li ha raggiunti prima (`raggiunto`). La generale è la somma dei temi. Gli errori sono testo semplice, le risposte riuscite JSON.
+
+### Controlli di plausibilità
+
+Respinti con 422: tema o esercizio sconosciuti; campi mancanti o di tipo sbagliato; suggerimenti oltre il numero; soluzione vista prima della risoluzione senza tutti i suggerimenti; spesa che non è `k × prezzo del suggerimento` (più il prezzo della soluzione, se vista prima) con `k` fra 0 e i suggerimenti aperti; esercizio non risolto (o risolto dopo la soluzione) con più di un suggerimento non pagato; più di un aiuto gratuito nel tema, o uno senza `freeHintUsed`; saldo negativo. I punti guadagnati si ricalcolano dalla difficoltà; quelli dichiarati si ignorano.
+
+Crescita: i punti di un tema possono salire di **300 subito più 60 al minuto** dall’ultima volta che sono cambiati (per un tema nuovo, dall’iscrizione). Oltre, 429 con `Retry-After` e nulla cambia; riprovando dopo l’attesa l’invio passa. La discesa (azzeramento) è sempre ammessa. Diversamente dal piano, il rifiuto è temporaneo e non definitivo: uno studente vero che si iscrive con molti punti già fatti non resta fuori, aspetta (con 3000 punti, circa 45 minuti).
+
+### Protezioni
+
+300 richieste al minuto per IP (`[[ratelimits]]`, `namespace_id = "1002"`; lo zaino usa 1001); corpo fino a 128 KB; CORS solo per `http://localhost:5173`, altre origini 403; log spenti; Cron Trigger alle 03:47 UTC che cancella i partecipanti fermi da 18 mesi (contati dall’ultimo `PUT`) con i loro punti.
+
+### Nomi
+
+«Animale Aggettivo Numero»: 39 animali, 31 aggettivi in -e (nessun accordo di genere), numeri da 10 a 99 senza 14, 18, 69 e 88; 103.974 combinazioni, unicità garantita da `UNIQUE`. Approvate da Marco il 2026-11-19 senza modifiche.
+
+### Dominio e deploy
+
+Nomi: Worker e D1 `sql-academy-classifica`; dominio `sql-classifica.rainbowbits.cloud` (Marco, 2026-11-19), già scritto commentato in `wrangler.toml`. In F10, con il via di Marco: `npx wrangler d1 create sql-academy-classifica`, id nel `wrangler.toml` al posto del segnaposto, `npx wrangler d1 migrations apply sql-academy-classifica --remote`, `routes` attivo, origine di produzione nel CORS, `npx wrangler deploy`, `npm run prova -- https://sql-classifica.rainbowbits.cloud`. Aggiunto alle attività di F10.
+
+### Limiti
+
+- Oltre a quelli del § 2: la crescita rallenta chi inventa un progresso, non lo ferma (basta aspettare).
+- Due dispositivi che usano l’aiuto gratuito del tema prima di sincronizzarsi producono, uniti dallo zaino, due aiuti gratuiti: il server respinge quel tema finché lo studente non lo azzera. Caso raro; F17 dovrebbe mostrarlo come errore, non riprovare all’infinito.
+- I controlli usano i prezzi attuali: se F13 cambiasse i prezzi, i progressi pagati con i vecchi verrebbero respinti. Togliere un esercizio da un tema ha lo stesso effetto per chi l’aveva aperto.
+- **Ogni cambio degli esercizi** (tema nuovo, esercizio aggiunto, suggerimenti cambiati) richiede `npm run classifica:dati` e un nuovo deploy del Worker; prima del deploy gli esercizi nuovi danno 422. La guida «Aggiungere un tema» del `README.md` lo dice; aggiungere il controllo `--controlla` al workflow di F10 eviterebbe dimenticanze.
+
+### Per F17
+
+Il gettone sta nella sezione `sql-academy` dello zaino; il portale invia i progressi senza `lastQuery`; un 422 è definitivo per quei progressi (mostrare il motivo, non riprovare), un 429 si riprova dopo `Retry-After`. `wrangler dev` del servizio usa la porta 8787 come quello dello zaino: per averli entrambi, uno dei due va avviato con `--port`.
+
+Consumo reale: non misurato.
