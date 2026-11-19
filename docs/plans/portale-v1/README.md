@@ -558,6 +558,7 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `x-wing` | Star Wars, pulsanti della sessione nello schema chiaro | F18 | catalogo | usata (anche per gli stati vuoti, F08) |
 | `tie-fighter` | Star Wars, pulsanti della sessione nello schema scuro | F18 | creata (Opus 5.5) | approvata |
 | `hobbit-backpack` | Il Signore degli Anelli, pulsanti della sessione | F18 | creata (Opus 5.5) | approvata la seconda versione: la prima, con le cinghie che uscivano dal rotolo sopra una scatola, sembrava «il marchingegno per far esplodere la dinamite a distanza» |
+| `database` | favicon del portale (`src/assets/favicon.svg`, con i colori della veste neutra e una variante per il tema scuro del browser) | revisione pre-produzione | catalogo | usata |
 | `volcano` | Il Signore degli Anelli, pulsante «Azzera i progressi» (`icons.reset`) | F18 | creata (Opus 5.5) | approvata la terza versione: la prima, con tre lapilli, sembrava un volto; nella seconda Marco voleva la lava che trabocca da tutta la bocca |
 | `battle-station-damaged` | Star Wars, pulsante «Azzera i progressi» (`icons.reset`) | F18 | creata (Opus 5.5) | approvata la seconda versione, disegnata da un riferimento di Marco (stazione con il lato a gradini); la prima, frammenti attorno a un lampo, rendeva male l’esplosione |
 | `backpack` | zaino: collegamento nelle intestazioni, titolo della pagina, «Apri» e «Crea lo zaino» | F15 | creata (Opus 5.5) | approvata alla prima versione; `hobbit-backpack` era troppo legata a LOTR per un’icona comune |

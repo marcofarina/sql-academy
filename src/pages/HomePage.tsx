@@ -363,7 +363,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
               data-theme-id={themeId}
               style={{
                 transform: transformOf(placement),
-                transition: launchStart ? 'none' : undefined,
+                transitionProperty: launchStart ? 'none' : undefined,
                 transitionDuration: duration,
                 visibility: scattered ? undefined : 'hidden',
                 width: geometry?.width,
@@ -451,7 +451,7 @@ function PosterFront({ poster }: { poster: Poster }) {
   if (poster.kind === 'soon') {
     return (
       <>
-        <h2 className="poster-front-title">Prossi&shy;mamente</h2>
+        <h2 className="poster-front-title">Prossima&shy;mente</h2>
         <p className="poster-credits">Tema {poster.number}, da scegliere</p>
       </>
     );

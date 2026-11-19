@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <!-- RB Icons · database -->
+  <style>svg{color:#172131}@media (prefers-color-scheme:dark){svg{color:#e4e7ec}}</style>
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M0 80A224 80 0 0 0 448 80V176A224 80 0 0 1 0 176ZM0 208A224 80 0 0 0 448 208V304A224 80 0 0 1 0 304ZM0 336A224 80 0 0 0 448 336V432A224 80 0 0 1 0 432Z"/>
+  <path class="rb-primary" fill="currentColor" d="M0 80A224 80 0 1 1 448 80A224 80 0 1 1 0 80Z"/>
+</svg>
