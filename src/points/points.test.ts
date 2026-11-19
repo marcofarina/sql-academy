@@ -149,9 +149,9 @@ describe('regola 4: i suggerimenti uno alla volta, ciascuno al suo prezzo, per s
 describe('regola 5: la soluzione solo dopo tutti i suggerimenti', () => {
   test('prima dell’ultimo suggerimento la soluzione è bloccata, anche con il saldo', () => {
     let progress = withBalance(100);
-    expect(solutionOffer(easy, state(progress, easy), walletOf(progress))).toEqual({ status: 'locked' });
+    expect(solutionOffer(easy, state(progress, easy), walletOf(progress))).toEqual({ status: 'locked', cost: SOLUTION_COST.facile });
     progress = withHint(progress, easy);
-    expect(solutionOffer(easy, state(progress, easy), walletOf(progress))).toEqual({ status: 'locked' });
+    expect(solutionOffer(easy, state(progress, easy), walletOf(progress))).toEqual({ status: 'locked', cost: SOLUTION_COST.facile });
     expect(withSolution(progress, easy)).toBe(progress);
     expect(canRevealSolution(easy, state(progress, easy), walletOf(progress))).toBe(false);
   });

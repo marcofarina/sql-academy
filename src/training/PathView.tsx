@@ -4,6 +4,7 @@ import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
 import type { Exercise } from '../themes/contract.ts';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { SessionIcon } from './SessionIcon.tsx';
+import { Reward } from '../points/Reward.tsx';
 import { buildPath, chapterLabel, DIFFICULTY_LABEL, plural } from './exercises.ts';
 
 interface PathViewProps {
@@ -60,7 +61,8 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset 
             </p>
             <ul className="exercise-list">
               {group.map((exercise) => {
-                const done = exerciseProgress(progress, exercise.id).solved;
+                const state = exerciseProgress(progress, exercise.id);
+                const done = state.solved;
                 return (
                   <li key={exercise.id}>
                     <a href={link(exercise.id)}>
@@ -69,6 +71,7 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset 
                       <span className={`difficulty difficulty-${exercise.difficulty}`}>
                         {DIFFICULTY_LABEL[exercise.difficulty]}
                       </span>
+                      <Reward exercise={exercise} state={state} />
                     </a>
                   </li>
                 );

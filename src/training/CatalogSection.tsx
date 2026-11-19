@@ -15,6 +15,7 @@ import {
   type CatalogFilters,
 } from './exercises.ts';
 import { TrainingStatus } from './TrainingSection.tsx';
+import { Reward } from '../points/Reward.tsx';
 import type { TrainingState } from './useTraining.ts';
 
 interface CatalogSectionProps {
@@ -118,12 +119,14 @@ export function CatalogSection({ themeId, training, progress }: CatalogSectionPr
                 <th scope="col">Esercizio</th>
                 <th scope="col">Capitolo</th>
                 <th scope="col">Difficoltà</th>
+                <th scope="col">Premio</th>
                 <th scope="col">Parole chiave</th>
               </tr>
             </thead>
             <tbody>
               {found.map((exercise) => {
-                const done = exerciseProgress(progress, exercise.id).solved;
+                const state = exerciseProgress(progress, exercise.id);
+                const done = state.solved;
                 return (
                   <tr key={exercise.id}>
                     <td>
@@ -140,6 +143,9 @@ export function CatalogSection({ themeId, training, progress }: CatalogSectionPr
                       <span className={`difficulty difficulty-${exercise.difficulty}`}>
                         {DIFFICULTY_LABEL[exercise.difficulty]}
                       </span>
+                    </td>
+                    <td>
+                      <Reward exercise={exercise} state={state} />
                     </td>
                     <td>
                       {/* Le parole chiave suggeriscono la soluzione: si vedono solo a esercizio risolto. */}

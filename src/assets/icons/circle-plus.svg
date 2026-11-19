@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · circle-plus -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M0 256A256 256 0 0 1 512 256A256 256 0 0 1 0 256ZM232 160V232H160A24 24 0 0 0 160 280H232V352A24 24 0 0 0 280 352V280H352A24 24 0 0 0 352 232H280V160A24 24 0 0 0 232 160Z"/>
+  <path class="rb-primary" fill="currentColor" d="M232 160A24 24 0 0 1 280 160V232H352A24 24 0 0 1 352 280H280V352A24 24 0 0 1 232 352V280H160A24 24 0 0 1 160 232H232Z"/>
+</svg>

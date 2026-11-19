@@ -2,7 +2,8 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { SessionIcon } from './SessionIcon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
-import type { ThemeProgress } from '../progress/progress.ts';
+import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
+import { pointsLabel } from '../points/labels.ts';
 import type { ProgressActions } from '../progress/useProgress.ts';
 import { formatRoute } from '../routing/route.ts';
 import { CHAPTERS, DIFFICULTIES, type Chapter, type Exercise } from '../themes/contract.ts';
@@ -30,7 +31,27 @@ export interface ActiveSession {
   exerciseIds: string[];
   index: number;
   records: Record<string, SessionRecord>;
+  /** Punti incassati e spesi su ogni esercizio all’avvio: il riepilogo conta la differenza. */
+  baseline: Record<string, PointsSnapshot>;
   finished: boolean;
+}
+
+interface PointsSnapshot {
+  earned: number;
+  spent: number;
+}
+
+function snapshot(progress: ThemeProgress, id: string): PointsSnapshot {
+  const { pointsEarned, pointsSpent } = exerciseProgress(progress, id);
+  return { earned: pointsEarned, spent: pointsSpent };
+}
+
+/** I punti guadagnati e spesi su un esercizio da quando è iniziata la sessione. */
+function sessionPoints(session: ActiveSession, progress: ThemeProgress, id: string): PointsSnapshot {
+  const now = snapshot(progress, id);
+  const before = session.baseline[id] ?? { earned: 0, spent: 0 };
+  // Un azzeramento durante la sessione abbassa i contatori: la differenza non scende sotto zero.
+  return { earned: Math.max(0, now.earned - before.earned), spent: Math.max(0, now.spent - before.spent) };
 }
 
 const EMPTY_RECORD: SessionRecord = { attempts: 0, hints: 0, solutionSeen: false, solved: false };
@@ -142,18 +163,24 @@ function ConfigForm({ exercises, onStart }: { exercises: Exercise[]; onStart(con
 
 function Summary({
   session,
+  progress,
   exercises,
   themeId,
   onNew,
 }: {
   session: ActiveSession;
+  progress: ThemeProgress;
   exercises: Map<string, Exercise>;
   themeId: string;
   onNew(): void;
 }) {
-  const records = session.exerciseIds.map((id) => ({ id, ...(session.records[id] ?? EMPTY_RECORD) }));
+  const records = session.exerciseIds.map((id) => ({
+    id,
+    ...(session.records[id] ?? EMPTY_RECORD),
+    ...sessionPoints(session, progress, id),
+  }));
   const solved = records.filter((r) => r.solved).length;
-  const total = (key: 'attempts' | 'hints') => records.reduce((sum, r) => sum + r[key], 0);
+  const total = (key: 'attempts' | 'hints' | 'earned' | 'spent') => records.reduce((sum, r) => sum + r[key], 0);
   return (
     <div className="session-summary">
       <h2>
@@ -164,6 +191,16 @@ function Summary({
         {solved === 1 ? 'Risolto' : 'Risolti'} {solved} su {plural(records.length, 'esercizio', 'esercizi')}, con{' '}
         {plural(total('attempts'), 'verifica', 'verifiche')} e {plural(total('hints'), 'suggerimento aperto', 'suggerimenti aperti')}.
       </p>
+      <p className="session-points">
+        <span className="points-gain">
+          <Icon name="circle-plus" />
+          {pointsLabel(total('earned'))} {total('earned') === 1 ? 'guadagnato' : 'guadagnati'}
+        </span>
+        <span className="points-spend">
+          <Icon name="circle-minus" />
+          {pointsLabel(total('spent'))} {total('spent') === 1 ? 'speso' : 'spesi'}
+        </span>
+      </p>
       <div className="table-scroll">
         <table>
           <thead>
@@ -173,6 +210,8 @@ function Summary({
               <th scope="col">Verifiche</th>
               <th scope="col">Suggerimenti</th>
               <th scope="col">Soluzione</th>
+              <th scope="col">Punti guadagnati</th>
+              <th scope="col">Punti spesi</th>
             </tr>
           </thead>
           <tbody>
@@ -192,9 +231,20 @@ function Summary({
                 <td className="number">{r.attempts}</td>
                 <td className="number">{r.hints}</td>
                 <td>{r.solutionSeen ? 'vista' : '—'}</td>
+                <td className="number">{r.earned}</td>
+                <td className="number">{r.spent}</td>
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colSpan={5}>
+                Totale
+              </th>
+              <td className="number">{total('earned')}</td>
+              <td className="number">{total('spent')}</td>
+            </tr>
+          </tfoot>
         </table>
       </div>
       <div className="toolbar">
@@ -219,19 +269,23 @@ export function SessionView({ themeId, training, progress, actions, session, onS
     return (
       <ConfigForm
         exercises={training.exercises}
-        onStart={(config) =>
+        onStart={(config) => {
+          const exerciseIds = generateSession(training.exercises, config).map((e) => e.id);
           onSession({
-            exerciseIds: generateSession(training.exercises, config).map((e) => e.id),
+            exerciseIds,
             index: 0,
             records: {},
+            baseline: Object.fromEntries(exerciseIds.map((id) => [id, snapshot(progress, id)])),
             finished: false,
-          })
-        }
+          });
+        }}
       />
     );
   }
   if (session.finished) {
-    return <Summary session={session} exercises={byId} themeId={themeId} onNew={() => onSession(undefined)} />;
+    return (
+      <Summary session={session} progress={progress} exercises={byId} themeId={themeId} onNew={() => onSession(undefined)} />
+    );
   }
 
   const id = session.exerciseIds[session.index];

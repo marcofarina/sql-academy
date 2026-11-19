@@ -56,12 +56,12 @@ export type Waiver = 'first' | 'solved';
 /**
  * Lo stato di un aiuto di un esercizio:
  * - `unavailable`: non c’è nulla da aprire (tutti i suggerimenti aperti, soluzione vista o assente);
- * - `locked`: la soluzione, prima dell’ultimo suggerimento;
+ * - `locked`: la soluzione, prima dell’ultimo suggerimento; `cost` è il prezzo che avrà;
  * - `available`: si può comprare; `missing` sono i punti che mancano al saldo (zero se lo copre).
  */
 export type Offer =
   | { status: 'unavailable' }
-  | { status: 'locked' }
+  | { status: 'locked'; cost: number }
   | { status: 'available'; cost: number; waiver: Waiver | null; missing: number };
 
 function priced(cost: number, waiver: Waiver | null, wallet: Wallet): Offer {
@@ -78,7 +78,7 @@ export function hintOffer(exercise: PointsExercise, state: ExerciseProgress, wal
 export function solutionOffer(exercise: PointsExercise, state: ExerciseProgress, wallet: Wallet): Offer {
   if (exercise.solutionAvailable === false || state.solutionSeen) return { status: 'unavailable' };
   if (state.solved) return priced(0, 'solved', wallet);
-  if (state.hintsRevealed < exercise.hints.length) return { status: 'locked' };
+  if (state.hintsRevealed < exercise.hints.length) return { status: 'locked', cost: SOLUTION_COST[exercise.difficulty] };
   return priced(SOLUTION_COST[exercise.difficulty], null, wallet);
 }
 

@@ -15,7 +15,7 @@
 | F11 | Studiare la veste grafica con lo strumento di design | F03 | Opus 5.5 `medium` | medio | completata | 2026-11-18 01:24 | [P-F11](#p-f11) | [F11](F11-studiare-veste-strumento-design.md) |
 | F12 | Studiare la veste del Signore degli Anelli con lo strumento di design | F08, F11 | Opus 5.5 `medium` | medio | completata | 2026-11-18 13:18 | [P-F12](#p-f12) | [F12](F12-studiare-veste-signore-anelli.md) |
 | F13 | Definire regole dei punti e progressi versione 2 | F05 | Sonnet 5.5 `high` | medio | completata | 2026-11-19 01:00 | [P-F13](#p-f13) | [F13](F13-definire-regole-punti-progressi.md) |
-| F14 | Mostrare saldo, costi e punti nell’interfaccia | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F14](#p-f14) | [F14](F14-mostrare-saldo-costi-punti.md) |
+| F14 | Mostrare saldo, costi e punti nell’interfaccia | F13 | Opus 5.5 `medium` | medio | completata | 2026-11-19 01:55 | [P-F14](#p-f14) | [F14](F14-mostrare-saldo-costi-punti.md) |
 | F15 | Collegare i progressi allo zaino di PDB | F13 | Opus 5.5 `high` | alto | da fare | | [P-F15](#p-f15) | [F15](F15-collegare-progressi-zaino-pdb.md) |
 | F16 | Costruire il servizio della classifica | F13 | Opus 5.5 `medium` | medio | da fare | | [P-F16](#p-f16) | [F16](F16-costruire-servizio-classifica.md) |
 | F17 | Mostrare la classifica nel portale | F14, F15, F16 | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-mostrare-classifica-portale.md) |
@@ -546,6 +546,10 @@ Una riga per icona, compilata dalla fase che la usa. «Origine» è `catalogo` (
 | `durin-door` | Il Signore degli Anelli, stati vuoti nello schema scuro (F09) | F12 | creata (Opus 5.5) | approvata; nata come emblema, sostituita nel selettore da `eye-of-sauron` |
 | `magic-wand` | nessuno | F12 | creata (Opus 5.5) | primo `wizard-staff`, rinominato; Marco l’ha tenuta nel catalogo senza usarla |
 | `rocket` | pulsanti che avviano una sessione, icona comune al posto di `dice` | F18 | creata (Opus 5.5) | approvata; Marco ha chiesto in più un’icona di sessione per ogni tema (`icons.session`) |
+| `coin` | punti: saldo nell’intestazione e sulle locandine, costi degli aiuti, premi | F14 | creata (Opus 5.5) | approvata; soggetto scelto da Marco fra moneta, gemma e stella |
+| `circle-plus` | punti guadagnati: ultimo movimento del saldo, riepilogo della sessione | F14 | creata (Opus 5.5) | approvata |
+| `circle-minus` | punti spesi: ultimo movimento del saldo, riepilogo della sessione | F14 | creata (Opus 5.5) | approvata; meno spesso 64 e lungo 288 invece di 48 × 240 (R4.2), perché con le misure standard il primario restava al 5,4% (R3.8 chiede almeno l’8%) |
+| `lock` | motivo di un aiuto disattivato | F14 | creata (Opus 5.5) | approvata |
 | `x-wing` | Star Wars, pulsanti della sessione nello schema chiaro | F18 | catalogo | usata (anche per gli stati vuoti, F08) |
 | `tie-fighter` | Star Wars, pulsanti della sessione nello schema scuro | F18 | creata (Opus 5.5) | approvata |
 | `hobbit-backpack` | Il Signore degli Anelli, pulsanti della sessione | F18 | creata (Opus 5.5) | approvata la seconda versione: la prima, con le cinghie che uscivano dal rotolo sopra una scatola, sembrava «il marchingegno per far esplodere la dinamite a distanza» |

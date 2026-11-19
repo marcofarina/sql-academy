@@ -3,6 +3,8 @@ import { Icon } from '../icons/Icon.tsx';
 import { formatRoute } from '../routing/route.ts';
 import { CHAPTERS, DIFFICULTIES, type Theme } from '../themes/contract.ts';
 import { plural } from '../training/exercises.ts';
+import { balanceOf, browserStorage, loadProgress } from '../progress/progress.ts';
+import { pointsLabel } from '../points/labels.ts';
 import {
   clamp,
   credits,
@@ -428,6 +430,18 @@ export function HomePage({ themes }: { themes: Theme[] }) {
   );
 }
 
+/** Il saldo di un tema, letto dai progressi salvati con le funzioni di F13. */
+function ThemeBalance({ themeId }: { themeId: string }) {
+  const balance = balanceOf(loadProgress(browserStorage(), themeId));
+  return (
+    <p className="theme-balance">
+      <Icon name="coin" />
+      <span className="visually-hidden">Saldo: </span>
+      {pointsLabel(balance)}
+    </p>
+  );
+}
+
 function PosterFront({ poster }: { poster: Poster }) {
   if (poster.kind === 'soon') {
     return (
@@ -442,6 +456,7 @@ function PosterFront({ poster }: { poster: Poster }) {
     <>
       <p className="poster-motto">{manifest.motto}</p>
       <h2 className="poster-front-title">{manifest.title}</h2>
+      {stats && stats.exercises > 0 && <ThemeBalance themeId={manifest.id} />}
       {stats && <p className="poster-credits">{credits(stats)}</p>}
     </>
   );
@@ -480,6 +495,7 @@ function PosterCard({ poster, titleId, onClose }: { poster: Poster; titleId: str
         <h2 className="card-title" id={titleId}>
           {manifest.title}
         </h2>
+        {ready && <ThemeBalance themeId={manifest.id} />}
         <p className="card-description">{manifest.description}</p>
         {ready && stats ? (
           <>

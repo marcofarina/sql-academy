@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { describeVerdict, ExerciseError, verifyAnswer, type Verdict } from '../exercises/verify.ts';
 import { Icon } from '../icons/Icon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
@@ -12,7 +12,8 @@ import { SqlEditor } from '../sandbox/SqlEditor.tsx';
 import { engine } from '../sql/browser.ts';
 import type { ResultSet } from '../sql/engine.ts';
 import type { Exercise } from '../themes/contract.ts';
-import { chapterLabel, DIFFICULTY_LABEL, formatQuery, plural } from './exercises.ts';
+import { chapterLabel, DIFFICULTY_LABEL, formatQuery } from './exercises.ts';
+import { costLabel, disabledReason } from '../points/labels.ts';
 import type { TrainingState } from './useTraining.ts';
 
 /** Righe del risultato dello studente mostrate sotto l’esito della verifica. */
@@ -56,6 +57,34 @@ function VerdictView({ verdict, student }: { verdict: Verdict; student: ResultSe
         </div>
       </div>
       {student && <ResultTable resultSet={shown(student)} caption="Il tuo risultato" />}
+    </div>
+  );
+}
+
+/**
+ * Il pulsante di un aiuto, con il prezzo scritto sopra. Se è disattivato, il
+ * motivo sta in una riga visibile sotto, collegata al pulsante con `aria-describedby`.
+ */
+function HelpButton({ icon, label, offer, balance, onClick }: { icon: string; label: string; offer: Offer; balance: number; onClick(): void }) {
+  const reasonId = useId();
+  const reason = disabledReason(offer, balance);
+  const free = offer.status === 'available' && offer.waiver !== null;
+  return (
+    <div className="help-action">
+      <button type="button" onClick={onClick} disabled={reason !== undefined} aria-describedby={reason ? reasonId : undefined}>
+        <Icon name={icon} />
+        {label}
+        <span className={free ? 'cost is-free' : 'cost'}>
+          <Icon name="coin" />
+          {costLabel(offer)}
+        </span>
+      </button>
+      {reason && (
+        <p className="help-reason" id={reasonId}>
+          <Icon name="lock" />
+          {reason}
+        </p>
+      )}
     </div>
   );
 }
@@ -124,8 +153,6 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
 
   const hint = hintOffer(exercise, progress, wallet);
   const solution = solutionOffer(exercise, progress, wallet);
-  const missingTitle = (offer: Offer) =>
-    offer.status === 'available' && offer.missing > 0 ? `Mancano ${plural(offer.missing, 'punto', 'punti')}.` : undefined;
 
   const tables = training.db.tables.filter((t) => exercise.tables.includes(t.name));
   const hints = exercise.hints.slice(0, progress.hintsRevealed);
@@ -205,24 +232,22 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
               ))}
             </ol>
           )}
-          <div className="toolbar">
-            {hint.status === 'available' && (
-              <button type="button" onClick={revealHint} disabled={hint.missing > 0} title={missingTitle(hint)}>
-                <Icon name="lightbulb" />
-                {progress.hintsRevealed === 0 ? 'Mostra un suggerimento' : 'Mostra il suggerimento successivo'} (
-                {progress.hintsRevealed + 1} di {exercise.hints.length})
-              </button>
-            )}
-            {solution.status === 'available' && (
-              <button type="button" onClick={revealSolution} disabled={solution.missing > 0} title={missingTitle(solution)}>
-                <Icon name="key" />
-                Mostra la soluzione
-              </button>
-            )}
-            {solution.status === 'locked' && (
-              <span className="shortcut">La soluzione si apre dopo l’ultimo suggerimento o a esercizio risolto.</span>
-            )}
-          </div>
+          {(hint.status !== 'unavailable' || solution.status !== 'unavailable') && (
+            <div className="help-actions">
+              {hint.status !== 'unavailable' && (
+                <HelpButton
+                  icon="lightbulb"
+                  label={`${progress.hintsRevealed === 0 ? 'Mostra un suggerimento' : 'Mostra il suggerimento successivo'} (${progress.hintsRevealed + 1} di ${exercise.hints.length})`}
+                  offer={hint}
+                  balance={wallet.balance}
+                  onClick={revealHint}
+                />
+              )}
+              {solution.status !== 'unavailable' && (
+                <HelpButton icon="key" label="Mostra la soluzione" offer={solution} balance={wallet.balance} onClick={revealSolution} />
+              )}
+            </div>
+          )}
           {progress.solutionSeen && (
             <figure className="solution">
               <figcaption>

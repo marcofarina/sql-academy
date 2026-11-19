@@ -8,6 +8,7 @@ import { loadScheme, saveScheme } from '../scheme/scheme.ts';
 import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
 import { SectionIndicator } from './SectionIndicator.tsx';
 import { useProgress } from '../progress/useProgress.ts';
+import { Balance } from '../points/Balance.tsx';
 import { TraceSection } from '../trace/TraceSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
 import { LogicalSection } from '../logical/LogicalSection.tsx';
@@ -38,7 +39,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   const [query, setQuery] = useState('');
   // Esercizi, progressi e sessione vivono anch’essi con il tema: passano da una sezione all’altra.
   const training = useTraining(theme);
-  const { progress, ...progressActions } = useProgress(id);
+  const { progress, balance, ...progressActions } = useProgress(id);
   const [session, setSession] = useState<ActiveSession>();
   const current = SECTIONS.find((s) => s.id === section)!;
 
@@ -58,6 +59,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
             {activeIcons.emblem && <Icon svg={activeIcons.emblem} />}
             {title}
           </p>
+          <Balance balance={balance} />
           {schemes && (
             <div className="scheme-switch" role="group" aria-label="Schema di colori">
               {SCHEMES.map((s) => (
