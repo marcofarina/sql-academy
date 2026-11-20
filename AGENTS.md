@@ -36,8 +36,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-19 | F17 completata: classifica nel portale (`src/classifica/`): adesione solo con lo zaino, token nella sezione `sql-academy`, invio dei punti con attesa, pagine `#/classifica` e `#/informativa`. Icone `trophy`, `id-badge`, `shield-check`. Casella `privacy@rainbowbits.cloud` da creare prima di F10. |
 | 2026-11-19 | Revisione pre-produzione: limite sulle iscrizioni alla classifica, 30 al minuto per IP e 1000 al giorno su tutto il servizio (migrazione `0002_iscrizioni.sql`), contro chi vuole esaurire i nomi o la quota di D1. |
 | 2026-11-19 | Codice dello zaino a quattro parole (44 bit, elenco di 2048 approvato da Marco), deciso con Marco e fatto prima in PDB (commit `6fe2e49`, branch `claude/zaino-parole-191479`, non ancora in `dev`); qui ricopiati `src/zaino/parole.ts`, `cifra.ts`, la nuova estrazione su 412 in `sincronizza.ts` e i testi. I codici di 20 caratteri aprono ancora il loro zaino. |
+| 2026-11-20 | F10 in corso: repo pubblico `marcofarina/sql-academy`, sito su `http://sql.rainbowbits.cloud/` da `main` (workflow `pubblica.yml`), licenze MIT e CC BY-NC-SA 4.0; zaino di PDB e classifica distribuiti con il CORS di produzione, D1 della classifica creato. Restano certificato HTTPS, procedura manuale e link dal libro. |
 
-**Prossimo passo:** apri la prima fase `da fare` dell’indice in `docs/plans/portale-v1/README.md`, con il suo prompt di apertura.
+**Prossimo passo:** chiudi F10 dal «Residuo» del suo dettaglio: HTTPS, procedura manuale sul sito pubblicato, link dal libro.
 
 ## Requisiti di Marco
 

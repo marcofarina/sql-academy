@@ -50,4 +50,38 @@ Procedura manuale sul sito pubblicato: apri entrambi i temi, esegui una query ne
 
 ## 6. Passaggio di consegne
 
-Da compilare alla chiusura: esito, verifiche, indirizzo del sito, azioni autorizzate da Marco con data, testo della modifica da fare nel repo del libro, lavoro residuo e proposta per il piano dei temi successivi.
+Stato al 2026-11-20 01:00: **in corso**, eseguita su Opus 5.5 per scelta di Marco (il prompt chiedeva Sonnet 5.5). Sito pubblicato; restano il certificato HTTPS e la procedura manuale.
+
+### Scelte di Marco (2026-11-20)
+
+- Repo pubblico `marcofarina/sql-academy`; dominio proprio `sql.rainbowbits.cloud` (CNAME `sql` → `marcofarina.github.io`, aggiunto da Marco nel DNS di Cloudflare).
+- Licenze come PDB: MIT per il codice (`LICENSE-MIT`), CC BY-NC-SA 4.0 per i contenuti (`LICENSE`).
+- Pubblicazione da `main` con il workflow `.github/workflows/pubblica.yml`; si lavora su `dev`.
+- Casella `privacy@rainbowbits.cloud` già esistente; l’informativa resta quella del portale (`#/informativa`, F17), che rimanda alla privacy policy del libro per lo zaino.
+
+### Fatto
+
+- Commit `bbe2da3`: workflow (lint, test, `check:themes`, `classifica-dati.ts --controlla`, build, Pages), licenze, sezioni «Pubblicazione» e «Licenza» del README, origine di produzione nel CORS della classifica, nota sui titolari delle opere e link «I tuoi dati» nel piè di pagina della home (su schermo stretto il piè di pagina va sotto il mazzo), informativa corretta («codice di quattro parole»). `base: './'` era già adatto e non è cambiato. Nessuna pagina di informazioni a parte: bastano piè di pagina e informativa.
+- Con il via di Marco, un passo alla volta: repo pubblico e remote `origin`; push di `dev`; merge *fast-forward* in `main` e push; Pages da workflow con dominio `sql.rainbowbits.cloud`. L’ambiente `github-pages` ammetteva solo il branch predefinito (`dev`, il primo arrivato): aggiunta la regola per `main`.
+- Con il via di Marco: in PDB commit `f007a51` su `dev` (origine `https://sql.rainbowbits.cloud` nel CORS dello zaino) e deploy di `pdb-zaino` (versione `0bfb2585`); D1 `sql-academy-classifica` creato (id `37a43a09-1d24-4eb8-892f-e436f10da43b`), migrazioni 0001 e 0002 applicate in remoto, deploy di `sql-academy-classifica` su `sql-classifica.rainbowbits.cloud` (versione `3c6785f9`). Il primo deploy di un Worker nuovo fallisce con `code: 10007` per un ritardo di propagazione: si aspetta un minuto e si ripete.
+
+### Verifiche
+
+| Verifica | Esito |
+| --- | --- |
+| `npm run lint && npm test && npm run check:themes && npm run build` | superata (212 test; 150 e 140 esercizi, 0 problemi) |
+| `gh repo view --json visibility` | superata: `PUBLIC` |
+| `gh run list --limit 1` | superata: esecuzione `44643935472` riuscita |
+| `curl` su `http://sql.rainbowbits.cloud/` | superata: `200`, titolo «SQL Academy» |
+| `curl` su `https://sql.rainbowbits.cloud/` | **non superata**: certificato non ancora emesso da GitHub |
+| `npm run prova -- https://sql-classifica.rainbowbits.cloud` | superata: 31 su 31; D1 ripulito dopo la prova |
+| Preflight CORS da `https://sql.rainbowbits.cloud` verso zaino e classifica | superata: `204` con `Allow-Origin` |
+| Home a 1280 e a 375 px sulla build di produzione | superata |
+| Procedura manuale sul sito pubblicato | **non eseguita**: lo zaino usa la cifratura del browser, disponibile solo in HTTPS |
+
+### Residuo
+
+1. Quando GitHub emette il certificato: attivare «Enforce HTTPS» (`gh api -X PUT repos/marcofarina/sql-academy/pages -F https_enforced=true`), ripetere il `curl` in HTTPS ed eseguire la procedura manuale della sezione 5.
+2. Decidere con Marco se rendere `main` il branch predefinito del repo (oggi `dev`).
+3. Nel repo del libro, a cura di Marco: link al portale, per esempio nell’introduzione del *Manuale dell’Archivista* (`volumes/archivista/intro.mdx`) e nella pagina dello zaino: «Allenati con le query su [SQL Academy](https://sql.rainbowbits.cloud/), il portale di esercizi che accompagna questo volume.» In PDB il `dev` locale è avanti di 15 commit su `origin/dev` più `f007a51`: nessun push fatto.
+4. Proposta per il piano successivo: scegliere i due temi mancanti e il CTF, rinviati il 2026-11-17.
