@@ -2242,13 +2242,6 @@ button.link-button {
   color: var(--color-success);
 }
 
-.zaino-offline-placeholder {
-  width: 11px;
-  height: 11px;
-  border: 1.5px dashed currentColor;
-  border-radius: 50%;
-}
-
 .zaino-spinner {
   display: none;
 }

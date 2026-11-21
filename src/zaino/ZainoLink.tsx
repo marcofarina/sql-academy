@@ -8,6 +8,7 @@ const DISTINTIVI = {
   sincronizzato: 'circle-check',
   'in-attesa': 'cloud-arrow-up',
   'in-corso': 'cloud-arrow-up',
+  offline: 'cloud-slash',
   errore: 'circle-xmark',
 };
 
@@ -16,7 +17,7 @@ export function ZainoLink({ current }: { current: boolean }) {
   const stato = useStatoZaino();
   const testo = testoStato(stato);
   const { fase, parola } = statoPillola(stato);
-  const distintivo = fase === 'scollegato' || fase === 'offline' ? undefined : DISTINTIVI[fase];
+  const distintivo = fase === 'scollegato' ? undefined : DISTINTIVI[fase];
 
   return (
     <>
@@ -34,8 +35,6 @@ export function ZainoLink({ current }: { current: boolean }) {
             <span className="zaino-badge" aria-hidden="true">
               {distintivo && <Icon name={distintivo} />}
               {fase === 'in-corso' && <span className="zaino-spinner" />}
-              {/* Segnaposto di F02 per la nuvola barrata. */}
-              {fase === 'offline' && <span className="zaino-offline-placeholder" />}
             </span>
           )}
         </span>

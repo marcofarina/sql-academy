@@ -5,7 +5,7 @@
 | F01 | Chiudere la pubblicazione del portale | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 11:49 | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
 | F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus | — | `medium` | medio-alto | completata | 2026-11-21 17:55 | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
 | F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | da fare |  | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
-| F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | in corso |  | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
+| F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | completata | 2026-11-21 18:56 | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
 | F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus | Sol | `medium` | medio | da fare |  | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
 | F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet | Terra | `high` | basso-medio | completata | 2026-11-21 13:01 | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
 | F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus | Sol | `medium` | medio-alto | da fare |  | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
@@ -490,7 +490,7 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | `circle-check` | distintivo dello zaino sincronizzato | F04 | già nel progetto | usata |
 | `cloud-arrow-up` | distintivo delle modifiche in attesa e del salvataggio con movimento ridotto | F04 | già nel progetto | usata |
 | `circle-xmark` | distintivo dell’errore dello zaino | F04 | già nel progetto | usata |
-| nuvola barrata (nome da scegliere) | distintivo «senza rete» della pillola dello zaino e della riga dello zaino nella notifica | F02 → F04 | da disegnare | cerchio tratteggiato nelle tavole e nella barra, in attesa dell’icona |
+| `cloud-slash` | distintivo «senza rete» della pillola dello zaino e della riga dello zaino nella notifica | F02 → F04 | disegnata da Claude Opus, approvata da Marco (commit `014f84a` del repo `icone`) | usata nella barra; nella notifica in F05 |
 
 ## Aggiornamenti di stato
 
@@ -506,3 +506,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | Su richiesta di Marco ogni sessione di fase chiude con il «Messaggio di chiusura»: fase terminata e annotata, prossima fase consigliata e il suo prompt pronto da copiare. Regola aggiunta anche alla skill `piani-multisessione`. |
 | 2026-11-21 | F02 completata (Claude Code, Opus): tavole approvate da Marco (barra in una riga sola), specifica `docs/design/barra-notifica.md`, palette `barra-notifica` in `contrasto.mjs`, 60 coppie sopra la soglia. Nuova icona «senza rete» da disegnare in F04. |
 | 2026-11-21 | F04 in corso (Codex, Sol): barra comune, ritorno alla pagina di provenienza e sei stati dello zaino verificati. Resta da sostituire il segnaposto «senza rete» con l’icona RB approvata, in una sessione Claude Code su Opus. |
+| 2026-11-21 | F04 completata (Claude Code, Opus): icona `cloud-slash` disegnata e approvata da Marco al posto del segnaposto «senza rete»; lavoro di Codex ricontrollato, verifiche automatiche e prova nel browser superate. |

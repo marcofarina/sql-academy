@@ -90,7 +90,7 @@ Misure della pillola:
 | Modifiche in sospeso | `fase: 'sincronizzato'`, `inSospeso: true` | «in attesa» | `cloud-arrow-up`, `--color-text` | parola in `--color-muted` |
 | In sincronizzazione | `fase: 'in-corso'` | «salvataggio…» | cerchio che ruota (11 px, tratto 2 px, 0,9 s), `--color-text` | parola in `--color-muted` |
 | Non collegato | `fase: 'scollegato'` | «non collegato» | nessuno | fondo trasparente, bordo tratteggiato, tutto in `--color-muted` |
-| Senza rete | `fase: 'offline'` | «senza rete» | icona nuova, nuvola barrata (segnaposto nelle tavole) | fondo, bordo e testo dell’avviso (`--color-warning-bg`, `-border`, `--color-warning`) |
+| Senza rete | `fase: 'offline'` | «senza rete» | `cloud-slash` (nuvola barrata; segnaposto nelle tavole) | fondo, bordo e testo dell’avviso (`--color-warning-bg`, `-border`, `--color-warning`) |
 | In errore | `fase: 'errore'` | «errore» | `circle-xmark` | fondo, bordo e testo dell’errore (`--color-error-bg`, `-border`, `--color-error`) |
 
 - Con `prefers-reduced-motion: reduce` il cerchio non ruota: al suo posto `cloud-arrow-up`, come per «in attesa».
@@ -156,7 +156,7 @@ Il saldo nella barra si aggiorna appena l’esercizio è risolto, insieme alla n
 
 Tutte già nel progetto (`src/assets/icons/`): `backpack`, `trophy`, `coin`, `circle-arrow-left`, `circle-check`, `circle-xmark`, `cloud-arrow-up`. Gli emblemi dei temi sono quelli delle vesti.
 
-Nuova, da disegnare in F04 con la skill `icone-rb`: **nuvola barrata** per «senza rete», distintivo della pillola e della riga dello zaino. Nelle tavole è un cerchio tratteggiato.
+Nuova, disegnata in F04 con la skill `icone-rb`: `cloud-slash` (**nuvola barrata**) per «senza rete», distintivo della pillola e della riga dello zaino. Nelle tavole è un cerchio tratteggiato.
 
 ## Punti aperti
 
