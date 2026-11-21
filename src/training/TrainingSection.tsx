@@ -6,8 +6,9 @@ import type { ThemeProgress } from '../progress/progress.ts';
 import type { ProgressActions } from '../progress/useProgress.ts';
 import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
 import { ExerciseWorkspace } from './ExerciseWorkspace.tsx';
-import { sortExercises } from './exercises.ts';
+import { plural, sortExercises } from './exercises.ts';
 import { PathView } from './PathView.tsx';
+import { SessionIcon } from './SessionIcon.tsx';
 import { SessionView, type ActiveSession } from './SessionView.tsx';
 import type { TrainingState } from './useTraining.ts';
 
@@ -43,6 +44,29 @@ export function TrainingSection(props: TrainingSectionProps) {
   return <ReadyTraining key={`${area}:${props.progress.epoch}:${cleared}`} {...props} training={props.training} />;
 }
 
+/** Una sessione salvata, aperta dal suo indirizzo: si riprende o si abbandona per sceglierne una nuova. */
+function SavedSession({ session, onResume, onAbandon }: { session: ActiveSession; onResume(): void; onAbandon(): void }) {
+  const solved = Object.values(session.records).filter((record) => record.solved).length;
+  return (
+    <div className="session-config">
+      <p className="lead">
+        Hai una sessione in corso: sei all’esercizio {session.index + 1} di {session.exerciseIds.length}, con{' '}
+        {plural(solved, 'esercizio risolto', 'esercizi risolti')}. Puoi riprenderla da lì, oppure abbandonarla e
+        sceglierne una nuova.
+      </p>
+      <div className="toolbar">
+        <button type="button" className="primary" onClick={onResume}>
+          <SessionIcon />
+          Riprendi la sessione
+        </button>
+        <button type="button" onClick={onAbandon}>
+          Abbandonala
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /** L’addestramento con gli esercizi caricati: tiene la sessione in corso e la salva a ogni cambiamento. */
 function ReadyTraining(props: TrainingSectionProps & { training: Extract<TrainingState, { status: 'ready' }> }) {
   const { themeId, item, training, progress, actions } = props;
@@ -74,12 +98,7 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
   }
 
   if (item === SESSION_ITEM) {
-    if (saved && !session) return (
-      <div className="toolbar">
-        <button type="button" className="primary" onClick={resume}>Riprendi la sessione ({saved.index + 1} di {saved.exerciseIds.length})</button>
-        <button type="button" onClick={abandon}>Abbandonala</button>
-      </div>
-    );
+    if (saved && !session) return <SavedSession session={saved} onResume={resume} onAbandon={abandon} />;
     return (
       <SessionView
         themeId={themeId}

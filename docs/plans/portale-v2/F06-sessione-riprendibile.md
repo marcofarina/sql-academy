@@ -56,5 +56,8 @@ Revisione del lavoro di Codex su Claude Code con Opus, chiesta da Marco per prov
 
 Verifiche: `npm run lint && npm test && npm run check:themes && npm run build` superati (219 test). Nel browser con `npm run dev`: sessione salvata, `window.__zaino.esci()` senza zaino collegato, il pulsante torna «Nuova sessione» senza ricaricare e la chiave sparisce; la ripresa di una sessione salvata riporta all’esercizio giusto; console senza errori. Non provato con uno zaino vero.
 
-Restano, non corretti: la sessione cambia disegno senza averlo annotato (l’addestramento resta montato e nascosto nelle altre sezioni); su `#/<tema>/addestramento/sessione` con una sessione salvata compaiono solo i due pulsanti, senza titolo né spiegazione.
+Poi, su richiesta di Marco, sistemati i due punti rimasti:
+
+- L’addestramento resta montato e nascosto nelle altre sezioni per conservare la sessione in memoria: disegno tenuto e annotato in `src/pages/ThemePage.tsx`. Fuori dall’addestramento l’indirizzo non ha `item`, quindi resta montato solo il percorso.
+- Su `#/<tema>/addestramento/sessione` con una sessione salvata compare una frase con posizione ed esercizi risolti, poi «Riprendi la sessione» e «Abbandonala» (`SavedSession` in `src/training/TrainingSection.tsx`). Provato nel browser: la ripresa porta all’esercizio giusto, l’abbandono apre la scelta di una nuova sessione e cancella la chiave; console senza errori.
 

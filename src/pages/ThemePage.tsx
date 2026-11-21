@@ -38,7 +38,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   // La sandbox vive con il tema, non con la sezione: cambiando sezione query e database restano.
   const sandbox = useSandbox(theme);
   const [query, setQuery] = useState('');
-  // Esercizi, progressi e sessione vivono anch’essi con il tema: passano da una sezione all’altra.
+  // Esercizi e progressi vivono anch’essi con il tema: passano da una sezione all’altra.
   const training = useTraining(theme);
   const { progress, balance, ...progressActions } = useProgress(id);
   const current = SECTIONS.find((s) => s.id === section)!;
@@ -99,6 +99,11 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
             {current.label}
           </h1>
         )}
+        {/*
+          L’addestramento resta montato, nascosto, anche nelle altre sezioni: tiene la sessione in corso
+          (`TrainingSection`), che così sopravvive ai cambi di sezione senza essere riletta dall’archivio.
+          Fuori dall’addestramento l’indirizzo non ha `item`, quindi qui sotto c’è solo il percorso.
+        */}
         <div hidden={section !== 'addestramento'}>
           <TrainingSection
             themeId={id}
