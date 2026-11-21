@@ -1,5 +1,7 @@
 # Piano «portale-v1»
 
+> **Archiviato il 2026-11-21** su richiesta di Marco. Tutte le fasi sono completate tranne F10, rimasta `in corso`: il sito è pubblicato e HTTPS è attivo (verificato il 2026-11-21, certificato `approved`, `https_enforced: true`); il resto del suo «Residuo» passa a F01 del piano [`portale-v2`](../../portale-v2/README.md). Le decisioni condivise, la sezione «Icone» con il registro e la struttura di un tema restano valide e il nuovo piano le richiama da qui. I prompt di apertura citano ancora il vecchio percorso `docs/plans/portale-v1/`: non vanno più usati.
+
 | ID | Fase | Dipendenze | Modello / effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | F01 | Impostare scheletro, contratto del tema e motore SQL | — | Fable 5.2 `medium` · ripiego Opus 5.5 `high` | alto | completata | 2026-11-16 21:01 | [P-F01](#p-f01) | [F01](F01-impostare-scheletro-contratto-motore.md) |

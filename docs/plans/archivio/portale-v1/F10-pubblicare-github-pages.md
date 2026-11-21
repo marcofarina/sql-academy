@@ -85,3 +85,7 @@ Stato al 2026-11-20 01:00: **in corso**, eseguita su Opus 5.5 per scelta di Marc
 2. Decidere con Marco se rendere `main` il branch predefinito del repo (oggi `dev`).
 3. Nel repo del libro, a cura di Marco: link al portale, per esempio nell’introduzione del *Manuale dell’Archivista* (`volumes/archivista/intro.mdx`) e nella pagina dello zaino: «Allenati con le query su [SQL Academy](https://sql.rainbowbits.cloud/), il portale di esercizi che accompagna questo volume.» In PDB il `dev` locale è avanti di 15 commit su `origin/dev` più `f007a51`: nessun push fatto.
 4. Proposta per il piano successivo: scegliere i due temi mancanti e il CTF, rinviati il 2026-11-17.
+
+### Archiviazione (2026-11-21)
+
+Piano archiviato con F10 `in corso`. Il punto 1 è fatto in parte: il certificato è emesso e «Enforce HTTPS» è attivo (`gh api repos/marcofarina/sql-academy/pages` → `https_certificate.state: approved`, `https_enforced: true`; `curl` in HTTPS → `200`, verificato il 2026-11-21). La procedura manuale e i punti 2 e 3 passano a F01 di `portale-v2`; il punto 4 a F08 dello stesso piano (mondi e livelli; CTF ancora rinviate).

@@ -37,8 +37,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-19 | Revisione pre-produzione: limite sulle iscrizioni alla classifica, 30 al minuto per IP e 1000 al giorno su tutto il servizio (migrazione `0002_iscrizioni.sql`), contro chi vuole esaurire i nomi o la quota di D1. |
 | 2026-11-19 | Codice dello zaino a quattro parole (44 bit, elenco di 2048 approvato da Marco), deciso con Marco e fatto prima in PDB (commit `6fe2e49`, branch `claude/zaino-parole-191479`, non ancora in `dev`); qui ricopiati `src/zaino/parole.ts`, `cifra.ts`, la nuova estrazione su 412 in `sincronizza.ts` e i testi. I codici di 20 caratteri aprono ancora il loro zaino. |
 | 2026-11-20 | F10 in corso: repo pubblico `marcofarina/sql-academy`, sito su `http://sql.rainbowbits.cloud/` da `main` (workflow `pubblica.yml`), licenze MIT e CC BY-NC-SA 4.0; zaino di PDB e classifica distribuiti con il CORS di produzione, D1 della classifica creato. Restano certificato HTTPS, procedura manuale e link dal libro. |
+| 2026-11-21 | Feedback di Marco sul sito pubblicato: piano `portale-v1` archiviato in `docs/plans/archivio/portale-v1/` con F10 `in corso` (HTTPS già attivo); nuovo piano `portale-v2` in `docs/plans/portale-v2/` (nove fasi): chiusura della pubblicazione, barra comune con stato dello zaino e «Indietro», notifica dell’esito, sessione riprendibile, pagine Zaino e Classifica ridisegnate, scelta di otto mondi nuovi e dei livelli. Nessun codice. |
 
-**Prossimo passo:** chiudi F10 dal «Residuo» del suo dettaglio: HTTPS, procedura manuale sul sito pubblicato, link dal libro.
+**Prossimo passo:** apri F01 del piano `portale-v2` (procedura manuale sul sito pubblicato, branch predefinito, link dal libro); ordine consigliato nell’indice del piano.
 
 ## Requisiti di Marco
 
@@ -79,7 +80,7 @@ Fissati il 2026-11-16. Valgono finché il piano non li rivede insieme a Marco.
 
 ## Piano e decisioni
 
-Il lavoro segue il piano `docs/plans/portale-v1/README.md`: indice delle fasi, prompt di apertura, vincoli, autonomia e strategia dei modelli. Ogni fase si esegue in una sessione propria, con la skill `piani-multisessione`.
+Il lavoro segue il piano `docs/plans/portale-v2/README.md`: indice delle fasi, prompt di apertura, vincoli, autonomia e strategia dei modelli. Ogni fase si esegue in una sessione propria, con la skill `piani-multisessione`. Gli ID delle fasi (F01…) sono propri di ciascun piano: le fasi citate nella tabella «Stato» fino al 2026-11-20 sono del piano archiviato `docs/plans/archivio/portale-v1/README.md`, le cui decisioni condivise restano valide.
 
 Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisioni condivise» del piano.
 
@@ -100,6 +101,8 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Studio della veste | Ogni tema ha una propria fase di studio con l’Artifact «Design» prima di essere costruito; specifica in `docs/design/<id>.md` (2026-11-17) |
 | Temi tratti da opere protette | Nomi e ambientazioni sì; immagini e font ufficiali no; loghi ed emblemi solo come icone RB stilizzate, non identiche agli originali (2026-11-17) |
 | Schemi di un tema | Un tema può avere uno schema chiaro e uno scuro, con un selettore; Star Wars: X-wing e Morte Nera. Pagina iniziale: locandine dei temi su un tavolo. Specifiche in `docs/design/` (2026-11-18) |
+| Sessione di esercizi | Riprendibile: salvata nel browser per tema, sopravvive a cambi di pagina e ricariche (2026-11-21) |
+| Mondi | Dieci in tutto: otto nuovi da scegliere in F08 di `portale-v2`, divisi in facili (consigliati per cominciare), intermedi e uno o due complessi, candidati alle CTF; la costruzione va in un piano successivo (2026-11-21) |
 
 ## Norme condivise (workspace)
 
