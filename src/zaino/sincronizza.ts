@@ -19,9 +19,9 @@
  * serve al caricamento, al ritorno sulla scheda e dopo un 412.
  *
  * Quando: al caricamento, quando la scheda torna visibile (non prima di 30 s
- * dall'ultima lettura), 5 s dopo l'ultima modifica, quando la scheda si
- * nasconde (`keepalive` sotto i 64 KB) e quando torna la rete. Sugli errori,
- * attese crescenti: 30 s, 1, 2, 5, poi 15 minuti.
+ * dall'ultima lettura), dopo una risposta corretta o 5 s dopo le altre
+ * modifiche, quando la scheda si nasconde (`keepalive` sotto i 64 KB) e quando
+ * torna la rete. Sugli errori, attese crescenti: 30 s, 1, 2, 5, poi 15 minuti.
  *
  * Un 404 su uno zaino che questo dispositivo ha già visto vuol dire che lo
  * zaino è stato cancellato (dal libro con «Cancella lo zaino» o «Cambia
@@ -340,6 +340,8 @@ async function leggiRemoto(chiavi: Chiavi): Promise<Letto | null> {
 interface OpzioniCiclo {
   /** Rileggere il server anche se si conosce l'ultima versione. */
   completa: boolean;
+  /** Anticipo dopo una risposta corretta: vale solo se c’è ancora da scrivere e si può tentare. */
+  anticipata?: boolean;
   /** La scheda si sta nascondendo: `keepalive`. */
   keepalive?: boolean;
   /** Lo zaino è appena nato qui: non c'è niente da leggere. */
@@ -436,10 +438,14 @@ function programmaRiprova(): void {
 
 /** Un ciclo alla volta; le richieste che arrivano nel frattempo si accodano in una. */
 function sincronizza(o: OpzioniCiclo): Promise<void> {
+  if (o.anticipata && (!stato.inSospeso || bloccato() || timerRiprova || navigator.onLine === false)) {
+    return Promise.resolve();
+  }
   if (corrente) {
     ancora = {
       completa: o.completa || !!ancora?.completa,
       keepalive: o.keepalive || ancora?.keepalive,
+      anticipata: o.anticipata && (ancora === null || ancora.anticipata),
     };
     return corrente;
   }
@@ -555,6 +561,11 @@ export type EsitoApri =
   | 'servizio'
   | 'illeggibile'
   | 'aggiorna';
+
+/** Anticipa la scrittura dopo aver registrato una risposta corretta nei progressi locali. */
+export function anticipaSalvataggioZaino(): void {
+  void sincronizza({ completa: false, anticipata: true });
+}
 
 /** Crea uno zaino nuovo con i dati di questo dispositivo; restituisce il codice. */
 export async function crea(): Promise<string> {

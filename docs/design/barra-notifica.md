@@ -167,13 +167,10 @@ Per F04:
 - aggiungere a `src/zaino/labels.ts` la frase di «Non collegato» e le parole brevi della pillola;
 - unificare le intestazioni di oggi (`theme-header`, `home-header`, i `back-link` di Zaino, Classifica, Informativa e pagina non trovata) in un componente unico, tenendo vestibile la barra dal `stile.css` di ogni tema.
 
-Per F05:
+Scelte chiuse in F05:
 
-- decidere se scrivere nello zaino subito dopo un esercizio risolto o tenere l’attesa di 5 secondi (`RITARDO_MODIFICA`). La tavola mostra entrambe le strade:
-  - variante «collegato»: la scrittura parte subito e la riga passa da «Lo sto mettendo nello zaino…» a «Salvato»;
-  - variante «sospeso»: la riga dice «fra pochi secondi» e la pillola completa il racconto dopo la chiusura;
-- scegliere la larghezza sotto cui la notifica passa dall’alto a destra al fondo (le tavole mostrano 1280 e 375 px);
-- ricavare dal registro dei punti il motivo dello zero (soluzione vista o esercizio già risolto);
-- verificare che la notifica non copra l’editor a 1280 px con le sezioni più alte.
+- Marco ha confermato la scrittura immediata dopo una risposta corretta. La riga passa a «Salvato» quando il servizio conferma.
+- A 56 rem e sotto, la notifica si apre in fondo. Su desktop resta fuori dall’editor, allargando il pannello delle tabelle se occorre.
+- Il premio a zero usa il motivo ricavato dai progressi al momento della verifica.
 
 Per F03: le pagine Zaino e Classifica partono dalla barra di questa specifica, in veste neutra del sito.

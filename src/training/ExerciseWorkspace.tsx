@@ -1,10 +1,11 @@
-import { useId, useState, type ReactNode } from 'react';
+/** Spazio di lavoro di un esercizio, condiviso fra percorso e sessione. */
+import { useCallback, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { describeVerdict, ExerciseError, verifyAnswer, type Verdict } from '../exercises/verify.ts';
 import { Icon } from '../icons/Icon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { canRevealHint, canRevealSolution, hintOffer, solutionOffer, walletOf, type Offer } from '../points/points.ts';
 import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
-import type { ProgressActions } from '../progress/useProgress.ts';
+import type { ProgressActions, VerificationReward } from '../progress/useProgress.ts';
 import { ResultTable, ResultsView } from '../sandbox/ResultsView.tsx';
 import { SchemaPanel } from '../sandbox/SchemaPanel.tsx';
 import type { SandboxOutcome } from '../sandbox/session.ts';
@@ -15,6 +16,7 @@ import type { Exercise } from '../themes/contract.ts';
 import { chapterLabel, DIFFICULTY_LABEL, formatQuery } from './exercises.ts';
 import { costLabel, disabledReason } from '../points/labels.ts';
 import type { TrainingState } from './useTraining.ts';
+import { ExerciseNotice } from './ExerciseNotice.tsx';
 
 /** Righe del risultato dello studente mostrate sotto l’esito della verifica. */
 const SHOWN_ROWS = 200;
@@ -45,17 +47,18 @@ function shown(resultSet: ResultSet): ResultSet {
 }
 
 function VerdictView({ verdict, student }: { verdict: Verdict; student: ResultSet | null }) {
-  const correct = verdict.kind === 'correct';
   const timeout = verdict.kind === 'timeout';
   return (
     <div className="results">
-      <div className={`notice ${correct ? 'notice-success' : timeout ? 'notice-warning' : 'notice-error'}`} role="alert">
-        <Icon name={correct ? 'circle-check' : timeout ? 'triangle-exclamation' : 'circle-xmark'} />
-        <div>
-          <p className="notice-title">{correct ? 'Esercizio risolto' : 'Non ancora'}</p>
-          <p>{describeVerdict(verdict)}</p>
+      {verdict.kind !== 'correct' && (
+        <div className={`notice ${timeout ? 'notice-warning' : 'notice-error'}`} role="alert">
+          <Icon name={timeout ? 'triangle-exclamation' : 'circle-xmark'} />
+          <div>
+            <p className="notice-title">Non ancora</p>
+            <p>{describeVerdict(verdict)}</p>
+          </div>
         </div>
-      </div>
+      )}
       {student && <ResultTable resultSet={shown(student)} caption="Il tuo risultato" />}
     </div>
   );
@@ -97,6 +100,21 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
   const [query, setQuery] = useState(progress.lastQuery);
   const [output, setOutput] = useState<Output>();
   const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState<{ id: number; reward: VerificationReward }>();
+  const verifyButton = useRef<HTMLButtonElement>(null);
+  const mounted = useRef(false);
+
+  useLayoutEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  const closeNotice = useCallback((restoreFocus: boolean) => {
+    setNotice(undefined);
+    if (restoreFocus) verifyButton.current?.focus({ preventScroll: true });
+  }, []);
 
   const canAct = !busy && query.trim() !== '';
 
@@ -122,8 +140,11 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
     perform(async () => {
       try {
         const { verdict, student } = await verifyAnswer(engine, training.source, exercise.expectedQuery, query);
+        // Un azzeramento o l’uscita dallo zaino possono smontare l’esercizio mentre SQLite lavora.
+        if (!mounted.current) return { kind: 'verify', verdict, student };
         const correct = verdict.kind === 'correct';
-        actions.recordVerification(exercise, correct);
+        const reward = actions.recordVerification(exercise, correct);
+        setNotice((current) => reward === undefined ? undefined : { id: (current?.id ?? 0) + 1, reward });
         onEvent?.({ kind: 'verify', correct });
         return { kind: 'verify', verdict, student };
       } catch (error) {
@@ -198,7 +219,7 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
             <Icon name="circle-play" />
             Esegui
           </button>
-          <button type="button" className="primary" onClick={verify} disabled={!canAct}>
+          <button ref={verifyButton} type="button" className="primary" onClick={verify} disabled={query.trim() === ''} aria-disabled={busy}>
             <Icon name="circle-check" />
             Verifica
           </button>
@@ -206,6 +227,7 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
             «Esegui» mostra il risultato, «Verifica» lo confronta con quello atteso.
           </span>
         </div>
+        <ExerciseNotice exercise={exercise} balance={wallet.balance} notice={notice} onClose={closeNotice} />
         <div aria-live="polite">
           {busy ? (
             <p role="status">Esecuzione…</p>

@@ -43,4 +43,17 @@ Procedura manuale (`npm run dev`, con uno zaino collegato al servizio locale o d
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+**Completata il 2026-11-21 con Codex Sol** (modello predefinito `gpt-6.2-sol` in `~/.codex/config.toml`). `ExerciseWorkspace` usa la stessa notifica per esercizi singoli e sessioni. Il premio viene dalla verifica registrata nei progressi. La riga dello zaino segue la sincronizzazione e l’ora compare dopo la conferma del servizio.
+
+**Decisione di Marco.** Una risposta corretta anticipa il salvataggio nello zaino. Se c’è già una scrittura in corso, la nuova richiesta si accoda. Senza rete o durante l’attesa dopo un errore vale la procedura di ripresa dello zaino. Le altre modifiche mantengono l’attesa ordinaria di cinque secondi.
+
+**Verifiche.**
+
+- Superati `npm run lint`, `npm test` (227 test), `npm run check:themes`, `npm run build` e `git diff --check`. Restano i due avvisi già documentati in F19 e l’avviso di Vite sulla dimensione del bundle.
+- Superato `node docs/design/contrasto.mjs barra-notifica` (60 coppie).
+- In Chrome con `npm run dev` e il Worker dello zaino in locale su D1 di prova: esercizio singolo e sessione in entrambi i temi, premio e saldo, entrambi i motivi del premio a zero, esito errato e tabella, chiusura automatica, oltre cinque secondi di pausa con puntatore e tastiera, ripresa, OK, Esc, 1280 e 375 px, movimento ridotto e avanzamento di sessione con la notifica aperta.
+- Nel browser: scrittura immediata confermata dal Worker locale, simulazione offline con `navigator.onLine` a `false` e successivo salvataggio, risposta 503 simulata e conferma dopo un nuovo tentativo, collegamento da un secondo profilo, uscita dallo zaino temporaneo e azzeramento dei progressi. Verificati il ruolo e il nome accessibile della regione di stato. Lettore di schermo e servizio di produzione fuori dalla prova.
+
+**Scostamenti dal dettaglio.** La versione mobile usa il breakpoint della barra (56 rem). Su desktop il pannello delle tabelle occupa più spazio solo quando serve a tenere la notifica fuori dall’editor. L’annuncio usa una regione di stato sempre montata e i comandi della notifica sono fuori dalla regione. Una verifica che termina dopo lo smontaggio dell’esercizio non registra l’esito, così una risposta tardiva non ripristina progressi dopo un azzeramento o l’uscita dallo zaino. Nei testi il motivo del premio a zero evita di ripetere «Nessun punto» e gli errori che richiedono un intervento indicano l’azione prevista dallo zaino.
+
+**Residuo.** Revisione incrociata di F05 su Claude Code con Opus, prima delle fasi che ne dipendono.

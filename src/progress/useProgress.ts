@@ -1,14 +1,19 @@
+/** Lettura dei progressi e operazioni di un tema per l’interfaccia. */
 import { useCallback, useMemo, useSyncExternalStore } from 'react';
 import { withHint, withSolution, withVerification, type PointsExercise } from '../points/points.ts';
-import { balanceOf, resetProgress, withQuery, type ThemeProgress } from './progress.ts';
+import { anticipaSalvataggioZaino } from '../zaino/sincronizza.ts';
+import { balanceOf, exerciseProgress, resetProgress, withQuery, type ThemeProgress } from './progress.ts';
 import { readProgress, subscribeProgress, updateProgress } from './store.ts';
+
+/** Punti assegnati per la risposta corretta o motivo per cui il premio è zero. */
+export type VerificationReward = number | 'already-solved' | 'solution-seen';
 
 /** Le operazioni sui progressi di un tema; ognuna applica le regole dei punti in un solo aggiornamento. */
 export interface ProgressActions {
   /** Salva l’ultima query scritta per un esercizio. */
   saveQuery(id: string, query: string): void;
-  /** Registra una pressione di «Verifica»; alla prima risposta corretta incassa il premio. */
-  recordVerification(exercise: PointsExercise, correct: boolean): void;
+  /** Registra una verifica e restituisce il premio se la risposta è corretta. */
+  recordVerification(exercise: PointsExercise, correct: boolean): VerificationReward | undefined;
   /** Apre il prossimo suggerimento, se il saldo e le regole lo permettono. */
   openHint(exercise: PointsExercise): void;
   /** Apre la soluzione, se il saldo e le regole lo permettono. */
@@ -34,7 +39,21 @@ export function useProgress(themeId: string): ProgressController {
     const update = (change: (current: ThemeProgress) => ThemeProgress) => updateProgress(themeId, change);
     return {
       saveQuery: (id, query) => update((current) => withQuery(current, id, query)),
-      recordVerification: (exercise, correct) => update((current) => withVerification(current, exercise, correct)),
+      recordVerification: (exercise, correct) => {
+        let reward: VerificationReward | undefined;
+        update((current) => {
+          const next = withVerification(current, exercise, correct);
+          if (correct) {
+            const before = exerciseProgress(current, exercise.id);
+            reward = before.solved ? 'already-solved'
+              : before.solutionBeforeSolve ? 'solution-seen'
+              : exerciseProgress(next, exercise.id).pointsEarned;
+          }
+          return next;
+        });
+        if (correct) anticipaSalvataggioZaino();
+        return reward;
+      },
       openHint: (exercise) => update((current) => withHint(current, exercise)),
       openSolution: (exercise) => update((current) => withSolution(current, exercise)),
       reset: () => update(resetProgress),

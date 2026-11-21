@@ -1,4 +1,5 @@
-import { expect, test } from 'vitest';
+/** Verifiche del formato, dell’unione e della sincronizzazione dei progressi nello zaino. */
+import { expect, test, vi } from 'vitest';
 import { EMPTY_EXERCISE_PROGRESS, type ThemeProgress } from '../progress/progress.ts';
 import { cifra, decifra, derivaChiavi, formattaCodice, normalizzaCodice, nuovoCodice } from './cifra.ts';
 import { PAROLE } from './parole.ts';
@@ -107,4 +108,63 @@ test('validaDati scarta forme sbagliate, id di tema non validi e temi malformati
   expect(validaDati({ themes: { 'Non Valido': progressi(true), lotr: 3, 'star-wars': progressi(true) } })).toEqual({
     themes: { 'star-wars': progressi(true) },
   });
+});
+
+test('la risposta corretta anticipa il salvataggio e si accoda alla scrittura già in corso', async () => {
+  vi.resetModules();
+  const window = new EventTarget();
+  vi.stubGlobal('window', window);
+  const browser = { onLine: true };
+  vi.stubGlobal('navigator', browser);
+  vi.stubGlobal('document', new EventTarget());
+  let rispondi: (response: Response) => void = () => undefined;
+  const fetch = vi.fn<typeof globalThis.fetch>()
+    .mockResolvedValueOnce(new Response(null, { headers: { ETag: '"1"' } }))
+    .mockImplementationOnce(() => new Promise((resolve) => { rispondi = resolve; }))
+    .mockResolvedValueOnce(new Response(null, { headers: { ETag: '"3"' } }));
+  vi.stubGlobal('fetch', fetch);
+
+  try {
+    await import('./sezione.ts');
+    const { anticipaSalvataggioZaino, avviaZaino, crea, esci, leggiStatoZaino } = await import('./sincronizza.ts');
+    const { updateProgress } = await import('../progress/store.ts');
+    avviaZaino('http://localhost:8787');
+    const codice = await crea();
+    expect(fetch).toHaveBeenCalledTimes(1);
+
+    updateProgress('star-wars', () => progressi(true));
+    expect(leggiStatoZaino().inSospeso).toBe(true);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    anticipaSalvataggioZaino();
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+    expect(leggiStatoZaino().fase).toBe('in-corso');
+
+    updateProgress('lotr', () => progressi(true));
+    anticipaSalvataggioZaino();
+    expect(fetch).toHaveBeenCalledTimes(2);
+    rispondi(new Response(null, { headers: { ETag: '"2"' } }));
+    await vi.waitFor(() => {
+      expect(fetch).toHaveBeenCalledTimes(3);
+      expect(leggiStatoZaino()).toMatchObject({ fase: 'sincronizzato', inSospeso: false });
+    });
+    expect(fetch.mock.calls[2][1]?.headers).toMatchObject({ 'If-Match': '"2"' });
+    const { chiave } = await derivaChiavi(codice);
+    const blob = fetch.mock.calls[2][1]?.body;
+    expect(await decifra(blob as ArrayBuffer, chiave)).toMatchObject({
+      sezioni: { [NOME_SEZIONE]: { dati: { themes: { 'star-wars': progressi(true), lotr: progressi(true) } } } },
+    });
+
+    browser.onLine = false;
+    updateProgress('lotr', () => progressi(false, 1));
+    anticipaSalvataggioZaino();
+    expect(leggiStatoZaino().inSospeso).toBe(true);
+    expect(fetch).toHaveBeenCalledTimes(3);
+
+    // Evita un tentativo di rete durante la chiusura del test e ripulisce il timer.
+    fetch.mockRejectedValueOnce(new TypeError('senza rete'));
+    await esci();
+    expect(leggiStatoZaino().fase).toBe('scollegato');
+  } finally {
+    vi.unstubAllGlobals();
+  }
 });

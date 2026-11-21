@@ -63,3 +63,25 @@ export function statoPillola(s: StatoZaino): { fase: keyof typeof PAROLE_PILLOLA
   const fase = s.fase === 'sincronizzato' && s.inSospeso ? 'in-attesa' : s.fase;
   return { fase, parola: PAROLE_PILLOLA[fase] };
 }
+
+/** La riga della notifica descrive il salvataggio dell’esercizio appena risolto. */
+export function testoZainoEsito(s: StatoZaino): string {
+  switch (statoPillola(s).fase) {
+    case 'in-corso':
+      return 'Lo sto mettendo nello zaino…';
+    case 'in-attesa':
+      return 'Lo metto nello zaino fra pochi secondi.';
+    case 'offline':
+      return 'Sei senza rete. Il risultato resta in questo browser e lo salvo nello zaino appena torna la rete.';
+    case 'errore':
+      return s.motivo === 'servizio'
+        ? 'Lo zaino non risponde. L’esercizio resta salvato in questo browser e riprovo fra poco.'
+        : `${testoStato(s)} L’esercizio resta salvato in questo browser.`;
+    case 'sincronizzato': {
+      const quando = ora(s.ultima);
+      return quando ? `Salvato nello zaino alle ${quando}.` : 'Salvato nello zaino.';
+    }
+    case 'scollegato':
+      return 'Salvato in questo browser.';
+  }
+}
