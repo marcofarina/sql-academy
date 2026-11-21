@@ -7,7 +7,7 @@
 | F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | da fare |  | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
 | F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | da fare |  | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
 | F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus | Sol | `medium` | medio | da fare |  | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
-| F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet | Terra | `high` | basso-medio | in corso |  | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
+| F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet | Terra | `high` | basso-medio | completata | 2026-11-21 13:01 | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
 | F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus | Sol | `medium` | medio-alto | da fare |  | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
 | F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus | Sol | `medium` | medio | da fare |  | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
 | F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
@@ -482,5 +482,5 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | Aggiunte su richiesta di Marco F10 (piè di pagina da predisporre) e F11–F20, scelte fra le idee proposte da Claude. Nessuna fase avviata. |
 | 2026-11-21 | Piano reso eseguibile anche con Codex: colonne «Claude» e «Codex» nell’indice, modelli senza versione, effort solo indicativo, prompt validi per i due strumenti; F02 e F03 solo Claude. La skill `piani-multisessione` passa in `~/Developer/github/norms/skills/`. |
 | 2026-11-21 | F19 completata (Claude Code, Opus): sei controlli di qualità in `check:themes`, tre come errori e tre come avvisi; 17 esercizi corretti fra i due temi, due avvisi giustificati. Elenco nel dettaglio della fase. |
-
 | 2026-11-21 | F06 in corso (Codex; modello non verificabile): sessioni salvate per tema e area, test automatici superati; restano le prove manuali di azzeramento e isolamento fra temi dopo il blocco del browser. Dettagli in F06. |
+| 2026-11-21 | F06 completata (Codex; famiglia del modello non verificabile): procedura manuale ripetuta, inclusi abbandono, azzeramento e isolamento fra temi; verifiche automatiche superate. |

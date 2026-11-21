@@ -41,8 +41,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | Piano `portale-v2` eseguibile anche con Codex: colonne «Claude» e «Codex» nell’indice (Opus ↔ Sol, Sonnet ↔ Terra), modelli senza versione, effort solo indicativo per Marco; F02 e F03 solo Claude. Skill `piani-multisessione` spostata in `~/Developer/github/norms/skills/`, collegata per Claude Code e Codex. |
 | 2026-11-21 | F01 di `portale-v2` completata: procedura manuale sul sito pubblicato superata (temi, sandbox, esercizio, zaino su due browser, classifica); branch predefinito del repo ora `main`. F10 del piano archiviato chiusa; resta a Marco il link dal libro. |
 | 2026-11-21 | F19 di `portale-v2` completata: `check:themes` segnala come errori ordine ambiguo (`ORDER BY` o `LIMIT` con pareggi), parole chiave assenti dalla query attesa e `WHERE` che non filtra; come avvisi risultati identici, una riga per una consegna al plurale e parole chiave non dichiarate (`src/exercises/quality.ts`). Parole chiave completate in 14 esercizi; riscritti `lotr/ex-140`, `star-wars/ex-060` ed `ex-068`, con gli stessi id. |
+| 2026-11-21 | F06 di `portale-v2` completata: sessione riprendibile per tema e area dei progressi (`src/training/sessionStorage.ts`); ripresa, abbandono, azzeramento e isolamento fra temi verificati nel browser. |
 
-**Prossimo passo:** apri F06 del piano `portale-v2`, seguendo l’ordine consigliato nell’indice del piano.
+**Prossimo passo:** apri F02 del piano `portale-v2` su Claude Code, seguendo l’ordine consigliato nell’indice del piano.
 
 ## Requisiti di Marco
 
