@@ -26,7 +26,7 @@ export interface SessionRecord {
   solved: boolean;
 }
 
-/** Una sessione in corso o conclusa. Vive nella pagina: ricaricando, si perde (i progressi restano). */
+/** Una sessione in corso o conclusa. */
 export interface ActiveSession {
   exerciseIds: string[];
   index: number;
@@ -50,7 +50,7 @@ function snapshot(progress: ThemeProgress, id: string): PointsSnapshot {
 function sessionPoints(session: ActiveSession, progress: ThemeProgress, id: string): PointsSnapshot {
   const now = snapshot(progress, id);
   const before = session.baseline[id] ?? { earned: 0, spent: 0 };
-  // Un azzeramento durante la sessione abbassa i contatori: la differenza non scende sotto zero.
+  // La differenza non scende sotto zero.
   return { earned: Math.max(0, now.earned - before.earned), spent: Math.max(0, now.spent - before.spent) };
 }
 

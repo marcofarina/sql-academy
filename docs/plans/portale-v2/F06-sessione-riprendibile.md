@@ -40,4 +40,12 @@ Procedura manuale (`npm run dev`): avvia una sessione di cinque esercizi, risolv
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+**In corso — 2026-11-21, Codex; famiglia del modello non verificabile.** La sessione usa una chiave separata per tema nell’area corrente dei progressi; la modalità temporanea usa `sessionStorage`. Il formato è versionato e controlla epoca, esercizi, indice, risultati e punti iniziali. Al completamento, all’abbandono e all’azzeramento la sessione viene cancellata. Senza archivio disponibile resta in memoria finché il tema è aperto.
+
+Verifiche eseguite il 2026-11-21:
+
+- `npm run lint && npm test && npm run check:themes && npm run build`: superati; 218 test. `check:themes` conserva i due avvisi Star Wars già giustificati in F19; la build segnala un chunk oltre 500 kB.
+- Browser locale: due esercizi risolti, passaggio a Zaino, ripresa al terzo, ricarica e riepilogo con due risolti e 30 punti; abbandono verificato. Le prove sono precedenti all’ultima modifica che mantiene montato l’addestramento durante il cambio sezione.
+- Non eseguite: completare nel browser la prova di azzeramento e l’isolamento fra temi; la finestra di conferma ha bloccato il browser di prova. Ripetere la procedura manuale anche dopo l’ultima modifica, poi chiudere la fase se tutti i criteri sono superati.
+
+Consumo reale non disponibile. Nessun push o pubblicazione.

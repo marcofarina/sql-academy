@@ -14,6 +14,8 @@ interface PathViewProps {
   /** Posizione della sessione in corso, se c’è: «3 di 5». */
   sessionStatus?: string;
   onReset(): void;
+  onResume(): void;
+  onAbandon?: () => void;
 }
 
 function solvedCount(exercises: Exercise[], progress: ThemeProgress): number {
@@ -21,12 +23,12 @@ function solvedCount(exercises: Exercise[], progress: ThemeProgress): number {
 }
 
 /** Il percorso: gli esercizi per capitolo del libro e difficoltà, con lo stato di ciascuno. */
-export function PathView({ themeId, exercises, progress, sessionStatus, onReset }: PathViewProps) {
+export function PathView({ themeId, exercises, progress, sessionStatus, onReset, onResume, onAbandon }: PathViewProps) {
   const link = (item: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item });
   const themeIcons = useThemeIcons();
 
   const reset = () => {
-    if (window.confirm('Azzerare i progressi di questo tema? Esercizi risolti, punti, suggerimenti e query salvate andranno persi.')) {
+    if (window.confirm('Azzerare i progressi di questo tema? Esercizi risolti, punti, suggerimenti, query salvate e sessione in corso andranno persi.')) {
       onReset();
     }
   };
@@ -36,10 +38,11 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset 
   return (
     <div className="path">
       <div className="toolbar">
-        <a className="button primary" href={link(SESSION_ITEM)}>
+        <a className="button primary" href={link(SESSION_ITEM)} onClick={onResume}>
           <SessionIcon />
           {sessionStatus ? `Riprendi la sessione (${sessionStatus})` : 'Nuova sessione'}
         </a>
+        {onAbandon && <button type="button" onClick={onAbandon}>Abbandonala</button>}
         <button type="button" onClick={reset}>
           {themeIcons.reset ? <Icon svg={themeIcons.reset} /> : <Icon name="trash-can" />}
           Azzera i progressi

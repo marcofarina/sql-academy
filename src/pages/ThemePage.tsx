@@ -15,7 +15,6 @@ import { TraceSection } from '../trace/TraceSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
 import { LogicalSection } from '../logical/LogicalSection.tsx';
 import { CatalogSection } from '../training/CatalogSection.tsx';
-import type { ActiveSession } from '../training/SessionView.tsx';
 import { TrainingSection } from '../training/TrainingSection.tsx';
 import { useTraining } from '../training/useTraining.ts';
 
@@ -42,7 +41,6 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
   // Esercizi, progressi e sessione vivono anch’essi con il tema: passano da una sezione all’altra.
   const training = useTraining(theme);
   const { progress, balance, ...progressActions } = useProgress(id);
-  const [session, setSession] = useState<ActiveSession>();
   const current = SECTIONS.find((s) => s.id === section)!;
 
   useEffect(() => {
@@ -101,19 +99,18 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
             {current.label}
           </h1>
         )}
-        {section === 'sandbox' ? (
-          <SandboxSection controller={sandbox} query={query} onQueryChange={setQuery} />
-        ) : section === 'addestramento' ? (
+        <div hidden={section !== 'addestramento'}>
           <TrainingSection
             themeId={id}
             item={item}
             training={training}
             progress={progress}
             actions={progressActions}
-            session={session}
-            onSession={setSession}
           />
-        ) : section === 'query' ? (
+        </div>
+        {section === 'sandbox' ? (
+          <SandboxSection controller={sandbox} query={query} onQueryChange={setQuery} />
+        ) : section === 'addestramento' ? null : section === 'query' ? (
           <CatalogSection themeId={id} training={training} progress={progress} />
         ) : section === 'traccia' ? (
           <TraceSection theme={theme} icon={sectionIcon(current)} />
