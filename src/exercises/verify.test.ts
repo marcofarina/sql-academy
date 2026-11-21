@@ -143,25 +143,65 @@ const exercise = {
   tables: ['pianeti'],
 } as const;
 
-const check = (...exercises: object[]) =>
+const report = (...exercises: object[]) =>
   checkTheme(engine, { id: 'prova', script: source.script, exercises: exercises as never });
+const check = async (...exercises: object[]) => (await report(...exercises)).problems;
 
 test('il controllo dei temi accetta un esercizio valido', async () => {
-  expect(await check(exercise)).toEqual([]);
+  expect(await report(exercise)).toEqual({ problems: [], warnings: [] });
+});
+
+test('il controllo dei temi segnala gli esercizi ambigui o banali', async () => {
+  const problems = await check(
+    { ...exercise, id: 'pari-merito', keywords: ['ORDER BY'], expectedQuery: 'SELECT nome FROM pianeti ORDER BY clima' },
+    { ...exercise, id: 'separati', keywords: ['ORDER BY'], expectedQuery: 'SELECT nome FROM pianeti ORDER BY clima, nome' },
+    { ...exercise, id: 'limite', keywords: ['ORDER BY', 'LIMIT'], expectedQuery: 'SELECT nome FROM pianeti ORDER BY clima DESC LIMIT 1' },
+    { ...exercise, id: 'senza-ordine', keywords: ['LIMIT'], expectedQuery: 'SELECT nome FROM pianeti LIMIT 2' },
+    { ...exercise, id: 'assenti', keywords: ['WHERE', 'GROUP BY'] },
+    { ...exercise, id: 'commento', expectedQuery: "SELECT nome FROM pianeti -- WHERE clima = 'x'" },
+    { ...exercise, id: 'tutto', expectedQuery: 'SELECT nome FROM pianeti WHERE id > 0' },
+  );
+  expect(problems).toEqual([
+    'prova/pari-merito: il risultato cambia con l’ordine di lettura delle righe: ORDER BY o LIMIT con righe a pari merito',
+    'prova/limite: il risultato cambia con l’ordine di lettura delle righe: ORDER BY o LIMIT con righe a pari merito',
+    'prova/senza-ordine: il risultato cambia con l’ordine di lettura delle righe: ORDER BY o LIMIT con righe a pari merito',
+    'prova/assenti: parole chiave assenti dalla query attesa: GROUP BY',
+    'prova/commento: parole chiave assenti dalla query attesa: WHERE',
+    'prova/commento: il WHERE non esclude nessuna riga: il risultato ha tutte le righe di pianeti',
+    'prova/tutto: il WHERE non esclude nessuna riga: il risultato ha tutte le righe di pianeti',
+  ]);
+});
+
+test('il controllo dei temi avvisa dei casi sospetti senza bloccare', async () => {
+  const { problems, warnings } = await report(
+    exercise,
+    { ...exercise, id: 'gemello', expectedQuery: "SELECT nome FROM pianeti WHERE clima LIKE 'temp%'", keywords: ['WHERE', 'LIKE'] },
+    { ...exercise, id: 'una-riga', keywords: ['WHERE'], prompt: 'Mostra i pianeti desertici.', expectedQuery: "SELECT nome, diametro FROM pianeti WHERE clima = 'desertico'" },
+    { ...exercise, id: 'non-dichiarate', keywords: ['WHERE'], expectedQuery: "SELECT nome FROM pianeti WHERE diametro IS NOT NULL AND nome NOT IN ('Naboo')" },
+    // Una sola cella: niente avvisi, né per la consegna al plurale né per il risultato uguale.
+    { ...exercise, id: 'conteggio', keywords: ['COUNT', 'WHERE'], prompt: 'Conta i pianeti desertici.', expectedQuery: "SELECT COUNT(*) FROM pianeti WHERE clima = 'desertico'" },
+    { ...exercise, id: 'altro-conteggio', keywords: ['COUNT', 'WHERE'], prompt: 'Conta i pianeti paludosi.', expectedQuery: "SELECT COUNT(*) FROM pianeti WHERE clima = 'paludoso'" },
+  );
+  expect(problems).toEqual([]);
+  expect(warnings).toEqual([
+    'prova/una-riga: la query attesa restituisce una sola riga, ma la consegna sembra chiederne più d’una',
+    'prova/non-dichiarate: la query attesa usa parole chiave non dichiarate: NOT IN, IS NOT NULL',
+    'prova/pianeti-temperati: stesso risultato atteso di gemello',
+  ]);
 });
 
 test('il controllo dei temi nomina l’esercizio e il problema', async () => {
   const problems = await check(
     exercise,
     { ...exercise },
-    { ...exercise, id: 'errore', expectedQuery: 'SELECT nome FORM pianeti' },
+    { ...exercise, id: 'errore', keywords: [], expectedQuery: 'SELECT nome FORM pianeti' },
     { ...exercise, id: 'vuoto', expectedQuery: "SELECT nome FROM pianeti WHERE clima = 'lavico'" },
     { ...exercise, id: 'tabella', tables: ['pianeti', 'lune'] },
-    { ...exercise, id: 'modifica', expectedQuery: 'DELETE FROM pianeti; SELECT nome FROM pianeti' },
+    { ...exercise, id: 'modifica', keywords: [], expectedQuery: 'DELETE FROM pianeti; SELECT nome FROM pianeti' },
     { ...exercise, id: 'forma', chapter: 'viste', difficulty: 'media', title: '' },
     { ...exercise, id: 'Non Valido' },
     // Dopo «modifica» il database è stato ripristinato: questo esercizio è a posto.
-    { ...exercise, id: 'ultimo', expectedQuery: 'SELECT COUNT(*) FROM pianeti' },
+    { ...exercise, id: 'ultimo', keywords: ['COUNT'], expectedQuery: 'SELECT COUNT(*) FROM pianeti' },
   );
 
   expect(problems).toEqual([
@@ -181,7 +221,7 @@ test('gli esercizi del tema Star Wars si caricano dal registro e superano il con
   const theme = findTheme('star-wars')!;
   const exercises = await theme.loadExercises();
   expect(exercises.length).toBeGreaterThan(0);
-  expect(await checkTheme(engine, { id: 'star-wars', script: await theme.loadDatabaseScript(), exercises })).toEqual([]);
+  expect((await checkTheme(engine, { id: 'star-wars', script: await theme.loadDatabaseScript(), exercises })).problems).toEqual([]);
 
   // La query attesa di ogni esercizio è una risposta corretta al proprio esercizio.
   const source = { key: 'star-wars', script: await theme.loadDatabaseScript() };

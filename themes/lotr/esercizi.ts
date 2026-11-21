@@ -580,7 +580,7 @@ const exercises: Exercise[] = [
     id: 'ex-048',
     chapter: 'una-tabella',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'WHERE', 'ROUND', 'ORDER BY'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'ROUND', 'ORDER BY', 'IS NOT NULL'],
     title: 'Quante volte più numerosi',
     prompt:
       'Per ogni battaglia di cui si conoscono entrambe le forze, mostra il nome e quante volte i combattenti dell’Ombra erano più numerosi di quelli dei Popoli liberi, con una cifra decimale. Ordina dal rapporto più alto; a parità di rapporto, in ordine alfabetico di nome.',
@@ -679,7 +679,7 @@ const exercises: Exercise[] = [
     id: 'ex-053',
     chapter: 'una-tabella',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'WHERE', 'ABS', 'ORDER BY', 'LIMIT'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'ABS', 'ORDER BY', 'LIMIT', 'IS NOT NULL'],
     title: 'Gli scontri più equilibrati',
     prompt:
       'Fra le battaglie di cui si conoscono entrambe le forze, mostra il nome e la differenza fra i combattenti delle due parti, presa senza segno, delle tre battaglie più equilibrate: dalla differenza più piccola. A parità di differenza, in ordine alfabetico.',
@@ -1350,7 +1350,7 @@ const exercises: Exercise[] = [
     id: 'ex-083',
     chapter: 'join',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'LEFT JOIN', 'AS', 'WHERE', 'IS NULL'],
+    keywords: ['SELECT', 'FROM', 'LEFT JOIN', 'AS', 'WHERE', 'IS NULL', 'JOIN'],
     title: 'Dove Merry è stato e Pipino no',
     prompt: 'Merry ha id 3 e Pipino id 4. Mostra il nome dei luoghi del viaggio di Merry per cui Pipino non è passato.',
     expectedQuery: `
@@ -1806,7 +1806,7 @@ const exercises: Exercise[] = [
     id: 'ex-103',
     chapter: 'aggregazioni',
     difficulty: 'medio',
-    keywords: ['SELECT', 'AVG', 'ROUND', 'FROM', 'JOIN', 'WHERE', 'GROUP BY'],
+    keywords: ['SELECT', 'AVG', 'ROUND', 'FROM', 'JOIN', 'WHERE', 'GROUP BY', 'IS NOT NULL'],
     title: 'L’anno medio di nascita per popolo',
     prompt:
       'Per ogni popolo con almeno un personaggio di cui si conosce l’anno di nascita, mostra il nome del popolo e l’anno medio di nascita, arrotondato all’intero.',
@@ -2066,7 +2066,7 @@ const exercises: Exercise[] = [
     id: 'ex-116',
     chapter: 'aggregazioni',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'COUNT', 'STRFTIME', 'FROM', 'WHERE', 'GROUP BY', 'ORDER BY'],
+    keywords: ['SELECT', 'COUNT', 'STRFTIME', 'FROM', 'WHERE', 'GROUP BY', 'ORDER BY', 'LIKE'],
     title: 'Le tappe mese per mese',
     prompt:
       'Per ogni mese del 3019 in cui è stata raggiunta almeno una tappa, mostra il mese, come numero di due cifre, e il numero di tappe, in ordine di mese.',
@@ -2386,7 +2386,7 @@ const exercises: Exercise[] = [
     id: 'ex-126',
     chapter: 'sottoquery-viste',
     difficulty: 'medio',
-    keywords: ['SELECT', 'FROM', 'WHERE', 'IN', 'GROUP BY', 'HAVING'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'IN', 'GROUP BY', 'HAVING', 'COUNT'],
     title: 'Le armi dei veterani',
     prompt: 'Mostra il nome delle armi portate da personaggi che hanno partecipato ad almeno tre battaglie.',
     expectedQuery: `
@@ -2728,9 +2728,9 @@ const exercises: Exercise[] = [
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
     keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'UNION', 'ORDER BY'],
-    title: 'Al Fosso di Helm o a Edoras',
+    title: 'Al Fosso di Helm o a Isengard',
     prompt:
-      'Mostra in un unico elenco, senza ripetizioni e in ordine alfabetico, il nome dei personaggi che hanno combattuto nella Battaglia del Fosso di Helm oppure sono passati da Edoras durante il viaggio.',
+      'Mostra in un unico elenco, senza ripetizioni e in ordine alfabetico, il nome dei personaggi che hanno combattuto nella Battaglia del Fosso di Helm oppure sono passati da Isengard durante il viaggio.',
     expectedQuery: `
       SELECT personaggi.nome
       FROM partecipazioni
@@ -2742,7 +2742,7 @@ const exercises: Exercise[] = [
       FROM tappe
       JOIN personaggi ON tappe.personaggio_id = personaggi.id
       JOIN luoghi ON tappe.luogo_id = luoghi.id
-      WHERE luoghi.nome = 'Edoras'
+      WHERE luoghi.nome = 'Isengard'
       ORDER BY 1`,
     hints: [
       'Due SELECT, una sulle partecipazioni e una sulle tappe, unite da UNION, che toglie anche le righe doppie.',

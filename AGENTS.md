@@ -40,8 +40,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | Feedback di Marco sul sito pubblicato: piano `portale-v1` archiviato in `docs/plans/archivio/portale-v1/` con F10 `in corso` (HTTPS già attivo); nuovo piano `portale-v2` in `docs/plans/portale-v2/` (venti fasi): chiusura della pubblicazione, barra comune con stato dello zaino e «Indietro», notifica dell’esito, sessione riprendibile, pagine Zaino e Classifica ridisegnate, scelta di otto mondi nuovi e dei livelli, piè di pagina da predisporre (contenuto da una sessione in `~/Developer/github/`), più dieci idee scelte da Marco (F11–F20: errori in italiano, ripasso, segnalazioni, consegne con un link, database da scaricare, sito senza rete, test end-to-end, controllo degli esercizi, generatore di temi e altre). Nessun codice. |
 | 2026-11-21 | Piano `portale-v2` eseguibile anche con Codex: colonne «Claude» e «Codex» nell’indice (Opus ↔ Sol, Sonnet ↔ Terra), modelli senza versione, effort solo indicativo per Marco; F02 e F03 solo Claude. Skill `piani-multisessione` spostata in `~/Developer/github/norms/skills/`, collegata per Claude Code e Codex. |
 | 2026-11-21 | F01 di `portale-v2` completata: procedura manuale sul sito pubblicato superata (temi, sandbox, esercizio, zaino su due browser, classifica); branch predefinito del repo ora `main`. F10 del piano archiviato chiusa; resta a Marco il link dal libro. |
+| 2026-11-21 | F19 di `portale-v2` completata: `check:themes` segnala come errori ordine ambiguo (`ORDER BY` o `LIMIT` con pareggi), parole chiave assenti dalla query attesa e `WHERE` che non filtra; come avvisi risultati identici, una riga per una consegna al plurale e parole chiave non dichiarate (`src/exercises/quality.ts`). Parole chiave completate in 14 esercizi; riscritti `lotr/ex-140`, `star-wars/ex-060` ed `ex-068`, con gli stessi id. |
 
-**Prossimo passo:** apri F19 del piano `portale-v2`, seguendo l’ordine consigliato nell’indice del piano.
+**Prossimo passo:** apri F06 del piano `portale-v2`, seguendo l’ordine consigliato nell’indice del piano.
 
 ## Requisiti di Marco
 

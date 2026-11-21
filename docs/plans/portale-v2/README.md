@@ -20,7 +20,7 @@
 | F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
 | F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | da fare |  | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
 | F18 | Scrivere i test end-to-end | F05, F07 | Sonnet | Terra | `high` | medio | da fare |  | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
-| F19 | Controllare la qualità degli esercizi | — | Opus | Sol | `medium` | medio | da fare |  | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
+| F19 | Controllare la qualità degli esercizi | — | Opus | Sol | `medium` | medio | completata | 2026-11-21 12:15 | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
 | F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet | Terra | `medium` | basso | da fare |  | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
 
 Le colonne «Claude» e «Codex» danno la famiglia del modello per ciascuno strumento, senza versione; `—` vuol dire che la fase gira solo sull’altro. L’effort è un’indicazione per Marco, che lo imposta all’apertura: nessuno dei due modelli lo legge.
@@ -481,3 +481,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | Piano scritto dopo il feedback di Marco sul sito pubblicato; piano `portale-v1` archiviato in `docs/plans/archivio/`. Verificato oggi: HTTPS attivo sul sito (certificato `approved`, `https_enforced: true`), branch predefinito del repo ancora `dev`. Nessuna fase avviata. |
 | 2026-11-21 | Aggiunte su richiesta di Marco F10 (piè di pagina da predisporre) e F11–F20, scelte fra le idee proposte da Claude. Nessuna fase avviata. |
 | 2026-11-21 | Piano reso eseguibile anche con Codex: colonne «Claude» e «Codex» nell’indice, modelli senza versione, effort solo indicativo, prompt validi per i due strumenti; F02 e F03 solo Claude. La skill `piani-multisessione` passa in `~/Developer/github/norms/skills/`. |
+| 2026-11-21 | F19 completata (Claude Code, Opus): sei controlli di qualità in `check:themes`, tre come errori e tre come avvisi; 17 esercizi corretti fra i due temi, due avvisi giustificati. Elenco nel dettaglio della fase. |

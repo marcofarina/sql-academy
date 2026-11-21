@@ -25,6 +25,7 @@ const folders = readdirSync(themesUrl, { withFileTypes: true })
 
 const engine = createNodeEngine();
 const problems: string[] = [];
+const warnings: string[] = [];
 
 try {
   for (const folder of folders) {
@@ -39,7 +40,9 @@ try {
         ? ((await import(file('esercizi.ts').href)) as { default: Exercise[] }).default
         : [];
 
-      const found = await checkTheme(engine, { id: folder, script, exercises });
+      const report = await checkTheme(engine, { id: folder, script, exercises });
+      const found = report.problems;
+      warnings.push(...report.warnings);
 
       // Schema ER: il disegno si calcola senza errori e corrisponde alle tabelle.
       let er = 'senza schema ER';
@@ -84,7 +87,9 @@ try {
 
       problems.push(...found);
       const total = Array.isArray(exercises) ? exercises.length : 0;
-      console.log(`${found.length === 0 ? '✓' : '✗'} ${folder}: ${total} esercizi, ${er}, ${logical}, ${found.length} problemi`);
+      console.log(
+        `${found.length === 0 ? '✓' : '✗'} ${folder}: ${total} esercizi, ${er}, ${logical}, ${found.length} problemi, ${report.warnings.length} avvisi`,
+      );
     } catch (error) {
       problems.push(`${folder}: ${error instanceof Error ? error.message : String(error)}`);
       console.log(`✗ ${folder}: tema non caricato`);
@@ -94,5 +99,8 @@ try {
   engine.dispose();
 }
 
+if (warnings.length > 0) console.log('\nAvvisi (non bloccanti; giustificati in docs/plans/portale-v2/F19-controllare-esercizi.md):');
+for (const warning of warnings) console.log(`  ${warning}`);
+if (problems.length > 0) console.error('\nProblemi:');
 for (const problem of problems) console.error(`  ${problem}`);
 process.exitCode = problems.length === 0 ? 0 : 1;

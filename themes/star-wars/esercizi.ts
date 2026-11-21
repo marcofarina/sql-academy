@@ -232,7 +232,7 @@ const exercises: Exercise[] = [
     id: 'ex-014',
     chapter: 'una-tabella',
     difficulty: 'facile',
-    keywords: ['SELECT', 'FROM', 'WHERE'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'BETWEEN'],
     title: 'Pianeti fra un milione e dieci miliardi di abitanti',
     prompt: 'Mostra il nome e la popolazione dei pianeti che hanno fra un milione e dieci miliardi di abitanti, estremi compresi.',
     expectedQuery: `
@@ -939,7 +939,7 @@ const exercises: Exercise[] = [
     id: 'ex-055',
     chapter: 'join',
     difficulty: 'medio',
-    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE'],
+    keywords: ['SELECT', 'FROM', 'JOIN', 'WHERE', 'IN'],
     title: 'Personaggi con la spada laser blu o verde',
     prompt: 'Mostra il nome e il ruolo dei personaggi che hanno una spada laser con la lama «Blu» o «Verde», e il colore della lama.',
     expectedQuery: `
@@ -1027,13 +1027,13 @@ const exercises: Exercise[] = [
     chapter: 'aggregazioni',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'GROUP BY', 'HAVING', 'COUNT'],
-    title: 'Settori con più di tre pianeti',
-    prompt: 'Mostra i settori galattici con più di tre pianeti, e il numero di pianeti di ciascuno.',
+    title: 'Settori con più di un pianeta',
+    prompt: 'Mostra i settori galattici con più di un pianeta, e il numero di pianeti di ciascuno.',
     expectedQuery: `
       SELECT settore_galattico, COUNT(*) AS numero_pianeti
       FROM pianeti
       GROUP BY settore_galattico
-      HAVING COUNT(*) > 3`,
+      HAVING COUNT(*) > 1`,
     hints: [
       'Raggruppa i pianeti per settore e contali.',
       'Il filtro sul conteggio si scrive con HAVING.',
@@ -1166,14 +1166,14 @@ const exercises: Exercise[] = [
     chapter: 'una-tabella',
     difficulty: 'medio',
     keywords: ['SELECT', 'FROM', 'WHERE'],
-    title: 'Pianeti con più di 100 milioni di abitanti',
-    prompt: 'Mostra il nome e la popolazione dei pianeti con più di 100 milioni di abitanti.',
+    title: 'Pianeti con almeno 100 milioni di abitanti',
+    prompt: 'Mostra il nome e la popolazione dei pianeti con almeno 100 milioni di abitanti.',
     expectedQuery: `
       SELECT nome, popolazione
       FROM pianeti
-      WHERE popolazione > 100000000`,
+      WHERE popolazione >= 100000000`,
     hints: [
-      'Il confronto è sulla colonna popolazione.',
+      'Il confronto è sulla colonna popolazione, e «almeno» comprende anche i pianeti con 100 milioni di abitanti esatti.',
       'Scrivi il numero per intero, senza punti: 100 milioni ha otto zeri.',
     ],
     tables: ['pianeti'],
@@ -1234,7 +1234,7 @@ const exercises: Exercise[] = [
     id: 'ex-072',
     chapter: 'una-tabella',
     difficulty: 'medio',
-    keywords: ['SELECT', 'FROM', 'WHERE'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'BETWEEN'],
     title: 'Astronavi con un equipaggio da due a dieci membri',
     prompt: 'Mostra il nome e la capacità dell’equipaggio delle astronavi con un equipaggio da due a dieci membri, estremi compresi.',
     expectedQuery: `
@@ -1346,7 +1346,7 @@ const exercises: Exercise[] = [
     id: 'ex-078',
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'NOT IN', 'IS NOT NULL'],
     title: 'Pianeti su cui non è nato nessuno',
     prompt: 'Mostra il nome dei pianeti su cui non è nato nessun personaggio.',
     expectedQuery: `
@@ -1381,7 +1381,7 @@ const exercises: Exercise[] = [
     id: 'ex-080',
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'WHERE'],
+    keywords: ['SELECT', 'FROM', 'WHERE', 'AVG'],
     title: 'Astronavi più lunghe della media',
     prompt: 'Mostra il nome, il modello e la lunghezza delle astronavi più lunghe della lunghezza media di tutte le astronavi.',
     expectedQuery: `
@@ -1419,7 +1419,7 @@ const exercises: Exercise[] = [
     id: 'ex-082',
     chapter: 'aggregazioni',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY'],
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'COUNT', 'SUM'],
     title: 'Flotte delle fazioni',
     prompt: 'Per ogni fazione che possiede astronavi mostra il nome della fazione, il numero delle sue astronavi e la loro lunghezza complessiva in metri.',
     expectedQuery: `
@@ -1514,7 +1514,7 @@ const exercises: Exercise[] = [
     id: 'ex-087',
     chapter: 'sottoquery-viste',
     difficulty: 'difficile',
-    keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN', 'WHERE'],
+    keywords: ['SELECT', 'DISTINCT', 'FROM', 'JOIN', 'WHERE', 'AVG'],
     title: 'Pianeti di battaglie sanguinose',
     prompt: 'Mostra, ciascuno una volta sola, i pianeti su cui si è combattuta almeno una battaglia con perdite superiori alla media delle perdite di tutte le battaglie.',
     expectedQuery: `
@@ -2615,7 +2615,7 @@ const exercises: Exercise[] = [
     id: 'ex-146',
     chapter: 'sottoquery-viste',
     difficulty: 'medio',
-    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING', 'COUNT'],
+    keywords: ['SELECT', 'FROM', 'JOIN', 'GROUP BY', 'HAVING', 'COUNT', 'WHERE'],
     title: 'Più numerose dell’Ordine Jedi',
     prompt: 'Mostra il nome e il numero di membri delle fazioni che hanno più membri dell’Ordine Jedi.',
     expectedQuery: `
