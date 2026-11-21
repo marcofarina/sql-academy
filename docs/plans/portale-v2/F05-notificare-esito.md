@@ -56,4 +56,14 @@ Procedura manuale (`npm run dev`, con uno zaino collegato al servizio locale o d
 
 **Scostamenti dal dettaglio.** La versione mobile usa il breakpoint della barra (56 rem). Su desktop il pannello delle tabelle occupa più spazio solo quando serve a tenere la notifica fuori dall’editor. L’annuncio usa una regione di stato sempre montata e i comandi della notifica sono fuori dalla regione. Una verifica che termina dopo lo smontaggio dell’esercizio non registra l’esito, così una risposta tardiva non ripristina progressi dopo un azzeramento o l’uscita dallo zaino. Nei testi il motivo del premio a zero evita di ripetere «Nessun punto» e gli errori che richiedono un intervento indicano l’azione prevista dallo zaino.
 
-**Residuo.** Revisione incrociata di F05 su Claude Code con Opus, prima delle fasi che ne dipendono.
+**Residuo.** Nessuno: revisione incrociata fatta (sezione «Revisione»).
+
+## Revisione
+
+**Revisione incrociata del 2026-11-21 con Claude Code Opus.** Esito: nessun difetto, nessuna correzione.
+
+- Letti il diff di `23aab26` e il passaggio di consegne, confrontati con il dettaglio e con `docs/design/barra-notifica.md`, scostamenti compresi.
+- Rieseguiti `npm run lint`, `npm test` (227 test), `npm run check:themes`, `npm run build` e `node docs/design/contrasto.mjs barra-notifica`: superati, con gli stessi avvisi noti.
+- Nel browser (`npm run dev`, senza zaino): esercizio `lotr/ex-001` risolto, notifica con «+10 punti», saldo, riga «Salvato in questo browser» con il collegamento allo zaino, annuncio della regione di stato e chiusura da sola dopo quattro secondi. Pausa, rete e sessione non riprovate: le ha già coperte la fase.
+- Percorsi controllati nel codice: l’anticipo non parte senza modifiche in sospeso, dopo un errore, durante l’attesa crescente o senza rete; accodato a una scrittura in corso resta anticipato solo se lo era anche la richiesta già in coda, e il ciclo successivo annulla il timer dei cinque secondi; una verifica che termina dopo lo smontaggio non registra nulla; «Verifica» durante un’esecuzione resta protetta da `perform`; con movimento ridotto non esiste timer, come vuole la specifica.
+- Scelta lasciata: una nuova risposta corretta a un esercizio già risolto anticipa comunque la scrittura, perché la verifica cambia i progressi; il costo è una scrittura in più, nessun dato perso.
