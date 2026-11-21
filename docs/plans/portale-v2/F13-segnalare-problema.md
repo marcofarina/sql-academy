@@ -1,6 +1,6 @@
 # F13 — Segnalare un problema su un esercizio
 
-- **Modello / effort:** Opus 5.5 `medium`. Poco codice, ma una decisione sul canale che riguarda studenti minorenni e testi per gli studenti.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Poco codice, ma una decisione sul canale che riguarda studenti minorenni e testi per gli studenti.
 - **Dipendenze:** nessuna. Conviene dopo F05, che cambia lo spazio di lavoro dell’esercizio.
 - **Consumo stimato:** basso.
 - **Incertezza:** bassa, una volta scelto il canale.
@@ -24,7 +24,7 @@ Fuori: raccolta delle segnalazioni su un servizio proprio.
 ## 4. Attività di implementazione
 
 1. Proponi a Marco il canale: `mailto:` verso un indirizzo del progetto, link a un’issue GitHub precompilata, o entrambi. Ricorda che con `mailto:` lo studente invia dal proprio indirizzo; attendi la scelta.
-2. Elenca le icone, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano.
+2. Elenca le icone, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano (su Codex fermati prima di disegnarle e lascia un segnaposto).
 3. Aggiungi il pulsante nello spazio di lavoro, con il testo precompilato; la versione del sito si ricava al build (per esempio l’hash del commit).
 4. Aggiorna l’informativa se il canale lo richiede.
 

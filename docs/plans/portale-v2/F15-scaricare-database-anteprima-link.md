@@ -1,6 +1,6 @@
 # F15 — Scaricare il database e mostrare l’anteprima dei link
 
-- **Modello / effort:** Sonnet 5.5 `medium`. Due funzioni piccole, statiche, con forma chiara.
+- **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `medium`. Due funzioni piccole, statiche, con forma chiara.
 - **Dipendenze:** nessuna.
 - **Consumo stimato:** basso.
 - **Incertezza:** bassa. L’immagine dell’anteprima richiede l’approvazione di Marco.
@@ -27,7 +27,7 @@ Fuori: database con le modifiche fatte dallo studente nella sandbox, salvo diver
 
 1. Chiedi a Marco dove mettere il pulsante e se scaricare anche il database modificato nella sandbox.
 2. Genera il `.sqlite` con `db.export()` dal database iniziale; nome del file con l’id del tema.
-3. Se servono icone nuove, fermati e dillo a Marco: questa fase gira su Sonnet e le icone si disegnano con Opus.
+3. Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 4. Prepara l’immagine dell’anteprima da elementi già approvati (veste neutra, locandine); mostrala a Marco.
 5. Aggiungi i meta Open Graph a `index.html` con l’indirizzo assoluto `https://sql.rainbowbits.cloud/`.
 

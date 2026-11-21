@@ -1,6 +1,6 @@
 # F19 — Controllare la qualità degli esercizi
 
-- **Modello / effort:** Opus 5.5 `medium`. Il controllo è codice semplice; correggere gli esercizi segnalati chiede giudizio e riscrive testi per gli studenti.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Il controllo è codice semplice; correggere gli esercizi segnalati chiede giudizio e riscrive testi per gli studenti.
 - **Dipendenze:** nessuna. Conviene presto: gli esercizi sono già in produzione.
 - **Consumo stimato:** medio; alto se il controllo trova molti esercizi da riscrivere.
 - **Incertezza:** media: dipende da quanto trova.

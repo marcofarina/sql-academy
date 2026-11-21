@@ -1,6 +1,6 @@
 # F14 — Assegnare una consegna con un link
 
-- **Modello / effort:** Opus 5.5 `medium`. Nuova pagina, nuovo indirizzo, interazione con sessioni salvate e punti.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Nuova pagina, nuovo indirizzo, interazione con sessioni salvate e punti.
 - **Dipendenze:** F06 (sessione salvata e riprendibile).
 - **Consumo stimato:** medio.
 - **Incertezza:** media. Aumenta se Marco vuole che lo studente possa mostrare l’esito della consegna in modo verificabile.

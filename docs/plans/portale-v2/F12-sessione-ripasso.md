@@ -1,6 +1,6 @@
 # F12 — Aggiungere la sessione di ripasso
 
-- **Modello / effort:** Opus 5.5 `medium`. Cambia il formato dei progressi in produzione e tocca le regole dei punti.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Cambia il formato dei progressi in produzione e tocca le regole dei punti.
 - **Dipendenze:** F06 (sessione salvata e riprendibile).
 - **Consumo stimato:** medio.
 - **Incertezza:** media. Aumenta se la data di risoluzione nello zaino richiede di rivedere l’unione dei progressi fra dispositivi.

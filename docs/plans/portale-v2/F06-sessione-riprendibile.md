@@ -1,6 +1,6 @@
 # F06 — Rendere riprendibile la sessione di esercizi
 
-- **Modello / effort:** Sonnet 5.5 `high`. Forma decisa da Marco; i casi limite (azzeramento, esercizi spariti, dati corrotti) vanno coperti con i test.
+- **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `high`. Forma decisa da Marco; i casi limite (azzeramento, esercizi spariti, dati corrotti) vanno coperti con i test.
 - **Dipendenze:** nessuna.
 - **Consumo stimato:** basso-medio.
 - **Incertezza:** bassa. Aumenta se la sessione dipende da stato che oggi non è serializzabile.

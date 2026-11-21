@@ -1,6 +1,6 @@
 # F11 — Spiegare in italiano gli errori di SQLite
 
-- **Modello / effort:** Opus 5.5 `medium`. Testi per gli studenti e giudizio su quale indizio aiuta senza svelare la soluzione.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Testi per gli studenti e giudizio su quale indizio aiuta senza svelare la soluzione.
 - **Dipendenze:** nessuna.
 - **Consumo stimato:** medio.
 - **Incertezza:** media: dipende da quanti messaggi di SQLite si decide di coprire.

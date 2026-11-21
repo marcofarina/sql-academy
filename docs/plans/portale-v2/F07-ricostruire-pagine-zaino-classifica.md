@@ -1,6 +1,6 @@
 # F07 — Ricostruire le pagine Zaino e Classifica
 
-- **Modello / effort:** Opus 5.5 `medium`. Interfaccia da una specifica approvata, testi per gli studenti, possibili icone nuove.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Interfaccia da una specifica approvata, testi per gli studenti, possibili icone nuove.
 - **Dipendenze:** F03 (specifica `docs/design/zaino-classifica.md`), F04 (barra comune).
 - **Consumo stimato:** medio-alto; alto se la direzione scelta in F03 richiede modifiche al servizio della classifica.
 - **Incertezza:** media. Aumenta con le modifiche al servizio, che ne chiedono il deploy e forse una migrazione D1.
@@ -23,7 +23,7 @@ Fuori: l’informativa `#/informativa`, salvo i testi che la nuova classifica re
 
 ## 4. Attività di implementazione
 
-1. Elenca le icone, cercale nel catalogo, disegna le mancanti secondo la sezione «Icone» del piano.
+1. Elenca le icone, cercale nel catalogo, disegna le mancanti secondo la sezione «Icone» del piano (su Codex fermati prima di disegnarle e lascia un segnaposto).
 2. Ricostruisci la pagina dello zaino; verifica apri, crea, «Non è il mio computer», mostra e copia il codice, esci.
 3. Ricostruisci la classifica con tutti gli stati della specifica.
 4. Se previste, modifica il servizio in `servizi/classifica/` con le sue prove (`npm run prova` contro `wrangler dev`); deploy e migrazioni in produzione solo con il via di Marco.

@@ -1,6 +1,6 @@
 # F10 — Predisporre il piè di pagina comune
 
-- **Modello / effort:** Sonnet 5.5 `medium`. Struttura semplice, forma decisa: un contenitore comune, senza contenuto nuovo.
+- **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `medium`. Struttura semplice, forma decisa: un contenitore comune, senza contenuto nuovo.
 - **Dipendenze:** F04 (la barra comune fissa l’impaginazione condivisa di tutte le pagine, in cui il piè di pagina si aggiunge).
 - **Consumo stimato:** basso.
 - **Incertezza:** bassa. Aumenta se le vesti dei temi devono ridisegnare il piè di pagina invece di ereditarne i colori.

@@ -1,6 +1,6 @@
 # F01 — Chiudere la pubblicazione del portale
 
-- **Modello / effort:** Sonnet 5.5 `medium`. Procedura nota, nessuna forma da decidere.
+- **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `medium`. Procedura nota, nessuna forma da decidere.
 - **Dipendenze:** nessuna. Riprende il «Residuo» di F10 del piano archiviato ([`archivio/portale-v1/F10-pubblicare-github-pages.md`](../archivio/portale-v1/F10-pubblicare-github-pages.md), sezione 6).
 - **Consumo stimato:** basso.
 - **Incertezza:** bassa sul lavoro; la fase si ferma più volte in attesa del via di Marco, e la prova dello zaino su due browser può richiedere il suo aiuto.

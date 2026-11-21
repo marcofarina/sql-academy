@@ -1,6 +1,6 @@
 # F16 — Riprendere da dove eri e guidare il primo ingresso
 
-- **Modello / effort:** Opus 5.5 `medium`. Piccole decisioni d’interfaccia, testi per gli studenti, possibili icone.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Piccole decisioni d’interfaccia, testi per gli studenti, possibili icone.
 - **Dipendenze:** F04 (barra comune), F06 (sessione riprendibile, che offre già «Riprendi la sessione»).
 - **Consumo stimato:** basso-medio.
 - **Incertezza:** bassa. Aumenta se Marco vuole studiare la guida con l’Artifact «Design».
@@ -26,7 +26,7 @@ Fuori: guide interattive passo per passo sopra l’interfaccia.
 ## 4. Attività di implementazione
 
 1. Proponi a Marco dove mostrare «Riprendi da dove eri» (retro della locandina, ingresso nel tema, entrambi) e la forma della guida (riquadro chiudibile, finestra), con una bozza dei testi; attendi le scelte.
-2. Elenca le icone, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano.
+2. Elenca le icone, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano (su Codex fermati prima di disegnarle e lascia un segnaposto).
 3. Implementa le due funzioni; la guida si riapre da un collegamento (per esempio nella barra o nel piè di pagina di F10).
 4. Scrivi i test della scelta dell’ultimo esercizio.
 

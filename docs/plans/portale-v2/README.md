@@ -1,27 +1,29 @@
 # Piano «portale-v2»
 
-| ID | Fase | Dipendenze | Modello / effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F01 | Chiudere la pubblicazione del portale | — | Sonnet 5.5 `medium` | basso | da fare | | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
-| F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus 5.5 `medium` | medio-alto | da fare | | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
-| F03 | Studiare le pagine Zaino e Classifica | F02 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
-| F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus 5.5 `medium` | medio | da fare | | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
-| F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus 5.5 `medium` | medio | da fare | | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
-| F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet 5.5 `high` | basso-medio | da fare | | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
-| F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
-| F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
-| F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
-| F10 | Predisporre il piè di pagina comune | F04 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
-| F11 | Spiegare in italiano gli errori di SQLite | — | Opus 5.5 `medium` | medio | da fare | | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
-| F12 | Aggiungere la sessione di ripasso | F06 | Opus 5.5 `medium` | medio | da fare | | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
-| F13 | Segnalare un problema su un esercizio | — | Opus 5.5 `medium` | basso | da fare | | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
-| F14 | Assegnare una consegna con un link | F06 | Opus 5.5 `medium` | medio | da fare | | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
-| F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet 5.5 `medium` | basso | da fare | | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
-| F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
-| F17 | Far funzionare il sito senza rete | — | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
-| F18 | Scrivere i test end-to-end | F05, F07 | Sonnet 5.5 `high` | medio | da fare | | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
-| F19 | Controllare la qualità degli esercizi | — | Opus 5.5 `medium` | medio | da fare | | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
-| F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet 5.5 `medium` | basso | da fare | | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
+| ID | Fase | Dipendenze | Claude | Codex | Effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| F01 | Chiudere la pubblicazione del portale | — | Sonnet | Terra | `medium` | basso | da fare |  | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
+| F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus | — | `medium` | medio-alto | da fare |  | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
+| F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | da fare |  | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
+| F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | da fare |  | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
+| F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus | Sol | `medium` | medio | da fare |  | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
+| F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet | Terra | `high` | basso-medio | da fare |  | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
+| F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus | Sol | `medium` | medio-alto | da fare |  | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
+| F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus | Sol | `medium` | medio | da fare |  | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
+| F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
+| F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | da fare |  | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
+| F11 | Spiegare in italiano gli errori di SQLite | — | Opus | Sol | `medium` | medio | da fare |  | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
+| F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
+| F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | da fare |  | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
+| F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
+| F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | da fare |  | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
+| F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
+| F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | da fare |  | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
+| F18 | Scrivere i test end-to-end | F05, F07 | Sonnet | Terra | `high` | medio | da fare |  | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
+| F19 | Controllare la qualità degli esercizi | — | Opus | Sol | `medium` | medio | da fare |  | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
+| F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet | Terra | `medium` | basso | da fare |  | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
+
+Le colonne «Claude» e «Codex» danno la famiglia del modello per ciascuno strumento, senza versione; `—` vuol dire che la fase gira solo sull’altro. L’effort è un’indicazione per Marco, che lo imposta all’apertura: nessuno dei due modelli lo legge.
 
 Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
 
@@ -31,15 +33,15 @@ Ordine consigliato: F01, F19, F06, F02, F04, F10, F05, F03, F07, F11, F13, F12, 
 
 ## Prompt di apertura
 
-Tutti i prompt condividono la stessa chiusura. I percorsi sono relativi alla radice del repo.
+Tutti i prompt condividono la stessa chiusura. I percorsi sono relativi alla radice del repo. Ogni prompt vale sia per Claude Code sia per Codex, salvo le fasi «solo Claude».
 
 ### P-F01
 
 ```text
-Prima di incollare: /model Sonnet 5.5  e  /effort medium
+Modello: Claude Code → Sonnet · Codex → Terra
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Sonnet 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F01-chiudere-pubblicazione.md
@@ -53,10 +55,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F02
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: solo Claude Code → Opus (la fase usa l’Artifact «Design»). Se sei Codex, fermati e dimmelo prima di qualsiasi lavoro.
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: verifica di girare su Opus, ignorando il numero di versione. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F02-studiare-barra-notifica.md
@@ -70,10 +72,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F03
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: solo Claude Code → Opus (la fase usa l’Artifact «Design»). Se sei Codex, fermati e dimmelo prima di qualsiasi lavoro.
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: verifica di girare su Opus, ignorando il numero di versione. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F03-studiare-pagine-zaino-classifica.md
@@ -87,10 +89,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F04
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F04-costruire-barra-comune.md
@@ -98,7 +100,7 @@ ID e obiettivo: F04 — Costruire la barra comune e il ritorno alla pagina prece
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -106,10 +108,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F05
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F05-notificare-esito.md
@@ -117,7 +119,7 @@ ID e obiettivo: F05 — Notificare l’esito con i punti e il salvataggio nello 
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -125,16 +127,16 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F06
 
 ```text
-Prima di incollare: /model Sonnet 5.5  e  /effort high
+Modello: Claude Code → Sonnet · Codex → Terra
+Effort consigliato: high (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Sonnet 5.5, effort high.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F06-sessione-riprendibile.md
 ID e obiettivo: F06 — Rendere riprendibile la sessione di esercizi.
 
-Questa fase scrive pochi testi per gli studenti: prima di scriverli leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati. Se servono icone nuove, fermati e dillo a Marco: questa fase gira su Sonnet e le icone si disegnano con Opus.
+Questa fase scrive pochi testi per gli studenti: prima di scriverli leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati. Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -142,10 +144,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F07
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F07-ricostruire-pagine-zaino-classifica.md
@@ -153,7 +155,7 @@ ID e obiettivo: F07 — Ricostruire le pagine Zaino e Classifica.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Ogni modifica al servizio della classifica in produzione (deploy, migrazioni D1) richiede il via di Marco.
 
@@ -163,16 +165,16 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F08
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F08-scegliere-mondi-livelli.md
 ID e obiettivo: F08 — Scegliere le IP dei nuovi mondi e definirne i livelli.
 
-La scelta delle IP è di Marco: proponi una rosa motivata e attendi la sua scelta prima di scrivere il documento finale. Le ricerche sul web vanno a subagent su Sonnet.
+La scelta delle IP è di Marco: proponi una rosa motivata e attendi la sua scelta prima di scrivere il documento finale. Le ricerche sul web vanno a subagent del livello più economico che lo strumento offre (Sonnet o Haiku su Claude, Terra o Luna su Codex).
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -180,10 +182,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F09
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F09-livello-dei-mondi.md
@@ -191,7 +193,7 @@ ID e obiettivo: F09 — Mostrare il livello dei mondi nel contratto e sulla pagi
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -199,16 +201,16 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F10
 
 ```text
-Prima di incollare: /model Sonnet 5.5  e  /effort medium
+Modello: Claude Code → Sonnet · Codex → Terra
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Sonnet 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F10-predisporre-pie-di-pagina.md
 ID e obiettivo: F10 — Predisporre il piè di pagina comune.
 
-Non scrivere contenuti nuovi per il piè di pagina: li porterà una sessione aperta in ~/Developer/github/. Se servono icone nuove, fermati e dillo a Marco: questa fase gira su Sonnet e le icone si disegnano con Opus.
+Non scrivere contenuti nuovi per il piè di pagina: li porterà una sessione aperta in ~/Developer/github/. Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -216,10 +218,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F11
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F11-errori-sqlite-italiano.md
@@ -227,7 +229,7 @@ ID e obiettivo: F11 — Spiegare in italiano gli errori di SQLite.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -235,10 +237,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F12
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F12-sessione-ripasso.md
@@ -246,7 +248,7 @@ ID e obiettivo: F12 — Aggiungere la sessione di ripasso.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -254,10 +256,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F13
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F13-segnalare-problema.md
@@ -265,7 +267,7 @@ ID e obiettivo: F13 — Segnalare un problema su un esercizio.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -273,10 +275,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F14
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F14-consegna-con-link.md
@@ -284,7 +286,7 @@ ID e obiettivo: F14 — Assegnare una consegna con un link.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -292,16 +294,16 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F15
 
 ```text
-Prima di incollare: /model Sonnet 5.5  e  /effort medium
+Modello: Claude Code → Sonnet · Codex → Terra
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Sonnet 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F15-scaricare-database-anteprima-link.md
 ID e obiettivo: F15 — Scaricare il database e mostrare l’anteprima dei link.
 
-Se servono icone nuove, fermati e dillo a Marco: questa fase gira su Sonnet e le icone si disegnano con Opus.
+Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -309,10 +311,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F16
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F16-riprendere-guida-ingresso.md
@@ -320,7 +322,7 @@ ID e obiettivo: F16 — Riprendere da dove eri e guidare il primo ingresso.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
@@ -328,10 +330,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F17
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F17-sito-offline.md
@@ -345,10 +347,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F18
 
 ```text
-Prima di incollare: /model Sonnet 5.5  e  /effort high
+Modello: Claude Code → Sonnet · Codex → Terra
+Effort consigliato: high (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Sonnet 5.5, effort high.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F18-test-end-to-end.md
@@ -362,10 +364,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F19
 
 ```text
-Prima di incollare: /model Opus 5.5  e  /effort medium
+Modello: Claude Code → Opus · Codex → Sol
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Opus 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F19-controllare-esercizi.md
@@ -379,10 +381,10 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 ### P-F20
 
 ```text
-Prima di incollare: /model Sonnet 5.5  e  /effort medium
+Modello: Claude Code → Sonnet · Codex → Terra
+Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Modello richiesto: Sonnet 5.5, effort medium.
-Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F20-generatore-tema.md
@@ -435,11 +437,16 @@ In più:
 
 ## Strategia dei modelli
 
-- **Fable escluso**; budget ampio nella finestra di cinque ore e nella settimana, priorità all’approfondimento (Marco, 2026-11-21).
-- Opus 5.5 `medium` dove si decide una forma, si disegna con l’Artifact «Design», si scrivono testi per gli studenti o si disegnano icone (F02–F05, F07–F09, F11–F14, F16, F19). F17 (sito senza rete) è su Opus perché un *service worker* sbagliato serve a lungo versioni vecchie: sale a `high` se gli aggiornamenti non si comportano come previsto.
-- Sonnet 5.5 dove si esegue una forma già decisa: F01, F10, F15, F20 (`medium`); F06 (`high`, perché la sessione salvata deve restare coerente con l’azzeramento dei progressi e con lo zaino, e i casi limite vanno coperti con i test); F18 (`high`, perché i test end-to-end vanno resi stabili).
-- In F08 le ricerche sul web vanno a subagent su Sonnet 5.5; il giudizio e la rosa da proporre restano sul modello principale.
-- Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al modello superiore.
+Ogni fase gira su Claude Code o su Codex, a scelta di Marco (2026-11-21). Le regole generali, con la corrispondenza fra i modelli, sono nella skill `piani-multisessione` (sorgente in `~/Developer/github/norms/skills/piani-multisessione/`): Fable ↔ Astra, Opus ↔ Sol, Sonnet ↔ Terra, Haiku ↔ Luna. I modelli si indicano senza versione, perché Marco usa sempre l’ultima; l’effort è solo un’indicazione per lui.
+
+- **Fable escluso** su Claude; budget ampio nella finestra di cinque ore e nella settimana, priorità all’approfondimento (Marco, 2026-11-21). Nessuna fase richiede il livello più alto, quindi Astra non compare.
+- Opus o Sol, `medium`, dove si decide una forma, si scrivono testi per gli studenti o si disegnano icone (F04, F05, F07–F09, F11–F14, F16, F19). F17 (sito senza rete) è a questo livello perché un *service worker* sbagliato serve a lungo versioni vecchie: sale a `high` se gli aggiornamenti non si comportano come previsto.
+- **Solo Claude**, Opus `medium`: F02 e F03, che disegnano con l’Artifact «Design».
+- **Icone nuove solo su Claude**, su Opus, come richiede il collaudo della skill `icone-rb`: una fase su Codex che ne ha bisogno si ferma e lascia un segnaposto (Marco, 2026-11-21).
+- Sonnet o Terra dove si esegue una forma già decisa: F01, F10, F15, F20 (`medium`); F06 (`high`, perché la sessione salvata deve restare coerente con l’azzeramento dei progressi e con lo zaino, e i casi limite vanno coperti con i test); F18 (`high`, perché i test end-to-end vanno resi stabili).
+- In F08 le ricerche sul web vanno a subagent del livello più economico; il giudizio e la rosa da proporre restano sul modello principale.
+- Claude e ChatGPT hanno budget separati: se uno dei due è quasi esaurito, la fase successiva può girare sull’altro. Il commit di chiusura è l’unico passaggio di consegne, qualunque sia lo strumento.
+- Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al livello superiore.
 
 ## Decisioni condivise
 
@@ -454,10 +461,11 @@ Le decisioni del piano archiviato restano valide: sezione «Decisioni condivise�
 | Notifica dell’esito | Sostituisce il riquadro verde «Esercizio risolto»; pulsante «OK» che si riempie e chiude la notifica da solo in 3–4 secondi; il puntatore sopra il pulsante ferma riempimento e tempo (Marco, 2026-11-21). L’esito sbagliato resta nel riquadro di oggi | Marco ha chiesto di cambiare solo il riquadro verde |
 | Piè di pagina | F10 lo predispone soltanto; contenuto e disegno arrivano da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina di tutti i mini-siti (Marco, 2026-11-21) | Coerenza fra i siti di Marco |
 | Idee aggiunte al piano | Fra quelle proposte da Claude, Marco ha scelto F11–F20; scartate cronologia della sandbox, riepilogo stampabile, classe nella classifica, esportazione in CSV (2026-11-21) | Restano annotate qui, se tornassero utili |
+| Strumenti | Ogni fase gira su Claude Code o su Codex; solo Claude per l’Artifact «Design» e per le icone nuove (Marco, 2026-11-21) | Budget separati e due strumenti a disposizione; il design e il collaudo delle icone esistono solo su Claude |
 
 ## Icone
 
-Procedimento e regole sono quelli della sezione «Icone» del piano archiviato ([`archivio/portale-v1/README.md`](../archivio/portale-v1/README.md#icone)): ogni icona passa dalla skill `icone-rb`, le nuove si disegnano su Opus e Marco le approva sul render a 128 px, i commit delle icone vanno nel repo `~/Developer/github/icone` su `dev`. Prima di cercare un’icona controlla il registro del piano archiviato: molte esistono già nel progetto.
+Procedimento e regole sono quelli della sezione «Icone» del piano archiviato ([`archivio/portale-v1/README.md`](../archivio/portale-v1/README.md#icone)): ogni icona passa dalla skill `icone-rb`, le nuove si disegnano su Claude Opus (mai su Codex) e Marco le approva sul render a 128 px, i commit delle icone vanno nel repo `~/Developer/github/icone` su `dev`. Prima di cercare un’icona controlla il registro del piano archiviato: molte esistono già nel progetto.
 
 ### Registro icone
 
@@ -472,3 +480,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | --- | --- |
 | 2026-11-21 | Piano scritto dopo il feedback di Marco sul sito pubblicato; piano `portale-v1` archiviato in `docs/plans/archivio/`. Verificato oggi: HTTPS attivo sul sito (certificato `approved`, `https_enforced: true`), branch predefinito del repo ancora `dev`. Nessuna fase avviata. |
 | 2026-11-21 | Aggiunte su richiesta di Marco F10 (piè di pagina da predisporre) e F11–F20, scelte fra le idee proposte da Claude. Nessuna fase avviata. |
+| 2026-11-21 | Piano reso eseguibile anche con Codex: colonne «Claude» e «Codex» nell’indice, modelli senza versione, effort solo indicativo, prompt validi per i due strumenti; F02 e F03 solo Claude. La skill `piani-multisessione` passa in `~/Developer/github/norms/skills/`. |

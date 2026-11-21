@@ -1,6 +1,6 @@
 # F17 — Far funzionare il sito senza rete
 
-- **Modello / effort:** Opus 5.5 `medium`. Un *service worker* sbagliato serve versioni vecchie del sito a lungo e si rimuove con fatica: serve giudizio su cache e aggiornamenti. Passa a `high` se gli aggiornamenti non si comportano come previsto.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Un *service worker* sbagliato serve versioni vecchie del sito a lungo e si rimuove con fatica: serve giudizio su cache e aggiornamenti. Passa a `high` se gli aggiornamenti non si comportano come previsto.
 - **Dipendenze:** nessuna dipendenza reale; conviene dopo F18, così i test end-to-end proteggono il cambiamento.
 - **Consumo stimato:** medio.
 - **Incertezza:** media-alta: comportamento dei browser con GitHub Pages, aggiornamento della versione, file `wasm` di `sql.js`.

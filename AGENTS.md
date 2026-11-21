@@ -38,6 +38,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-19 | Codice dello zaino a quattro parole (44 bit, elenco di 2048 approvato da Marco), deciso con Marco e fatto prima in PDB (commit `6fe2e49`, branch `claude/zaino-parole-191479`, non ancora in `dev`); qui ricopiati `src/zaino/parole.ts`, `cifra.ts`, la nuova estrazione su 412 in `sincronizza.ts` e i testi. I codici di 20 caratteri aprono ancora il loro zaino. |
 | 2026-11-20 | F10 in corso: repo pubblico `marcofarina/sql-academy`, sito su `http://sql.rainbowbits.cloud/` da `main` (workflow `pubblica.yml`), licenze MIT e CC BY-NC-SA 4.0; zaino di PDB e classifica distribuiti con il CORS di produzione, D1 della classifica creato. Restano certificato HTTPS, procedura manuale e link dal libro. |
 | 2026-11-21 | Feedback di Marco sul sito pubblicato: piano `portale-v1` archiviato in `docs/plans/archivio/portale-v1/` con F10 `in corso` (HTTPS già attivo); nuovo piano `portale-v2` in `docs/plans/portale-v2/` (venti fasi): chiusura della pubblicazione, barra comune con stato dello zaino e «Indietro», notifica dell’esito, sessione riprendibile, pagine Zaino e Classifica ridisegnate, scelta di otto mondi nuovi e dei livelli, piè di pagina da predisporre (contenuto da una sessione in `~/Developer/github/`), più dieci idee scelte da Marco (F11–F20: errori in italiano, ripasso, segnalazioni, consegne con un link, database da scaricare, sito senza rete, test end-to-end, controllo degli esercizi, generatore di temi e altre). Nessun codice. |
+| 2026-11-21 | Piano `portale-v2` eseguibile anche con Codex: colonne «Claude» e «Codex» nell’indice (Opus ↔ Sol, Sonnet ↔ Terra), modelli senza versione, effort solo indicativo per Marco; F02 e F03 solo Claude. Skill `piani-multisessione` spostata in `~/Developer/github/norms/skills/`, collegata per Claude Code e Codex. |
 
 **Prossimo passo:** apri F01 del piano `portale-v2` (procedura manuale sul sito pubblicato, branch predefinito, link dal libro), poi segui l’ordine consigliato nell’indice del piano.
 
@@ -80,7 +81,7 @@ Fissati il 2026-11-16. Valgono finché il piano non li rivede insieme a Marco.
 
 ## Piano e decisioni
 
-Il lavoro segue il piano `docs/plans/portale-v2/README.md`: indice delle fasi, prompt di apertura, vincoli, autonomia e strategia dei modelli. Ogni fase si esegue in una sessione propria, con la skill `piani-multisessione`. Gli ID delle fasi (F01…) sono propri di ciascun piano: le fasi citate nella tabella «Stato» fino al 2026-11-20 sono del piano archiviato `docs/plans/archivio/portale-v1/README.md`, le cui decisioni condivise restano valide.
+Il lavoro segue il piano `docs/plans/portale-v2/README.md`: indice delle fasi, prompt di apertura, vincoli, autonomia e strategia dei modelli. Ogni fase si esegue in una sessione propria, con la skill `piani-multisessione`. Le fasi girano su Claude Code o su Codex: l’indice del piano dà il modello per ciascuno, e il prompt dice se una fase è solo per Claude (Artifact «Design», icone nuove). Gli ID delle fasi (F01…) sono propri di ciascun piano: le fasi citate nella tabella «Stato» fino al 2026-11-20 sono del piano archiviato `docs/plans/archivio/portale-v1/README.md`, le cui decisioni condivise restano valide.
 
 Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisioni condivise» del piano.
 
@@ -106,7 +107,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 
 ## Norme condivise (workspace)
 
-Le norme di contenuto di Marco sono importate dal workspace tramite il symlink interno `.claude/norms -> ../../norms`:
+Le norme di contenuto di Marco sono importate dal workspace tramite il symlink interno `.claude/norms -> ../../norms`. Claude Code espande l’import qui sotto; Codex no: se sei Codex, leggi `.claude/norms/contenuto.md` all’inizio di ogni sessione.
 
 @.claude/norms/contenuto.md
 
@@ -124,5 +125,5 @@ Il symlink esiste solo in locale (è in `.gitignore`): una sessione nel cloud no
 
 - Interfaccia, documentazione e commenti in italiano; identificatori e nomi di file seguono le convenzioni del linguaggio.
 - Lavora sul branch `dev`; il merge in `main` lo chiede Marco. Messaggi di commit secondo i *Conventional Commits*, descrizione in italiano: `feat(temi): aggiungi il registro dei temi`.
-- Icone: rb-icons. Solo RB Icons, sempre tramite la skill `icone-rb` (repo pubblico: niente Font Awesome Pro). Il progetto collauda la skill; procedimento e registro nel piano, sezione «Icone». Comuni in `src/assets/icons/`, di un tema in `themes/<id>/icone/`.
+- Icone: rb-icons. Solo RB Icons, sempre tramite la skill `icone-rb` (repo pubblico: niente Font Awesome Pro). Le icone nuove si disegnano solo su Claude Code: Codex usa quelle già nel progetto e, se ne serve una nuova, si ferma e lascia un segnaposto. Il progetto collauda la skill; procedimento e registro nel piano, sezione «Icone». Comuni in `src/assets/icons/`, di un tema in `themes/<id>/icone/`.
 - Nessun push e nessuna pubblicazione senza il via di Marco.

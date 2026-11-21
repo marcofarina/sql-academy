@@ -1,6 +1,6 @@
 # F09 — Mostrare il livello dei mondi nel contratto e sulla pagina iniziale
 
-- **Modello / effort:** Opus 5.5 `medium`. Campo nuovo nel contratto del tema e una piccola decisione visiva sulla locandina.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Campo nuovo nel contratto del tema e una piccola decisione visiva sulla locandina.
 - **Dipendenze:** F08 (definizione dei livelli).
 - **Consumo stimato:** basso-medio.
 - **Incertezza:** bassa. Aumenta se Marco vuole studiare la resa del livello con l’Artifact «Design» invece di approvarla sul sito in sviluppo.
@@ -26,7 +26,7 @@ Fuori: nuovi mondi.
 
 1. Proponi a Marco nome e valori del campo (per esempio `level: 'facile' | 'intermedio' | 'complesso'`), se è obbligatorio e come si mostra (etichetta sulla locandina, riga sulla scheda, «Consigliato per cominciare»); attendi la scelta.
 2. Aggiungi il campo al contratto, ai due manifest e a `check:themes`.
-3. Elenca le icone, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano.
+3. Elenca le icone, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano (su Codex fermati prima di disegnarle e lascia un segnaposto).
 4. Mostra il livello sulla pagina iniziale come deciso, a 1280 e a 375 px.
 5. Aggiorna la guida «Aggiungere un tema» nel `README.md`.
 

@@ -1,6 +1,6 @@
 # F03 — Studiare le pagine Zaino e Classifica
 
-- **Modello / effort:** Opus 5.5 `medium`. Fase di disegno con l’Artifact «Design», con giudizio su esperienza d’uso e dati da mostrare.
+- **Modello / effort:** solo Claude Code, Opus; effort consigliato `medium`. Fase di disegno con l’Artifact «Design», con giudizio su esperienza d’uso e dati da mostrare.
 - **Dipendenze:** F02 (le pagine ospitano la barra comune approvata).
 - **Consumo stimato:** medio-alto: due pagine, almeno due direzioni per la classifica, due larghezze.
 - **Incertezza:** media. Aumenta se la direzione scelta chiede al servizio della classifica dati che oggi non dà.

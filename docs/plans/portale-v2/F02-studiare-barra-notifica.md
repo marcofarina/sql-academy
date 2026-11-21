@@ -1,6 +1,6 @@
 # F02 — Studiare barra comune, stato dello zaino e notifica dell’esito
 
-- **Modello / effort:** Opus 5.5 `medium`. Fase di disegno con l’Artifact «Design»: decide la forma di tre elementi che compaiono in ogni pagina.
+- **Modello / effort:** solo Claude Code, Opus; effort consigliato `medium`. Fase di disegno con l’Artifact «Design»: decide la forma di tre elementi che compaiono in ogni pagina.
 - **Dipendenze:** nessuna.
 - **Consumo stimato:** medio-alto: tavole interattive in più varianti, provate su due temi con due schemi ciascuno e sulla veste neutra, a 1280 e a 375 px.
 - **Incertezza:** media. Aumenta se Marco chiede più giri sulle tavole o se la barra comune impone di rivedere le intestazioni delle vesti.

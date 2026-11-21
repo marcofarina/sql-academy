@@ -1,6 +1,6 @@
 # F20 — Generare lo scheletro di un tema nuovo
 
-- **Modello / effort:** Sonnet 5.5 `medium`. Forma già decisa dal contratto del tema.
+- **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `medium`. Forma già decisa dal contratto del tema.
 - **Dipendenze:** F09 (livello nel contratto). Conviene dopo F04 e F10, che possono aggiungere campi alla veste.
 - **Consumo stimato:** basso.
 - **Incertezza:** bassa.

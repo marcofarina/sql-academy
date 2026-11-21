@@ -1,6 +1,6 @@
 # F18 — Scrivere i test end-to-end
 
-- **Modello / effort:** Sonnet 5.5 `high`. Test di percorsi già definiti; `high` perché i test end-to-end tendono a essere fragili e vanno resi stabili.
+- **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `high`. Test di percorsi già definiti; `high` perché i test end-to-end tendono a essere fragili e vanno resi stabili.
 - **Dipendenze:** F05, F07 (l’interfaccia di esito, barra, zaino e classifica è quella definitiva; prima i test andrebbero riscritti).
 - **Consumo stimato:** medio.
 - **Incertezza:** media: tempi del worker SQLite, servizi esterni da simulare.

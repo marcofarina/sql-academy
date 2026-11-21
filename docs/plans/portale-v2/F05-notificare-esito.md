@@ -1,6 +1,6 @@
 # F05 — Notificare l’esito con i punti e il salvataggio nello zaino
 
-- **Modello / effort:** Opus 5.5 `medium`. Componente con tempo, pausa e accessibilità, più un cambio nei tempi della sincronizzazione dello zaino.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Componente con tempo, pausa e accessibilità, più un cambio nei tempi della sincronizzazione dello zaino.
 - **Dipendenze:** F02 (specifica della notifica), F04 (stato dello zaino nella barra, a cui la notifica rimanda).
 - **Consumo stimato:** medio.
 - **Incertezza:** media. Aumenta se anticipare la scrittura dello zaino alla risoluzione richiede di rivedere la coda delle modifiche in `sincronizza.ts`.
@@ -25,7 +25,7 @@ Fuori: altri eventi notificati, se F02 non li ha approvati; la barra (F04).
 
 ## 4. Attività di implementazione
 
-1. Elenca le icone della notifica, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano.
+1. Elenca le icone della notifica, cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano (su Codex fermati prima di disegnarle e lascia un segnaposto).
 2. Scrivi il componente: annuncio con `role="status"` (o come prescrive la specifica), tempo di 3–4 secondi come approvato, pausa con puntatore e fuoco, chiusura con «OK» ed Esc, `prefers-reduced-motion` come da specifica.
 3. Collega la notifica a ogni prima risoluzione e alle risoluzioni successive come da specifica; togli `notice-success` dal percorso corretto di `VerdictView`, lasciando la tabella del risultato.
 4. Decidi con Marco la scrittura immediata dello zaino; se sì, implementala in `sincronizza.ts` con i test in `src/zaino/zaino.test.ts`.

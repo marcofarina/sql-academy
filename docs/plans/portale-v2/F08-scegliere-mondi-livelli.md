@@ -1,6 +1,6 @@
 # F08 — Scegliere le IP dei nuovi mondi e definirne i livelli
 
-- **Modello / effort:** Opus 5.5 `medium`. Giudizio didattico e di dominio; ricerche sul web delegate a subagent su Sonnet 5.5.
+- **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Giudizio didattico e di dominio; ricerche sul web delegate a subagent economici.
 - **Dipendenze:** nessuna. Non tocca il codice.
 - **Consumo stimato:** medio: ricerca su molte opere candidate, più giri di confronto con Marco.
 - **Incertezza:** media. Aumenta se Marco chiede abbozzi di schema per molte candidate prima di scegliere.
@@ -31,7 +31,7 @@ Fuori: schemi SQL completi, esercizi, vesti, contratto del livello (F09), costru
 ## 4. Attività di implementazione
 
 1. Proponi a Marco la definizione dei tre livelli, ricavata dai due mondi esistenti; attendi l’approvazione.
-2. Con subagent su Sonnet 5.5, raccogli candidate da film, serie, libri, videogiochi e fumetti: per ciascuna, quanto è nota ai ragazzi, quanto è ricca di dati tabellari (personaggi, luoghi, oggetti, eventi con date e numeri), quanto si presta a un livello.
+2. Con subagent del livello più economico (Sonnet o Haiku su Claude, Terra o Luna su Codex), raccogli candidate da film, serie, libri, videogiochi e fumetti: per ciascuna, quanto è nota ai ragazzi, quanto è ricca di dati tabellari (personaggi, luoghi, oggetti, eventi con date e numeri), quanto si presta a un livello.
 3. Proponi una rosa di 12–16 candidate divise per livello, con un abbozzo di dominio di due righe ciascuna; Marco sceglie le otto.
 4. Per le otto scelte, abbozza tabelle principali e associazioni, e controlla che il livello sia coerente con la definizione.
 5. Scrivi `docs/mondi.md` e aggiungi a `AGENTS.md` i mondi scelti (la decisione «Primo tema» dice oggi che gli altri due temi sono da scegliere).
