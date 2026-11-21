@@ -11,12 +11,23 @@
 | F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus 5.5 `medium` | medio-alto | da fare | | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
 | F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus 5.5 `medium` | medio | da fare | | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
 | F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
+| F10 | Predisporre il piè di pagina comune | F04 | Sonnet 5.5 `medium` | basso | da fare | | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
+| F11 | Spiegare in italiano gli errori di SQLite | — | Opus 5.5 `medium` | medio | da fare | | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
+| F12 | Aggiungere la sessione di ripasso | F06 | Opus 5.5 `medium` | medio | da fare | | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
+| F13 | Segnalare un problema su un esercizio | — | Opus 5.5 `medium` | basso | da fare | | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
+| F14 | Assegnare una consegna con un link | F06 | Opus 5.5 `medium` | medio | da fare | | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
+| F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet 5.5 `medium` | basso | da fare | | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
+| F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus 5.5 `medium` | basso-medio | da fare | | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
+| F17 | Far funzionare il sito senza rete | — | Opus 5.5 `medium` | medio | da fare | | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
+| F18 | Scrivere i test end-to-end | F05, F07 | Sonnet 5.5 `high` | medio | da fare | | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
+| F19 | Controllare la qualità degli esercizi | — | Opus 5.5 `medium` | medio | da fare | | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
+| F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet 5.5 `medium` | basso | da fare | | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
 
 Stati ammessi: `da fare`, `in corso`, `bloccata`, `completata`. Data di completamento nel formato `YYYY-MM-DD HH:mm`, fuso `Europe/Rome`.
 
 Le stime di consumo sono qualitative: nessuna misura garantisce che una fase rientri in una finestra di cinque ore.
 
-Ordine consigliato: F01, F06, F02, F04, F05, F03, F07, F08, F09. F01, F06 e F08 non dipendono da nulla e si possono anticipare; F08 non tocca il codice.
+Ordine consigliato: F01, F19, F06, F02, F04, F10, F05, F03, F07, F11, F13, F12, F14, F16, F15, F08, F09, F20, F18, F17. F19 viene presto perché gli esercizi sono già in produzione; F18 dopo che l’interfaccia è definitiva; F17 per ultima, protetta dai test end-to-end. F08 non tocca il codice e si può anticipare in ogni momento.
 
 ## Prompt di apertura
 
@@ -185,6 +196,201 @@ Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione
 Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
 ```
 
+### P-F10
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort medium
+
+Modello richiesto: Sonnet 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F10-predisporre-pie-di-pagina.md
+ID e obiettivo: F10 — Predisporre il piè di pagina comune.
+
+Non scrivere contenuti nuovi per il piè di pagina: li porterà una sessione aperta in ~/Developer/github/. Se servono icone nuove, fermati e dillo a Marco: questa fase gira su Sonnet e le icone si disegnano con Opus.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F11
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F11-errori-sqlite-italiano.md
+ID e obiettivo: F11 — Spiegare in italiano gli errori di SQLite.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F12
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F12-sessione-ripasso.md
+ID e obiettivo: F12 — Aggiungere la sessione di ripasso.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F13
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F13-segnalare-problema.md
+ID e obiettivo: F13 — Segnalare un problema su un esercizio.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F14
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F14-consegna-con-link.md
+ID e obiettivo: F14 — Assegnare una consegna con un link.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F15
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort medium
+
+Modello richiesto: Sonnet 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F15-scaricare-database-anteprima-link.md
+ID e obiettivo: F15 — Scaricare il database e mostrare l’anteprima dei link.
+
+Se servono icone nuove, fermati e dillo a Marco: questa fase gira su Sonnet e le icone si disegnano con Opus.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F16
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F16-riprendere-guida-ingresso.md
+ID e obiettivo: F16 — Riprendere da dove eri e guidare il primo ingresso.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Le icone si cercano e si creano solo con la skill `icone-rb`, secondo la sezione «Icone» del piano; mostra a Marco le icone nuove e attendi l’approvazione.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F17
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F17-sito-offline.md
+ID e obiettivo: F17 — Far funzionare il sito senza rete.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F18
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort high
+
+Modello richiesto: Sonnet 5.5, effort high.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F18-test-end-to-end.md
+ID e obiettivo: F18 — Scrivere i test end-to-end.
+
+Il passo nel workflow si prova solo con un push: chiedi il via a Marco prima di farlo.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F19
+
+```text
+Prima di incollare: /model Opus 5.5  e  /effort medium
+
+Modello richiesto: Opus 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F19-controllare-esercizi.md
+ID e obiettivo: F19 — Controllare la qualità degli esercizi.
+
+Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
+### P-F20
+
+```text
+Prima di incollare: /model Sonnet 5.5  e  /effort medium
+
+Modello richiesto: Sonnet 5.5, effort medium.
+Controllo iniziale: confronta il modello su cui giri con quello richiesto. Se non coincide, fermati e dimmelo prima di qualsiasi lavoro. L’effort, se non lo vedi, dichiaralo non verificabile e procedi.
+
+Piano: docs/plans/portale-v2/README.md
+Fase: docs/plans/portale-v2/F20-generatore-tema.md
+ID e obiettivo: F20 — Generare lo scheletro di un tema nuovo.
+
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+```
+
 ## Obiettivo
 
 Il piano nasce dal feedback di Marco del 2026-11-21, dopo alcuni minuti di prova sul sito pubblicato. Porta a termine la pubblicazione rimasta aperta nel piano archiviato e corregge ciò che la prova ha mostrato:
@@ -200,6 +406,17 @@ Il piano nasce dal feedback di Marco del 2026-11-21, dopo alcuni minuti di prova
 | 4C. Una sessione di esercizi non si perde lasciando il tema | F06 |
 | 5. Pagine Zaino e Classifica ridisegnate con l’Artifact «Design», soprattutto la classifica | F03, F07 |
 | 6. Le IP dei prossimi mondi, fino a dieci in tutto, con livelli di difficoltà | F08, F09 |
+| Un piè di pagina comune, solo predisposto: il contenuto arriva da una sessione nella cartella `~/Developer/github/`, comune a tutti i mini-siti (Marco, 2026-11-21) | F10 |
+| Idee proposte da Claude e scelte da Marco il 2026-11-21: errori di SQLite in italiano | F11 |
+| Sessione di ripasso con ripetizione spaziata | F12 |
+| Segnalazione di un problema su un esercizio | F13 |
+| Consegna per la classe con un link | F14 |
+| Database del tema da scaricare; anteprima dei link condivisi | F15 |
+| «Riprendi da dove eri»; guida al primo ingresso in un tema | F16 |
+| Sito utilizzabile senza rete | F17 |
+| Test end-to-end | F18 |
+| Controllo automatico della qualità degli esercizi | F19 |
+| Generatore dello scheletro di un tema | F20 |
 
 Fuori dal piano: la costruzione dei nuovi mondi, le CTF, gradi e traguardi (Marco, 2026-11-21).
 
@@ -219,8 +436,8 @@ In più:
 ## Strategia dei modelli
 
 - **Fable escluso**; budget ampio nella finestra di cinque ore e nella settimana, priorità all’approfondimento (Marco, 2026-11-21).
-- Opus 5.5 `medium` dove si decide una forma, si disegna con l’Artifact «Design», si scrivono testi per gli studenti o si disegnano icone (F02–F05, F07–F09).
-- Sonnet 5.5 dove si esegue una forma già decisa: F01 (`medium`, procedura nota) e F06 (`high`, perché la sessione salvata deve restare coerente con l’azzeramento dei progressi e con lo zaino, e i casi limite vanno coperti con i test).
+- Opus 5.5 `medium` dove si decide una forma, si disegna con l’Artifact «Design», si scrivono testi per gli studenti o si disegnano icone (F02–F05, F07–F09, F11–F14, F16, F19). F17 (sito senza rete) è su Opus perché un *service worker* sbagliato serve a lungo versioni vecchie: sale a `high` se gli aggiornamenti non si comportano come previsto.
+- Sonnet 5.5 dove si esegue una forma già decisa: F01, F10, F15, F20 (`medium`); F06 (`high`, perché la sessione salvata deve restare coerente con l’azzeramento dei progressi e con lo zaino, e i casi limite vanno coperti con i test); F18 (`high`, perché i test end-to-end vanno resi stabili).
 - In F08 le ricerche sul web vanno a subagent su Sonnet 5.5; il giudizio e la rosa da proporre restano sul modello principale.
 - Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al modello superiore.
 
@@ -235,6 +452,8 @@ Le decisioni del piano archiviato restano valide: sezione «Decisioni condivise�
 | Mondi in totale | Dieci, cioè otto nuovi oltre a Star Wars e Il Signore degli Anelli: alcuni facili (meno tabelle, query più semplici, consigliati per cominciare), molti intermedi come i due esistenti, uno o due complessi (molte tabelle e moltissime query), candidati alle CTF (Marco, 2026-11-21) | Un percorso che accompagna lo studente dal primo mondo all’ultimo |
 | CTF | Ancora rinviate a un piano successivo; F08 annota solo quali mondi le ospiteranno (Marco, 2026-11-21) | Restano legate ai mondi complessi, che questo piano non costruisce |
 | Notifica dell’esito | Sostituisce il riquadro verde «Esercizio risolto»; pulsante «OK» che si riempie e chiude la notifica da solo in 3–4 secondi; il puntatore sopra il pulsante ferma riempimento e tempo (Marco, 2026-11-21). L’esito sbagliato resta nel riquadro di oggi | Marco ha chiesto di cambiare solo il riquadro verde |
+| Piè di pagina | F10 lo predispone soltanto; contenuto e disegno arrivano da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina di tutti i mini-siti (Marco, 2026-11-21) | Coerenza fra i siti di Marco |
+| Idee aggiunte al piano | Fra quelle proposte da Claude, Marco ha scelto F11–F20; scartate cronologia della sandbox, riepilogo stampabile, classe nella classifica, esportazione in CSV (2026-11-21) | Restano annotate qui, se tornassero utili |
 
 ## Icone
 
@@ -252,3 +471,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | Data | Nota |
 | --- | --- |
 | 2026-11-21 | Piano scritto dopo il feedback di Marco sul sito pubblicato; piano `portale-v1` archiviato in `docs/plans/archivio/`. Verificato oggi: HTTPS attivo sul sito (certificato `approved`, `https_enforced: true`), branch predefinito del repo ancora `dev`. Nessuna fase avviata. |
+| 2026-11-21 | Aggiunte su richiesta di Marco F10 (piè di pagina da predisporre) e F11–F20, scelte fra le idee proposte da Claude. Nessuna fase avviata. |

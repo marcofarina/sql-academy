@@ -26,7 +26,7 @@ Fuori: la notifica dell’esito (F05), il contenuto delle pagine Zaino e Classif
 ## 4. Attività di implementazione
 
 1. Elenca le icone che servono (per esempio per «Indietro» e per gli stati dello zaino), cercale nel catalogo e disegna le mancanti secondo la sezione «Icone» del piano.
-2. Scrivi la barra comune e montala su tutte le pagine; togli le intestazioni duplicate.
+2. Scrivi la barra comune e montala su tutte le pagine dentro un’impaginazione comune, dove F10 aggiungerà il piè di pagina; togli le intestazioni duplicate.
 3. Registra la pagina di provenienza a ogni cambio di indirizzo; «Indietro» torna lì, o dove dice la specifica se non c’è.
 4. Porta nella barra lo stato dello zaino con i testi di `testoStato`, e mantieni l’annuncio ai lettori di schermo.
 5. Adatta `stile.css` dei due temi; se la barra ha bisogno di un campo nuovo nel contratto della veste, aggiornalo in `src/themes/contract.ts`, nel `README.md` («Aggiungere un tema») e in `check:themes`.
