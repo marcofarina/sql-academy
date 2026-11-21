@@ -3,7 +3,7 @@
 | ID | Fase | Dipendenze | Claude | Codex | Effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | F01 | Chiudere la pubblicazione del portale | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 11:49 | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
-| F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus | — | `medium` | medio-alto | da fare |  | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
+| F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus | — | `medium` | medio-alto | completata | 2026-11-21 17:55 | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
 | F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | da fare |  | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
 | F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | da fare |  | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
 | F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus | Sol | `medium` | medio | da fare |  | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
@@ -469,6 +469,7 @@ Le decisioni del piano archiviato restano valide: sezione «Decisioni condivise�
 | Perimetro sui mondi futuri | Questo piano sceglie le IP e il livello di ogni mondo e porta il livello nel contratto; la costruzione dei mondi va in un piano successivo (Marco, 2026-11-21) | Ogni mondo chiede uno studio della veste e una fase di costruzione: otto mondi sono un piano a sé |
 | Mondi in totale | Dieci, cioè otto nuovi oltre a Star Wars e Il Signore degli Anelli: alcuni facili (meno tabelle, query più semplici, consigliati per cominciare), molti intermedi come i due esistenti, uno o due complessi (molte tabelle e moltissime query), candidati alle CTF (Marco, 2026-11-21) | Un percorso che accompagna lo studente dal primo mondo all’ultimo |
 | CTF | Ancora rinviate a un piano successivo; F08 annota solo quali mondi le ospiteranno (Marco, 2026-11-21) | Restano legate ai mondi complessi, che questo piano non costruisce |
+| Barra comune e notifica | Barra in una riga sola, Zaino e Classifica in veste neutra con «Torna a <tema>», pausa della notifica su tutta la notifica, notifica solo per l’esercizio risolto: specifica `docs/design/barra-notifica.md` (Marco, 2026-11-21, in F02) | Tavole approvate nell’Artifact «Design» |
 | Notifica dell’esito | Sostituisce il riquadro verde «Esercizio risolto»; pulsante «OK» che si riempie e chiude la notifica da solo in 3–4 secondi; il puntatore sopra il pulsante ferma riempimento e tempo (Marco, 2026-11-21). L’esito sbagliato resta nel riquadro di oggi | Marco ha chiesto di cambiare solo il riquadro verde |
 | Piè di pagina | F10 lo predispone soltanto; contenuto e disegno arrivano da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina di tutti i mini-siti (Marco, 2026-11-21) | Coerenza fra i siti di Marco |
 | Idee aggiunte al piano | Fra quelle proposte da Claude, Marco ha scelto F11–F20; scartate cronologia della sandbox, riepilogo stampabile, classe nella classifica, esportazione in CSV (2026-11-21) | Restano annotate qui, se tornassero utili |
@@ -485,6 +486,7 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 
 | Icona | Uso nel portale | Fase | Origine | Esito |
 | --- | --- | --- | --- | --- |
+| nuvola barrata (nome da scegliere) | distintivo «senza rete» della pillola dello zaino e della riga dello zaino nella notifica | F02 → F04 | da disegnare | segnaposto nelle tavole di F02 |
 
 ## Aggiornamenti di stato
 
@@ -498,3 +500,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F06 completata (Codex; famiglia del modello non verificabile): procedura manuale ripetuta, inclusi abbandono, azzeramento e isolamento fra temi; verifiche automatiche superate. |
 | 2026-11-21 | Revisione di F06 (Codex) fatta da Claude: corretto il difetto sull’uscita dallo zaino, rifinita la schermata della sessione salvata. Prima prova del lavoro a più modelli: aggiunte alla skill e al piano la revisione incrociata delle fasi a rischio, la sezione «Scostamenti dal dettaglio» nel passaggio di consegne, la riga che identifica strumento e modello nei commit e la lettura del modello di Codex da `~/.codex/config.toml`; aggiunta la decisione «Dati nel browser». |
 | 2026-11-21 | Su richiesta di Marco ogni sessione di fase chiude con il «Messaggio di chiusura»: fase terminata e annotata, prossima fase consigliata e il suo prompt pronto da copiare. Regola aggiunta anche alla skill `piani-multisessione`. |
+| 2026-11-21 | F02 completata (Claude Code, Opus): tavole approvate da Marco (barra in una riga sola), specifica `docs/design/barra-notifica.md`, palette `barra-notifica` in `contrasto.mjs`, 60 coppie sopra la soglia. Nuova icona «senza rete» da disegnare in F04. |

@@ -43,8 +43,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | F19 di `portale-v2` completata: `check:themes` segnala come errori ordine ambiguo (`ORDER BY` o `LIMIT` con pareggi), parole chiave assenti dalla query attesa e `WHERE` che non filtra; come avvisi risultati identici, una riga per una consegna al plurale e parole chiave non dichiarate (`src/exercises/quality.ts`). Parole chiave completate in 14 esercizi; riscritti `lotr/ex-140`, `star-wars/ex-060` ed `ex-068`, con gli stessi id. |
 | 2026-11-21 | F06 di `portale-v2` completata: sessione riprendibile per tema e area dei progressi (`src/training/sessionStorage.ts`); ripresa, abbandono, azzeramento e isolamento fra temi verificati nel browser. |
 | 2026-11-21 | Revisione di F06 fatta da Claude: la sessione salvata ora sparisce anche con «Esci dallo zaino»; schermata della sessione salvata rifinita. Aggiunte al piano e alla skill `piani-multisessione` la revisione incrociata delle fasi a rischio, gli scostamenti nel passaggio di consegne e la riga che identifica strumento e modello nei commit. |
+| 2026-11-21 | F02 di `portale-v2` completata: barra comune in una riga sola, stato dello zaino in sei stati (forma, distintivo, parola), notifica dell’esito con «OK» che si riempie in 4 secondi; specifica `docs/design/barra-notifica.md`, tavole nell’Artifact «Design» approvate da Marco, palette `barra-notifica` in `contrasto.mjs`. |
 
-**Prossimo passo:** apri F02 del piano `portale-v2` su Claude Code, seguendo l’ordine consigliato nell’indice del piano.
+**Prossimo passo:** apri F04 del piano `portale-v2` (Claude Code su Opus o Codex su Sol), seguendo l’ordine consigliato nell’indice del piano.
 
 ## Requisiti di Marco
 

@@ -59,4 +59,22 @@ Procedura manuale: Marco approva le tavole nell’Artifact; la specifica cita le
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+- **Esito:** completata il 2026-11-21. Tavole nell’Artifact «Design» [SQL Academy — barra comune e notifica](https://claude.ai/artifact/GjaruUBdHCVavq5iYXQtvp), privato; specifica `docs/design/barra-notifica.md`; palette `barra-notifica` in `docs/design/contrasto.mjs`.
+- **Verifiche:**
+  - superata: `node docs/design/contrasto.mjs barra-notifica`, 60 coppie su 60 sopra la soglia; `node docs/design/contrasto.mjs` esce con 0;
+  - superata: Marco ha approvato le tavole (direzione A) il 2026-11-21, senza modifiche alle altre proposte;
+  - la specifica risponde a tutte le domande del § 3, nella tabella «Decisioni».
+- **Decisioni nuove** (Marco, 2026-11-21):
+  - barra in una riga sola (direzione A); la direzione B resta nell’Artifact come confronto;
+  - Zaino e Classifica raggiunte da un tema in veste neutra del sito, con «Torna a <tema>»;
+  - «Indietro» senza provenienza diventa «Tutti i temi»;
+  - notifica in alto a destra su desktop, dal fondo sul telefono; non fa avanzare la sessione;
+  - zaino non collegato: «Salvato in questo browser» più il link «Collega lo zaino»;
+  - la notifica serve solo all’esercizio risolto;
+  - riempimento di «OK» in 4 secondi, nel colore del testo con la scritta invertita; con movimento ridotto nessun riempimento e nessuna chiusura automatica.
+- **Scostamenti dal dettaglio:**
+  - la pausa vale per tutta la notifica, non solo per il pulsante: la riga dello zaino si legge senza che la notifica si chiuda. Proposto nelle tavole, accettato da Marco;
+  - il riempimento di «OK» usa il colore del testo invece di una tinta intermedia: nessuna tinta intermedia superava le soglie in Il Signore degli Anelli;
+- **Limiti:** la soglia di larghezza fra notifica in alto e dal fondo non è decisa (punto aperto per F05). L’icona «senza rete» è un segnaposto.
+- **Lavoro residuo:** punti aperti per F04 e F05 nella specifica, sezione «Punti aperti».
+- **Strumento e modello:** Claude Code, Opus.
