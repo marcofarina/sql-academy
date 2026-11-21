@@ -1,5 +1,6 @@
 /** Impaginazione comune del portale, con la barra nella veste della pagina. */
 import type { ReactNode } from 'react';
+import { SiteFooter } from '../footer/SiteFooter.tsx';
 import { Icon } from '../icons/Icon.tsx';
 import { Balance } from '../points/Balance.tsx';
 import { formatRoute, type Route } from '../routing/route.ts';
@@ -46,6 +47,7 @@ export function SiteLayout(props: LayoutPage & { children: ReactNode }) {
         {theme?.switcher}
       </header>
       {children}
+      <SiteFooter />
     </div>
   );
 }

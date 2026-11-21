@@ -40,4 +40,10 @@ Procedura manuale (`npm run dev`, a 1280 e a 375 px): il piè di pagina compare 
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase. Indica il percorso del file dei contenuti: è ciò che la sessione trasversale deve sapere.
+Fase completata il 2026-11-21 (Claude Code, Sonnet).
+
+- **File dei contenuti:** `src/footer/contenuti.tsx` (componente `FooterContenuti`, solo testo e link). È l’unico file che la sessione trasversale deve sostituire. L’impaginazione sta in `src/footer/SiteFooter.tsx`, montato in fondo a `SiteLayout`, quindi su ogni pagina: home, sezioni dei temi, Zaino, Classifica, Informativa, pagina non trovata.
+- **Stile:** classe `.site-footer` in `src/styles.css`, solo variabili comuni (`--color-bg`, `--color-muted`, `--color-link`, `--color-rule`, `--page-width`); le vesti la ereditano. Contrasto del testo da 6,1 a 8,2 e dei link da 6,1 a 10,7 nei quattro schemi (Star Wars e LOTR, chiaro e scuro): nessuna coppia nuova in `contrasto.mjs`.
+- **Contenuto:** quello di `home-footer`, spostato; il paragrafo e le sue regole CSS sono stati tolti dalla home.
+- **Scostamenti dal dettaglio:** nessuno. Nella home il piè di pagina non sta più sul tavolo ma sotto, a pagina intera.
+- **Verifiche:** `npm run lint && npm test && npm run check:themes && npm run build` senza errori. Prova nel browser: piè di pagina presente (uno solo, link al libro e a «I tuoi dati» corretti) in 18 rotte, fra cui sezioni dei due temi, Zaino, Classifica, Informativa e due pagine non trovate; nessuno scorrimento orizzontale; mazzo a 375 px intatto con il piè di pagina sotto. Non provati a mano i clic sui link e la pagina Classifica con molti dati.

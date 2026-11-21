@@ -11,7 +11,7 @@
 | F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus | Sol | `medium` | medio-alto | da fare |  | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
 | F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus | Sol | `medium` | medio | da fare |  | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
 | F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
-| F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | da fare |  | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
+| F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 19:30 | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
 | F11 | Spiegare in italiano gli errori di SQLite | — | Opus | Sol | `medium` | medio | da fare |  | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
 | F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
 | F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | da fare |  | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
@@ -507,3 +507,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F02 completata (Claude Code, Opus): tavole approvate da Marco (barra in una riga sola), specifica `docs/design/barra-notifica.md`, palette `barra-notifica` in `contrasto.mjs`, 60 coppie sopra la soglia. Nuova icona «senza rete» da disegnare in F04. |
 | 2026-11-21 | F04 in corso (Codex, Sol): barra comune, ritorno alla pagina di provenienza e sei stati dello zaino verificati. Resta da sostituire il segnaposto «senza rete» con l’icona RB approvata, in una sessione Claude Code su Opus. |
 | 2026-11-21 | F04 completata (Claude Code, Opus): icona `cloud-slash` disegnata e approvata da Marco al posto del segnaposto «senza rete»; lavoro di Codex ricontrollato, verifiche automatiche e prova nel browser superate. |
+| 2026-11-21 | F10 completata (Claude Code, Sonnet): piè di pagina comune in `src/footer/`, montato da `SiteLayout`; contenuti provvisori nel solo `src/footer/contenuti.tsx`, da sostituire con quelli della sessione trasversale. |

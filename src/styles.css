@@ -239,6 +239,29 @@ h1 .icon-box {
   min-height: 100vh;
 }
 
+.site-footer {
+  padding: 24px;
+  border-top: 1px solid var(--color-rule);
+  background: var(--color-bg);
+  color: var(--color-muted);
+  font-size: 15px;
+}
+
+.site-footer p {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.site-footer a {
+  color: var(--color-link);
+}
+
+@media (max-width: 56rem) {
+  .site-footer {
+    padding: 16px;
+  }
+}
+
 .theme {
   position: relative;
   background: var(--color-bg);
@@ -1724,15 +1747,6 @@ button.link-button {
   color: var(--home-muted);
 }
 
-.home-footer {
-  position: absolute;
-  left: 40px;
-  bottom: 24px;
-  margin: 0;
-  color: var(--home-muted);
-  font-size: 15px;
-}
-
 .home button {
   border-color: var(--home-control-border);
   border-radius: 6px;
@@ -2119,12 +2133,6 @@ button.link-button {
     margin-bottom: 0;
   }
 
-  .home-footer {
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
-  }
-
   .card-title {
     font-size: 48px;
   }
@@ -2137,11 +2145,6 @@ button.link-button {
     margin-top: 20px;
   }
 
-  /* Anche il piè di pagina, sotto il mazzo: in fondo allo schermo lo coprirebbe. */
-  .home.is-deck .home-footer {
-    position: static;
-    margin: 24px 16px 16px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

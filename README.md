@@ -25,6 +25,10 @@ Il workflow `.github/workflows/pubblica.yml` parte a ogni push su `main`: esegue
 
 I servizi in rete stanno su Cloudflare Workers: lo zaino nel repo del libro (`servizi/zaino/`), la classifica qui in `servizi/classifica/`. Entrambi ammettono nel CORS l’origine `https://sql.rainbowbits.cloud`.
 
+## Piè di pagina
+
+Il piè di pagina è comune a tutte le pagine: `src/footer/SiteFooter.tsx` lo monta dentro `SiteLayout`, i contenuti stanno solo in `src/footer/contenuti.tsx`. Il contenuto attuale è provvisorio: quello definitivo arriva da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina dei mini-siti di Marco, e sostituisce quel file senza toccare le pagine.
+
 ## Aggiungere un tema
 
 Un tema è una cartella `themes/<id>/`, scoperta al build: non va registrato in nessun elenco e non richiede modifiche al codice comune. L’`id` è fatto di minuscole, cifre e trattini, compare negli URL (`#/<id>/sandbox`) e nelle chiavi dei progressi in `localStorage`: dopo la pubblicazione non va cambiato.

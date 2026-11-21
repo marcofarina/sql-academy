@@ -21,7 +21,6 @@ import {
   type Placement,
 } from './homeLayout.ts';
 
-const BOOK_URL = 'https://python.rainbowbits.cloud';
 /** Il cambio di faccia avviene a metà del giro: prima la faccia nuova non può ricevere il fuoco. */
 const FLIP_HALF_MS = 450;
 const DRAG_THRESHOLD = 5;
@@ -421,15 +420,6 @@ export function HomePage({ themes }: { themes: Theme[] }) {
       </div>
 
       <div className={open === null ? 'home-veil' : 'home-veil is-visible'} onClick={closeCard} aria-hidden="true" />
-
-      <p className="home-footer">
-        Le query girano nel tuo browser con SQLite. Gli esercizi accompagnano il{' '}
-        <a href={BOOK_URL}>
-          <cite>Manuale dell’Archivista</cite>
-        </a>{' '}
-        di <cite>Python Doesn’t Byte</cite>. I mondi dei temi appartengono ai loro autori: SQL Academy ne usa nomi e ambientazioni e non è
-        affiliato ai titolari delle opere. <a href={formatRoute({ page: 'informativa' })}>I tuoi dati</a>
-      </p>
     </main>
   );
 }

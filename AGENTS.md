@@ -45,8 +45,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | Revisione di F06 fatta da Claude: la sessione salvata ora sparisce anche con «Esci dallo zaino»; schermata della sessione salvata rifinita. Aggiunte al piano e alla skill `piani-multisessione` la revisione incrociata delle fasi a rischio, gli scostamenti nel passaggio di consegne e la riga che identifica strumento e modello nei commit. |
 | 2026-11-21 | F02 di `portale-v2` completata: barra comune in una riga sola, stato dello zaino in sei stati (forma, distintivo, parola), notifica dell’esito con «OK» che si riempie in 4 secondi; specifica `docs/design/barra-notifica.md`, tavole nell’Artifact «Design» approvate da Marco, palette `barra-notifica` in `contrasto.mjs`. |
 | 2026-11-21 | F04 di `portale-v2` completata: barra comune (`src/pages/SiteLayout.tsx`), ritorno alla pagina precedente, sei stati dello zaino; distintivo «senza rete» con la nuova icona RB `cloud-slash` (commit `014f84a` del repo `icone`). |
+| 2026-11-21 | F10 di `portale-v2` completata: piè di pagina comune (`src/footer/`), contenuti provvisori in `src/footer/contenuti.tsx` da sostituire con quelli della sessione trasversale in `~/Developer/github/`. |
 
-**Prossimo passo:** F10 di `portale-v2` (piè di pagina comune), su Claude Code con Sonnet o su Codex con Terra. Poi segui l’ordine consigliato nell’indice del piano.
+**Prossimo passo:** F05 di `portale-v2` (notifica dell’esito), su Claude Code con Opus o su Codex con Sol; dopo di lei va rivista dall’altro strumento. Poi segui l’ordine consigliato nell’indice del piano.
 
 ## Requisiti di Marco
 
