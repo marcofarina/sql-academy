@@ -13,10 +13,6 @@ export function InformativaPage() {
 
   return (
     <main className="page informativa-page">
-      <a className="back-link" href="#/">
-        <Icon name="circle-arrow-left" />
-        Tutti i temi
-      </a>
       <h1>
         <Icon name="shield-check" />I tuoi dati
       </h1>

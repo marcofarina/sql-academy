@@ -1,3 +1,4 @@
+/** Sezioni e stato di lavoro di un tema. */
 import { useEffect, useState } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { SECTIONS, formatRoute, type SectionId } from '../routing/route.ts';
@@ -7,10 +8,8 @@ import { SCHEMES, type Scheme, type Theme, type ThemeIcons } from '../themes/con
 import { loadScheme, saveScheme } from '../scheme/scheme.ts';
 import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
 import { SectionIndicator } from './SectionIndicator.tsx';
+import { SiteLayout } from './SiteLayout.tsx';
 import { useProgress } from '../progress/useProgress.ts';
-import { Balance } from '../points/Balance.tsx';
-import { ClassificaLink } from '../classifica/ClassificaLink.tsx';
-import { ZainoLink } from '../zaino/ZainoLink.tsx';
 import { TraceSection } from '../trace/TraceSection.tsx';
 import { ErSection } from '../er/ErSection.tsx';
 import { LogicalSection } from '../logical/LogicalSection.tsx';
@@ -18,7 +17,7 @@ import { CatalogSection } from '../training/CatalogSection.tsx';
 import { TrainingSection } from '../training/TrainingSection.tsx';
 import { useTraining } from '../training/useTraining.ts';
 
-/** Guscio delle pagine di un tema: intestazione, le sei sezioni, il contenuto della sezione scelta. */
+/** Mostra le sei sezioni del tema nella veste scelta. */
 export function ThemePage({ theme, section, item }: { theme: Theme; section: SectionId; item?: string }) {
   const { id, title, schemes } = theme.manifest;
   const [scheme, setScheme] = useState<Scheme>(() => loadScheme(id));
@@ -47,33 +46,23 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
     document.title = `${current.label} · ${title} · SQL Academy`;
   }, [current, title]);
 
+  const switcher = schemes && (
+    <div className="scheme-switch" role="group" aria-label="Schema di colori">
+      {SCHEMES.map((s) => {
+        const emblem = themeIcon(schemes[s].emblem);
+        const label = s === 'chiaro' ? 'Chiaro' : 'Scuro';
+        return (
+          <button key={s} type="button" aria-label={label} aria-pressed={scheme === s} onClick={() => chooseScheme(s)}>
+            {emblem && <Icon svg={emblem} />}
+            <span className={emblem ? 'site-control-label' : 'scheme-text-fallback'}>{label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+
   return (
-    <div className="theme" data-theme-id={id} data-scheme={schemes ? scheme : undefined}>
-      <header className="theme-header">
-        <a className="back-link" href="#/">
-          <Icon name="circle-arrow-left" />
-          Tutti i temi
-        </a>
-        <div className="theme-identity">
-          <p className="theme-name">
-            {activeIcons.emblem && <Icon svg={activeIcons.emblem} />}
-            {title}
-          </p>
-          <Balance balance={balance} />
-          <ZainoLink />
-          <ClassificaLink />
-          {schemes && (
-            <div className="scheme-switch" role="group" aria-label="Schema di colori">
-              {SCHEMES.map((s) => (
-                <button key={s} type="button" aria-pressed={scheme === s} onClick={() => chooseScheme(s)}>
-                  {themeIcon(schemes[s].emblem) && <Icon svg={themeIcon(schemes[s].emblem)} />}
-                  {s === 'chiaro' ? 'Chiaro' : 'Scuro'}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </header>
+    <SiteLayout page="theme" theme={{ id, title, emblem: activeIcons.emblem, balance, scheme: schemes ? scheme : undefined, switcher }}>
       <nav className="sections" aria-label="Sezioni del tema">
         <ul>
           {SECTIONS.map((s) => (
@@ -128,6 +117,6 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
         )}
       </main>
       </ThemeIconsContext>
-    </div>
+    </SiteLayout>
   );
 }

@@ -211,10 +211,6 @@ export function ClassificaPage({ themes }: { themes: Theme[] }) {
 
   return (
     <main className="page classifica-page">
-      <a className="back-link" href="#/">
-        <Icon name="circle-arrow-left" />
-        Tutti i temi
-      </a>
       <h1>
         <Icon name="trophy" />
         Classifica

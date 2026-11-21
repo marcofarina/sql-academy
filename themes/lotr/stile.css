@@ -47,14 +47,6 @@
   --focus-color: var(--color-accent-ink);
 }
 
-.theme[data-theme-id='lotr'] .theme-name .icon {
-  color: var(--color-accent-ink);
-}
-
-.theme[data-theme-id='lotr'] .scheme-switch button {
-  font-weight: 700;
-}
-
 .theme[data-theme-id='lotr'] .page {
   position: relative;
 }
@@ -104,7 +96,7 @@
   --display-weight: 400;
   --display-tracking: 0;
   --h1-size: 56px;
-  --theme-name-size: 26px;
+  --theme-name-size: 30px;
   --radius: 3px;
   --sections-rule: var(--color-border);
   --lotr-route: #a3301f;
@@ -280,14 +272,13 @@
   --display-weight: 600;
   --display-tracking: 0.05em;
   --h1-size: 42px;
-  --theme-name-size: 20px;
+  --theme-name-size: 24px;
   --radius: 2px;
   --sections-rule: var(--color-rule);
   --lotr-ithildin: #a9d8ff;
   --lotr-ithildin-core: #e8f4ff;
   --lotr-glow: rgba(169, 216, 255, 0.45);
   --lotr-stone-line: rgba(255, 255, 255, 0.022);
-  --lotr-header-shade: #141b24;
   --lotr-warning-line: #ffe9b0;
 
   color-scheme: dark;
@@ -331,16 +322,6 @@
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 520'%3E %3Cg fill='none' stroke='%23A9D8FF' stroke-width='1.2'%3E %3Cpath d='M70 520 V200 A130 130 0 0 1 330 200 V520'/%3E %3Cpath d='M92 520 V204 A108 108 0 0 1 308 204 V520' stroke-dasharray='1 7' stroke-linecap='round'/%3E %3Cpath d='M70 200 h-14 M330 200 h14'/%3E %3Cpath d='M200 92 v-26 M200 66 l5 12 l-5 -3 l-5 3 z'/%3E %3Cpath d='M200 120 l5 15 l15 5 l-15 5 l-5 15 l-5 -15 l-15 -5 l15 -5 z'/%3E %3Cpath d='M150 300 c 20 -40, 80 -40, 100 0' opacity='.6'/%3E %3C/g%3E %3C/svg%3E") center / contain no-repeat;
   opacity: 0.5;
   filter: drop-shadow(0 0 4px rgba(169, 216, 255, 0.7));
-  pointer-events: none;
-}
-
-/* Intestazione: sfumatura verso il fondo */
-.theme[data-theme-id='lotr'][data-scheme='scuro'] .theme-header::before {
-  content: '';
-  position: absolute;
-  inset: 0 -100vmax;
-  z-index: -1;
-  background: linear-gradient(180deg, var(--lotr-header-shade), transparent);
   pointer-events: none;
 }
 
@@ -430,24 +411,12 @@
 /* ---------------------------------------------------------------- 375 px */
 
 @media (max-width: 40rem) {
-  .theme[data-theme-id='lotr'][data-scheme='chiaro'] {
-    --theme-name-size: 23px;
-  }
-
-  .theme[data-theme-id='lotr'][data-scheme='scuro'] {
-    --theme-name-size: 18px;
-  }
-
   .theme[data-theme-id='lotr'][data-scheme='chiaro'] h1 {
     font-size: 42px;
   }
 
   .theme[data-theme-id='lotr'][data-scheme='scuro'] h1 {
     font-size: 32px;
-  }
-
-  .theme[data-theme-id='lotr'] .theme-name .icon {
-    height: 28px;
   }
 
   /* Le sezioni scorrono: il punto sta nel margine della lista, sul percorso */

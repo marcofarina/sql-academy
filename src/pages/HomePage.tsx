@@ -1,3 +1,4 @@
+/** Locandine e schede dei temi nella pagina iniziale. */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { formatRoute } from '../routing/route.ts';
@@ -5,8 +6,6 @@ import { CHAPTERS, DIFFICULTIES, type Theme } from '../themes/contract.ts';
 import { plural } from '../training/exercises.ts';
 import { balanceOf } from '../progress/progress.ts';
 import { useThemeProgress } from '../progress/useProgress.ts';
-import { ClassificaLink } from '../classifica/ClassificaLink.tsx';
-import { ZainoLink } from '../zaino/ZainoLink.tsx';
 import { pointsLabel } from '../points/labels.ts';
 import {
   clamp,
@@ -97,6 +96,10 @@ export function HomePage({ themes }: { themes: Theme[] }) {
     ),
   ];
   const count = posters.length;
+
+  useEffect(() => {
+    document.title = 'SQL Academy';
+  }, []);
 
   const isDeck = useMediaQuery(DECK_QUERY);
   const reducedMotion = useMediaQuery(REDUCED_MOTION_QUERY);
@@ -318,14 +321,9 @@ export function HomePage({ themes }: { themes: Theme[] }) {
 
   return (
     <main className={isDeck ? 'home is-deck' : 'home'}>
-      <header className="home-header">
-        <div>
-          <p className="home-brand">SQL Academy</p>
-          <h1 className="home-title">Scegli un mondo, interroga il database.</h1>
-        </div>
+      <div className="home-intro">
+        <h1 className="home-title">Scegli un mondo, interroga il database.</h1>
         <div className="home-aside">
-          <ZainoLink />
-          <ClassificaLink />
           {isDeck ? (
             <p>Sfoglia le locandine, toccane una per aprire la sua scheda.</p>
           ) : (
@@ -337,7 +335,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
             </>
           )}
         </div>
-      </header>
+      </div>
 
       <div className="table-area" ref={tableRef}>
         {posters.map((poster, index) => {

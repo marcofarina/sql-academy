@@ -1,4 +1,5 @@
-import { useEffect, useSyncExternalStore } from 'react';
+/** La pagina corrente e la sua provenienza nella navigazione della scheda. */
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { canonicalHash, parseRoute, type Route } from './route.ts';
 
 function subscribe(onChange: () => void): () => void {
@@ -8,17 +9,24 @@ function subscribe(onChange: () => void): () => void {
 
 const getHash = () => window.location.hash;
 
-/** La rotta corrente, aggiornata a ogni cambio di hash; gli hash incompleti diventano canonici. */
-export function useHashRoute(): Route {
+/** Segue la rotta e ricorda l’indirizzo precedente fino alla prossima ricarica. */
+export function useHashRoute(): { route: Route; previousHash: string | null } {
   const hash = useSyncExternalStore(subscribe, getHash);
+  const canonical = canonicalHash(hash);
+  const address = canonical ?? (hash || '#/');
+  const [navigation, setNavigation] = useState<{ address: string; previousHash: string | null }>(
+    () => ({ address, previousHash: null }),
+  );
+  const previousHash = navigation.address === address ? navigation.previousHash : navigation.address;
+  // Correggere l’hash di questa stessa pagina non conta come una visita.
+  if (navigation.address !== address) setNavigation({ address, previousHash });
 
   useEffect(() => {
-    const canonical = canonicalHash(hash);
     if (canonical) {
       history.replaceState(null, '', canonical);
       window.dispatchEvent(new HashChangeEvent('hashchange'));
     }
-  }, [hash]);
+  }, [canonical]);
 
-  return parseRoute(hash);
+  return { route: parseRoute(address), previousHash };
 }

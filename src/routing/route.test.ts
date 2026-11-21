@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { canonicalHash, formatRoute, parseRoute } from './route.ts';
+import { canonicalHash, formatRoute, parseRoute, returnLink } from './route.ts';
 
 test('hash vuoto o radice: elenco dei temi', () => {
   expect(parseRoute('')).toEqual({ page: 'home' });
@@ -24,6 +24,11 @@ test('sezione sconosciuta o percorso troppo lungo: pagina non trovata', () => {
 
 test('un tema inesistente è comunque un percorso valido: lo scarta chi ha il registro', () => {
   expect(parseRoute('#/narnia/sandbox')).toEqual({ page: 'theme', themeId: 'narnia', section: 'sandbox' });
+});
+
+test('un hash con codifica malformata apre la pagina non trovata', () => {
+  expect(parseRoute('#/%')).toEqual({ page: 'not-found' });
+  expect(canonicalHash('#/lotr/addestramento/%E0%A4')).toBeUndefined();
 });
 
 test('formatRoute è l’inverso di parseRoute', () => {
@@ -69,4 +74,21 @@ test('le pagine della classifica e dell’informativa', () => {
   expect(formatRoute({ page: 'classifica' })).toBe('#/classifica');
   expect(formatRoute({ page: 'informativa' })).toBe('#/informativa');
   expect(canonicalHash('#/classifica')).toBeUndefined();
+});
+
+test('la destinazione di ritorno conserva l’esercizio e nomina la provenienza', () => {
+  const title = (id: string) => id === 'lotr' ? 'Il Signore degli Anelli' : undefined;
+  const hash = '#/lotr/addestramento/ex-001';
+  expect(returnLink(hash, title)).toEqual({ href: hash, label: 'Torna a Il Signore degli Anelli' });
+  expect(returnLink('#/zaino', title)).toEqual({ href: '#/zaino', label: 'Torna allo zaino' });
+  expect(returnLink('#/classifica', title)).toEqual({ href: '#/classifica', label: 'Torna alla classifica' });
+  expect(returnLink('#/informativa', title)).toEqual({ href: '#/informativa', label: 'Torna all’informativa' });
+  expect(returnLink('#/narnia/sandbox', title)).toEqual({ href: '#/narnia/sandbox', label: 'Torna alla pagina non trovata' });
+  expect(returnLink('#/%', title)).toEqual({ href: '#/%', label: 'Torna alla pagina non trovata' });
+});
+
+test('dalla home o senza provenienza il ritorno va all’elenco dei temi', () => {
+  for (const hash of [null, '#/']) {
+    expect(returnLink(hash, () => undefined)).toEqual({ href: '#/', label: 'Tutti i temi' });
+  }
 });

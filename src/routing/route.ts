@@ -57,7 +57,12 @@ function isSection(value: string): value is SectionId {
 
 /** Interpreta l’hash della pagina. Non controlla che il tema esista: lo fa chi ha il registro. */
 export function parseRoute(hash: string): Route {
-  const parts = hash.replace(/^#/, '').split('/').filter(Boolean).map(decodeURIComponent);
+  let parts: string[];
+  try {
+    parts = hash.replace(/^#/, '').split('/').filter(Boolean).map(decodeURIComponent);
+  } catch {
+    return { page: 'not-found' };
+  }
   if (parts.length === 0) return { page: 'home' };
   if (parts.length === 1 && isPortalPage(parts[0])) return { page: parts[0] } as PortalRoute;
   const [themeId, section = DEFAULT_SECTION, ...rest] = parts;
@@ -67,6 +72,7 @@ export function parseRoute(hash: string): Route {
   return { page: 'not-found' };
 }
 
+/** Scrive l’indirizzo di una pagina o di una sezione del portale. */
 export function formatRoute(route: { page: 'home' } | PortalRoute | ThemeRoute): string {
   if (route.page === 'home') return '#/';
   if (route.page !== 'theme') return `#/${route.page}`;
@@ -80,4 +86,24 @@ export function canonicalHash(hash: string): string | undefined {
   if (route.page === 'not-found') return undefined;
   const canonical = formatRoute(route);
   return canonical === hash || (route.page === 'home' && hash === '') ? undefined : canonical;
+}
+
+/** Il ritorno nomina la pagina visitata e ne conserva l’indirizzo completo. */
+export function returnLink(hash: string | null, themeTitle: (id: string) => string | undefined) {
+  if (hash === null) return { href: '#/', label: 'Tutti i temi' };
+  const route = parseRoute(hash);
+  if (route.page === 'home') return { href: '#/', label: 'Tutti i temi' };
+
+  let label = 'Torna alla pagina non trovata';
+  if (route.page === 'theme') {
+    const title = themeTitle(route.themeId);
+    if (title) label = `Torna a ${title}`;
+  } else if (route.page === 'zaino') {
+    label = 'Torna allo zaino';
+  } else if (route.page === 'classifica') {
+    label = 'Torna alla classifica';
+  } else if (route.page === 'informativa') {
+    label = 'Torna all’informativa';
+  }
+  return { href: hash, label };
 }

@@ -150,8 +150,23 @@ export function leggiStatoZaino(): StatoZaino {
   return stato;
 }
 
+function iscrivitiRete(f: () => void): () => void {
+  window.addEventListener('online', f);
+  window.addEventListener('offline', f);
+  return () => {
+    window.removeEventListener('online', f);
+    window.removeEventListener('offline', f);
+  };
+}
+
+/** Stato per l’interfaccia: la rete assente è visibile anche fra due salvataggi. */
 export function useStatoZaino(): StatoZaino {
-  return useSyncExternalStore(iscriviti, leggiStatoZaino, () => STATO_SERVER);
+  const stato = useSyncExternalStore(iscriviti, leggiStatoZaino, () => STATO_SERVER);
+  const online = useSyncExternalStore(iscrivitiRete, () => navigator.onLine, () => true);
+  if (!online && (stato.fase === 'sincronizzato' || stato.fase === 'in-corso')) {
+    return { ...stato, fase: 'offline' };
+  }
+  return stato;
 }
 
 /* ------------------------------------------------------------ memoria */

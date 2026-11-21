@@ -1,19 +1,49 @@
+/** Collegamento allo zaino, con lo stato del salvataggio nella barra. */
 import { Icon } from '../icons/Icon.tsx';
 import { formatRoute } from '../routing/route.ts';
-import { haProblemi, testoStato } from './labels.ts';
+import { statoPillola, testoStato } from './labels.ts';
 import { useStatoZaino } from './sincronizza.ts';
 
-/** Il collegamento alla pagina dello zaino, con un segnale quando lo zaino ha bisogno di attenzione. */
-export function ZainoLink() {
+const DISTINTIVI = {
+  sincronizzato: 'circle-check',
+  'in-attesa': 'cloud-arrow-up',
+  'in-corso': 'cloud-arrow-up',
+  errore: 'circle-xmark',
+};
+
+/** Colore, forma, distintivo e parola descrivono lo stato anche nei passaggi intermedi. */
+export function ZainoLink({ current }: { current: boolean }) {
   const stato = useStatoZaino();
-  const testo = testoStato(stato) ?? 'Zaino non collegato.';
-  const problema = haProblemi(stato);
+  const testo = testoStato(stato);
+  const { fase, parola } = statoPillola(stato);
+  const distintivo = fase === 'scollegato' || fase === 'offline' ? undefined : DISTINTIVI[fase];
+
   return (
-    <a className={problema ? 'zaino-link has-problem' : 'zaino-link'} href={formatRoute({ page: 'zaino' })} title={testo} data-zaino-fase={stato.fase}>
-      <Icon name="backpack" />
-      Zaino
-      {problema && <Icon name="triangle-exclamation" />}
-      <span className="visually-hidden">: {testo}</span>
-    </a>
+    <>
+      <a
+        className="zaino-link"
+        href={formatRoute({ page: 'zaino' })}
+        title={testo}
+        aria-label={fase === 'scollegato' ? testo : `Zaino: ${parola}. ${testo}`}
+        aria-current={current ? 'page' : undefined}
+        data-zaino-fase={fase}
+      >
+        <span className="zaino-mark">
+          <Icon name="backpack" />
+          {fase !== 'scollegato' && (
+            <span className="zaino-badge" aria-hidden="true">
+              {distintivo && <Icon name={distintivo} />}
+              {fase === 'in-corso' && <span className="zaino-spinner" />}
+              {/* Segnaposto di F02 per la nuvola barrata. */}
+              {fase === 'offline' && <span className="zaino-offline-placeholder" />}
+            </span>
+          )}
+        </span>
+        <span className="site-control-label">Zaino</span>
+        <span className="site-control-label zaino-state">{parola}</span>
+      </a>
+      {/* Nella pagina Zaino la scheda del collegamento annuncia già lo stato. */}
+      {!current && <span className="visually-hidden" role="status">{testo}</span>}
+    </>
   );
 }

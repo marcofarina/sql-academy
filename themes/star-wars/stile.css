@@ -79,7 +79,7 @@
   --display-weight: 800;
   --display-tracking: 0.01em;
   --h1-size: 52px;
-  --theme-name-size: 22px;
+  --theme-name-size: 28px;
   --sections-rule: var(--color-border);
   --livery: #b3242b;
   --panel-line: rgba(27, 30, 34, 0.055);
@@ -96,27 +96,7 @@
     var(--color-bg);
 }
 
-/* Livrea: due strisce rosse in cima all’intestazione */
-.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .theme-header {
-  padding-top: calc(1rem + 14px);
-}
-
-.theme[data-theme-id='star-wars'][data-scheme='chiaro'] .theme-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 1rem;
-  right: 1rem;
-  height: 14px;
-  background: linear-gradient(
-    180deg,
-    var(--livery) 0 7px,
-    transparent 7px 11px,
-    var(--livery) 11px 14px
-  );
-}
-
-/* Sezione attiva: le stesse due strisce, in piccolo */
+/* Sezione attiva: due strisce rosse della livrea */
 .theme[data-theme-id='star-wars'][data-scheme='chiaro'] .sections-indicator::after {
   content: '';
   position: absolute;
@@ -234,14 +214,13 @@
   --display-weight: 400;
   --display-tracking: 0.06em;
   --h1-size: 34px;
-  --theme-name-size: 17px;
+  --theme-name-size: 20px;
   --sections-rule: var(--color-rule);
   --saber: #ff2a35;
   --saber-core: #ffe9ea;
   --saber-glow: rgba(255, 42, 53, 0.55);
   --saber-halo: rgba(255, 42, 53, 0.9);
   --plate-line: rgba(255, 255, 255, 0.028);
-  --header-shade: #14171b;
   --station-light: #2e3339;
   --station-mid: #1a1d21;
   --station-dark: #101215;
@@ -279,20 +258,6 @@
 
 .theme[data-theme-id='star-wars'][data-scheme='scuro'] > * {
   position: relative;
-}
-
-/* Intestazione: sfumatura verso il fondo */
-.theme[data-theme-id='star-wars'][data-scheme='scuro'] .theme-header {
-  padding-top: 1.25rem;
-}
-
-.theme[data-theme-id='star-wars'][data-scheme='scuro'] .theme-header::before {
-  content: '';
-  position: absolute;
-  inset: 0 -100vmax;
-  z-index: -1;
-  background: linear-gradient(180deg, var(--header-shade), transparent);
-  pointer-events: none;
 }
 
 /* Sezione attiva: una lama */

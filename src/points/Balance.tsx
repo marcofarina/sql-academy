@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/** Saldo, ultimo movimento e annuncio dei punti nella barra del tema. */
+import { useEffect, useState } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { pointsLabel } from './labels.ts';
 
@@ -16,6 +17,12 @@ export function Balance({ balance }: { balance: number }) {
     setChange({ delta: balance - previous, count: (change?.count ?? 0) + 1 });
   }
 
+  useEffect(() => {
+    if (!change) return;
+    const timer = window.setTimeout(() => setChange(undefined), 2400);
+    return () => window.clearTimeout(timer);
+  }, [change]);
+
   const announcement = change
     ? `Punti: ${balance} (${change.delta > 0 ? 'più' : 'meno'} ${Math.abs(change.delta)}).`
     : '';
@@ -28,11 +35,11 @@ export function Balance({ balance }: { balance: number }) {
         <span key={change?.count ?? 0} className={change ? 'balance-number is-changed' : 'balance-number'}>
           {balance}
         </span>
+        <span className="balance-unit">punti</span>
       </span>
       {change && (
         <span key={`delta-${change.count}`} className={change.delta > 0 ? 'balance-delta is-gain' : 'balance-delta is-spend'} aria-hidden="true">
-          <Icon name={change.delta > 0 ? 'circle-plus' : 'circle-minus'} />
-          {Math.abs(change.delta)}
+          {change.delta > 0 ? '+' : '−'}{Math.abs(change.delta)}
         </span>
       )}
       <span className="visually-hidden" aria-live="polite">

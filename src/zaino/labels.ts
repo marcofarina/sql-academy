@@ -25,9 +25,9 @@ function ora(iso: string | null): string {
   return Number.isNaN(d.getTime()) ? '' : d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
 }
 
-/** Lo stato dello zaino in una frase; null se lo zaino non è collegato. */
-export function testoStato(s: StatoZaino): string | null {
-  if (s.fase === 'scollegato') return null;
+/** Lo stato dello zaino in una frase. */
+export function testoStato(s: StatoZaino): string {
+  if (s.fase === 'scollegato') return 'Zaino non collegato: i progressi restano in questo browser.';
   if (s.fase === 'in-corso') return 'Sincronizzo lo zaino…';
   if (s.fase === 'offline') return 'Sei senza rete: i progressi restano qui e partono nello zaino appena torna.';
   if (s.fase === 'errore') {
@@ -49,7 +49,17 @@ export function testoStato(s: StatoZaino): string | null {
   return s.inSospeso ? `${base} Alcune modifiche partono fra poco.` : base;
 }
 
-/** Lo zaino ha bisogno di attenzione: senza rete o in errore. */
-export function haProblemi(s: StatoZaino): boolean {
-  return s.fase === 'offline' || s.fase === 'errore';
+const PAROLE_PILLOLA = {
+  scollegato: 'non collegato',
+  sincronizzato: 'salvato',
+  'in-attesa': 'in attesa',
+  'in-corso': 'salvataggio…',
+  offline: 'senza rete',
+  errore: 'errore',
+};
+
+/** Forma e parola della pillola, distinguendo anche le modifiche in attesa. */
+export function statoPillola(s: StatoZaino): { fase: keyof typeof PAROLE_PILLOLA; parola: string } {
+  const fase = s.fase === 'sincronizzato' && s.inSospeso ? 'in-attesa' : s.fase;
+  return { fase, parola: PAROLE_PILLOLA[fase] };
 }
