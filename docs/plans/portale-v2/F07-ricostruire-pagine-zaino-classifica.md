@@ -24,7 +24,7 @@ Fuori: l’informativa `#/informativa`, salvo i testi che la nuova classifica re
 ## 4. Attività di implementazione
 
 1. Elenca le icone, cercale nel catalogo, disegna le mancanti secondo la sezione «Icone» del piano (su Codex fermati prima di disegnarle e lascia un segnaposto).
-2. Ricostruisci la pagina dello zaino; verifica apri, crea, «Non è il mio computer», mostra e copia il codice, esci.
+2. Ricostruisci la pagina dello zaino; verifica apri, crea, «Non è il mio computer», mostra e copia il codice, esci. Requisiti di Marco (2026-11-21), dettagli in F03: apertura con quattro caselle numerate e autocompletamento dall’elenco di `src/zaino/parole.ts`; creazione in tre passi (avviso di salvare e fare un backup, parole mostrate una sola volta, reinserimento obbligatorio prima di confermare). I codici di 20 caratteri già in uso devono continuare ad aprire il loro zaino. Il codice dello zaino è condiviso con il libro: se questa pagina diverge da quella di PDB, annotalo per Marco.
 3. Ricostruisci la classifica con tutti gli stati della specifica.
 4. Se previste, modifica il servizio in `servizi/classifica/` con le sue prove (`npm run prova` contro `wrangler dev`); deploy e migrazioni in produzione solo con il via di Marco.
 5. Rileggi l’informativa e correggi solo ciò che la nuova classifica rende inesatto.

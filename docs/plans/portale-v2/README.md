@@ -2,7 +2,7 @@
 
 | ID | Fase | Dipendenze | Claude | Codex | Effort | Consumo stimato | Stato | Completata il | Prompt | Dettaglio |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F01 | Chiudere la pubblicazione del portale | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
+| F01 | Chiudere la pubblicazione del portale | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 11:49 | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
 | F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus | — | `medium` | medio-alto | da fare |  | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
 | F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | da fare |  | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
 | F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | da fare |  | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |

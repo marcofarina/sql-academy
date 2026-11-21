@@ -27,7 +27,9 @@ Fuori: codice (F07). Una direzione che chieda dati nuovi al servizio (per esempi
 
 1. Disegna la classifica in almeno due direzioni con i dati di oggi, a 1280 e a 375 px: per esempio podio e lista, schede per tema, la propria riga sempre in vista. Mostra anche gli stati: non partecipi, zaino non collegato, servizio irraggiungibile, classifica vuota.
 2. Attendi la scelta di Marco, poi disegna i dettagli.
-3. Disegna la pagina dello zaino: apri, crea, «Non è il mio computer», stato, contenuto, mostra e copia il codice, esci. Rendi chiaro che cosa contiene lo zaino e che cosa succede ai progressi in ogni azione.
+3. Disegna la pagina dello zaino: apri, crea, «Non è il mio computer», stato, contenuto, mostra e copia il codice, esci. Rendi chiaro che cosa contiene lo zaino e che cosa succede ai progressi in ogni azione. Due requisiti di Marco (2026-11-21):
+   - **Apertura:** il codice si scrive in quattro caselle, numerate da 1 a 4, non in una sola. Deve vedersi bene che l’ordine delle parole conta: con un ordine diverso si apre un altro zaino oppure non si apre nulla. Ogni casella propone l’autocompletamento dall’elenco delle 2048 parole (`src/zaino/parole.ts`).
+   - **Creazione, come nei wallet di criptovalute:** prima una schermata che dice di salvare le parole e farne una copia di riserva, e che non si potranno rivedere; poi la schermata con le quattro parole numerate; infine una verifica in cui lo studente le reinserisce (nelle stesse quattro caselle numerate) e solo allora la creazione si conferma. Disegna anche gli stati: parole sbagliate, ritorno indietro, creazione annullata.
 4. Mostra le tavole a Marco e itera fino all’approvazione.
 5. Scrivi `docs/design/zaino-classifica.md`, con i punti aperti per F07 e il link all’Artifact; aggiorna `docs/design/contrasto.mjs` se servono palette nuove.
 
