@@ -1,6 +1,7 @@
 # F06 — Rendere riprendibile la sessione di esercizi
 
 - **Modello / effort:** Claude Code Sonnet · Codex Terra; effort consigliato `high`. Forma decisa da Marco; i casi limite (azzeramento, esercizi spariti, dati corrotti) vanno coperti con i test.
+- **Revisione incrociata:** fatta da Claude Code (Opus) il 2026-11-21, sul lavoro di Codex; esito nel passaggio di consegne.
 - **Dipendenze:** nessuna.
 - **Consumo stimato:** basso-medio.
 - **Incertezza:** bassa. Aumenta se la sessione dipende da stato che oggi non è serializzabile.

@@ -1,6 +1,7 @@
 # F07 — Ricostruire le pagine Zaino e Classifica
 
 - **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Interfaccia da una specifica approvata, testi per gli studenti, possibili icone nuove.
+- **Revisione incrociata:** sì, sull’altro strumento prima delle fasi che ne dipendono: le pagine creano, aprono e chiudono lo zaino e gestiscono l’adesione alla classifica.
 - **Dipendenze:** F03 (specifica `docs/design/zaino-classifica.md`), F04 (barra comune).
 - **Consumo stimato:** medio-alto; alto se la direzione scelta in F03 richiede modifiche al servizio della classifica.
 - **Incertezza:** media. Aumenta con le modifiche al servizio, che ne chiedono il deploy e forse una migrazione D1.

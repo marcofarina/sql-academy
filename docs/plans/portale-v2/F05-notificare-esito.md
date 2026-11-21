@@ -1,6 +1,7 @@
 # F05 — Notificare l’esito con i punti e il salvataggio nello zaino
 
 - **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Componente con tempo, pausa e accessibilità, più un cambio nei tempi della sincronizzazione dello zaino.
+- **Revisione incrociata:** sì, sull’altro strumento prima delle fasi che ne dipendono: anticipa la scrittura nello zaino, cioè la sincronizzazione dei progressi degli studenti.
 - **Dipendenze:** F02 (specifica della notifica), F04 (stato dello zaino nella barra, a cui la notifica rimanda).
 - **Consumo stimato:** medio.
 - **Incertezza:** media. Aumenta se anticipare la scrittura dello zaino alla risoluzione richiede di rivedere la coda delle modifiche in `sincronizza.ts`.

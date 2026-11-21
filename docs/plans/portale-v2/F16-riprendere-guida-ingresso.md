@@ -1,6 +1,7 @@
 # F16 — Riprendere da dove eri e guidare il primo ingresso
 
 - **Modello / effort:** Claude Code Opus · Codex Sol; effort consigliato `medium`. Piccole decisioni d’interfaccia, testi per gli studenti, possibili icone.
+- **Revisione incrociata:** sì, sull’altro strumento prima delle fasi che ne dipendono: salva nel browser dove era lo studente, accanto alla sessione salvata.
 - **Dipendenze:** F04 (barra comune), F06 (sessione riprendibile, che offre già «Riprendi la sessione»).
 - **Consumo stimato:** basso-medio.
 - **Incertezza:** bassa. Aumenta se Marco vuole studiare la guida con l’Artifact «Design».

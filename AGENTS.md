@@ -42,6 +42,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | F01 di `portale-v2` completata: procedura manuale sul sito pubblicato superata (temi, sandbox, esercizio, zaino su due browser, classifica); branch predefinito del repo ora `main`. F10 del piano archiviato chiusa; resta a Marco il link dal libro. |
 | 2026-11-21 | F19 di `portale-v2` completata: `check:themes` segnala come errori ordine ambiguo (`ORDER BY` o `LIMIT` con pareggi), parole chiave assenti dalla query attesa e `WHERE` che non filtra; come avvisi risultati identici, una riga per una consegna al plurale e parole chiave non dichiarate (`src/exercises/quality.ts`). Parole chiave completate in 14 esercizi; riscritti `lotr/ex-140`, `star-wars/ex-060` ed `ex-068`, con gli stessi id. |
 | 2026-11-21 | F06 di `portale-v2` completata: sessione riprendibile per tema e area dei progressi (`src/training/sessionStorage.ts`); ripresa, abbandono, azzeramento e isolamento fra temi verificati nel browser. |
+| 2026-11-21 | Revisione di F06 fatta da Claude: la sessione salvata ora sparisce anche con «Esci dallo zaino»; schermata della sessione salvata rifinita. Aggiunte al piano e alla skill `piani-multisessione` la revisione incrociata delle fasi a rischio, gli scostamenti nel passaggio di consegne e la riga che identifica strumento e modello nei commit. |
 
 **Prossimo passo:** apri F02 del piano `portale-v2` su Claude Code, seguendo l’ordine consigliato nell’indice del piano.
 
@@ -130,3 +131,6 @@ Il symlink esiste solo in locale (è in `.gitignore`): una sessione nel cloud no
 - Lavora sul branch `dev`; il merge in `main` lo chiede Marco. Messaggi di commit secondo i *Conventional Commits*, descrizione in italiano: `feat(temi): aggiungi il registro dei temi`.
 - Icone: rb-icons. Solo RB Icons, sempre tramite la skill `icone-rb` (repo pubblico: niente Font Awesome Pro). Le icone nuove si disegnano solo su Claude Code: Codex usa quelle già nel progetto e, se ne serve una nuova, si ferma e lascia un segnaposto. Il progetto collauda la skill; procedimento e registro nel piano, sezione «Icone». Comuni in `src/assets/icons/`, di un tema in `themes/<id>/icone/`.
 - Nessun push e nessuna pubblicazione senza il via di Marco.
+- Codice: commento in italiano in testa a ogni modulo e su ogni funzione esportata, come nel codice esistente; segui lo stile dei file vicini, senza comprimere più istruzioni su una riga.
+- Commit: chiudi il messaggio con la riga che identifica strumento e modello, `Co-Authored-By: Claude <modello> <noreply@anthropic.com>` o `Co-Authored-By: Codex <modello> <noreply@openai.com>`: l’autore Git è sempre Marco.
+- Dati nel browser: ogni dato nuovo va cancellato sia da «Azzera i progressi» sia da «Esci dallo zaino» (decisione «Dati nel browser» del piano `portale-v2`).

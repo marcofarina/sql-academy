@@ -41,7 +41,7 @@ Tutti i prompt condividono la stessa chiusura. I percorsi sono relativi alla rad
 Modello: Claude Code → Sonnet · Codex → Terra
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F01-chiudere-pubblicazione.md
@@ -92,7 +92,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F04-costruire-barra-comune.md
@@ -111,7 +111,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F05-notificare-esito.md
@@ -130,7 +130,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Sonnet · Codex → Terra
 Effort consigliato: high (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F06-sessione-riprendibile.md
@@ -147,7 +147,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F07-ricostruire-pagine-zaino-classifica.md
@@ -168,7 +168,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F08-scegliere-mondi-livelli.md
@@ -185,7 +185,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F09-livello-dei-mondi.md
@@ -204,7 +204,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Sonnet · Codex → Terra
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F10-predisporre-pie-di-pagina.md
@@ -221,7 +221,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F11-errori-sqlite-italiano.md
@@ -240,7 +240,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F12-sessione-ripasso.md
@@ -259,7 +259,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F13-segnalare-problema.md
@@ -278,7 +278,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F14-consegna-con-link.md
@@ -297,7 +297,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Sonnet · Codex → Terra
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F15-scaricare-database-anteprima-link.md
@@ -314,7 +314,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F16-riprendere-guida-ingresso.md
@@ -333,7 +333,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F17-sito-offline.md
@@ -350,7 +350,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Sonnet · Codex → Terra
 Effort consigliato: high (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F18-test-end-to-end.md
@@ -367,7 +367,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Opus · Codex → Sol
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Opus; se sei Codex, su Sol (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F19-controllare-esercizi.md
@@ -384,7 +384,7 @@ Verifica le istruzioni del repository, le dipendenze della fase e lo stato del l
 Modello: Claude Code → Sonnet · Codex → Terra
 Effort consigliato: medium (lo imposta Marco; il modello non lo verifica)
 
-Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra. Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
+Controllo iniziale: se sei Claude, verifica di girare su Sonnet; se sei Codex, su Terra (leggi `model` in ~/.codex/config.toml: è il predefinito, vale salvo una scelta diversa di Marco all’apertura). Ignora il numero di versione. Se il modello non coincide, fermati e dimmelo prima di qualsiasi lavoro; se non puoi saperlo, dichiaralo e procedi.
 
 Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F20-generatore-tema.md
@@ -446,6 +446,7 @@ Ogni fase gira su Claude Code o su Codex, a scelta di Marco (2026-11-21). Le reg
 - Sonnet o Terra dove si esegue una forma già decisa: F01, F10, F15, F20 (`medium`); F06 (`high`, perché la sessione salvata deve restare coerente con l’azzeramento dei progressi e con lo zaino, e i casi limite vanno coperti con i test); F18 (`high`, perché i test end-to-end vanno resi stabili).
 - In F08 le ricerche sul web vanno a subagent del livello più economico; il giudizio e la rosa da proporre restano sul modello principale.
 - Claude e ChatGPT hanno budget separati: se uno dei due è quasi esaurito, la fase successiva può girare sull’altro. Il commit di chiusura è l’unico passaggio di consegne, qualunque sia lo strumento.
+- **Revisione incrociata** (skill `piani-multisessione`, Marco, 2026-11-21): F05, F07, F12, F14, F16 e F17, che toccano i dati degli studenti o la produzione, le rivede l’altro strumento, con lo stesso livello di modello, prima delle fasi che ne dipendono; il dettaglio di ciascuna lo dice in testa. Il prompt è quello della fase, con la riga «ID e obiettivo» sostituita come indica la skill. F06 è stata rivista da Claude il 2026-11-21.
 - Se una fase non riesce: prima rendi verificabile il lavoro (test, `npm run check:themes`), poi alza l’effort di un livello, poi passa al livello superiore.
 
 ## Decisioni condivise
@@ -461,6 +462,7 @@ Le decisioni del piano archiviato restano valide: sezione «Decisioni condivise�
 | Notifica dell’esito | Sostituisce il riquadro verde «Esercizio risolto»; pulsante «OK» che si riempie e chiude la notifica da solo in 3–4 secondi; il puntatore sopra il pulsante ferma riempimento e tempo (Marco, 2026-11-21). L’esito sbagliato resta nel riquadro di oggi | Marco ha chiesto di cambiare solo il riquadro verde |
 | Piè di pagina | F10 lo predispone soltanto; contenuto e disegno arrivano da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina di tutti i mini-siti (Marco, 2026-11-21) | Coerenza fra i siti di Marco |
 | Idee aggiunte al piano | Fra quelle proposte da Claude, Marco ha scelto F11–F20; scartate cronologia della sandbox, riepilogo stampabile, classe nella classifica, esportazione in CSV (2026-11-21) | Restano annotate qui, se tornassero utili |
+| Dati nel browser | Ogni dato nuovo salvato nel browser va cancellato sia da «Azzera i progressi» sia da «Esci dallo zaino», anche in modalità «Non è il mio computer»; la procedura manuale della fase prova entrambi (Marco, 2026-11-21) | In F06 la sessione salvata sopravviveva all’uscita dallo zaino: chi usava il computer dopo poteva riprenderla |
 | Strumenti | Ogni fase gira su Claude Code o su Codex; solo Claude per l’Artifact «Design» e per le icone nuove (Marco, 2026-11-21) | Budget separati e due strumenti a disposizione; il design e il collaudo delle icone esistono solo su Claude |
 
 ## Icone
@@ -484,3 +486,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F19 completata (Claude Code, Opus): sei controlli di qualità in `check:themes`, tre come errori e tre come avvisi; 17 esercizi corretti fra i due temi, due avvisi giustificati. Elenco nel dettaglio della fase. |
 | 2026-11-21 | F06 in corso (Codex; modello non verificabile): sessioni salvate per tema e area, test automatici superati; restano le prove manuali di azzeramento e isolamento fra temi dopo il blocco del browser. Dettagli in F06. |
 | 2026-11-21 | F06 completata (Codex; famiglia del modello non verificabile): procedura manuale ripetuta, inclusi abbandono, azzeramento e isolamento fra temi; verifiche automatiche superate. |
+| 2026-11-21 | Revisione di F06 (Codex) fatta da Claude: corretto il difetto sull’uscita dallo zaino, rifinita la schermata della sessione salvata. Prima prova del lavoro a più modelli: aggiunte alla skill e al piano la revisione incrociata delle fasi a rischio, la sezione «Scostamenti dal dettaglio» nel passaggio di consegne, la riga che identifica strumento e modello nei commit e la lettura del modello di Codex da `~/.codex/config.toml`; aggiunta la decisione «Dati nel browser». |
