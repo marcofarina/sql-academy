@@ -1,5 +1,5 @@
 // Contrasto WCAG delle palette approvate in docs/design/<id>.md.
-// Uso: node docs/design/contrasto.mjs [neutra|guscio-neutro|star-wars-chiaro|star-wars-scuro|lotr-chiaro|lotr-scuro|barra-notifica]
+// Uso: node docs/design/contrasto.mjs [neutra|guscio-neutro|star-wars-chiaro|star-wars-scuro|lotr-chiaro|lotr-scuro|barra-notifica|zaino-classifica]
 // Senza argomenti misura tutte le palette. Esce con codice 1 se una coppia è sotto la soglia.
 
 const PALETTES = {
@@ -228,6 +228,46 @@ const PALETTES = {
     ['LOTR scuro: testo / riga dello zaino', '#E4E9EF', '#10151C'],
     ['LOTR scuro: «Collega lo zaino» / riga dello zaino', '#9CCBF5', '#10151C'],
     ['LOTR scuro: «+20» accanto al saldo', '#A8E0BE', '#12251B'],
+  ],
+  // Pagine Zaino e Classifica (F03 di portale-v2): docs/design/zaino-classifica.md.
+  'zaino-classifica': [
+    ['testo / fondo', '#172131', '#F3F5F8'],
+    ['secondario / fondo', '#46536A', '#F3F5F8'],
+    ['secondario / scheda', '#46536A', '#FBFBFC'],
+    ['link / scheda', '#22324A', '#FBFBFC'],
+    ['fascia della posizione: testo', '#FFFFFF', '#172131'],
+    ['fascia della posizione: secondario', '#C3CADB', '#172131'],
+    ['podio 1º', '#FFFFFF', '#172131'],
+    ['podio 2º', '#FFFFFF', '#2C3B55'],
+    ['podio 3º', '#FFFFFF', '#46536A'],
+    ['iniziali su blu notte', '#FFFFFF', '#22324A'],
+    ['iniziali su blu', '#FFFFFF', '#2A5F8A'],
+    ['iniziali su verde', '#FFFFFF', '#2E6B4C'],
+    ['iniziali su viola', '#FFFFFF', '#6A3D9E'],
+    ['iniziali su rosso', '#FFFFFF', '#8E1F18'],
+    ['iniziali su bruno', '#FFFFFF', '#6E4300'],
+    ['riga «tu»: testo', '#172131', '#E4E9F0'],
+    ['riga «tu»: segno a sinistra', '#172131', '#E4E9F0', 3],
+    ['barra dei punti / binario', '#6E7A8E', '#E4E7EC', 3],
+    ['barra dei punti «tu» / binario', '#172131', '#E4E7EC', 3],
+    ['selettore: voce scelta', '#FFFFFF', '#172131'],
+    ['selettore: mondo da scegliere / fondo', '#46536A', '#F3F5F8'],
+    ['selettore: anello del mondo da scegliere / fondo', '#6E7A8E', '#F3F5F8', 3],
+    ['selettore: voce scelta nel pannello', '#FFFFFF', '#172131'],
+    ['selettore: mondo da scegliere / pannello', '#46536A', '#FBFBFC'],
+    ['classifica aggiornata / scheda', '#1D5E37', '#FBFBFC'],
+    ['zaino collegato / fondo', '#1D5E37', '#F3F5F8'],
+    ['avviso', '#6E4300', '#F7EBCF'],
+    ['avviso: pulsante', '#FFFFFF', '#6E4300'],
+    ['errore', '#8E1F18', '#F6E2DE'],
+    ['casella sbagliata: bordo', '#8E1F18', '#F6E2DE', 3],
+    ['casella sbagliata: numero', '#FFFFFF', '#8E1F18'],
+    ['casella: testo', '#172131', '#FFFFFF'],
+    ['casella: bordo', '#6E7A8E', '#FFFFFF', 3],
+    ['casella: bordo / scheda', '#6E7A8E', '#FBFBFC', 3],
+    ['numero della casella', '#FFFFFF', '#172131'],
+    ['suggerimento scelto', '#FFFFFF', '#172131'],
+    ['fuoco della casella / scheda', '#22324A', '#FBFBFC', 3],
   ],
 };
 

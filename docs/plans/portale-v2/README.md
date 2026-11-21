@@ -4,7 +4,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | F01 | Chiudere la pubblicazione del portale | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 11:49 | [P-F01](#p-f01) | [F01](F01-chiudere-pubblicazione.md) |
 | F02 | Studiare barra comune, stato dello zaino e notifica dell’esito | — | Opus | — | `medium` | medio-alto | completata | 2026-11-21 17:55 | [P-F02](#p-f02) | [F02](F02-studiare-barra-notifica.md) |
-| F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | da fare |  | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
+| F03 | Studiare le pagine Zaino e Classifica | F02 | Opus | — | `medium` | medio-alto | completata | 2026-11-21 20:11 | [P-F03](#p-f03) | [F03](F03-studiare-pagine-zaino-classifica.md) |
 | F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | completata | 2026-11-21 18:56 | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
 | F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus | Sol | `medium` | medio | completata | 2026-11-21 19:17 | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
 | F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet | Terra | `high` | basso-medio | completata | 2026-11-21 13:01 | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
@@ -514,3 +514,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F04 completata (Claude Code, Opus): icona `cloud-slash` disegnata e approvata da Marco al posto del segnaposto «senza rete»; lavoro di Codex ricontrollato, verifiche automatiche e prova nel browser superate. |
 | 2026-11-21 | F10 completata (Claude Code, Sonnet): piè di pagina comune in `src/footer/`, montato da `SiteLayout`; contenuti provvisori nel solo `src/footer/contenuti.tsx`, da sostituire con quelli della sessione trasversale. |
 | 2026-11-21 | F05 completata (Codex, Sol). La notifica mostra premio, saldo e stato dello zaino. Marco ha confermato la scrittura immediata dopo una risposta corretta. Prove superate su entrambi i temi con lo zaino locale. Segue la revisione su Claude Code con Opus. |
+| 2026-11-21 | Revisione di F05 (Claude Code, Opus): nessun difetto, criteri rieseguiti. F03 completata (Claude Code, Opus): classifica A2 approvata da Marco (podio e lista, colonna dei mondi per livello con la posizione in ognuno), zaino con quattro caselle numerate e creazione in tre passi; specifica `docs/design/zaino-classifica.md`, palette `zaino-classifica`, 37 coppie sopra la soglia. Nessuna modifica al servizio. |

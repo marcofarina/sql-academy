@@ -43,4 +43,20 @@ Procedura manuale: Marco approva le tavole; la specifica dichiara se la direzion
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+- **Esito:** completata il 2026-11-21 con Claude Code, Opus. Tavole nell’Artifact «Design» [SQL Academy — Zaino e Classifica](https://claude.ai/artifact/H5sQetR5VrudYRSy9CtV6Q), privato; specifica `docs/design/zaino-classifica.md`; palette `zaino-classifica` in `docs/design/contrasto.mjs`.
+- **Verifiche:**
+  - superata: `node docs/design/contrasto.mjs zaino-classifica`, 37 coppie su 37 sopra la soglia; `node docs/design/contrasto.mjs` esce con 0;
+  - superata: Marco ha approvato le tavole il 2026-11-21 (classifica A2, stati, pagina Zaino);
+  - la specifica dichiara che il servizio della classifica non cambia.
+- **Decisioni nuove** (Marco, 2026-11-21):
+  - direzione A, podio e lista, scelta fra A e B («la tua scalata»);
+  - le schede dei mondi in fila non reggono dieci mondi: colonna «Quale classifica» divisa per livello, pannello dal basso sul telefono (variante A2);
+  - la posizione in ogni mondo accanto al suo nome, accettando una lettura di `leggiPosizione` per mondo;
+  - «Mostra il codice» resta nello zaino collegato, anche se la creazione avverte che le parole non si rivedono più nella procedura.
+- **Scostamenti dal dettaglio:**
+  - la classifica ha richiesto un giro in più: la direzione scelta (A) è stata ridisegnata come A2 per i dieci mondi;
+  - aggiunto il link «Scrivilo in una casella sola» per i codici di 20 caratteri, che le quattro caselle non accolgono: i vecchi codici devono ancora aprire il loro zaino;
+  - la creazione richiede in F07 una piccola modifica di `crea()` nel portale (parole scelte al passo 2, zaino creato al passo 3), non prevista dal dettaglio; il servizio non cambia.
+- **Limiti:** testi delle tavole in prima stesura, da rifinire in F07 con le norme di scrittura; nessuna tavola a 375 px dello zaino collegato (stessa struttura in colonna).
+- **Lavoro residuo:** punti aperti per F07 nella specifica, sezione «Punti aperti per F07».
+- **Strumento e modello:** Claude Code, Opus.

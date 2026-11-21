@@ -47,8 +47,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | F04 di `portale-v2` completata: barra comune (`src/pages/SiteLayout.tsx`), ritorno alla pagina precedente, sei stati dello zaino; distintivo «senza rete» con la nuova icona RB `cloud-slash` (commit `014f84a` del repo `icone`). |
 | 2026-11-21 | F10 di `portale-v2` completata: piè di pagina comune (`src/footer/`), contenuti provvisori in `src/footer/contenuti.tsx` da sostituire con quelli della sessione trasversale in `~/Developer/github/`. |
 | 2026-11-21 | F05 di `portale-v2` completata. La notifica dell’esito mostra premio, saldo e conferma dello zaino (`src/training/ExerciseNotice.tsx`). Dopo una risposta corretta il salvataggio parte subito. |
+| 2026-11-21 | Revisione di F05 fatta da Claude: nessun difetto. F03 di `portale-v2` completata: specifica `docs/design/zaino-classifica.md`, tavole approvate da Marco nell’Artifact «Design»; classifica a podio e lista con la colonna dei mondi per livello, zaino con quattro caselle numerate e creazione in tre passi. Nessuna modifica al servizio. |
 
-**Prossimo passo** — revisione incrociata di F05 di `portale-v2` su Claude Code con Opus. Poi segui l’ordine consigliato nell’indice del piano.
+**Prossimo passo** — F07 di `portale-v2` (ricostruire le pagine Zaino e Classifica) su Claude Code con Opus o su Codex con Sol. Poi segui l’ordine consigliato nell’indice del piano.
 
 ## Requisiti di Marco
 
