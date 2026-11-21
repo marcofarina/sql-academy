@@ -3,7 +3,7 @@
  * di un tema. GitHub Pages non riscrive gli URL, quindi il percorso sta nell’hash.
  *
  * `#/zaino` è la pagina dello zaino (F15), `#/classifica` quella della
- * classifica e `#/informativa` quella dei dati (F17): nessun tema può usare
+ * classifica (`#/classifica/<tema>` per un mondo) e `#/informativa` quella dei dati: nessun tema può usare
  * questi nomi come `id`.
  *
  * Solo l’addestramento ha un elemento in più: `#/<tema>/addestramento/<id>` apre
@@ -47,7 +47,7 @@ function isPortalPage(value: string): value is PortalPage {
 }
 
 /** Una pagina del portale; distribuita su ogni nome, così `route.page` restringe il tipo. */
-export type PortalRoute = { [P in PortalPage]: { page: P } }[PortalPage];
+export type PortalRoute = { page: 'zaino' | 'informativa' } | { page: 'classifica'; themeId?: string };
 
 export type Route = { page: 'home' } | PortalRoute | ThemeRoute | { page: 'not-found' };
 
@@ -64,7 +64,8 @@ export function parseRoute(hash: string): Route {
     return { page: 'not-found' };
   }
   if (parts.length === 0) return { page: 'home' };
-  if (parts.length === 1 && isPortalPage(parts[0])) return { page: parts[0] } as PortalRoute;
+  if (parts.length === 1 && isPortalPage(parts[0])) return { page: parts[0] };
+  if (parts[0] === 'classifica' && parts.length === 2) return { page: 'classifica', themeId: parts[1] };
   const [themeId, section = DEFAULT_SECTION, ...rest] = parts;
   if (!isSection(section)) return { page: 'not-found' };
   if (rest.length === 0) return { page: 'theme', themeId, section };
@@ -75,6 +76,7 @@ export function parseRoute(hash: string): Route {
 /** Scrive l’indirizzo di una pagina o di una sezione del portale. */
 export function formatRoute(route: { page: 'home' } | PortalRoute | ThemeRoute): string {
   if (route.page === 'home') return '#/';
+  if (route.page === 'classifica' && route.themeId) return `#/classifica/${encodeURIComponent(route.themeId)}`;
   if (route.page !== 'theme') return `#/${route.page}`;
   const base = `#/${encodeURIComponent(route.themeId)}/${route.section}`;
   return route.item === undefined ? base : `${base}/${encodeURIComponent(route.item)}`;

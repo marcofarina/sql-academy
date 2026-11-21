@@ -8,7 +8,7 @@
 | F04 | Costruire la barra comune e il ritorno alla pagina precedente | F02 | Opus | Sol | `medium` | medio | completata | 2026-11-21 18:56 | [P-F04](#p-f04) | [F04](F04-costruire-barra-comune.md) |
 | F05 | Notificare l’esito con i punti e il salvataggio nello zaino | F02, F04 | Opus | Sol | `medium` | medio | completata | 2026-11-21 19:17 | [P-F05](#p-f05) | [F05](F05-notificare-esito.md) |
 | F06 | Rendere riprendibile la sessione di esercizi | — | Sonnet | Terra | `high` | basso-medio | completata | 2026-11-21 13:01 | [P-F06](#p-f06) | [F06](F06-sessione-riprendibile.md) |
-| F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus | Sol | `medium` | medio-alto | da fare |  | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
+| F07 | Ricostruire le pagine Zaino e Classifica | F03, F04 | Opus | Sol | `medium` | medio-alto | completata | 2026-11-21 22:03 | [P-F07](#p-f07) | [F07](F07-ricostruire-pagine-zaino-classifica.md) |
 | F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus | Sol | `medium` | medio | da fare |  | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
 | F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
 | F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 19:30 | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
@@ -496,6 +496,11 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | `backpack` | riga dello zaino nella notifica | F05 | già nel progetto | usata |
 | `cloud-arrow-up` | distintivo del salvataggio in attesa e del salvataggio con movimento ridotto nella notifica | F05 | già nel progetto | usata |
 | `circle-xmark` | distintivo dell’errore dello zaino nella notifica | F05 | già nel progetto | usata |
+| `trophy` | classifica generale nel selettore | F07 | già nel progetto | usata |
+| `list` | apertura del selettore della classifica su telefono | F07 | già nel progetto | usata |
+| `id-badge` | invito a partecipare con lo zaino collegato | F07 | già nel progetto | usata |
+| `backpack` | invito ad aprire lo zaino per partecipare | F07 | già nel progetto | usata |
+| `circle-check` | conferma dello zaino appena creato | F07 | già nel progetto | usata |
 
 ## Aggiornamenti di stato
 
@@ -515,3 +520,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F10 completata (Claude Code, Sonnet): piè di pagina comune in `src/footer/`, montato da `SiteLayout`; contenuti provvisori nel solo `src/footer/contenuti.tsx`, da sostituire con quelli della sessione trasversale. |
 | 2026-11-21 | F05 completata (Codex, Sol). La notifica mostra premio, saldo e stato dello zaino. Marco ha confermato la scrittura immediata dopo una risposta corretta. Prove superate su entrambi i temi con lo zaino locale. Segue la revisione su Claude Code con Opus. |
 | 2026-11-21 | Revisione di F05 (Claude Code, Opus): nessun difetto, criteri rieseguiti. F03 completata (Claude Code, Opus): classifica A2 approvata da Marco (podio e lista, colonna dei mondi per livello con la posizione in ognuno), zaino con quattro caselle numerate e creazione in tre passi; specifica `docs/design/zaino-classifica.md`, palette `zaino-classifica`, 37 coppie sopra la soglia. Nessuna modifica al servizio. |
+| 2026-11-21 | F07 completata (Codex, Sol). Zaino con apertura a quattro caselle e creazione in tre passi. Classifica con podio, lista e posizione per mondo, collaudata con lo zaino a 1280 e 375 px. Segue la revisione incrociata su Claude Code con Opus. |

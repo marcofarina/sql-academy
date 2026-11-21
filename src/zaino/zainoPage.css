@@ -1,0 +1,495 @@
+/* Pagina dello zaino in veste neutra, secondo la specifica di F03. */
+
+.page.zaino-page {
+  max-width: 1120px;
+  padding-inline: 40px;
+}
+
+.zaino-page .lead {
+  max-width: 68ch;
+}
+
+.zaino-page h1 {
+  margin-bottom: 0;
+  font-size: 72px;
+}
+
+.zaino-page h2,
+.zaino-effetti summary {
+  margin: 0 0 0.5rem;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.zaino-testata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-bottom: 12px;
+}
+
+.zaino-stato {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.zaino-stato[data-zaino-fase='sincronizzato'] {
+  color: var(--color-success);
+}
+
+.zaino-stato[data-zaino-fase='offline'] {
+  color: var(--color-warning);
+}
+
+.zaino-stato[data-zaino-fase='errore'] {
+  color: var(--color-error);
+}
+
+.zaino-page .zaino-scheda {
+  max-width: none;
+  padding: 24px;
+  border-color: var(--color-rule);
+  border-radius: 10px;
+}
+
+.zaino-scelte {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.zaino-collegato {
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+}
+
+.zaino-page .toolbar:last-child {
+  margin-bottom: 0;
+}
+
+.zaino-page .zaino-scheda > button {
+  margin-block: 8px;
+}
+
+.zaino-modulo .zaino-conferma,
+.zaino-parole {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.zaino-modulo {
+  margin-top: 16px;
+}
+
+.zaino-parole {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.zaino-parola {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.zaino-parola + .zaino-parola::before {
+  content: '›';
+  position: absolute;
+  inset-inline-start: -14px;
+  bottom: 12px;
+  font-size: 21px;
+  line-height: 24px;
+  color: var(--color-muted);
+}
+
+.zaino-etichetta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.zaino-numero {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-text);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.zaino-input {
+  width: 100%;
+  min-width: 0;
+  height: 50px;
+  padding-inline: 9px;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: 8px;
+  background: white;
+  color: var(--color-text);
+  font: 700 18px var(--font-body);
+}
+
+.zaino-vecchio {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.zaino-parola[data-errata] .zaino-numero {
+  background: var(--color-error);
+}
+
+.zaino-parola[data-errata] .zaino-input {
+  border: 2px solid var(--color-error);
+  background: var(--color-error-bg);
+}
+
+.zaino-proposte {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  inset-inline: 0;
+  min-width: 108px;
+  margin: 4px 0 0;
+  padding: 4px;
+  list-style: none;
+  border-radius: 8px;
+  border: 1px solid var(--color-control-border);
+  background: white;
+  box-shadow: 0 6px 18px rgb(23 33 49 / 15%);
+}
+
+.zaino-proposte li {
+  align-content: center;
+  min-height: 44px;
+  padding-inline: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.zaino-proposte li:hover,
+.zaino-proposte [aria-selected='true'] {
+  background: var(--color-text);
+  color: white;
+}
+
+.zaino-cambia-codice {
+  border: 0;
+  padding-inline: 0;
+  color: var(--color-link);
+  text-align: left;
+  text-decoration: underline;
+}
+
+.zaino-casella {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.zaino-casella input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--color-text);
+}
+
+.zaino-page .zaino-effetti {
+  padding-block: 16px;
+}
+
+.zaino-effetti summary {
+  margin: 0;
+  cursor: pointer;
+}
+
+.zaino-effetti dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+  margin-block: 12px 0;
+}
+
+.zaino-effetti dt {
+  font-weight: 700;
+}
+
+.zaino-effetti dd {
+  margin: 0;
+}
+
+.zaino-page .zaino-creazione {
+  width: min(100%, 680px);
+  margin-inline: auto;
+}
+
+.zaino-page .zaino-creazione h2 {
+  margin-block: 10px;
+  font: 900 40px / 1.12 var(--font-display);
+}
+
+.zaino-creazione[data-pronto] {
+  padding-block: 44px;
+  text-align: center;
+}
+
+.zaino-creazione[data-pronto] p {
+  max-width: 38ch;
+  margin-inline: auto;
+}
+
+.zaino-segmenti {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.zaino-segmenti span {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--color-border);
+}
+
+.zaino-segmenti [data-raggiunto='true'] {
+  background: var(--color-text);
+}
+
+.zaino-creazione .zaino-pronto .icon {
+  height: 72px;
+  color: var(--color-success);
+}
+
+.zaino-codice-parole {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zaino-creazione .zaino-codice-parole {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.zaino-codice-parole li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 58px;
+  padding: 6px 8px;
+  border: 1.5px solid var(--color-text);
+  border-radius: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.zaino-codice-parole .zaino-numero {
+  flex: none;
+  user-select: none;
+}
+
+.zaino-codice {
+  font: 700 21px var(--font-mono);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.zaino-mondi {
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zaino-mondi li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(104px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding-block: 8px;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.zaino-mondo-progresso {
+  color: var(--color-muted);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.zaino-mondi progress {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: #e4e7ec;
+  color: var(--color-link);
+  accent-color: var(--color-link);
+}
+
+.zaino-mondi progress::-webkit-progress-bar {
+  border-radius: 8px;
+  background: #e4e7ec;
+}
+
+.zaino-mondi progress::-webkit-progress-value {
+  border-radius: 8px;
+  background: var(--color-link);
+}
+
+.zaino-mondi progress::-moz-progress-bar {
+  border-radius: 8px;
+  background: var(--color-link);
+}
+
+.zaino-punti {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.zaino-temporaneo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.zaino-temporaneo p {
+  margin: 3px 0 0;
+}
+
+.zaino-temporaneo button {
+  background: var(--color-warning);
+  color: white;
+}
+
+@media (max-width: 64rem) {
+  .zaino-scelte {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 48rem) {
+  .page.zaino-page {
+    padding-inline: 16px;
+  }
+
+  .zaino-page h1 {
+    font-size: 52px;
+  }
+
+  .zaino-page .zaino-scheda {
+    padding: 16px;
+  }
+
+  .zaino-scelte {
+    gap: 0;
+  }
+
+  .zaino-parole,
+  .zaino-effetti dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .zaino-effetti dd + dt {
+    margin-top: 8px;
+  }
+
+  .zaino-parola {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+  }
+
+  .zaino-parola + .zaino-parola::before,
+  .zaino-ordinale {
+    display: none;
+  }
+
+  .zaino-proposte {
+    inset-inline-start: 38px;
+  }
+
+  /* Sopra l’ultimo campo, per lasciare disponibili i pulsanti del modulo. */
+  .zaino-parola:last-child .zaino-proposte {
+    top: auto;
+    bottom: calc(100% + 4px);
+    margin-top: 0;
+  }
+
+  .zaino-creazione .zaino-codice-parole {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .zaino-collegato .zaino-codice-parole li {
+    gap: 6px;
+    font-size: 18px;
+  }
+
+  .zaino-collegato .zaino-codice-parole .zaino-numero {
+    width: 24px;
+    height: 24px;
+  }
+
+  .zaino-invito button,
+  .zaino-modulo .toolbar > .primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .zaino-creazione .toolbar > :not(.primary) {
+    flex: 1;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+
+  .zaino-mondi li {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .zaino-mondo-progresso {
+    grid-area: 2 / 2 / 3 / 4;
+  }
+}
+
+@media (max-width: 350px) {
+  .zaino-collegato .zaino-codice-parole {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

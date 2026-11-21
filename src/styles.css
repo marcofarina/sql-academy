@@ -2475,14 +2475,12 @@ button.link-button {
   }
 }
 
-.zaino-page .lead,
-.classifica-page .lead,
+/* Schede neutre dello zaino, della classifica e dell’informativa. */
+
 .informativa-page .lead {
   max-width: 46rem;
 }
 
-.zaino-page h2,
-.classifica-page h2,
 .informativa-page h2 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
@@ -2501,58 +2499,9 @@ button.link-button {
   margin: 0.5rem 0;
 }
 
-.zaino-scheda ul {
+.informativa-page .zaino-scheda ul {
   margin: 0.5rem 0;
   padding-left: 1.25rem;
-}
-
-.zaino-scelte {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-  gap: 1.25rem;
-  max-width: 60rem;
-}
-
-.zaino-scelte .zaino-scheda {
-  max-width: none;
-  margin: 0;
-}
-
-.zaino-modulo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.zaino-modulo > label:first-child {
-  font-weight: 700;
-}
-
-.zaino-input {
-  min-height: 44px;
-  max-width: 100%;
-  padding: 0 0.6rem;
-  border: 1.5px solid var(--color-control-border);
-  border-radius: var(--radius);
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  font-size: 18px;
-  letter-spacing: 0.05em;
-}
-
-.zaino-casella {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  font-weight: 700;
-}
-
-.zaino-casella input {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  margin: 0.2rem 0 0;
 }
 
 .zaino-nota {
@@ -2567,140 +2516,22 @@ button.link-button {
 }
 
 .zaino-errore {
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: var(--color-error-bg);
   color: var(--color-error);
 }
 
-.zaino-codice {
-  font-family: var(--font-mono);
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  overflow-wrap: anywhere;
-}
-
-.zaino-stato {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-@media (max-width: 40rem) {
-  .zaino-input {
-    font-size: 16px;
-    letter-spacing: 0;
-  }
-
-  .zaino-codice {
-    font-size: 19px;
-    letter-spacing: 0.02em;
-  }
-}
-
-/* Classifica (F17): pagina #/classifica e informativa #/informativa */
-
-.classifica-adesione h2 {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.classifica-interruttore {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  min-height: 44px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.classifica-interruttore input {
-  appearance: none;
+/* Segno del mondo nello zaino e nel selettore della classifica. */
+.poster.mondo-pallino {
+  position: static;
+  display: inline-block;
   flex: none;
-  position: relative;
-  width: 48px;
-  height: 28px;
-  margin: 0;
-  border: 1.5px solid var(--color-control-border);
-  border-radius: 14px;
-  background: var(--color-bg);
-  cursor: inherit;
-}
-
-.classifica-interruttore input::after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 19px;
-  height: 19px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-bg);
   border-radius: 50%;
-  background: var(--color-muted);
-}
-
-.classifica-interruttore input:checked {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
-}
-
-.classifica-interruttore input:checked::after {
-  left: 23px;
-  background: var(--color-accent-text);
-}
-
-.classifica-interruttore input:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.classifica-interruttore input:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .classifica-interruttore input::after {
-    transition: left 150ms ease;
-  }
-}
-
-.classifica-nome strong {
-  font-size: 1.15em;
-}
-
-.classifica-elenco {
-  max-width: 46rem;
-  margin: 0 0 1.25rem;
-}
-
-.classifica-elenco h3 {
-  margin: 1.25rem 0 0.5rem;
-  font-size: 1.05rem;
-}
-
-.classifica-elenco .table-scroll {
-  max-height: none;
-}
-
-.classifica-tabella {
-  width: 100%;
-}
-
-.classifica-tabella tr.is-me td {
-  background: var(--color-surface-2);
-  font-weight: 700;
-}
-
-.classifica-limiti {
-  max-width: 46rem;
-}
-
-.classifica-tabella td:nth-child(2) {
-  white-space: normal;
-}
-
-@media (max-width: 40rem) {
-  .classifica-tabella th,
-  .classifica-tabella td {
-    padding: 0.35rem 0.5rem;
-  }
+  background: var(--mondo-fondo, var(--poster-band-1));
+  box-shadow: inset 0 0 0 1.5px var(--mondo-anello, var(--poster-band-2));
+  touch-action: auto;
 }

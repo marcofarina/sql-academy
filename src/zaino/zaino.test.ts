@@ -168,3 +168,87 @@ test('la risposta corretta anticipa il salvataggio e si accoda alla scrittura gi
     vi.unstubAllGlobals();
   }
 });
+
+test('la creazione con un codice confermato aspetta il servizio e non sostituisce le parole', async () => {
+  vi.resetModules();
+  vi.stubGlobal('window', new EventTarget());
+  vi.stubGlobal('navigator', { onLine: true });
+  vi.stubGlobal('document', new EventTarget());
+  let rispondi: (response: Response) => void = () => undefined;
+  const fetch = vi.fn<typeof globalThis.fetch>()
+    .mockResolvedValueOnce(new Response(null, { status: 412 }))
+    .mockResolvedValueOnce(new Response(null, { status: 503 }))
+    .mockImplementationOnce(() => new Promise((resolve) => { rispondi = resolve; }));
+  vi.stubGlobal('fetch', fetch);
+
+  try {
+    await import('./sezione.ts');
+    const { avviaZaino, codiceZaino, crea, CodiceGiaUsato, esci, leggiStatoZaino } = await import('./sincronizza.ts');
+    const { readProgress, updateProgress } = await import('../progress/store.ts');
+    avviaZaino('http://localhost:8787');
+    const codice = 'volpe-faro-miele-trono';
+    updateProgress('star-wars', () => progressi(true));
+
+    await expect(crea(codice)).rejects.toBeInstanceOf(CodiceGiaUsato);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    await expect(crea(codice)).rejects.toThrow('HTTP 503');
+    expect(codiceZaino()).toBeNull();
+    expect(leggiStatoZaino().fase).toBe('scollegato');
+    expect(readProgress('star-wars')).toEqual(progressi(true));
+
+    const richiesta = crea(codice);
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(3));
+    expect(codiceZaino()).toBeNull();
+    await expect(crea(codice)).rejects.toThrow('collegamento già avviato');
+    expect(fetch.mock.calls[2][0]).toBe(`http://localhost:8787/v1/zaino/${(await derivaChiavi(codice)).id}`);
+    expect(fetch.mock.calls[2][1]?.headers).toMatchObject({ 'If-None-Match': '*' });
+    rispondi(new Response(null, { headers: { ETag: '"1"' } }));
+    await expect(richiesta).resolves.toBe(codice);
+    expect(codiceZaino()).toBe(codice);
+    await esci();
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});
+
+test('uscire durante una lettura toglie anche i progressi appena ricevuti dal servizio', async () => {
+  vi.resetModules();
+  const window = new EventTarget();
+  type Accesso = import('./sincronizza.ts').AccessoZaino;
+  vi.stubGlobal('window', window);
+  vi.stubGlobal('navigator', { onLine: true });
+  vi.stubGlobal('document', new EventTarget());
+  let rispondi: (response: Response) => void = () => undefined;
+  const fetch = vi.fn<typeof globalThis.fetch>()
+    .mockResolvedValueOnce(new Response(null, { headers: { ETag: '"1"' } }))
+    .mockImplementationOnce(() => new Promise((resolve) => { rispondi = resolve; }));
+  vi.stubGlobal('fetch', fetch);
+
+  try {
+    await import('./sezione.ts');
+    const { avviaZaino, crea, codiceZaino, esci } = await import('./sincronizza.ts');
+    const { readProgress } = await import('../progress/store.ts');
+    avviaZaino('http://localhost:8787');
+    const codice = await crea();
+    const { chiave } = await derivaChiavi(codice);
+    const aggiornato = await cifra({
+      formato: 1,
+      sezioni: { [NOME_SEZIONE]: {
+        formato: 1,
+        modificata: '2026-11-21T08:00:00.000Z',
+        dati: { themes: { 'star-wars': progressi(true) } },
+      } },
+    }, chiave);
+
+    const lettura = (window as EventTarget & { __zaino: Accesso }).__zaino.sincronizza();
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+    const uscita = esci();
+    rispondi(new Response(aggiornato, { headers: { ETag: '"2"' } }));
+    await lettura;
+    await uscita;
+    expect(codiceZaino()).toBeNull();
+    expect(readProgress('star-wars').exercises).toEqual({});
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});

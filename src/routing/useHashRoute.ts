@@ -17,7 +17,9 @@ export function useHashRoute(): { route: Route; previousHash: string | null } {
   const [navigation, setNavigation] = useState<{ address: string; previousHash: string | null }>(
     () => ({ address, previousHash: null }),
   );
-  const previousHash = navigation.address === address ? navigation.previousHash : navigation.address;
+  const route = parseRoute(address);
+  const stessaClassifica = route.page === 'classifica' && parseRoute(navigation.address).page === 'classifica';
+  const previousHash = navigation.address === address || stessaClassifica ? navigation.previousHash : navigation.address;
   // Correggere l’hash di questa stessa pagina non conta come una visita.
   if (navigation.address !== address) setNavigation({ address, previousHash });
 
@@ -28,5 +30,5 @@ export function useHashRoute(): { route: Route; previousHash: string | null } {
     }
   }, [canonical]);
 
-  return { route: parseRoute(address), previousHash };
+  return { route, previousHash };
 }

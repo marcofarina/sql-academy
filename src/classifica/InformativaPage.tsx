@@ -1,3 +1,4 @@
+/** L’informativa sui dati del portale e sui servizi che li conservano. */
 import { useEffect } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { formatRoute } from '../routing/route.ts';
@@ -62,13 +63,11 @@ export function InformativaPage() {
         <h2 id="dati-classifica">Nella classifica</h2>
         <p>
           La <a href={formatRoute({ page: 'classifica' })}>classifica</a> è una pagina pubblica che mette in ordine gli studenti per i punti
-          guadagnati negli esercizi, in generale e tema per tema. In classifica compare solo chi sceglie di partecipare, attivando l’interruttore
-          «Partecipa alla classifica»: finché non lo attivi, non compari. Per attivarlo serve lo zaino.
+          guadagnati negli esercizi, in generale e tema per tema. Per comparire in classifica devi avere uno zaino aperto e scegliere «Partecipa».
         </p>
         <p>
           Per riconoscerti senza sapere chi sei, il servizio della classifica usa un <i lang="en">token</i>: un codice casuale di 43 caratteri
-          che il tuo browser crea quando entri in classifica e manda insieme a ogni aggiornamento dei punti. Se attivi «Partecipa alla
-          classifica»:
+          che il tuo browser crea quando entri in classifica e manda insieme a ogni aggiornamento dei punti.
         </p>
         <ul>
           <li>il servizio conserva solo un’impronta del token, cioè un valore calcolato dal token da cui non si può risalire al token stesso;</li>
@@ -86,7 +85,7 @@ export function InformativaPage() {
           sia tu a dirlo.
         </p>
         <p>
-          Quando disattivi l’interruttore, il servizio cancella subito nome e punti. Se per 18 mesi non arrivano punti nuovi, li cancella da sé.
+          Quando confermi «Esci dalla classifica», il servizio cancella nome e punti. Se per 18 mesi non arrivano punti nuovi, li cancella da sé.
           «Esci dallo zaino» toglie il token solo da quel browser: nello zaino il token resta, e riaprendo lo zaino ritrovi lo stesso nome.
         </p>
       </section>

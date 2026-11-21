@@ -92,3 +92,10 @@ test('dalla home o senza provenienza il ritorno va all’elenco dei temi', () =>
     expect(returnLink(hash, () => undefined)).toEqual({ href: '#/', label: 'Tutti i temi' });
   }
 });
+
+test('un mondo della classifica ha un indirizzo e conserva il link di ritorno', () => {
+  const hash = '#/classifica/lotr';
+  expect(formatRoute({ page: 'classifica', themeId: 'lotr' })).toBe(hash);
+  expect(parseRoute(hash)).toEqual({ page: 'classifica', themeId: 'lotr' });
+  expect(returnLink(hash, () => undefined)).toEqual({ href: hash, label: 'Torna alla classifica' });
+});

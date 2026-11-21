@@ -103,7 +103,7 @@ interface Chiamata {
 }
 
 let chiamate: Chiamata[];
-let risposte: ((c: Chiamata) => Response | Error)[];
+let risposte: ((c: Chiamata) => Response | Error | Promise<Response>)[];
 let zainoAperto: boolean;
 let c: Controllore;
 
@@ -240,6 +240,27 @@ test('uscire senza rete: la scelta resta accesa', async () => {
   risposte.push(() => new TypeError('rete'));
   expect(await c.smetti()).toBe('irraggiungibile');
   expect(leggiAdesione().gettone).not.toBeNull();
+});
+
+test('l’uscita aspetta l’invio in corso e conserva l’adesione se il servizio chiede di attendere', async () => {
+  await c.partecipa();
+  await vi.runAllTimersAsync();
+  const gettone = leggiAdesione().gettone;
+  let rispondi: (r: Response) => void = () => undefined;
+  risposte.push(
+    () => new Promise((resolve) => { rispondi = resolve; }),
+    () => new Response(null, { status: 429 }),
+  );
+  updateProgress('lotr', (p) => risolto(p, 'ex-001'));
+  await vi.advanceTimersByTimeAsync(RITARDO);
+  const uscita = c.smetti();
+  expect(chiamate.at(-1)?.metodo).toBe('PUT');
+  rispondi(Response.json({ name: 'Lontra Tenace 42', total: 10 }));
+  await expect(uscita).resolves.toBe('attendi');
+  expect(chiamate.at(-1)).toMatchObject({ metodo: 'DELETE', gettone });
+  expect(leggiAdesione().gettone).toBe(gettone);
+  await expect(c.smetti()).resolves.toBe('ok');
+  expect(leggiAdesione().gettone).toBeNull();
 });
 
 test('un gettone diverso arrivato dallo zaino fa uscire il vecchio; «Esci dallo zaino» no', async () => {

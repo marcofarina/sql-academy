@@ -25,7 +25,8 @@ export function App() {
   }
 
   const back = returnLink(previousHash, (id) => findTheme(id)?.manifest.title);
-  const page = route.page === 'theme' ? 'not-found' : route.page;
+  const mondoClassifica = route.page === 'classifica' && route.themeId ? findTheme(route.themeId) : undefined;
+  const page = route.page === 'theme' || (route.page === 'classifica' && route.themeId && !mondoClassifica) ? 'not-found' : route.page;
   const error = route.page === 'theme'
     ? `Il tema «${route.themeId}» non esiste.`
     : 'L’indirizzo non corrisponde a nessuna sezione del portale.';
@@ -33,7 +34,7 @@ export function App() {
   return (
     <SiteLayout page={page} back={back}>
       {page === 'zaino' ? <ZainoPage themes={themes} />
-        : page === 'classifica' ? <ClassificaPage themes={themes} />
+        : page === 'classifica' ? <ClassificaPage themes={themes} mondo={mondoClassifica} />
         : page === 'informativa' ? <InformativaPage />
         : <NotFoundPage message={error} />}
     </SiteLayout>

@@ -337,6 +337,27 @@ async function leggiRemoto(chiavi: Chiavi): Promise<Letto | null> {
   return { contenuto, versione, byte: blob.byteLength };
 }
 
+/** Cifra una copia e la scrive solo se la versione sul servizio coincide. */
+async function scriviRemoto(contenuto: ContenutoZaino, chiavi: Chiavi, versione: number | null, keepalive = false) {
+  const blob = await cifra(contenuto, chiavi.chiave);
+  const byte = blob.byteLength;
+  if (byte > MAX_BLOB) {
+    if (versione !== null || leggiMemoria()) cambiaStato({ byte });
+    throw new Fermo('pieno');
+  }
+  const risposta = await fetch(indirizzo(chiavi.id), {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      ...(versione === null ? { 'If-None-Match': '*' } : { 'If-Match': `"${versione}"` }),
+    },
+    body: blob,
+    keepalive: keepalive && byte < MAX_KEEPALIVE,
+  });
+  if (risposta.status === 413) throw new Fermo('pieno');
+  return { risposta, byte };
+}
+
 interface OpzioniCiclo {
   /** Rileggere il server anche se si conosce l'ultima versione. */
   completa: boolean;
@@ -344,8 +365,6 @@ interface OpzioniCiclo {
   anticipata?: boolean;
   /** La scheda si sta nascondendo: `keepalive`. */
   keepalive?: boolean;
-  /** Lo zaino è appena nato qui: non c'è niente da leggere. */
-  nuovo?: boolean;
   /** Già letto da `apri`. */
   letto?: Letto;
 }
@@ -353,7 +372,7 @@ interface OpzioniCiclo {
 async function ciclo(o: OpzioniCiclo): Promise<void> {
   const m = leggiMemoria();
   if (!m) return;
-  let chiavi = await chiaviDi(m.codice);
+  const chiavi = await chiaviDi(m.codice);
   cambiaStato({ fase: 'in-corso', motivo: null });
   let rileggi = o.completa || m.versione === null || !m.ultimo;
   let letto = o.letto ?? null;
@@ -364,7 +383,7 @@ async function ciclo(o: OpzioniCiclo): Promise<void> {
       ({ contenuto: remoto, versione } = letto);
       cambiaStato({ byte: letto.byte });
       letto = null;
-    } else if (rileggi && !(o.nuovo && tentativo === 0)) {
+    } else if (rileggi) {
       const r = await leggiRemoto(chiavi);
       if (!r && m.versione !== null) throw new Fermo('cancellato');
       remoto = r?.contenuto ?? null;
@@ -387,40 +406,16 @@ async function ciclo(o: OpzioniCiclo): Promise<void> {
       return;
     }
 
-    const blob = await cifra(unito, chiavi.chiave);
-    if (blob.byteLength > MAX_BLOB) {
-      cambiaStato({ byte: blob.byteLength });
-      throw new Fermo('pieno');
-    }
-    const r = await fetch(indirizzo(chiavi.id), {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/octet-stream',
-        ...(versione === null
-          ? { 'If-None-Match': '*' }
-          : { 'If-Match': `"${versione}"` }),
-      },
-      body: blob,
-      keepalive: !!o.keepalive && blob.byteLength < MAX_KEEPALIVE,
-    });
-    if (r.status === 412 && o.nuovo && versione === null) {
-      // Il codice appena estratto è già di un altro zaino: se ne estrae un
-      // altro, invece di leggere (e unire) lo zaino di qualcun altro.
-      m.codice = nuovoCodice();
-      salvaMemoria(m);
-      chiavi = await chiaviDi(m.codice);
-      continue;
-    }
+    const { risposta: r, byte } = await scriviRemoto(unito, chiavi, versione, o.keepalive);
     if (r.status === 412) {
       rileggi = true;
       continue;
     }
-    if (r.status === 413) throw new Fermo('pieno');
     if (!r.ok) throw new ErroreServizio(r.status);
     m.versione = versioneDa(r);
     m.ultimo = unito;
     salvaMemoria(m);
-    cambiaStato({ byte: blob.byteLength });
+    cambiaStato({ byte });
     return;
   }
   throw new ErroreServizio(412);
@@ -567,16 +562,44 @@ export function anticipaSalvataggioZaino(): void {
   void sincronizza({ completa: false, anticipata: true });
 }
 
-/** Crea uno zaino nuovo con i dati di questo dispositivo; restituisce il codice. */
-export async function crea(): Promise<string> {
+let collegamentoInCorso = false;
+
+/** Il servizio ha già uno zaino con il codice confermato. */
+export class CodiceGiaUsato extends Error {}
+
+/** Crea uno zaino con i dati locali e collega il browser solo dopo la conferma del servizio. */
+export async function crea(confermato?: string): Promise<string> {
   if (!zainoSupportato()) throw new Error('zaino: browser non supportato');
-  if (leggiMemoria()) throw new Error('zaino: già collegato');
-  salvaMemoria({ codice: nuovoCodice(), versione: null, ultimo: null });
-  await sincronizza({ completa: true, nuovo: true });
-  // Il codice può essere cambiato durante la creazione (412: già usato).
-  const m = leggiMemoria();
-  if (!m) throw new Error('zaino: creazione non riuscita');
-  return m.codice;
+  if (leggiMemoria() || collegamentoInCorso) throw new Error('zaino: collegamento già avviato');
+  if (confermato !== undefined && (!confermato.includes('-') || normalizzaCodice(confermato) !== confermato)) {
+    throw new Error('zaino: codice nuovo non valido');
+  }
+  collegamentoInCorso = true;
+  try {
+    for (let tentativo = 0; tentativo < TENTATIVI; tentativo += 1) {
+      const codice = confermato ?? nuovoCodice();
+      const chiavi = await derivaChiavi(codice);
+      const ultimo = pota(contenutoLocale(null));
+      const { risposta, byte } = await scriviRemoto(ultimo, chiavi, null);
+      if (risposta.status === 412) {
+        if (confermato !== undefined) throw new CodiceGiaUsato();
+        continue;
+      }
+      if (!risposta.ok) throw new ErroreServizio(risposta.status);
+      const versione = versioneDa(risposta);
+      if (leggiMemoria()) throw new Error('zaino: già collegato in un’altra scheda');
+      fermaTimer();
+      salvaMemoria({ codice, versione, ultimo });
+      chiaviCache = { codice, chiavi: Promise.resolve(chiavi) };
+      cambiaStato({ fase: 'sincronizzato', motivo: null, ultima: new Date().toISOString(), byte, inSospeso: false });
+      // I progressi possono cambiare mentre aspettiamo la risposta del servizio.
+      if (canonico(pota(contenutoLocale(ultimo))) !== canonico(ultimo)) suModificaLocale();
+      return codice;
+    }
+    throw new CodiceGiaUsato();
+  } finally {
+    collegamentoInCorso = false;
+  }
 }
 
 export interface OpzioniApri {
@@ -593,26 +616,31 @@ export async function apri(
   opzioni: OpzioniApri = {},
 ): Promise<EsitoApri> {
   if (!zainoSupportato()) return 'non-supportato';
-  if (leggiMemoria()) return 'gia-collegato';
+  if (leggiMemoria() || collegamentoInCorso) return 'gia-collegato';
   const codice = normalizzaCodice(scritto);
   if (!codice) return 'codice-non-valido';
-  const chiavi = await chiaviDi(codice);
-  let letto: Letto | null;
+  collegamentoInCorso = true;
   try {
-    letto = await leggiRemoto(chiavi);
-  } catch (e) {
-    if (e instanceof Fermo)
-      return e.motivo === 'aggiorna' ? 'aggiorna' : 'illeggibile';
-    return e instanceof ErroreServizio ? 'servizio' : 'offline';
+    const chiavi = await chiaviDi(codice);
+    let letto: Letto | null;
+    try {
+      letto = await leggiRemoto(chiavi);
+    } catch (e) {
+      if (e instanceof Fermo)
+        return e.motivo === 'aggiorna' ? 'aggiorna' : 'illeggibile';
+      return e instanceof ErroreServizio ? 'servizio' : 'offline';
+    }
+    if (!letto) return 'inesistente';
+    if (leggiMemoria()) return 'gia-collegato';
+    // Solo adesso, a zaino trovato, si può cambiare l’area dei progressi.
+    if (opzioni.temporaneo && !impostaTemporanea(true)) return 'non-supportato';
+    salvaMemoria({ codice, versione: letto.versione, ultimo: null });
+    fermaTimer();
+    await sincronizza({ completa: true, letto });
+    return 'aperto';
+  } finally {
+    collegamentoInCorso = false;
   }
-  if (!letto) return 'inesistente';
-  // Solo adesso, a zaino trovato: un codice sbagliato non lascia la scheda
-  // in modalità temporanea.
-  if (opzioni.temporaneo && !impostaTemporanea(true)) return 'non-supportato';
-  salvaMemoria({ codice, versione: letto.versione, ultimo: null });
-  fermaTimer();
-  await sincronizza({ completa: true, letto });
-  return 'aperto';
 }
 
 /**
@@ -620,6 +648,8 @@ export async function apri(
  * modifiche, poi toglie dal browser il codice e i dati di ogni sezione.
  */
 export async function esci(): Promise<void> {
+  // Una lettura già avviata può ancora portare progressi dal servizio al browser.
+  await corrente;
   if (stato.inSospeso && !bloccato()) {
     await sincronizza({ completa: false }).catch(() => undefined);
   }

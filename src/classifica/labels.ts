@@ -27,7 +27,7 @@ export function testoStato(s: StatoClassifica): string | null {
     case 'invio':
       return 'Invio i tuoi punti alla classifica…';
     case 'aggiornata':
-      return 'La classifica è aggiornata con i tuoi punti.';
+      return s.ultima === null ? 'La classifica è aggiornata con i tuoi punti.' : `Classifica aggiornata alle ${ora(s.ultima)}.`;
     case 'in-attesa':
       return `La classifica accetta i punti nuovi un po’ alla volta: i tuoi arrivano alle ${ora(s.riprova)}.`;
     case 'respinta':
@@ -41,5 +41,6 @@ export const TESTI_SCELTA: Record<Exclude<EsitoScelta, 'ok'>, string> = {
   'senza-zaino': 'Per partecipare devi prima aprire lo zaino.',
   irraggiungibile: 'Non riesco a raggiungere la classifica. Riprova fra un po’.',
   respinta: 'La classifica non accetta l’iscrizione. Riprova fra un po’.',
+  attendi: 'La classifica ha ricevuto troppe richieste. Riprova fra un po’.',
 };
 

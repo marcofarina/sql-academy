@@ -49,6 +49,11 @@ export function nuovoCodice(): string {
   return [...n].map((x) => PAROLE[x & 2047]).join('-');
 }
 
+/** Toglie accenti e maiuscole prima del confronto con l’elenco delle parole. */
+export function pulisciParola(scritto: string): string {
+  return scritto.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+}
+
 /**
  * Le parole di un codice, senza maiuscole né accenti; per ognuna bastano le
  * prime quattro lettere, il resto può avere errori di battitura. Fra una
@@ -56,10 +61,7 @@ export function nuovoCodice(): string {
  * in mezzo, solo parole intere. null se non sono quattro parole dell'elenco.
  */
 function parole(scritto: string): string | null {
-  const pezzi = scritto
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '')
-    .toLowerCase()
+  const pezzi = pulisciParola(scritto)
     .split(/[^a-z]+/)
     .filter(Boolean);
   const trovate: string[] = [];

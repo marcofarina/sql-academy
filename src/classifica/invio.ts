@@ -44,11 +44,13 @@ export interface StatoClassifica {
   respinti: Record<string, string>;
   /** Millisecondi dal 1970 del prossimo tentativo. */
   riprova: number | null;
+  /** Millisecondi dal 1970 dell’ultimo invio riuscito. */
+  ultima: number | null;
   /** Cresce a ogni invio riuscito: la pagina rilegge la classifica. */
   versione: number;
 }
 
-export type EsitoScelta = 'ok' | 'senza-zaino' | 'irraggiungibile' | 'respinta';
+export type EsitoScelta = 'ok' | 'senza-zaino' | 'irraggiungibile' | 'respinta' | 'attendi';
 
 export interface Dipendenze {
   base: string;
@@ -60,7 +62,7 @@ export interface Dipendenze {
   ora?: () => number;
 }
 
-const SPENTA: StatoClassifica = { fase: 'spenta', nome: null, motivo: null, respinti: {}, riprova: null, versione: 0 };
+const SPENTA: StatoClassifica = { fase: 'spenta', nome: null, motivo: null, respinti: {}, riprova: null, ultima: null, versione: 0 };
 
 /** Il tema di un motivo del servizio («star-wars/ex-001: …», «lotr: …»), se è fra quelli dati. */
 export function temaDelMotivo(motivo: string, temi: string[]): string | null {
@@ -78,6 +80,7 @@ export function creaControllore(d: Dipendenze) {
   let stato = SPENTA;
   let timer: ReturnType<typeof setTimeout> | null = null;
   let inCorso: Promise<void> | null = null;
+  let uscitaInCorso = false;
   let ancora = false;
   let tentativi = 0;
   /** Il gettone e il corpo dell’ultimo invio riuscito, o respinto: si rimanda solo un corpo diverso. */
@@ -120,6 +123,7 @@ export function creaControllore(d: Dipendenze) {
   }
 
   async function passo(): Promise<void> {
+    if (uscitaInCorso) return;
     const { gettone } = leggiAdesione();
     if (visto && gettone && visto !== gettone) {
       // Un altro dispositivo ha scelto un gettone diverso e lo zaino l’ha portato qui:
@@ -147,7 +151,7 @@ export function creaControllore(d: Dipendenze) {
       case 'ok':
         tentativi = 0;
         ultimo = { gettone, corpo: testo };
-        cambia({ fase: 'aggiornata', nome: esito.dati.name, motivo: null, respinti: respinti(), riprova: null, versione: stato.versione + 1 });
+        cambia({ fase: 'aggiornata', nome: esito.dati.name, motivo: null, respinti: respinti(), riprova: null, ultima: ora(), versione: stato.versione + 1 });
         return;
       case 'respinta': {
         tentativi = 0;
@@ -229,6 +233,7 @@ export function creaControllore(d: Dipendenze) {
       // L’iscrizione senza temi non supera mai la crescita ammessa: chi ha già molti
       // punti entra subito con un nome e li vede arrivare negli invii successivi.
       const esito = await inviaPunteggio(d.fetch, d.base, gettone, {});
+      if (esito.tipo === 'attendi') return 'attendi';
       if (esito.tipo !== 'ok') return esito.tipo === 'respinta' ? 'respinta' : 'irraggiungibile';
       visto = gettone;
       cambiaAdesione(gettone, ora());
@@ -239,11 +244,23 @@ export function creaControllore(d: Dipendenze) {
     async smetti(): Promise<EsitoScelta> {
       const { gettone } = leggiAdesione();
       if (!gettone) return 'ok';
-      const esito = await cancellaPunteggio(d.fetch, d.base, gettone);
-      if (esito.tipo === 'irraggiungibile') return 'irraggiungibile';
-      visto = null;
-      cambiaAdesione(null, ora());
-      return 'ok';
+      if (uscitaInCorso) return 'attendi';
+      uscitaInCorso = true;
+      try {
+        // Un invio già partito deve finire prima che il servizio cancelli la riga.
+        await inCorso;
+        const esito = await cancellaPunteggio(d.fetch, d.base, gettone);
+        if (esito.tipo === 'attendi') return 'attendi';
+        if (esito.tipo !== 'ok' && esito.tipo !== 'sconosciuto') return 'irraggiungibile';
+        if (leggiAdesione().gettone === gettone) {
+          visto = null;
+          cambiaAdesione(null, ora());
+        }
+        return 'ok';
+      } finally {
+        uscitaInCorso = false;
+        if (!timer && leggiAdesione().gettone) programma(RITARDO);
+      }
     },
   };
 }
