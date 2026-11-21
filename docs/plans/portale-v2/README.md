@@ -35,6 +35,16 @@ Ordine consigliato: F01, F19, F06, F02, F04, F10, F05, F03, F07, F11, F13, F12, 
 
 Tutti i prompt condividono la stessa chiusura. I percorsi sono relativi alla radice del repo. Ogni prompt vale sia per Claude Code sia per Codex, salvo le fasi «solo Claude».
 
+### Messaggio di chiusura
+
+Chiesto da Marco il 2026-11-21, per non dover rileggere l’indice a ogni fase. L’ultimo messaggio di una sessione di fase contiene, in quest’ordine:
+
+1. una frase che dice chiaramente che la fase è terminata (o perché non lo è) e che indice, dettaglio e `AGENTS.md` sono aggiornati, con l’hash del commit di chiusura;
+2. la prossima fase consigliata, con lo strumento e il modello per ciascuno dei due (o «solo Claude»), scelta così: se la fase appena chiusa è segnata per la revisione incrociata, la sua revisione; altrimenti la prima fase dell’«Ordine consigliato» non ancora `completata` le cui dipendenze sono tutte `completata`;
+3. il prompt di apertura di quella fase in un blocco di codice `text`, copiato da questa sezione così com’è; per una revisione, il prompt della fase con la riga «ID e obiettivo» sostituita come indica la skill `piani-multisessione`.
+
+Se la fase è rimasta `in corso` o `bloccata`, il prompt suggerito è quello della stessa fase, per riprenderla.
+
 ### P-F01
 
 ```text
@@ -49,7 +59,7 @@ ID e obiettivo: F01 — Chiudere la pubblicazione del portale.
 
 La fase usa il sito pubblicato e cambia un’impostazione del repo su GitHub: chiedi il via a Marco prima di ogni azione sul sito, sullo zaino o sulla classifica di produzione, e prima di cambiare il branch predefinito.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F02
@@ -66,7 +76,7 @@ ID e obiettivo: F02 — Studiare barra comune, stato dello zaino e notifica dell
 
 Le tavole si disegnano con l’Artifact di tipo «Design» (tool Artifact, quickstart con intent "design"); mostra a Marco le tavole e attendi l’approvazione prima di scrivere la specifica. Nelle tavole usa solo icone RB già nel progetto: le icone nuove restano segnaposto per F04 e F05.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F03
@@ -83,7 +93,7 @@ ID e obiettivo: F03 — Studiare le pagine Zaino e Classifica.
 
 Le tavole si disegnano con l’Artifact di tipo «Design» (tool Artifact, quickstart con intent "design"); proponi almeno due direzioni per la classifica, attendi la scelta di Marco e la sua approvazione prima di scrivere la specifica. Nelle tavole usa solo icone RB già nel progetto: le icone nuove restano segnaposto per F07.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F04
@@ -102,7 +112,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F05
@@ -121,7 +131,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F06
@@ -138,7 +148,7 @@ ID e obiettivo: F06 — Rendere riprendibile la sessione di esercizi.
 
 Questa fase scrive pochi testi per gli studenti: prima di scriverli leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati. Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F07
@@ -159,7 +169,7 @@ Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`).
 
 Ogni modifica al servizio della classifica in produzione (deploy, migrazioni D1) richiede il via di Marco.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F08
@@ -176,7 +186,7 @@ ID e obiettivo: F08 — Scegliere le IP dei nuovi mondi e definirne i livelli.
 
 La scelta delle IP è di Marco: proponi una rosa motivata e attendi la sua scelta prima di scrivere il documento finale. Le ricerche sul web vanno a subagent del livello più economico che lo strumento offre (Sonnet o Haiku su Claude, Terra o Luna su Codex).
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F09
@@ -195,7 +205,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F10
@@ -212,7 +222,7 @@ ID e obiettivo: F10 — Predisporre il piè di pagina comune.
 
 Non scrivere contenuti nuovi per il piè di pagina: li porterà una sessione aperta in ~/Developer/github/. Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F11
@@ -231,7 +241,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F12
@@ -250,7 +260,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F13
@@ -269,7 +279,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F14
@@ -288,7 +298,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F15
@@ -305,7 +315,7 @@ ID e obiettivo: F15 — Scaricare il database e mostrare l’anteprima dei link.
 
 Se servono icone nuove, fermati e dillo a Marco: si disegnano in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F16
@@ -324,7 +334,7 @@ Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms
 
 Icone: usa quelle già nel progetto (`src/assets/icons/`, `themes/<id>/icone/`). Se ne servono di nuove: su Claude Code cercale e disegnale con la skill `icone-rb`, secondo la sezione «Icone» del piano, e attendi l’approvazione di Marco; su Codex fermati prima di disegnarle e lascia un segnaposto: le icone nuove si fanno in una sessione Claude su Opus.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F17
@@ -341,7 +351,7 @@ ID e obiettivo: F17 — Far funzionare il sito senza rete.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F18
@@ -358,7 +368,7 @@ ID e obiettivo: F18 — Scrivere i test end-to-end.
 
 Il passo nel workflow si prova solo con un push: chiedi il via a Marco prima di farlo.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F19
@@ -375,7 +385,7 @@ ID e obiettivo: F19 — Controllare la qualità degli esercizi.
 
 Questa fase scrive testi per gli studenti: prima di scrivere leggi .claude/norms/scrittura-didattica.md, a fine stesura applica .claude/norms/scrittura-umana.md. Se .claude/norms non è raggiungibile, fermati.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ### P-F20
@@ -390,7 +400,7 @@ Piano: docs/plans/portale-v2/README.md
 Fase: docs/plans/portale-v2/F20-generatore-tema.md
 ID e obiettivo: F20 — Generare lo scheletro di un tema nuovo.
 
-Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit.
+Verifica le istruzioni del repository, le dipendenze della fase e lo stato del lavoro esistente. Esegui solo questa fase. Al termine esegui i criteri di accettazione, aggiorna indice e dettaglio, crea il commit di chiusura e riporta esito, verifiche e hash del commit. Chiudi come indica «Messaggio di chiusura» nell’indice del piano: fase terminata e annotata, prossima fase consigliata e il suo prompt di apertura in un blocco di codice.
 ```
 
 ## Obiettivo
@@ -487,3 +497,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F06 in corso (Codex; modello non verificabile): sessioni salvate per tema e area, test automatici superati; restano le prove manuali di azzeramento e isolamento fra temi dopo il blocco del browser. Dettagli in F06. |
 | 2026-11-21 | F06 completata (Codex; famiglia del modello non verificabile): procedura manuale ripetuta, inclusi abbandono, azzeramento e isolamento fra temi; verifiche automatiche superate. |
 | 2026-11-21 | Revisione di F06 (Codex) fatta da Claude: corretto il difetto sull’uscita dallo zaino, rifinita la schermata della sessione salvata. Prima prova del lavoro a più modelli: aggiunte alla skill e al piano la revisione incrociata delle fasi a rischio, la sezione «Scostamenti dal dettaglio» nel passaggio di consegne, la riga che identifica strumento e modello nei commit e la lettura del modello di Codex da `~/.codex/config.toml`; aggiunta la decisione «Dati nel browser». |
+| 2026-11-21 | Su richiesta di Marco ogni sessione di fase chiude con il «Messaggio di chiusura»: fase terminata e annotata, prossima fase consigliata e il suo prompt pronto da copiare. Regola aggiunta anche alla skill `piani-multisessione`. |
