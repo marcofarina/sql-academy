@@ -42,4 +42,25 @@ Procedura manuale: i passi del punto 2, ciascuno con esito superato o non supera
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase: esito, verifiche, difetti trovati sul sito, decisioni di Marco, lavoro residuo.
+**Esito:** completata il 2026-11-21.
+
+**Criteri di accettazione:** `curl` risponde `200`; `https_enforced` è `true` (certificato `approved`); il branch predefinito è `main`.
+
+**Procedura manuale** (sito pubblicato, pannello integrato più Chrome):
+
+| Passo | Esito |
+| --- | --- |
+| Apertura dei temi Star Wars e LOTR | superato |
+| Query nella sandbox (`SELECT COUNT(*) FROM personaggi`, 27) | superato |
+| Esercizio ex-001 risolto, saldo a 10 punti | superato |
+| Ricarica diretta di `#/star-wars/sandbox` | superato |
+| Zaino di Marco aperto nel pannello e poi in Chrome: l’esercizio risolto compare in entrambi | superato |
+| Classifica: nome «Ape Audace 12», 10 punti, prima posizione | superato |
+
+**Difetti:** nessuno bloccante. Nella sandbox la scorciatoia Ctrl+Invio non ha eseguito la query quando l’ho premuta con gli strumenti del browser; il pulsante «Esegui» sì. Può dipendere dall’automazione e non è verificato su una tastiera vera: se Marco la vede fallire, va segnalato.
+
+**Decisioni di Marco:** via alla procedura sul sito di produzione, zaino compreso (ha dato lui il codice); `main` come branch predefinito.
+
+**Da sapere:** la classifica aveva già un’iscrizione dentro lo zaino di Marco («Ape Audace 12»): non l’ho creata io, quindi nessuna iscrizione di prova da togliere. La procedura ha però portato 10 punti di Star Wars (ex-001) nello zaino e nella classifica. Chrome è stato usato con «Non è il mio computer» e il pannello integrato è uscito dallo zaino: nessun codice rimasto nei browser.
+
+**Residuo:** il link dal libro lo inserisce Marco in `volumes/archivista/intro.mdx` e nella pagina dello zaino, con il testo «Allenati con le query su [SQL Academy](https://sql.rainbowbits.cloud/), il portale di esercizi che accompagna questo volume.» In PDB il `dev` locale è avanti di 16 commit rispetto a `origin/dev` (verificato il 2026-11-21).
