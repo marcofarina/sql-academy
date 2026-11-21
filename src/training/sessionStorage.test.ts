@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import type { ActiveSession } from './SessionView.tsx';
-import { loadSession, parseSession, saveSession, serializeSession } from './sessionStorage.ts';
+import { clearAllSessions, loadSession, parseSession, saveSession, serializeSession } from './sessionStorage.ts';
 
 const session: ActiveSession = {
   exerciseIds: ['a', 'b'], index: 1,
@@ -37,4 +37,19 @@ test('isola i temi e cancella sessioni concluse o abbandonate', () => {
   saveSession(storage, 'star-wars', 3, session);
   saveSession(storage, 'star-wars', 3);
   expect(data.size).toBe(0);
+});
+
+test('l’uscita dallo zaino cancella le sessioni di tutti i temi e nient’altro', () => {
+  const data = new Map<string, string>([['sql-academy:star-wars:v2', '{}'], ['sql-academy:zaino', '{}']]);
+  const storage = {
+    get length() { return data.size; },
+    key: (i: number) => [...data.keys()][i] ?? null,
+    getItem: (k: string) => data.get(k) ?? null,
+    setItem: (k: string, v: string) => data.set(k, v),
+    removeItem: (k: string) => data.delete(k),
+  } as unknown as Storage;
+  saveSession(storage, 'star-wars', 0, session);
+  saveSession(storage, 'lotr', 0, session);
+  clearAllSessions(storage);
+  expect([...data.keys()].sort()).toEqual(['sql-academy:star-wars:v2', 'sql-academy:zaino']);
 });

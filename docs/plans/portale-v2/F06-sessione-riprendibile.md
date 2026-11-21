@@ -49,3 +49,12 @@ Verifiche eseguite il 2026-11-21:
 - Browser Chrome: una sessione Star Wars non compare in LOTR e resta disponibile al ritorno; «Abbandonala» la cancella anche dopo la ricarica; «Azzera i progressi» cancella una nuova sessione e i progressi, anche dopo la ricarica.
 
 Consumo reale non disponibile. Nessun lavoro residuo per F06; nessun push o pubblicazione.
+
+### Revisione di Claude (2026-11-21)
+
+Revisione del lavoro di Codex su Claude Code con Opus, chiesta da Marco per provare il lavoro a più modelli. Verifiche automatiche rieseguite e superate; codice conforme al dettaglio. Corretto un difetto: «Esci dallo zaino» toglieva i progressi ma lasciava la sessione salvata, che dopo l’uscita restava riprendibile (con l’epoca 0 non scadeva) anche da un altro studente sullo stesso computer. Ora `svuota` della sezione dello zaino chiama `clearAllSessions`, che cancella le chiavi `sql-academy:<tema>:sessione` dell’area corrente, e l’addestramento riparte senza la sessione in memoria (`useSessionsCleared` nella chiave di `ReadyTraining`). Aggiunti i commenti mancanti in `src/training/sessionStorage.ts` e un test.
+
+Verifiche: `npm run lint && npm test && npm run check:themes && npm run build` superati (219 test). Nel browser con `npm run dev`: sessione salvata, `window.__zaino.esci()` senza zaino collegato, il pulsante torna «Nuova sessione» senza ricaricare e la chiave sparisce; la ripresa di una sessione salvata riporta all’esercizio giusto; console senza errori. Non provato con uno zaino vero.
+
+Restano, non corretti: la sessione cambia disegno senza averlo annotato (l’addestramento resta montato e nascosto nelle altre sezioni); su `#/<tema>/addestramento/sessione` con una sessione salvata compaiono solo i due pulsanti, senza titolo né spiegazione.
+

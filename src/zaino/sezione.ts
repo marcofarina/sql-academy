@@ -19,6 +19,8 @@
 import { THEME_ID_PATTERN } from '../themes/contract.ts';
 import { emptyProgress, mergeProgress, readThemeData, type ThemeProgress } from '../progress/progress.ts';
 import { clearAllProgress, readProgress, replaceProgress, storedThemeIds, subscribeLocalChanges } from '../progress/store.ts';
+import { clearAllSessions } from '../training/sessionStorage.ts';
+import { storageDi } from './area.ts';
 import {
   NESSUNA_ADESIONE,
   iscrivitiAdesioneLocale,
@@ -92,6 +94,8 @@ export const sezioneSqlAcademy: TipoSezione<DatiSqlAcademy> = {
   valida: validaDati,
   svuota: () => {
     clearAllProgress();
+    // La sessione in corso è legata ai progressi appena tolti: va via con loro.
+    clearAllSessions(storageDi());
     svuotaAdesione();
   },
 };

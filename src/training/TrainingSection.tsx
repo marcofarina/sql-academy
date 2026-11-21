@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { storageDi, useArea } from '../zaino/area.ts';
-import { loadSession, saveSession } from './sessionStorage.ts';
+import { loadSession, saveSession, useSessionsCleared } from './sessionStorage.ts';
 import { Icon } from '../icons/Icon.tsx';
 import type { ThemeProgress } from '../progress/progress.ts';
 import type { ProgressActions } from '../progress/useProgress.ts';
@@ -37,10 +37,13 @@ export function TrainingStatus({ training }: { training: Exclude<TrainingState, 
 /** L’addestramento: percorso, esercizio singolo o sessione, secondo l’indirizzo. */
 export function TrainingSection(props: TrainingSectionProps) {
   const area = useArea();
+  const cleared = useSessionsCleared();
   if (props.training.status !== 'ready') return <TrainingStatus training={props.training} />;
-  return <ReadyTraining key={`${area}:${props.progress.epoch}`} {...props} training={props.training} />;
+  // Un cambio d’area, un azzeramento o l’uscita dallo zaino ricominciano da quello che è salvato.
+  return <ReadyTraining key={`${area}:${props.progress.epoch}:${cleared}`} {...props} training={props.training} />;
 }
 
+/** L’addestramento con gli esercizi caricati: tiene la sessione in corso e la salva a ogni cambiamento. */
 function ReadyTraining(props: TrainingSectionProps & { training: Extract<TrainingState, { status: 'ready' }> }) {
   const { themeId, item, training, progress, actions } = props;
   const [saved, setSaved] = useState(() => loadSession(storageDi(), themeId, progress.epoch, training.exercises.map((e) => e.id)));
@@ -50,7 +53,7 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
   }, [session, themeId, progress.epoch]);
   const abandon = () => { saveSession(storageDi(), themeId, progress.epoch); setSaved(undefined); setSession(undefined); };
   const pending = session && !session.finished ? session : saved;
-  const resume = () => { if (saved) { setSession(saved); setSaved(undefined); } }; 
+  const resume = () => { if (saved) { setSession(saved); setSaved(undefined); } };
 
   const link = (target?: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item: target });
 
