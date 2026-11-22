@@ -1,4 +1,4 @@
-import { afterAll, expect, test } from 'vitest';
+import { afterAll, assert, expect, test } from 'vitest';
 import type { DatabaseSource } from '../sql/engine.ts';
 import { createNodeEngine } from '../sql/testing/nodeEngine.ts';
 import { findTheme } from '../themes/registry.ts';
@@ -30,7 +30,7 @@ test('una risposta scritta in un altro modo ma con lo stesso risultato è corret
     "SELECT nome FROM pianeti WHERE clima = 'temperato'",
     "SELECT nome FROM pianeti WHERE clima LIKE 'temp%' AND id > 0",
   );
-  expect(result.verdict).toEqual({ kind: 'correct' });
+  assert(result.verdict.kind === 'correct');
   expect(result.student?.totalRows).toBe(2);
   expect(describeVerdict(result.verdict)).toBe('Risposta corretta.');
 });
@@ -53,17 +53,20 @@ test('SELECT * vale quanto l’elenco esplicito di tutte le colonne, in qualunqu
 test('SELECT * contro un elenco parziale: colonne in più, con i nomi', async () => {
   const result = await verdict('SELECT nome, clima FROM pianeti', 'SELECT * FROM pianeti');
   expect(result).toEqual({ kind: 'columns', actual: 4, expected: 2, missing: [], extra: ['id', 'diametro'] });
+  assert(result.kind === 'columns');
   expect(describeVerdict(result)).toBe('Il risultato ha 4 colonne: ne servono 2. In più: id, diametro.');
 });
 
 test('colonna mancante', async () => {
   const result = await verdict('SELECT nome, clima FROM pianeti', 'SELECT nome FROM pianeti');
+  assert(result.kind === 'columns');
   expect(describeVerdict(result)).toBe('Il risultato ha una colonna: ne servono 2. Manca: clima.');
 });
 
 test('numero di righe diverso', async () => {
   const result = await verdict("SELECT nome FROM pianeti WHERE clima = 'temperato'", 'SELECT nome FROM pianeti');
   expect(result).toEqual({ kind: 'rows', actual: 4, expected: 2 });
+  assert(result.kind === 'rows');
   expect(describeVerdict(result)).toBe('Il risultato ha righe in più: 4 invece di 2.');
 });
 
@@ -73,6 +76,7 @@ test('stesso numero di righe, valori diversi: si indica la prima riga diversa', 
     'SELECT nome FROM pianeti WHERE id <= 2',
   );
   expect(result).toEqual({ kind: 'values', rowNumber: 1, row: ['Tatooine'] });
+  assert(result.kind === 'values');
   expect(describeVerdict(result)).toContain('è la numero 1: (Tatooine).');
 });
 
@@ -82,6 +86,7 @@ test('l’ordine conta solo se la query attesa ha un ORDER BY esterno', async ()
 
   const result = await verdict('SELECT nome FROM pianeti ORDER BY nome', reversed);
   expect(result).toMatchObject({ kind: 'order', rowNumber: 1 });
+  assert(result.kind === 'order');
   expect(describeVerdict(result)).toContain('Controlla ORDER BY');
 });
 
@@ -97,14 +102,14 @@ test('NULL e medie calcolate in altro modo', async () => {
 test('una query dello studente con errore riporta il messaggio di SQLite', async () => {
   const result = await verifyAnswer(engine, source, 'SELECT nome FROM pianeti', 'SELECT nome FORM pianeti');
   expect(result.student).toBeNull();
-  expect(result.verdict.kind).toBe('error');
-  expect(describeVerdict(result.verdict)).toMatch(/^SQLite ha segnalato un errore: .*syntax error/);
+  expect(result.verdict).toEqual({ kind: 'error', message: 'near "pianeti": syntax error' });
 });
 
 test('una query dello studente che non termina è interrotta', async () => {
   const endless = 'WITH RECURSIVE r(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM r) SELECT count(*) FROM r';
   const result = await verdict('SELECT nome FROM pianeti', endless);
   expect(result).toEqual({ kind: 'timeout', timeoutMs: 1_500 });
+  assert(result.kind === 'timeout');
   expect(describeVerdict(result)).toBe('La query è stata interrotta dopo 1.5 s perché non terminava.');
 });
 

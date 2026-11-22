@@ -1,3 +1,5 @@
+/** Editor e pannello dei risultati della sandbox di un tema. */
+
 import { Icon } from '../icons/Icon.tsx';
 import { ResultsView } from './ResultsView.tsx';
 import { SchemaPanel } from './SchemaPanel.tsx';
@@ -59,7 +61,9 @@ export function SandboxSection({ controller, query, onQueryChange }: SandboxSect
             oppure <kbd>Ctrl</kbd>+<kbd>Invio</kbd> (<kbd>Cmd</kbd>+<kbd>Invio</kbd> su Mac)
           </span>
         </div>
-        <div aria-live="polite">{busy ? <p role="status">Esecuzione…</p> : <ResultsView outcome={outcome} />}</div>
+        <div aria-live="polite">
+          {busy ? <p role="status">Esecuzione…</p> : <ResultsView outcome={outcome} tables={state.sandbox.tables} />}
+        </div>
       </div>
       <SchemaPanel tables={state.sandbox.tables} />
     </div>

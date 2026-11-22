@@ -36,8 +36,26 @@ Fuori: correzione automatica della query; analisi sintattica completa dell’SQL
 | --- | --- |
 | `npm run lint && npm test && npm run check:themes && npm run build` | Nessun errore |
 
-Procedura manuale (`npm run dev`): nella sandbox di Star Wars esegui `SELECT nme FROM personaggi`, `SELECT * FROM personaggio`, una join con colonna ambigua e una query con errore di sintassi; ogni errore ha testo italiano, indizio e messaggio originale.
+Procedura manuale (`npm run dev`): esegui queste query nella sandbox di Star Wars. Controlla che ogni errore mostri la spiegazione in italiano, l’indizio e il messaggio originale in corpo più piccolo.
+
+1. `SELECT nme FROM personaggi`
+2. `SELECT * FROM personaggio`
+3. `SELECT nome FROM personaggi JOIN specie ON personaggi.specie_id = specie.id`
+4. `SELECT nome FORM personaggi`
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+**Completata il 2026-11-22 su Codex con Sol**, modello predefinito letto in `~/.codex/config.toml`. Marco ha approvato i testi prima dell’implementazione.
+
+Il riquadro condiviso `src/sandbox/SqlErrorNotice.tsx` mostra l’errore nella sandbox e nei comandi «Esegui» e «Verifica» degli esercizi. `explainSqlError.ts` cerca fino a tre nomi simili, ordinati per distanza di Levenshtein, e indica le tabelle a cui appartengono le colonne. Gli indizi consultano lo schema iniziale del tema. Gli oggetti aggiunti o rinominati nella sandbox possono quindi sfuggire agli indizi.
+
+### Scostamenti dal dettaglio
+
+- La spiegazione della sintassi copre anche `incomplete input`, perché SQLite lo restituisce quando manca la fine di un’istruzione. Per i messaggi senza una spiegazione specifica, il riquadro conserva l’originale e suggerisce di provare le istruzioni una alla volta.
+- Nel perimetro degli errori di inserimento sono state verificate entrambe le formulazioni di SQLite, con e senza l’elenco delle colonne. L’indizio per `UNIQUE` tratta anche la combinazione di più colonne.
+
+### Verifiche
+
+- Superati `npm run lint`, `npm test` (247 test), `npm run check:themes`, `npm run build` e `git diff --check`. I test riproducono i messaggi originali con il motore `sql.js` del portale.
+- Superata la procedura manuale nel browser locale. In `ex-001` di Star Wars, «Esegui» con `SELECT nme FROM personaggi` e «Verifica» con `SELECT nome FORM pianeti` hanno mostrato spiegazione, indizio e originale. Nella sandbox il testo del messaggio originale misurava 13,81 px contro i 17 px dei due paragrafi.
+- Restano i due avvisi di Star Wars documentati in F19 e l’avviso di Vite per il bundle oltre 500 kB.

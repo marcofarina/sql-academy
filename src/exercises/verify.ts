@@ -110,13 +110,11 @@ function formatRow(row: SqlValue[]): string {
   return `(${row.map(cell).join(', ')})`;
 }
 
-/** Il messaggio che spiega l’esito allo studente. */
-export function describeVerdict(verdict: Verdict): string {
+/** Il messaggio che spiega l’esito dopo che SQLite ha eseguito o interrotto la query. */
+export function describeVerdict(verdict: Exclude<Verdict, { kind: 'error' }>): string {
   switch (verdict.kind) {
     case 'correct':
       return 'Risposta corretta.';
-    case 'error':
-      return `SQLite ha segnalato un errore: ${verdict.message}`;
     case 'timeout':
       return `La query è stata interrotta dopo ${verdict.timeoutMs / 1000} s perché non terminava.`;
     case 'no-result':

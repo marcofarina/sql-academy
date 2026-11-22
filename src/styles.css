@@ -785,6 +785,20 @@ kbd {
   font-weight: 700;
 }
 
+.sql-error > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.sql-error .notice-title {
+  margin-bottom: 0.25rem;
+}
+
+.sql-error pre {
+  margin-top: 0.5rem;
+  font-size: 0.8125em;
+}
+
 .notice-error {
   border-color: var(--color-error-border);
   background: var(--color-error-bg);

@@ -49,8 +49,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | F05 di `portale-v2` completata. La notifica dell’esito mostra premio, saldo e conferma dello zaino (`src/training/ExerciseNotice.tsx`). Dopo una risposta corretta il salvataggio parte subito. |
 | 2026-11-21 | Revisione di F05 fatta da Claude: nessun difetto. F03 di `portale-v2` completata: specifica `docs/design/zaino-classifica.md`, tavole approvate da Marco nell’Artifact «Design»; classifica a podio e lista con la colonna dei mondi per livello, zaino con quattro caselle numerate e creazione in tre passi. Nessuna modifica al servizio. |
 | 2026-11-21 | F07 di `portale-v2` completata: Zaino con apertura a quattro caselle, codici precedenti e creazione in tre passi. Classifica con podio, lista, posizione personale e selettore dei mondi su desktop e telefono. Flussi verificati in Chrome a 1280 e 375 px con servizi simulati. |
+| 2026-11-22 | F11 di `portale-v2` completata: spiegazioni degli errori di SQLite con indizi dallo schema e messaggio originale, nella sandbox e negli esercizi (`src/sandbox/SqlErrorNotice.tsx`). Testi approvati da Marco e verificati nel browser. |
 
-**Prossimo passo** — Revisione incrociata di F07 su Claude Code con Opus. Poi F11 di `portale-v2` e l’ordine consigliato nell’indice del piano.
+**Prossimo passo** — F13 di `portale-v2`. Prima delle fasi che dipendono da F07, esegui la sua revisione incrociata su Claude Code con Opus.
 
 ## Requisiti di Marco
 

@@ -8,8 +8,9 @@ import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import type { ProgressActions, VerificationReward } from '../progress/useProgress.ts';
 import { ResultTable, ResultsView } from '../sandbox/ResultsView.tsx';
 import { SchemaPanel } from '../sandbox/SchemaPanel.tsx';
-import type { SandboxOutcome } from '../sandbox/session.ts';
+import type { SandboxOutcome, TableInfo } from '../sandbox/session.ts';
 import { SqlEditor } from '../sandbox/SqlEditor.tsx';
+import { SqlErrorNotice } from '../sandbox/SqlErrorNotice.tsx';
 import { engine } from '../sql/browser.ts';
 import type { ResultSet } from '../sql/engine.ts';
 import type { Exercise } from '../themes/contract.ts';
@@ -46,7 +47,9 @@ function shown(resultSet: ResultSet): ResultSet {
     : { ...resultSet, rows: resultSet.rows.slice(0, SHOWN_ROWS), truncated: true };
 }
 
-function VerdictView({ verdict, student }: { verdict: Verdict; student: ResultSet | null }) {
+function VerdictView({ verdict, student, tables }: { verdict: Verdict; student: ResultSet | null; tables: readonly TableInfo[] }) {
+  if (verdict.kind === 'error') return <SqlErrorNotice message={verdict.message} tables={tables} />;
+
   const timeout = verdict.kind === 'timeout';
   return (
     <div className="results">
@@ -232,9 +235,9 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
           {busy ? (
             <p role="status">Esecuzione…</p>
           ) : output?.kind === 'run' ? (
-            <ResultsView outcome={output.outcome} />
+            <ResultsView outcome={output.outcome} tables={training.db.tables} />
           ) : output?.kind === 'verify' ? (
-            <VerdictView verdict={output.verdict} student={output.student} />
+            <VerdictView verdict={output.verdict} student={output.student} tables={training.db.tables} />
           ) : output?.kind === 'broken' ? (
             <div className="notice notice-error" role="alert">
               <Icon name="circle-xmark" />

@@ -1,6 +1,9 @@
+/** Risultati delle query ed esiti delle azioni della sandbox. */
+
 import { Icon } from '../icons/Icon.tsx';
 import type { ResultSet, SqlValue } from '../sql/engine.ts';
-import type { SandboxOutcome } from './session.ts';
+import { SqlErrorNotice } from './SqlErrorNotice.tsx';
+import type { SandboxOutcome, TableInfo } from './session.ts';
 
 function Cell({ value }: { value: SqlValue }) {
   if (value === null) return <td><span className="null">NULL</span></td>;
@@ -12,6 +15,7 @@ function righe(n: number): string {
   return n === 1 ? '1 riga' : `${n} righe`;
 }
 
+/** Tabella di un risultato SQL, con il numero di righe nella didascalia. */
 export function ResultTable({ resultSet, caption }: { resultSet: ResultSet; caption: string }) {
   const { columns, rows, totalRows, truncated } = resultSet;
   return (
@@ -52,20 +56,12 @@ export function ResultTable({ resultSet, caption }: { resultSet: ResultSet; capt
 }
 
 /** Esito dell’ultima azione nella sandbox: risultati, errore di SQLite, interruzione o ripristino. */
-export function ResultsView({ outcome }: { outcome: SandboxOutcome | undefined }) {
+export function ResultsView({ outcome, tables }: { outcome: SandboxOutcome | undefined; tables: readonly TableInfo[] }) {
   if (!outcome) return null;
 
   switch (outcome.kind) {
     case 'sql-error':
-      return (
-        <div className="notice notice-error" role="alert">
-          <Icon name="circle-xmark" />
-          <div>
-            <p className="notice-title">Errore di SQLite</p>
-            <pre>{outcome.message}</pre>
-          </div>
-        </div>
-      );
+      return <SqlErrorNotice message={outcome.message} tables={tables} />;
     case 'timeout':
       return (
         <div className="notice notice-warning" role="alert">

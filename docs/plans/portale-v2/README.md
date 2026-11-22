@@ -12,7 +12,7 @@
 | F08 | Scegliere le IP dei nuovi mondi e definirne i livelli | — | Opus | Sol | `medium` | medio | da fare |  | [P-F08](#p-f08) | [F08](F08-scegliere-mondi-livelli.md) |
 | F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
 | F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 19:30 | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
-| F11 | Spiegare in italiano gli errori di SQLite | — | Opus | Sol | `medium` | medio | da fare |  | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
+| F11 | Spiegare in italiano gli errori di SQLite | — | Opus | Sol | `medium` | medio | completata | 2026-11-22 22:08 | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
 | F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
 | F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | da fare |  | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
 | F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
@@ -521,3 +521,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F05 completata (Codex, Sol). La notifica mostra premio, saldo e stato dello zaino. Marco ha confermato la scrittura immediata dopo una risposta corretta. Prove superate su entrambi i temi con lo zaino locale. Segue la revisione su Claude Code con Opus. |
 | 2026-11-21 | Revisione di F05 (Claude Code, Opus): nessun difetto, criteri rieseguiti. F03 completata (Claude Code, Opus): classifica A2 approvata da Marco (podio e lista, colonna dei mondi per livello con la posizione in ognuno), zaino con quattro caselle numerate e creazione in tre passi; specifica `docs/design/zaino-classifica.md`, palette `zaino-classifica`, 37 coppie sopra la soglia. Nessuna modifica al servizio. |
 | 2026-11-21 | F07 completata (Codex, Sol). Zaino con apertura a quattro caselle e creazione in tre passi. Classifica con podio, lista e posizione per mondo, collaudata con lo zaino a 1280 e 375 px. Segue la revisione incrociata su Claude Code con Opus. |
+| 2026-11-22 | F11 completata (Codex, Sol). Testi approvati da Marco. Spiegazioni, indizi dallo schema e messaggio originale verificati nella sandbox e negli esercizi. |
