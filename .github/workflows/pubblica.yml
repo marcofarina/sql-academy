@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
   workflow_dispatch:
 
 # Una sola pubblicazione alla volta; quella in corso arriva in fondo.
@@ -27,11 +28,14 @@ jobs:
       - run: npm run check:themes
       - run: node scripts/classifica-dati.ts --controlla
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     name: Pubblica
     needs: build
     permissions:

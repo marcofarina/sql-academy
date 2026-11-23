@@ -11,3 +11,7 @@ dist/
 
 # Stato locale di wrangler (D1 locale del servizio della classifica)
 .wrangler/
+
+# Risultati locali dei test end-to-end
+test-results/
+playwright-report/

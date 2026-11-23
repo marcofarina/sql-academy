@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "check:themes": "node scripts/check-themes.ts",
     "classifica:dati": "node scripts/classifica-dati.ts",
-    "nuovo-tema": "node scripts/nuovo-tema.ts"
+    "nuovo-tema": "node scripts/nuovo-tema.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@codemirror/lang-sql": "^6.10.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

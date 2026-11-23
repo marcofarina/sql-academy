@@ -38,4 +38,9 @@ Fuori: test visivi a confronto di immagini, salvo richiesta di Marco.
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+In corso il 2026-11-23 (Codex; predefinito Terra in `~/.codex/config.toml`, scelta effettiva non verificabile). Marco ha approvato `@playwright/test` e Chromium soltanto.
+
+- Suite in `e2e/`, su build di produzione e servizi esterni intercettati; copre i due mondi, sandbox, risposta errata e corretta, saldo e suggerimento pagato, ripresa sessione, barra e ritorno, creazione zaino e classifica simulati.
+- Superati: build, tre esecuzioni consecutive di `npm run test:e2e` (sei test ciascuna), lint, 295 test unitari, `check:themes`, controllo dati classifica e `git diff --check`. Due avvisi Star Wars e avviso dimensione bundle preesistenti. Durante lo sviluppo sono state corrette due aspettative della suite.
+- Scostamento: il workflow esegue i controlli anche su `dev`, ma il job di pubblicazione resta riservato a `main`, per permettere una verifica remota senza pubblicare.
+- Da fare: ottenere il via di Marco per il push, verificare il run remoto e registrare l’esito. Solo allora chiudere la fase. Il push di `dev` comprende anche i commit locali precedenti. Consumo reale non disponibile.
