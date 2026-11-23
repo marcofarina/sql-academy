@@ -109,7 +109,10 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
         review={{ due: due.length, nextAt: nextReviewAt(ids, progress) }}
         last={lastExercise(sortExercises(training.exercises), progress)}
         onReset={() => { abandon(); clearGuide(); actions.reset(); }}
-        onResume={resume}
+        onResume={() => {
+          if (session?.finished && session.review) setSession(undefined);
+          else resume();
+        }}
         onReview={() => setSession(startReview(progress, due))}
         onAbandon={pending ? abandon : undefined}
       />

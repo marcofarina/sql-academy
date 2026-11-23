@@ -17,6 +17,7 @@
  */
 import { useSyncExternalStore } from 'react';
 import { decodeConsegna, TITOLO_MAX } from '../consegna/consegna.ts';
+import { MAX_QUERY_LENGTH } from '../progress/progress.ts';
 import type { ActiveSession, SessionRecord } from './SessionView.tsx';
 
 const SESSION_VERSION = 1;
@@ -96,6 +97,7 @@ export function parseSession(text: string | null, epoch: number, exerciseIds: st
       baseline: s.baseline as ActiveSession['baseline'],
       finished: false,
       ...(s.review === true ? { review: true as const } : {}),
+      ...(s.review === true && typeof s.reviewDraft === 'string' ? { reviewDraft: s.reviewDraft.slice(0, MAX_QUERY_LENGTH) } : {}),
       ...(consegna ? { consegna } : {}),
     };
   } catch {

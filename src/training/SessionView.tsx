@@ -2,7 +2,7 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Icon } from '../icons/Icon.tsx';
 import { SessionIcon } from './SessionIcon.tsx';
 import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
-import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
+import { exerciseProgress, MAX_QUERY_LENGTH, type ThemeProgress } from '../progress/progress.ts';
 import { pointsLabel } from '../points/labels.ts';
 import type { ProgressActions } from '../progress/useProgress.ts';
 import { formatRoute } from '../routing/route.ts';
@@ -40,6 +40,8 @@ export interface ActiveSession {
   finished: boolean;
   /** Un ripasso (`src/training/review.ts`) invece di una sessione configurata. */
   review?: true;
+  /** Query dell’esercizio corrente del ripasso, conservata nella sola sessione. */
+  reviewDraft?: string;
   /** Una consegna del docente (`src/consegna/consegna.ts`): il codice del link e il titolo, se c’è. */
   consegna?: { code: string; title?: string };
   /** Quando la sessione è finita, in millisecondi: il riepilogo della consegna lo mostra. */
@@ -366,7 +368,8 @@ export function SessionView({ themeId, training, progress, actions, session, onS
     const skipped = pending ? { [id]: { ...current, review: conclude(false) } } : {};
     const records = { ...session.records, ...skipped };
     onSession(
-      last ? { ...session, records, finished: true, finishedAt: Date.now() } : { ...session, records, index: session.index + 1 },
+      last ? { ...session, records, finished: true, finishedAt: Date.now() }
+        : { ...session, records, index: session.index + 1, reviewDraft: undefined },
     );
   };
 
@@ -388,7 +391,12 @@ export function SessionView({ themeId, training, progress, actions, session, onS
         training={training}
         actions={actions}
         onEvent={record}
-        review={review}
+        review={review ? {
+          draft: session.reviewDraft ?? '',
+          hintsRevealed: current.hints,
+          solutionSeen: current.solutionSeen,
+          onChange: (query) => onSession((now) => now && { ...now, reviewDraft: query.slice(0, MAX_QUERY_LENGTH) }),
+        } : undefined}
         footer={
           <button type="button" className="primary" onClick={advance}>
             <Icon name={last ? 'flag' : 'circle-arrow-right'} />

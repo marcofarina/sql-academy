@@ -77,6 +77,13 @@ test('il ripasso è una sessione con i punti di partenza', () => {
   });
 });
 
+test('un altro ripasso prima della nuova scadenza non cambia l’esito già registrato', () => {
+  const now = 10 * DAY;
+  const progress = progressOf({ a: exercise({ solved: true, reviewStep: 1, reviewAt: now }) });
+  expect(withReview(progress, 'a', false, now + 1)).toBe(progress);
+  expect(withReview(progress, 'a', true, now + DAY)).toBe(progress);
+});
+
 test('giorni che mancano, per eccesso', () => {
   expect(daysUntil(DAY / 2, 0)).toBe(1);
   expect(daysUntil(3 * DAY + 1, 0)).toBe(4);

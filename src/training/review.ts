@@ -58,10 +58,12 @@ export function nextReviewAt(ids: readonly string[], progress: ThemeProgress): n
   return dates.length > 0 ? Math.min(...dates) : undefined;
 }
 
-/** Registra l’esito di un ripasso: riuscito sale di un gradino, fallito torna al primo. */
+/** Registra l’esito di un ripasso in scadenza: riuscito sale di un gradino, fallito torna al primo. */
 export function withReview(progress: ThemeProgress, id: string, success: boolean, now = Date.now()): ThemeProgress {
   const state = exerciseProgress(progress, id);
-  if (!state.solved) return progress;
+  const dueAt = reviewDueAt(state);
+  // Un’altra sessione può aver già registrato il ripasso e spostato la scadenza.
+  if (dueAt === undefined || dueAt > now) return progress;
   return {
     ...progress,
     exercises: {

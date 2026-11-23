@@ -42,7 +42,7 @@ interface ExerciseWorkspaceProps {
    * Ripasso di un esercizio risolto: editor vuoto, parole chiave nascoste,
    * suggerimenti e soluzione richiusi e riaperti solo in questa pagina.
    */
-  review?: boolean;
+  review?: { draft: string; hintsRevealed: number; solutionSeen: boolean; onChange(query: string): void };
   /** Comandi di navigazione sotto l’esercizio. */
   footer?: ReactNode;
 }
@@ -77,13 +77,13 @@ function VerdictView({ verdict, student, tables }: { verdict: Verdict; student: 
  * Il pulsante di un aiuto, con il prezzo scritto sopra. Se è disattivato, il
  * motivo sta in una riga visibile sotto, collegata al pulsante con `aria-describedby`.
  */
-function HelpButton({ icon, label, offer, balance, onClick }: { icon: string; label: string; offer: Offer; balance: number; onClick(): void }) {
+function HelpButton({ icon, label, offer, balance, disabled, onClick }: { icon: string; label: string; offer: Offer; balance: number; disabled?: boolean; onClick(): void }) {
   const reasonId = useId();
   const reason = disabledReason(offer, balance);
   const free = offer.status === 'available' && offer.waiver !== null;
   return (
     <div className="help-action">
-      <button type="button" onClick={onClick} disabled={reason !== undefined} aria-describedby={reason ? reasonId : undefined}>
+      <button type="button" onClick={onClick} disabled={disabled || reason !== undefined} aria-describedby={reason ? reasonId : undefined}>
         <Icon name={icon} />
         {label}
         <span className={free ? 'cost is-free' : 'cost'}>
@@ -102,14 +102,13 @@ function HelpButton({ icon, label, offer, balance, onClick }: { icon: string; la
 }
 
 /** Un esercizio: consegna, tabelle, editor, verifica, aiuti e segnalazioni. */
-export function ExerciseWorkspace({ exercise, progress: themeProgress, training, actions, onEvent, review = false, footer }: ExerciseWorkspaceProps) {
+export function ExerciseWorkspace({ exercise, progress: themeProgress, training, actions, onEvent, review, footer }: ExerciseWorkspaceProps) {
   const themeIcons = useThemeIcons();
   const saved = exerciseProgress(themeProgress, exercise.id);
-  // Nel ripasso gli aiuti già aperti si richiudono: contano solo quelli aperti qui, sempre gratis.
-  const [reviewHelp, setReviewHelp] = useState({ hintsRevealed: 0, solutionSeen: false });
-  const progress = review ? { ...saved, ...reviewHelp } : saved;
+  // Nel ripasso contano solo gli aiuti aperti nella sessione.
+  const progress = review ? { ...saved, hintsRevealed: review.hintsRevealed, solutionSeen: review.solutionSeen } : saved;
   const wallet = walletOf(themeProgress);
-  const [initialQuery] = useState(review ? '' : saved.lastQuery);
+  const [initialQuery] = useState(review?.draft ?? saved.lastQuery);
   const [query, setQuery] = useState(initialQuery);
   const [output, setOutput] = useState<Output>();
   const [busy, setBusy] = useState(false);
@@ -171,20 +170,19 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
 
   const changeQuery = (value: string) => {
     setQuery(value);
-    actions.saveQuery(exercise.id, value);
+    if (review) review.onChange(value);
+    else actions.saveQuery(exercise.id, value);
   };
 
   const revealHint = () => {
     if (!canRevealHint(exercise, progress, wallet)) return;
-    if (review) setReviewHelp((help) => ({ ...help, hintsRevealed: help.hintsRevealed + 1 }));
-    else actions.openHint(exercise);
+    if (!review) actions.openHint(exercise);
     onEvent?.({ kind: 'hint' });
   };
 
   const revealSolution = () => {
     if (!canRevealSolution(exercise, progress, wallet)) return;
-    if (review) setReviewHelp((help) => ({ ...help, solutionSeen: true }));
-    else actions.openSolution(exercise);
+    if (!review) actions.openSolution(exercise);
     onEvent?.({ kind: 'solution' });
   };
 
@@ -282,7 +280,14 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
                 />
               )}
               {solution.status !== 'unavailable' && (
-                <HelpButton icon="key" label="Mostra la soluzione" offer={solution} balance={wallet.balance} onClick={revealSolution} />
+                <HelpButton
+                  icon="key"
+                  label="Mostra la soluzione"
+                  offer={solution}
+                  balance={wallet.balance}
+                  disabled={!!review && busy}
+                  onClick={revealSolution}
+                />
               )}
             </div>
           )}
