@@ -16,6 +16,8 @@ import { LogicalSection } from '../logical/LogicalSection.tsx';
 import { CatalogSection } from '../training/CatalogSection.tsx';
 import { TrainingSection } from '../training/TrainingSection.tsx';
 import { useTraining } from '../training/useTraining.ts';
+import { guideSeen, markGuideSeen } from '../guide/guide.ts';
+import { GUIDE_ID, ThemeGuide } from '../guide/ThemeGuide.tsx';
 
 /** Mostra le sei sezioni del tema nella veste scelta. */
 export function ThemePage({ theme, section, item, consegna }: { theme: Theme; section: SectionId; item?: string; consegna?: ThemeRoute['consegna'] }) {
@@ -41,6 +43,14 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
   const training = useTraining(theme);
   const { progress, balance, ...progressActions } = useProgress(id);
   const current = SECTIONS.find((s) => s.id === section)!;
+  // La guida compare da sola al primo ingresso; dopo si riapre dal pulsante «Guida» della barra.
+  const [guide, setGuide] = useState<'chiusa' | 'aperta' | 'riaperta'>(() => (guideSeen() ? 'chiusa' : 'aperta'));
+  const closeGuide = () => {
+    markGuideSeen();
+    const reopened = guide === 'riaperta';
+    setGuide('chiusa');
+    if (reopened) document.querySelector<HTMLElement>(`[aria-controls="${GUIDE_ID}"]`)?.focus();
+  };
 
   useEffect(() => {
     document.title = `${current.label} · ${title} · SQL Academy`;
@@ -62,7 +72,11 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
   );
 
   return (
-    <SiteLayout page="theme" theme={{ id, title, emblem: activeIcons.emblem, balance, scheme: schemes ? scheme : undefined, switcher }}>
+    <SiteLayout
+      page="theme"
+      theme={{ id, title, emblem: activeIcons.emblem, balance, scheme: schemes ? scheme : undefined, switcher }}
+      guide={{ open: guide !== 'chiusa', onOpen: () => setGuide('riaperta') }}
+    >
       <nav className="sections" aria-label="Sezioni del tema">
         <ul>
           {SECTIONS.map((s) => (
@@ -81,6 +95,7 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
       </nav>
       <ThemeIconsContext value={activeIcons}>
       <main className="page">
+        {guide !== 'chiusa' && <ThemeGuide focus={guide === 'riaperta'} onClose={closeGuide} />}
         {/* La traccia usa come titolo quello del suo testo. */}
         {section !== 'traccia' && (
           <h1>

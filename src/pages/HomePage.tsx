@@ -1,9 +1,14 @@
 /** Locandine e schede dei temi nella pagina iniziale. */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { Icon } from '../icons/Icon.tsx';
-import { formatRoute } from '../routing/route.ts';
-import { CHAPTERS, DIFFICULTIES, type Theme } from '../themes/contract.ts';
-import { plural } from '../training/exercises.ts';
+import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
+import { CHAPTERS, DIFFICULTIES, type Exercise, type Theme } from '../themes/contract.ts';
+import { plural, sortExercises } from '../training/exercises.ts';
+import { lastExercise, RESUME_LABEL } from '../training/resume.ts';
+import { SessionIcon } from '../training/SessionIcon.tsx';
+import { sessionKind } from '../training/session.ts';
+import { loadSession } from '../training/sessionStorage.ts';
+import { storageDi } from '../zaino/area.ts';
 import { balanceOf } from '../progress/progress.ts';
 import { useThemeProgress } from '../progress/useProgress.ts';
 import { pointsLabel } from '../points/labels.ts';
@@ -382,7 +387,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
                   }}
                   onKeyDown={trapFocus}
                 >
-                  <PosterCard poster={poster} titleId={`card-title-${index}`} onClose={closeCard} />
+                  <PosterCard poster={poster} titleId={`card-title-${index}`} isOpen={isOpen} onClose={closeCard} />
                 </div>
               </div>
               <button
@@ -456,7 +461,56 @@ function PosterFront({ poster }: { poster: Poster }) {
   );
 }
 
-function PosterCard({ poster, titleId, onClose }: { poster: Poster; titleId: string; onClose: () => void }) {
+/** Dove riprendere un tema dalla sua scheda: la sessione salvata, se c’è, altrimenti l’ultimo esercizio. */
+type Resume = { text: string; label: string; href: string; session: boolean };
+
+/**
+ * «Riprendi da dove eri» sulla scheda di un tema (F16 del piano `portale-v2`).
+ * Gli esercizi si caricano solo quando la scheda si apre per la prima volta.
+ */
+function useResume(theme: Theme | undefined, isOpen: boolean): Resume | undefined {
+  const themeId = theme?.manifest.id ?? '';
+  const progress = useThemeProgress(themeId);
+  const [exercises, setExercises] = useState<Exercise[]>();
+  useEffect(() => {
+    if (!theme || !isOpen || exercises) return;
+    let active = true;
+    theme.loadExercises().then(
+      (loaded) => {
+        if (active) setExercises(sortExercises(loaded));
+      },
+      () => undefined, // Senza esercizi la scheda resta com’era: c’è sempre «Entra».
+    );
+    return () => {
+      active = false;
+    };
+  }, [theme, isOpen, exercises]);
+
+  if (!theme || !exercises || !isOpen) return undefined;
+  const ids = exercises.map((e) => e.id);
+  const session = loadSession(storageDi(), themeId, progress.epoch, ids);
+  if (session) {
+    const kind = sessionKind(session);
+    const name = { sessione: 'Sessione', ripasso: 'Ripasso', consegna: 'Consegna' }[kind];
+    return {
+      text: `${name} in corso: esercizio ${session.index + 1} di ${session.exerciseIds.length}`,
+      label: RESUME_LABEL[kind],
+      href: formatRoute({ page: 'theme', themeId, section: 'addestramento', item: SESSION_ITEM }),
+      session: true,
+    };
+  }
+  const last = lastExercise(exercises, progress);
+  if (!last) return undefined;
+  return {
+    text: `Ultimo esercizio: «${last.title}»`,
+    label: 'Riprendi da dove eri',
+    href: formatRoute({ page: 'theme', themeId, section: 'addestramento', item: last.id }),
+    session: false,
+  };
+}
+
+function PosterCard({ poster, titleId, isOpen, onClose }: { poster: Poster; titleId: string; isOpen: boolean; onClose: () => void }) {
+  const resume = useResume(poster.kind === 'theme' ? poster.theme : undefined, isOpen);
   const back = (
     <button type="button" onClick={onClose}>
       Rimetti sul tavolo
@@ -527,9 +581,16 @@ function PosterCard({ poster, titleId, onClose }: { poster: Poster; titleId: str
         ) : (
           <p className="card-muted">Tema in preparazione: database ed esercizi arrivano presto.</p>
         )}
+        {ready && resume && <p className="card-resume">{resume.text}</p>}
         <div className="card-actions">
+          {ready && resume && (
+            <a className="button primary" href={resume.href}>
+              {resume.session ? <SessionIcon /> : <Icon name="bullseye" />}
+              {resume.label}
+            </a>
+          )}
           {ready && (
-            <a className="button primary" href={formatRoute({ page: 'theme', themeId: manifest.id, section: 'sandbox' })}>
+            <a className={resume ? 'button' : 'button primary'} href={formatRoute({ page: 'theme', themeId: manifest.id, section: 'sandbox' })}>
               Entra <Icon name="circle-arrow-right" />
             </a>
           )}

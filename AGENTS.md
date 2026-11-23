@@ -55,8 +55,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-23 | F13 di `portale-v2` completata: segnalazioni dagli esercizi del percorso e della sessione, via e-mail o GitHub, con query escludibile e revisione del sito. Informativa aggiornata e prove superate in Chrome nei due temi. |
 | 2026-11-23 | F12 di `portale-v2` completata: ripasso a intervalli di 1, 3, 7 e 21 giorni, zero punti, scelto da Marco (`src/training/review.ts`); campi `solvedAt`, `reviewStep`, `reviewAt` nei progressi, senza migrazione, uniti nello zaino. Da rivedere su Codex. |
 | 2026-11-23 | F14 di `portale-v2` completata: consegna con un link (`#/<tema>/addestramento/consegna/1.<numeri>/<titolo>`, `src/consegna/`), pagina `#/docente` collegata dal piè di pagina, punti normali, avviso prima di sostituire una sessione, riepilogo con data e ora. Scelte di Marco tutte come proposte. Da rivedere su Codex. |
+| 2026-11-23 | F16 di `portale-v2` completata: «Riprendi da dove eri» sulla locandina e nel percorso (`src/training/resume.ts`, dall’ultimo `queryAt`), guida al primo ingresso in un riquadro chiudibile (`src/guide/`), segno `sql-academy:guida` per sito cancellato da «Azzera i progressi» e da «Esci dallo zaino», pulsante «Guida» con la nuova icona RB `circle-question` (commit `f2f64b2` del repo `icone`). Da rivedere su Codex. |
 
-**Prossimo passo** — revisioni di F12 e di F14 su Codex (Sol), poi F16 di `portale-v2`.
+**Prossimo passo** — revisioni di F12, F14 e F16 su Codex (Sol), poi F15 di `portale-v2`.
 
 ## Requisiti di Marco
 

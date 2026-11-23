@@ -17,7 +17,7 @@
 | F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | completata | 2026-11-23 14:53 | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
 | F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | completata | 2026-11-23 16:48 | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
 | F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | da fare |  | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
-| F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
+| F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | completata | 2026-11-23 17:15 | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
 | F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | da fare |  | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
 | F18 | Scrivere i test end-to-end | F05, F07 | Sonnet | Terra | `high` | medio | da fare |  | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
 | F19 | Controllare la qualità degli esercizi | — | Opus | Sol | `medium` | medio | completata | 2026-11-21 12:15 | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
@@ -508,6 +508,8 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | `copy` | copia del link della consegna | F14 | già nel progetto | usata |
 | `dice` | estrazione a caso degli esercizi della consegna | F14 | già nel progetto | usata |
 | `triangle-exclamation` | avvisi della consegna: esercizi tolti, sessione già in corso | F14 | già nel progetto | usata |
+| `circle-question` | pulsante «Guida» della barra del tema e riquadro della guida | F16 | disegnata da Claude Opus, approvata da Marco (commit `f2f64b2` del repo `icone`) | usata |
+| `bullseye` | «Riprendi da dove eri» sulla locandina e nel percorso | F16 | già nel progetto | usata |
 
 ## Aggiornamenti di stato
 
@@ -533,3 +535,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-23 | F13 completata (Codex, Sol): bozze per e-mail e GitHub con query escludibile, informativa aggiornata e prove superate nei due temi. |
 | 2026-11-23 | F12 completata (Claude Code, Opus): regole del ripasso scelte da Marco, tre campi nuovi nei progressi (`solvedAt`, `reviewStep`, `reviewAt`), ripasso come sessione con `review`; verifiche automatiche e prova nel browser superate. Segue la revisione incrociata su Codex con Sol. |
 | 2026-11-23 | F14 completata (Claude Code, Opus): scelte di Marco tutte come proposte (pagina `#/docente` dal piè di pagina, punti normali, avviso prima di sostituire una sessione, riepilogo con data e ora); link `#/<tema>/addestramento/consegna/1.<numeri>/<titolo>`, consegna salvata come sessione con il campo `consegna`; verifiche automatiche e prova nel browser superate. Segue la revisione incrociata su Codex con Sol. |
+| 2026-11-23 | F16 completata (Claude Code, Opus): «Riprendi da dove eri» sulla locandina e nel percorso, ricavato da `queryAt`; guida in un riquadro chiudibile, memoria per sito scelta da Marco, pulsante «Guida» con la nuova icona `circle-question`; verifiche automatiche e prova nel browser superate. Segue la revisione incrociata su Codex con Sol. |

@@ -4,11 +4,17 @@ import { SiteFooter } from '../footer/SiteFooter.tsx';
 import { Icon } from '../icons/Icon.tsx';
 import { Balance } from '../points/Balance.tsx';
 import { formatRoute, type Route } from '../routing/route.ts';
+import { GUIDE_ID } from '../guide/ThemeGuide.tsx';
 import type { Scheme } from '../themes/contract.ts';
 import { ZainoLink } from '../zaino/ZainoLink.tsx';
 
 type LayoutPage =
-  | { page: 'theme'; theme: { id: string; title: string; emblem?: string; balance: number; scheme?: Scheme; switcher?: ReactNode } }
+  | {
+      page: 'theme';
+      theme: { id: string; title: string; emblem?: string; balance: number; scheme?: Scheme; switcher?: ReactNode };
+      /** La guida del tema (F16): se è aperta e come riaprirla. */
+      guide: { open: boolean; onOpen(): void };
+    }
   | { page: 'home' }
   | { page: Exclude<Route['page'], 'home' | 'theme'>; back: { href: string; label: string } };
 
@@ -34,6 +40,19 @@ export function SiteLayout(props: LayoutPage & { children: ReactNode }) {
           </a>
         )}
         {theme && <Balance balance={theme.balance} />}
+        {page === 'theme' && (
+          <button
+            type="button"
+            className="site-guide"
+            aria-controls={GUIDE_ID}
+            aria-expanded={props.guide.open}
+            aria-label="Guida"
+            onClick={props.guide.onOpen}
+          >
+            <Icon name="circle-question" />
+            <span className="site-control-label">Guida</span>
+          </button>
+        )}
         <ZainoLink current={page === 'zaino'} />
         <a
           className="site-ranking"

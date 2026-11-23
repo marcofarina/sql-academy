@@ -291,6 +291,11 @@ h1 .icon-box {
   grid-template-columns: auto minmax(0, 1fr) auto auto;
 }
 
+/* Nella barra del tema c’è una colonna in più, per il pulsante «Guida» (F16). */
+.site-bar--theme {
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto auto auto;
+}
+
 .site-bar a {
   display: inline-flex;
   align-items: center;
@@ -330,9 +335,40 @@ h1 .icon-box {
 }
 
 .site-back,
-.site-ranking {
+.site-ranking,
+.site-guide {
   gap: 7px;
   min-height: 44px;
+}
+
+.site-guide {
+  grid-column: 4;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-link);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.site-guide .icon {
+  height: 19px;
+}
+
+/* Fra telefono e schermi larghi la scritta «Guida» toglierebbe spazio al nome del tema. */
+@media (max-width: 72rem) {
+  .site-guide {
+    min-width: 44px;
+    justify-content: center;
+  }
+
+  .site-guide .site-control-label {
+    display: none;
+  }
 }
 
 .site-back {
@@ -350,7 +386,7 @@ h1 .icon-box {
 }
 
 .site-bar--theme .site-ranking {
-  grid-column: 5;
+  grid-column: 6;
 }
 
 .site-ranking[aria-current='page'],
@@ -398,7 +434,7 @@ h1 .icon-box {
 
 /* Selettore dello schema chiaro / scuro */
 .scheme-switch {
-  grid-column: 6;
+  grid-column: 7;
   grid-row: 1;
   position: relative;
   display: inline-grid;
@@ -527,6 +563,22 @@ h1 .icon-box {
   .site-bar .site-ranking {
     grid-column: 5;
     justify-content: center;
+  }
+
+  .site-bar.site-bar--theme {
+    grid-template-columns: auto minmax(0, 1fr) auto 44px 44px 44px;
+  }
+
+  .site-bar--theme .site-guide {
+    justify-content: center;
+  }
+
+  .site-bar.site-bar--theme .zaino-link {
+    grid-column: 5;
+  }
+
+  .site-bar.site-bar--theme .site-ranking {
+    grid-column: 6;
   }
 
   .site-control-label {
@@ -797,6 +849,23 @@ kbd {
 .sql-error pre {
   margin-top: 0.5rem;
   font-size: 0.8125em;
+}
+
+.theme-guide {
+  margin-bottom: 1.25rem;
+}
+
+.theme-guide h2.notice-title {
+  margin: 0 0 0.25rem;
+  font-size: 1em;
+}
+
+.theme-guide p + p {
+  margin-top: 0.5rem;
+}
+
+.theme-guide .toolbar {
+  margin-top: 0.75rem;
 }
 
 .notice-error {
@@ -2193,6 +2262,17 @@ button.link-button {
 
 
 
+.card-resume {
+  margin: auto 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--home-rule);
+  font-weight: 700;
+}
+
+.card-resume + .card-actions {
+  margin-top: 0;
+}
+
 .card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -2303,7 +2383,7 @@ button.link-button {
 }
 
 .site-bar--theme .zaino-link {
-  grid-column: 4;
+  grid-column: 5;
 }
 
 .zaino-link:hover {

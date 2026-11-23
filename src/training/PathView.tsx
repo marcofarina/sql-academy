@@ -7,14 +7,8 @@ import { SessionIcon } from './SessionIcon.tsx';
 import { Reward } from '../points/Reward.tsx';
 import { buildPath, chapterLabel, DIFFICULTY_LABEL, plural } from './exercises.ts';
 import { daysUntil } from './review.ts';
+import { RESUME_LABEL } from './resume.ts';
 import type { SessionKind } from './session.ts';
-
-/** «Riprendi la sessione», «Riprendi il ripasso», «Riprendi la consegna». */
-const RESUME_LABEL: Record<SessionKind, string> = {
-  sessione: 'Riprendi la sessione',
-  ripasso: 'Riprendi il ripasso',
-  consegna: 'Riprendi la consegna',
-};
 
 interface PathViewProps {
   themeId: string;
@@ -26,6 +20,8 @@ interface PathViewProps {
   sessionKind?: SessionKind;
   /** Quanti esercizi sono da ripassare adesso e, se nessuno, quando arriva il prossimo. */
   review: { due: number; nextAt: number | undefined };
+  /** L’ultimo esercizio su cui lo studente ha scritto, per «Riprendi da dove eri» (F16). */
+  last?: Exercise;
   onReset(): void;
   onResume(): void;
   /** Avvia il ripasso degli esercizi da ripassare. */
@@ -54,7 +50,7 @@ function ReviewNote({ review }: { review: PathViewProps['review'] }) {
 }
 
 /** Il percorso: gli esercizi per capitolo del libro e difficoltà, con lo stato di ciascuno. */
-export function PathView({ themeId, exercises, progress, sessionStatus, sessionKind = 'sessione', review, onReset, onResume, onReview, onAbandon }: PathViewProps) {
+export function PathView({ themeId, exercises, progress, sessionStatus, sessionKind = 'sessione', review, last, onReset, onResume, onReview, onAbandon }: PathViewProps) {
   const link = (item: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item });
   const themeIcons = useThemeIcons();
 
@@ -76,6 +72,13 @@ export function PathView({ themeId, exercises, progress, sessionStatus, sessionK
             : 'Nuova sessione'}
         </a>
         {onAbandon && <button type="button" onClick={onAbandon}>{sessionKind === 'ripasso' ? 'Abbandonalo' : 'Abbandonala'}</button>}
+        {/* Con una sessione in corso vale quella: «Riprendi da dove eri» compare solo senza. */}
+        {!sessionStatus && last && (
+          <a className="button" href={link(last.id)} title={last.title}>
+            <Icon name="bullseye" />
+            Riprendi da dove eri
+          </a>
+        )}
         {!sessionStatus && (review.due > 0 ? (
           <a className="button" href={link(SESSION_ITEM)} onClick={onReview}>
             <Icon name="circle-arrow-rotate-left" />

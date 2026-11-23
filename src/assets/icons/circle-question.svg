@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- RB Icons · circle-question -->
+  <path class="rb-secondary" fill="currentColor" opacity=".4" d="M0 256A256 256 0 0 1 512 256A256 256 0 0 1 0 256ZM168 184A24 24 0 0 0 216 184A40 40 0 1 1 276 218.6A88 88 0 0 0 232 294.9A24 24 0 0 0 280 294.9A40 40 0 0 1 300 260.2A88 88 0 1 0 168 184ZM224 384A32 32 0 0 0 288 384A32 32 0 0 0 224 384Z"/>
+  <path class="rb-primary" fill="currentColor" d="M168 184A88 88 0 1 1 300 260.2A40 40 0 0 0 280 294.9A24 24 0 0 1 232 294.9A88 88 0 0 1 276 218.6A40 40 0 1 0 216 184A24 24 0 0 1 168 184ZM224 384A32 32 0 0 1 288 384A32 32 0 0 1 224 384Z"/>
+</svg>

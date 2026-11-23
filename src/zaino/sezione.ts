@@ -20,6 +20,7 @@ import { THEME_ID_PATTERN } from '../themes/contract.ts';
 import { emptyProgress, mergeProgress, readThemeData, type ThemeProgress } from '../progress/progress.ts';
 import { clearAllProgress, readProgress, replaceProgress, storedThemeIds, subscribeLocalChanges } from '../progress/store.ts';
 import { clearAllSessions } from '../training/sessionStorage.ts';
+import { clearGuide } from '../guide/guide.ts';
 import { storageDi } from './area.ts';
 import {
   NESSUNA_ADESIONE,
@@ -96,6 +97,8 @@ export const sezioneSqlAcademy: TipoSezione<DatiSqlAcademy> = {
     clearAllProgress();
     // La sessione in corso è legata ai progressi appena tolti: va via con loro.
     clearAllSessions(storageDi());
+    // Anche la guida già vista (F16): chi usa il computer dopo la ritrova.
+    clearGuide(storageDi());
     svuotaAdesione();
   },
 };
