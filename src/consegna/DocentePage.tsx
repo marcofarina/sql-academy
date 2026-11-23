@@ -96,15 +96,15 @@ export function DocentePage({ themes }: { themes: Theme[] }) {
   const extract = () =>
     setSelected((now) => [...now, ...shuffle(free.map((e) => e.id)).slice(0, Math.max(0, CONSEGNA_MAX - now.length)).slice(0, size)]);
   const sort = () => setSelected((now) => sortExercises(now.map((id) => byId.get(id)!)).map((e) => e.id));
-  const copy = () => {
+  const copy = async () => {
     if (!link) return;
-    navigator.clipboard.writeText(link).then(
-      () => setCopia({ link, ok: true }),
-      () => {
-        (document.getElementById('consegna-link') as HTMLInputElement | null)?.select();
-        setCopia({ link, ok: false });
-      },
-    );
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopia({ link, ok: true });
+    } catch {
+      (document.getElementById('consegna-link') as HTMLInputElement | null)?.select();
+      setCopia({ link, ok: false });
+    }
   };
 
   const set = (change: Partial<CatalogFilters>) => setFilters({ ...filters, ...change });

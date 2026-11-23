@@ -15,8 +15,8 @@ import type { ConsegnaLetta } from './consegna.ts';
 interface ConsegnaIntroProps {
   themeId: string;
   letta: ConsegnaLetta;
-  /** Il codice del link, per riconoscere la stessa consegna già cominciata. */
-  code: string | undefined;
+  /** La consegna del link è quella già in corso. */
+  same: boolean;
   exercises: Exercise[];
   /** La sessione in corso nel tema, se c’è: salvata o in memoria. */
   pending: ActiveSession | undefined;
@@ -52,11 +52,10 @@ function ConsegnaNonValida({ reason, themeId }: { reason: 'illeggibile' | 'vuota
 }
 
 /** La consegna del link, prima di cominciarla. */
-export function ConsegnaIntro({ themeId, letta, code, exercises, pending, onStart, onResume }: ConsegnaIntroProps) {
+export function ConsegnaIntro({ themeId, letta, same, exercises, pending, onStart, onResume }: ConsegnaIntroProps) {
   if (!letta.ok) return <ConsegnaNonValida reason={letta.reason} themeId={themeId} />;
 
   const byId = new Map(exercises.map((e) => [e.id, e]));
-  const same = pending?.consegna?.code === code;
   const other = pending && !same ? IN_CORSO[sessionKind(pending)] : undefined;
   const sessionLink = formatRoute({ page: 'theme', themeId, section: 'addestramento', item: SESSION_ITEM });
 

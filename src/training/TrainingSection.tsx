@@ -7,7 +7,7 @@ import { Icon } from '../icons/Icon.tsx';
 import type { ThemeProgress } from '../progress/progress.ts';
 import type { ProgressActions } from '../progress/useProgress.ts';
 import { CONSEGNA_ITEM, formatRoute, SESSION_ITEM, type ThemeRoute } from '../routing/route.ts';
-import { readConsegna } from '../consegna/consegna.ts';
+import { readConsegna, sameConsegna } from '../consegna/consegna.ts';
 import { ConsegnaIntro } from '../consegna/ConsegnaIntro.tsx';
 import { ExerciseWorkspace } from './ExerciseWorkspace.tsx';
 import { plural, sortExercises } from './exercises.ts';
@@ -140,7 +140,7 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
       ? readConsegna(consegna, training.exercises.map((e) => e.id))
       : ({ ok: false, reason: 'illeggibile' } as const);
     // La consegna di questo link è già in memoria: si svolge, o se ne vede il riepilogo.
-    if (letta.ok && consegna && session?.consegna?.code === consegna.code) {
+    if (letta.ok && consegna && session && sameConsegna(session.consegna, consegna)) {
       return (
         <SessionView
           themeId={themeId}
@@ -168,7 +168,7 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
       <ConsegnaIntro
         themeId={themeId}
         letta={letta}
-        code={consegna?.code}
+        same={consegna !== undefined && sameConsegna(pending?.consegna, consegna)}
         exercises={training.exercises}
         pending={pending}
         onStart={start}

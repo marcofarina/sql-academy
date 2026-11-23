@@ -63,13 +63,23 @@ function idOf(part: string): string | undefined {
 
 /** Il titolo pulito: spazi compattati, al massimo `TITOLO_MAX` caratteri; `undefined` se vuoto. */
 export function cleanTitle(title: string | undefined): string | undefined {
-  const clean = (title ?? '').replace(/\s+/g, ' ').trim().slice(0, TITOLO_MAX).trim();
-  return clean === '' ? undefined : clean;
+  const clean = (title ?? '').replace(/\s+/g, ' ').trim().slice(0, TITOLO_MAX);
+  // Con il flag u, la classe trova solo i surrogati isolati, anche dopo il taglio.
+  const safe = clean.replace(/[\uD800-\uDFFF]/gu, '').trim();
+  return safe === '' ? undefined : safe;
 }
 
 /** Il codice della consegna per gli esercizi `ids`, nell’ordine dato. */
 export function encodeConsegna(ids: readonly string[]): string {
   return [String(CONSEGNA_VERSION), ...ids.map(token)].join('.');
+}
+
+/** Stessi esercizi nello stesso ordine e stesso titolo, anche se il codice ha un punto finale. */
+export function sameConsegna(saved: ConsegnaLink | undefined, link: ConsegnaLink): boolean {
+  if (!saved || cleanTitle(saved.title) !== cleanTitle(link.title)) return false;
+  const savedIds = decodeConsegna(saved.code);
+  const ids = decodeConsegna(link.code);
+  return !!savedIds && !!ids && savedIds.length === ids.length && savedIds.every((id, index) => id === ids[index]);
 }
 
 /**

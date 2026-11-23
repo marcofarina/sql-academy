@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { CONSEGNA_MAX, cleanTitle, decodeConsegna, encodeConsegna, readConsegna, TITOLO_MAX } from './consegna.ts';
+import { CONSEGNA_MAX, cleanTitle, decodeConsegna, encodeConsegna, readConsegna, sameConsegna, TITOLO_MAX } from './consegna.ts';
 
 const THEME = ['ex-001', 'ex-003', 'ex-017', 'ex-042', 'ex-101', 'ex-1000', 'nodo-speciale'];
 
@@ -87,4 +87,16 @@ describe('titolo', () => {
   test(`al massimo ${TITOLO_MAX} caratteri`, () => {
     expect(cleanTitle('a'.repeat(TITOLO_MAX + 20))).toHaveLength(TITOLO_MAX);
   });
+
+  test('il taglio di un’emoji lascia un titolo codificabile nel link', () => {
+    const title = cleanTitle('a'.repeat(TITOLO_MAX - 1) + '🌍')!;
+    expect(() => encodeURIComponent(title)).not.toThrow();
+  });
+});
+
+test('riconosce la stessa consegna anche con un codice equivalente e confronta titolo e ordine', () => {
+  const saved = { code: '1.3.17', title: 'Compito di lunedì' };
+  expect(sameConsegna(saved, { code: '1.003.17.', title: ' Compito di  lunedì ' })).toBe(true);
+  expect(sameConsegna(saved, { code: '1.3.17', title: 'Compito di martedì' })).toBe(false);
+  expect(sameConsegna(saved, { code: '1.17.3', title: saved.title })).toBe(false);
 });
