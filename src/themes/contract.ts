@@ -47,12 +47,18 @@ import type { SectionId } from '../routing/route.ts';
 export type { ErDiagram } from '../er/types.ts';
 export type { LogicalLayout } from '../logical/types.ts';
 
+/** Livelli dei mondi, secondo i criteri di `docs/mondi.md`. */
+export const WORLD_LEVELS = ['facile', 'intermedio', 'complesso'] as const;
+export type WorldLevel = (typeof WORLD_LEVELS)[number];
+
 /** Il manifest di un tema: ciò che serve per elencarlo senza caricarne i contenuti. */
 export interface ThemeManifest {
   /** Identificativo stabile, uguale al nome della cartella: minuscole, cifre e trattini. */
   id: string;
   /** Nome mostrato allo studente. */
   title: string;
+  /** Livello del mondo, mostrato sulla locandina e sulla scheda. */
+  level: WorldLevel;
   /** Una o due frasi per l’elenco dei temi e per il retro della locandina. */
   description: string;
   /** Motto in cima al fronte della locandina, sulla pagina iniziale. */

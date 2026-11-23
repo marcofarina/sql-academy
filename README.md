@@ -53,12 +53,14 @@ Proponi a Marco il dominio e lo schema ER prima di scrivere i file. Poi crea:
 
 | File | Contenuto |
 | --- | --- |
-| `theme.ts` | manifest (`id`, `title`, `description`, `motto`, icone, schemi), esportato come `default` |
+| `theme.ts` | manifest (`id`, `title`, `level`, `description`, `motto`, icone, schemi), esportato come `default` |
 | `schema.sql` | le istruzioni `CREATE TABLE`, con le chiavi esterne dichiarate, ogni tabella dopo quelle a cui rimanda |
 | `dati.sql` | le istruzioni `INSERT` |
 | `er.ts` | lo schema ER, nella forma del componente `<DiagrammaER>` del libro; ogni tabella deve tradurre un’entità o un’associazione |
 | `logico.ts` | le posizioni delle tabelle nel diagramma del modello logico, su una griglia (`col`, `riga` da 0, una tabella per cella); colonne, tipi e chiavi si leggono dal database |
 | `traccia.md` | la traccia: il testo del problema da cui nasce il database, come nella seconda prova dell’Esame di Stato; la prima riga `# …` è il titolo della pagina |
+
+Nel manifest, imposta il campo obbligatorio `level` a `facile`, `intermedio` o `complesso` secondo i [criteri per i mondi](docs/mondi.md#livelli). La pagina iniziale mostra il livello sulla locandina e nella scheda. I mondi facili hanno il consiglio «Consigliato per cominciare» nella scheda. `npm run check:themes` segnala i valori mancanti o non ammessi.
 
 Sono obbligatori solo `theme.ts`, `schema.sql` e `dati.sql`. Verifica il caricamento con le chiavi esterne attive (`foreign_key_check` non deve stampare nulla):
 

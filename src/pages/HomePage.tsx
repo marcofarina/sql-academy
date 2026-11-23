@@ -354,6 +354,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
               : { x: drag.x, y: drag.y, rotate: placement.rotate * 0.4, scale: 1.05 };
           }
           const themeId = poster.kind === 'theme' ? poster.theme.manifest.id : undefined;
+          const levelId = themeId ? `poster-level-${themeId}` : undefined;
           const title = poster.kind === 'theme' ? poster.theme.manifest.title : `Tema ${poster.number}`;
           const classes = ['poster', isOpen && 'is-open', isDragging && 'is-dragging'].filter(Boolean).join(' ');
           const duration = flight && !isOpen && !isDragging ? `${flight[index]}s, 0.7s, 0.7s` : undefined;
@@ -375,7 +376,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
             >
               <div className="poster-inner">
                 <div className={poster.kind === 'soon' ? `poster-face poster-front poster-soon${index % 2 ? ' is-b' : ''}` : 'poster-face poster-front'}>
-                  <PosterFront poster={poster} />
+                  <PosterFront poster={poster} levelId={levelId} />
                 </div>
                 <div
                   className="poster-face poster-back"
@@ -397,6 +398,7 @@ export function HomePage({ themes }: { themes: Theme[] }) {
                   openButtons.current[index] = el;
                 }}
                 aria-label={`Apri la scheda di ${title}`}
+                aria-describedby={levelId}
                 tabIndex={isTop ? undefined : -1}
                 aria-hidden={isTop ? undefined : true}
                 onPointerDown={(e) => onPointerDown(index, e)}
@@ -441,7 +443,7 @@ function ThemeBalance({ themeId }: { themeId: string }) {
   );
 }
 
-function PosterFront({ poster }: { poster: Poster }) {
+function PosterFront({ poster, levelId }: { poster: Poster; levelId?: string }) {
   if (poster.kind === 'soon') {
     return (
       <>
@@ -454,6 +456,7 @@ function PosterFront({ poster }: { poster: Poster }) {
   return (
     <>
       <p className="poster-motto">{manifest.motto}</p>
+      <p className="poster-level" id={levelId}>Livello {manifest.level}</p>
       <h2 className="poster-front-title">{manifest.title}</h2>
       {stats && stats.exercises > 0 && <ThemeBalance themeId={manifest.id} />}
       {stats && <p className="poster-credits">{credits(stats)}</p>}
@@ -543,6 +546,10 @@ function PosterCard({ poster, titleId, isOpen, onClose }: { poster: Poster; titl
         <h2 className="card-title" id={titleId}>
           {manifest.title}
         </h2>
+        <p className="card-level">
+          <strong>Livello {manifest.level}</strong>
+          {manifest.level === 'facile' && ' · Consigliato per cominciare'}
+        </p>
         {ready && <ThemeBalance themeId={manifest.id} />}
         <p className="card-description">{manifest.description}</p>
         {ready && stats ? (

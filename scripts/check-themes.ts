@@ -1,6 +1,7 @@
 /**
- * `npm run check:themes`: controlla esercizi, schema ER, modello logico e fogli di stile di tutti i temi fuori
- * dal browser ed esce con un codice diverso da 0 se trova un problema.
+ * `npm run check:themes`: controlla manifest, esercizi, schema ER, modello logico
+ * e fogli di stile di tutti i temi. Gira fuori dal browser ed esce con un codice
+ * diverso da 0 se trova un problema.
  *
  * Gira in Node senza Vite, quindi non usa il registro (`import.meta.glob`):
  * legge le cartelle di `themes/` con gli stessi nomi di file del contratto.
@@ -15,7 +16,7 @@ import { unscopedSelectors } from '../src/themes/cssScope.ts';
 import { PORTAL_PAGES } from '../src/routing/route.ts';
 import { readTables } from '../src/sandbox/session.ts';
 import { createNodeEngine } from '../src/sql/testing/nodeEngine.ts';
-import type { ErDiagram, Exercise, LogicalLayout, ThemeManifest } from '../src/themes/contract.ts';
+import { WORLD_LEVELS, type ErDiagram, type Exercise, type LogicalLayout, type ThemeManifest } from '../src/themes/contract.ts';
 
 const themesUrl = new URL('../themes/', import.meta.url);
 const folders = readdirSync(themesUrl, { withFileTypes: true })
@@ -34,6 +35,9 @@ try {
       const manifest = ((await import(file('theme.ts').href)) as { default: ThemeManifest }).default;
       if (manifest?.id !== folder) throw new Error('l’id del manifest è diverso dal nome della cartella');
       if ((PORTAL_PAGES as readonly string[]).includes(folder)) throw new Error(`l’id «${folder}» è riservato a una pagina del portale`);
+      if (!WORLD_LEVELS.includes(manifest.level)) {
+        throw new Error(`theme.ts richiede un valore per level fra «${WORLD_LEVELS.join('», «')}»`);
+      }
 
       const script = `${readFileSync(file('schema.sql'), 'utf8')}\n${readFileSync(file('dati.sql'), 'utf8')}`;
       const exercises = existsSync(file('esercizi.ts'))

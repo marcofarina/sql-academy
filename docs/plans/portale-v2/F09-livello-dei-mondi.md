@@ -40,4 +40,17 @@ Procedura manuale (`npm run dev`): il livello compare su ogni locandina e sulla 
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+**Esito.** F09 completata il 2026-11-23 20:27 su `dev` con Codex Sol (famiglia del modello letta dal predefinito in `~/.codex/config.toml`).
+
+**Scelte approvate da Marco.** Ogni manifest dichiara `level` con uno dei valori `facile`, `intermedio` o `complesso`. Star Wars e Il Signore degli Anelli dichiarano `intermedio`, come deciso in F08. Sul fronte l’etichetta «Livello …» compare sotto il motto e serve anche da descrizione accessibile del pulsante di apertura. La scheda mostra il livello sotto il titolo e aggiunge «Consigliato per cominciare» quando il livello è facile. Il tavolo e il mazzo mantengono l’ordine approvato. La guida «Aggiungere un tema» documenta i valori ammessi.
+
+**Verifiche.**
+
+- Superati `npm run lint`, `npm test` (295 test), `npm run check:themes`, `npm run build` e `git diff --check`.
+- `check:themes` esce con codice 1 e indica tema e valori ammessi quando `level` manca o vale `medio`. Prove su copie temporanee del manifest.
+- Con `npm run dev` e Chrome a 1280 e 375 px, aperte entrambe le locandine e verificate le etichette sul fronte e nella scheda, la descrizione accessibile del pulsante e il passaggio alla locandina successiva nel mazzo. Provati anche `facile` e `complesso` su un manifest temporaneo, poi ripristinato. Il consiglio compare nella scheda del mondo facile. Contrasto dell’etichetta 15,64:1.
+- Avvisi preesistenti confermati per due esercizi di Star Wars e per la dimensione del bundle.
+
+**Scostamenti dal dettaglio.** Nessuno.
+
+**Lavoro residuo.** In F20 il generatore dovrà valorizzare `level` nel manifest che produce.

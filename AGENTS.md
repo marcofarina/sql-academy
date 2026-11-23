@@ -57,10 +57,10 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-23 | F14 di `portale-v2` completata: consegna con un link (`#/<tema>/addestramento/consegna/1.<numeri>/<titolo>`, `src/consegna/`), pagina `#/docente` collegata dal piè di pagina, punti normali, avviso prima di sostituire una sessione, riepilogo con data e ora. Scelte di Marco tutte come proposte. Da rivedere su Codex. |
 | 2026-11-23 | F16 di `portale-v2` completata: «Riprendi da dove eri» sulla locandina e nel percorso (`src/training/resume.ts`, dall’ultimo `queryAt`), guida al primo ingresso in un riquadro chiudibile (`src/guide/`), segno `sql-academy:guida` per sito cancellato da «Azzera i progressi» e da «Esci dallo zaino», pulsante «Guida» con la nuova icona RB `circle-question` (commit `f2f64b2` del repo `icone`). Da rivedere su Codex. |
 | 2026-11-23 | Revisioni di F16, F12 e F14 completate su Codex Sol. Corretto il fuoco della guida, conservata la bozza del ripasso nella sessione e ripristinato l’avvio di una nuova sessione dopo il ripasso. Le consegne con gli stessi esercizi e titoli diversi chiedono conferma prima di sostituirsi. Verifiche automatiche e collaudo locale in Chrome superati. |
-
 | 2026-11-23 | F15 di `portale-v2` completata: download del database iniziale e degli script nella sandbox; immagine di anteprima approvata da Marco e meta Open Graph. File scaricati e verifiche automatiche controllati; verifica dell’anteprima nei servizi di condivisione da fare dopo la pubblicazione. |
+| 2026-11-23 | F09 di `portale-v2` completata. Il manifest richiede `level` (`facile`, `intermedio`, `complesso`). Il livello è visibile sulla locandina e nella scheda, con un consiglio per chi comincia sui mondi facili. Star Wars e Il Signore degli Anelli sono intermedi. Verifiche automatiche e prove in Chrome a 1280 e 375 px superate. |
 
-**Prossimo passo** — F09 di `portale-v2`.
+**Prossimo passo** — F20 di `portale-v2`.
 
 ## Requisiti di Marco
 

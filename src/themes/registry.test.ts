@@ -2,7 +2,7 @@ import { readdirSync } from 'node:fs';
 import { expect, test } from 'vitest';
 import { buildRegistry, findTheme, themes } from './registry.ts';
 
-const manifest = { id: 'prova', title: 'Prova', description: '', motto: '' };
+const manifest = { id: 'prova', title: 'Prova', level: 'facile' as const, description: '', motto: '' };
 const sql = { '../../themes/prova/x.sql': async () => 'SELECT 1;' };
 
 test('scopre un tema per ogni cartella di themes/', () => {

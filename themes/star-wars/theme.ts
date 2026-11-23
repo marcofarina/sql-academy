@@ -3,6 +3,7 @@ import type { ThemeManifest } from '../../src/themes/contract.ts';
 const manifest: ThemeManifest = {
   id: 'star-wars',
   title: 'Star Wars',
+  level: 'intermedio',
   description: 'Pianeti, specie, personaggi e fazioni, con le battaglie che li hanno divisi.',
   motto: 'Una galassia lontana lontana, in sette tabelle.',
   icons: { solved: 'lightsabers-crossed', reset: 'battle-station-damaged' },
