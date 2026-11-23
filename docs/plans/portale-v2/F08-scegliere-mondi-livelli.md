@@ -42,4 +42,18 @@ Procedura manuale: Marco approva la definizione dei livelli e la scelta delle ot
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+**Eseguita il 2026-11-23 su Claude Code con Opus**, dopo la revisione di F07 nella stessa sessione.
+
+- **Livelli:** approvati da Marco come proposti: facile tre o quattro tabelle e solo uno a molti; intermedio sei-otto tabelle con una o due molti a molti, come Star Wars e Il Signore degli Anelli; complesso dieci-14 tabelle. Ripartizione dei nuovi: tre facili, tre intermedi, due complessi.
+- **Opere:** rosa di 15 candidate divise per livello, da una ricerca sul web affidata a un subagent Haiku. Marco ha scelto Minecraft, Sherlock Holmes e Stranger Things (facili), One Piece, Dragon Ball e Divina Commedia (intermedi), Pokémon e Mitologia greca (complessi, candidati alle CTF). Marco si riserva di cambiare opera durante la costruzione.
+- **Documento:** `docs/mondi.md`, con livelli, abbozzo dei domini, rischi, CTF e ordine di costruzione; `AGENTS.md` aggiornato nelle decisioni «Primo tema» e «Mondi».
+
+### Scostamenti dal dettaglio
+
+- Stranger Things, scelto da Marco fra i facili al posto della mia proposta (Studio Ghibli): per restare entro due chiavi esterne le creature sono personaggi con un ruolo proprio.
+- One Piece ha un vincolo di Marco: esiste un esercizio di *Python Doesn’t Byte* sulla stessa opera, non ancora pubblicato, e i domini devono essere diversi. Non l’ho trovato nei branch del repo `python-doesnt-byte`: il confronto resta alla costruzione del mondo.
+
+### Verifiche
+
+- Livelli e scelta delle otto opere approvati da Marco in chat; ogni abbozzo in `docs/mondi.md` è stato confrontato con la tabella dei livelli (numero di tabelle, chiavi esterne, molti a molti).
+- Non verificati: classificazioni d’età (salvo Minecraft), licenze dei wiki e politiche dei titolari sui progetti dei fan; sono segnati «da verificare» nel documento.

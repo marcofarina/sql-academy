@@ -51,6 +51,7 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-21 | F07 di `portale-v2` completata: Zaino con apertura a quattro caselle, codici precedenti e creazione in tre passi. Classifica con podio, lista, posizione personale e selettore dei mondi su desktop e telefono. Flussi verificati in Chrome a 1280 e 375 px con servizi simulati. |
 | 2026-11-22 | F11 di `portale-v2` completata: spiegazioni degli errori di SQLite con indizi dallo schema e messaggio originale, nella sandbox e negli esercizi (`src/sandbox/SqlErrorNotice.tsx`). Testi approvati da Marco e verificati nel browser. |
 | 2026-11-23 | Revisione di F07 fatta da Claude: nessun difetto; creazione, apertura e uscita dello zaino e uscita dalla classifica ricontrollate nel codice. |
+| 2026-11-23 | F08 di `portale-v2` completata: livelli dei mondi (facile, intermedio, complesso) e otto opere nuove scelte da Marco, con abbozzi dei domini, CTF e ordine di costruzione in `docs/mondi.md`. Nessun codice. |
 
 **Prossimo passo** — F13 di `portale-v2`.
 
@@ -103,7 +104,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Framework, struttura e pubblicazione | React + Vite + TypeScript; sito statico autonomo su GitHub Pages, con link reciproci al libro |
 | Formato di un tema | Cartella `themes/<id>/` scoperta al build, senza registro scritto a mano |
 | Schema ER e modello logico | Modello logico generato dallo schema SQL; ER dichiarato in un file del tema |
-| Primo tema | Star Wars, con gli esercizi del prototipo riverificati su SQLite. Tema di prova: Il Signore degli Anelli. Gli altri due temi sono da scegliere in un piano successivo |
+| Primo tema | Star Wars, con gli esercizi del prototipo riverificati su SQLite. Tema di prova: Il Signore degli Anelli. Gli altri otto mondi sono scelti in `docs/mondi.md` (2026-11-23) |
 | Addestramento | Percorso per capitolo del libro e difficoltà, più sessioni configurabili |
 | Progressi dello studente | `localStorage`, per tema, più lo zaino cifrato di PDB (sezione `sql-academy`, stesso codice del libro); nessun dato personale (2026-11-17) |
 | Sistema a punti | Premi 10 / 20 / 30 per difficoltà; suggerimenti e soluzione a pagamento, soluzione solo dopo tutti i suggerimenti; saldo per tema da zero. Dettagli in F13 (2026-11-17) |
@@ -115,7 +116,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Temi tratti da opere protette | Nomi e ambientazioni sì; immagini e font ufficiali no; loghi ed emblemi solo come icone RB stilizzate, non identiche agli originali (2026-11-17) |
 | Schemi di un tema | Un tema può avere uno schema chiaro e uno scuro, con un selettore; Star Wars: X-wing e Morte Nera. Pagina iniziale: locandine dei temi su un tavolo. Specifiche in `docs/design/` (2026-11-18) |
 | Sessione di esercizi | Riprendibile: salvata nel browser per tema, sopravvive a cambi di pagina e ricariche (2026-11-21) |
-| Mondi | Dieci in tutto: otto nuovi da scegliere in F08 di `portale-v2`, divisi in facili (consigliati per cominciare), intermedi e uno o due complessi, candidati alle CTF; la costruzione va in un piano successivo (2026-11-21) |
+| Mondi | Dieci in tutto, divisi in facili (consigliati per cominciare), intermedi e uno o due complessi, candidati alle CTF; la costruzione va in un piano successivo (2026-11-21). Scelti in F08 (2026-11-23), con livelli e abbozzi in `docs/mondi.md`: facili Minecraft, Sherlock Holmes, Stranger Things; intermedi One Piece, Dragon Ball, Divina Commedia; complessi Pokémon e Mitologia greca. Marco può cambiare opera durante la costruzione |
 
 ## Norme condivise (workspace)
 
