@@ -43,6 +43,9 @@ const sample: ThemeProgress = {
       pointsSpent: 3,
       lastQuery: 'SELECT * FROM pianeti',
       queryAt: 1_763_500_000_000,
+      solvedAt: 1_763_400_000_000,
+      reviewStep: 1,
+      reviewAt: 1_763_600_000_000,
     },
   },
 };

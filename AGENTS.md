@@ -53,8 +53,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-23 | Revisione di F07 fatta da Claude: nessun difetto; creazione, apertura e uscita dello zaino e uscita dalla classifica ricontrollate nel codice. |
 | 2026-11-23 | F08 di `portale-v2` completata: livelli dei mondi (facile, intermedio, complesso) e otto opere nuove scelte da Marco, con abbozzi dei domini, CTF e ordine di costruzione in `docs/mondi.md`. Nessun codice. |
 | 2026-11-23 | F13 di `portale-v2` completata: segnalazioni dagli esercizi del percorso e della sessione, via e-mail o GitHub, con query escludibile e revisione del sito. Informativa aggiornata e prove superate in Chrome nei due temi. |
+| 2026-11-23 | F12 di `portale-v2` completata: ripasso a intervalli di 1, 3, 7 e 21 giorni, zero punti, scelto da Marco (`src/training/review.ts`); campi `solvedAt`, `reviewStep`, `reviewAt` nei progressi, senza migrazione, uniti nello zaino. Da rivedere su Codex. |
 
-**Prossimo passo** — F12 di `portale-v2`.
+**Prossimo passo** — revisione di F12 su Codex (Sol), poi F14 di `portale-v2`.
 
 ## Requisiti di Marco
 
@@ -117,6 +118,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Temi tratti da opere protette | Nomi e ambientazioni sì; immagini e font ufficiali no; loghi ed emblemi solo come icone RB stilizzate, non identiche agli originali (2026-11-17) |
 | Schemi di un tema | Un tema può avere uno schema chiaro e uno scuro, con un selettore; Star Wars: X-wing e Morte Nera. Pagina iniziale: locandine dei temi su un tavolo. Specifiche in `docs/design/` (2026-11-18) |
 | Sessione di esercizi | Riprendibile: salvata nel browser per tema, sopravvive a cambi di pagina e ricariche (2026-11-21) |
+| Ripasso | Ripetizione spaziata a 1, 3, 7 e 21 giorni, zero punti, aiuti gratis; soluzione aperta o esercizio saltato fanno fallire il ripasso (2026-11-23) |
 | Mondi | Dieci in tutto, divisi in facili (consigliati per cominciare), intermedi e uno o due complessi, candidati alle CTF; la costruzione va in un piano successivo (2026-11-21). Scelti in F08 (2026-11-23), con livelli e abbozzi in `docs/mondi.md`: facili Minecraft, Sherlock Holmes, Stranger Things; intermedi One Piece, Dragon Ball, Divina Commedia; complessi Pokémon e Mitologia greca. Marco può cambiare opera durante la costruzione |
 
 ## Norme condivise (workspace)

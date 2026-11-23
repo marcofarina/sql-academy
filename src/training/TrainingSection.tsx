@@ -10,6 +10,7 @@ import { plural, sortExercises } from './exercises.ts';
 import { PathView } from './PathView.tsx';
 import { SessionIcon } from './SessionIcon.tsx';
 import { SessionView, type ActiveSession } from './SessionView.tsx';
+import { dueExercises, nextReviewAt, startReview } from './review.ts';
 import type { TrainingState } from './useTraining.ts';
 
 interface TrainingSectionProps {
@@ -47,17 +48,20 @@ export function TrainingSection(props: TrainingSectionProps) {
 /** Una sessione salvata, aperta dal suo indirizzo: si riprende o si abbandona per sceglierne una nuova. */
 function SavedSession({ session, onResume, onAbandon }: { session: ActiveSession; onResume(): void; onAbandon(): void }) {
   const solved = Object.values(session.records).filter((record) => record.solved).length;
+  const review = session.review === true;
   return (
     <div className="session-config">
       <p className="lead">
-        Hai una sessione in corso: sei all’esercizio {session.index + 1} di {session.exerciseIds.length}, con{' '}
-        {plural(solved, 'esercizio risolto', 'esercizi risolti')}. Puoi riprenderla da lì, oppure abbandonarla e
-        sceglierne una nuova.
+        {review ? 'Hai un ripasso in corso' : 'Hai una sessione in corso'}: sei all’esercizio {session.index + 1} di{' '}
+        {session.exerciseIds.length}, con {plural(solved, 'esercizio risolto', 'esercizi risolti')}.{' '}
+        {review
+          ? 'Puoi riprenderlo da lì, oppure abbandonarlo.'
+          : 'Puoi riprenderla da lì, oppure abbandonarla e sceglierne una nuova.'}
       </p>
       <div className="toolbar">
         <button type="button" className="primary" onClick={onResume}>
           <SessionIcon />
-          Riprendi la sessione
+          {review ? 'Riprendi il ripasso' : 'Riprendi la sessione'}
         </button>
         <button type="button" onClick={onAbandon}>
           Abbandonala
@@ -84,14 +88,19 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
   if (item === undefined) {
     const sessionStatus =
       pending ? `${pending.index + 1} di ${pending.exerciseIds.length}` : undefined;
+    const ids = training.exercises.map((e) => e.id);
+    const due = dueExercises(ids, progress);
     return (
       <PathView
         themeId={themeId}
         exercises={training.exercises}
         progress={progress}
         sessionStatus={sessionStatus}
+        sessionReview={pending?.review === true}
+        review={{ due: due.length, nextAt: nextReviewAt(ids, progress) }}
         onReset={() => { abandon(); actions.reset(); }}
         onResume={resume}
+        onReview={() => setSession(startReview(progress, due))}
         onAbandon={pending ? abandon : undefined}
       />
     );

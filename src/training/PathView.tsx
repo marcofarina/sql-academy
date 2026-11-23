@@ -6,6 +6,7 @@ import { useThemeIcons } from '../themes/ThemeIconsContext.ts';
 import { SessionIcon } from './SessionIcon.tsx';
 import { Reward } from '../points/Reward.tsx';
 import { buildPath, chapterLabel, DIFFICULTY_LABEL, plural } from './exercises.ts';
+import { daysUntil } from './review.ts';
 
 interface PathViewProps {
   themeId: string;
@@ -13,8 +14,14 @@ interface PathViewProps {
   progress: ThemeProgress;
   /** Posizione della sessione in corso, se c’è: «3 di 5». */
   sessionStatus?: string;
+  /** La sessione in corso è un ripasso. */
+  sessionReview?: boolean;
+  /** Quanti esercizi sono da ripassare adesso e, se nessuno, quando arriva il prossimo. */
+  review: { due: number; nextAt: number | undefined };
   onReset(): void;
   onResume(): void;
+  /** Avvia il ripasso degli esercizi da ripassare. */
+  onReview(): void;
   onAbandon?: () => void;
 }
 
@@ -22,8 +29,24 @@ function solvedCount(exercises: Exercise[], progress: ThemeProgress): number {
   return exercises.filter((e) => exerciseProgress(progress, e.id).solved).length;
 }
 
+/** Che cos’è il ripasso e, se non c’è nulla da ripassare, quando arriva il prossimo. */
+function ReviewNote({ review }: { review: PathViewProps['review'] }) {
+  const waiting =
+    review.due > 0 ? ''
+      : review.nextAt === undefined ? ' Per ora non hai esercizi da ripassare.'
+      : ` Per ora non hai esercizi da ripassare: il prossimo torna fra ${plural(daysUntil(review.nextAt), 'giorno', 'giorni')}.`;
+  return (
+    <p className="hint-text">
+      Il ripasso ti ripropone, con l’editor vuoto, gli esercizi che hai già risolto. Un esercizio torna un giorno dopo
+      la risoluzione; ogni volta che lo risolvi senza aprire la soluzione, torna dopo un intervallo più lungo: 3, 7 e
+      poi 21 giorni, superati i quali non torna più. Se apri la soluzione o lo salti, torna il giorno dopo. Il ripasso
+      non dà punti e gli aiuti sono gratis.{waiting}
+    </p>
+  );
+}
+
 /** Il percorso: gli esercizi per capitolo del libro e difficoltà, con lo stato di ciascuno. */
-export function PathView({ themeId, exercises, progress, sessionStatus, onReset, onResume, onAbandon }: PathViewProps) {
+export function PathView({ themeId, exercises, progress, sessionStatus, sessionReview, review, onReset, onResume, onReview, onAbandon }: PathViewProps) {
   const link = (item: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item });
   const themeIcons = useThemeIcons();
 
@@ -40,14 +63,28 @@ export function PathView({ themeId, exercises, progress, sessionStatus, onReset,
       <div className="toolbar">
         <a className="button primary" href={link(SESSION_ITEM)} onClick={onResume}>
           <SessionIcon />
-          {sessionStatus ? `Riprendi la sessione (${sessionStatus})` : 'Nuova sessione'}
+          {sessionStatus
+            ? `${sessionReview ? 'Riprendi il ripasso' : 'Riprendi la sessione'} (${sessionStatus})`
+            : 'Nuova sessione'}
         </a>
-        {onAbandon && <button type="button" onClick={onAbandon}>Abbandonala</button>}
+        {onAbandon && <button type="button" onClick={onAbandon}>{sessionReview ? 'Abbandonalo' : 'Abbandonala'}</button>}
+        {!sessionStatus && (review.due > 0 ? (
+          <a className="button" href={link(SESSION_ITEM)} onClick={onReview}>
+            <Icon name="circle-arrow-rotate-left" />
+            Ripasso ({review.due})
+          </a>
+        ) : (
+          <button type="button" disabled>
+            <Icon name="circle-arrow-rotate-left" />
+            Nulla da ripassare
+          </button>
+        ))}
         <button type="button" onClick={reset}>
           {themeIcons.reset ? <Icon svg={themeIcons.reset} /> : <Icon name="trash-can" />}
           Azzera i progressi
         </button>
       </div>
+      {!sessionStatus && <ReviewNote review={review} />}
       <p className="lead">
         {solvedCount(exercises, progress) === 1 ? 'Risolto' : 'Risolti'} {solvedCount(exercises, progress)} su{' '}
         {plural(exercises.length, 'esercizio', 'esercizi')}. Gli esercizi seguono i capitoli del{' '}

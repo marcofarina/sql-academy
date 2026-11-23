@@ -13,7 +13,7 @@
 | F09 | Mostrare il livello dei mondi nel contratto e sulla pagina iniziale | F08 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F09](#p-f09) | [F09](F09-livello-dei-mondi.md) |
 | F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 19:30 | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
 | F11 | Spiegare in italiano gli errori di SQLite | — | Opus | Sol | `medium` | medio | completata | 2026-11-22 22:08 | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
-| F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
+| F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | completata | 2026-11-23 15:10 | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
 | F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | completata | 2026-11-23 14:53 | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
 | F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
 | F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | da fare |  | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
@@ -474,6 +474,7 @@ Le decisioni del piano archiviato restano valide: sezione «Decisioni condivise�
 | Piè di pagina | F10 lo predispone soltanto; contenuto e disegno arrivano da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina di tutti i mini-siti (Marco, 2026-11-21) | Coerenza fra i siti di Marco |
 | Idee aggiunte al piano | Fra quelle proposte da Claude, Marco ha scelto F11–F20; scartate cronologia della sandbox, riepilogo stampabile, classe nella classifica, esportazione in CSV (2026-11-21) | Restano annotate qui, se tornassero utili |
 | Dati nel browser | Ogni dato nuovo salvato nel browser va cancellato sia da «Azzera i progressi» sia da «Esci dallo zaino», anche in modalità «Non è il mio computer»; la procedura manuale della fase prova entrambi (Marco, 2026-11-21) | In F06 la sessione salvata sopravviveva all’uscita dallo zaino: chi usava il computer dopo poteva riprenderla |
+| Ripasso | Intervalli di 1, 3, 7 e 21 giorni dalla prima risoluzione o dall’ultimo ripasso; riuscito sale di un gradino, fallito (soluzione aperta o esercizio saltato) torna a un giorno; dopo il ripasso a 21 giorni l’esercizio non torna più. Zero punti, aiuti gratis, editor vuoto. Esercizi risolti prima di F12: l’intervallo conta da `queryAt`, senza nemmeno quella sono subito da ripassare (Marco, 2026-11-23, in F12) | Zero punti lascia invariati le regole dei punti e il ricalcolo del servizio della classifica |
 | Strumenti | Ogni fase gira su Claude Code o su Codex; solo Claude per l’Artifact «Design» e per le icone nuove (Marco, 2026-11-21) | Budget separati e due strumenti a disposizione; il design e il collaudo delle icone esistono solo su Claude |
 
 ## Icone
@@ -525,3 +526,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-22 | F11 completata (Codex, Sol). Testi approvati da Marco. Spiegazioni, indizi dallo schema e messaggio originale verificati nella sandbox e negli esercizi. |
 | 2026-11-23 | Revisione di F07 (Claude Code, Opus): nessun difetto. F08 completata (Claude Code, Opus): livelli approvati da Marco, otto opere scelte, `docs/mondi.md`. |
 | 2026-11-23 | F13 completata (Codex, Sol): bozze per e-mail e GitHub con query escludibile, informativa aggiornata e prove superate nei due temi. |
+| 2026-11-23 | F12 completata (Claude Code, Opus): regole del ripasso scelte da Marco, tre campi nuovi nei progressi (`solvedAt`, `reviewStep`, `reviewAt`), ripasso come sessione con `review`; verifiche automatiche e prova nel browser superate. Segue la revisione incrociata su Codex con Sol. |

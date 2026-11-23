@@ -14,6 +14,8 @@ const MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const ZERO_REASONS = {
   'solution-seen': 'Avevi aperto la soluzione prima di risolvere l’esercizio.',
   'already-solved': 'Avevi già risolto l’esercizio. Il premio si incassa una volta sola.',
+  review: 'Ripasso riuscito. Il ripasso non dà punti.',
+  'review-failed': 'Avevi aperto la soluzione, quindi il ripasso non è riuscito: l’esercizio tornerà fra un giorno.',
 };
 
 interface NoticeProps {

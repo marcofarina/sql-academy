@@ -24,6 +24,8 @@ export interface SessionRecord {
   hints: number;
   solutionSeen: boolean;
   solved: boolean;
+  /** Nel ripasso, l’esito registrato nei progressi; assente se l’esercizio non è stato ripassato. */
+  review?: 'riuscito' | 'fallito';
 }
 
 /** Una sessione in corso o conclusa. */
@@ -34,6 +36,8 @@ export interface ActiveSession {
   /** Punti incassati e spesi su ogni esercizio all’avvio: il riepilogo conta la differenza. */
   baseline: Record<string, PointsSnapshot>;
   finished: boolean;
+  /** Un ripasso (`src/training/review.ts`) invece di una sessione configurata. */
+  review?: true;
 }
 
 interface PointsSnapshot {
@@ -53,6 +57,8 @@ function sessionPoints(session: ActiveSession, progress: ThemeProgress, id: stri
   // La differenza non scende sotto zero.
   return { earned: Math.max(0, now.earned - before.earned), spent: Math.max(0, now.spent - before.spent) };
 }
+
+const REVIEW_OUTCOME = { riuscito: 'Riuscito', fallito: 'Non riuscito', assente: 'Non ripassato' };
 
 const EMPTY_RECORD: SessionRecord = { attempts: 0, hints: 0, solutionSeen: false, solved: false };
 
@@ -180,18 +186,24 @@ function Summary({
     ...sessionPoints(session, progress, id),
   }));
   const solved = records.filter((r) => r.solved).length;
+  const remembered = records.filter((r) => r.review === 'riuscito').length;
   const total = (key: 'attempts' | 'hints' | 'earned' | 'spent') => records.reduce((sum, r) => sum + r[key], 0);
+  const review = session.review === true;
   return (
     <div className="session-summary">
       <h2>
         <Icon name="flag" />
-        Riepilogo della sessione
+        {review ? 'Riepilogo del ripasso' : 'Riepilogo della sessione'}
       </h2>
       <p className="lead">
-        {solved === 1 ? 'Risolto' : 'Risolti'} {solved} su {plural(records.length, 'esercizio', 'esercizi')}, con{' '}
-        {plural(total('attempts'), 'verifica', 'verifiche')} e {plural(total('hints'), 'suggerimento aperto', 'suggerimenti aperti')}.
+        {review
+          ? `${remembered === 1 ? 'Riuscito' : 'Riusciti'} ${remembered} su ${plural(records.length, 'ripasso', 'ripassi')}`
+          : `${solved === 1 ? 'Risolto' : 'Risolti'} ${solved} su ${plural(records.length, 'esercizio', 'esercizi')}`}
+        , con {plural(total('attempts'), 'verifica', 'verifiche')} e{' '}
+        {plural(total('hints'), 'suggerimento aperto', 'suggerimenti aperti')}.
+        {review && ' Gli esercizi riusciti torneranno più avanti, gli altri fra un giorno.'}
       </p>
-      <p className="session-points">
+      {!review && <p className="session-points">
         <span className="points-gain">
           <Icon name="circle-plus" />
           {pointsLabel(total('earned'))} {total('earned') === 1 ? 'guadagnato' : 'guadagnati'}
@@ -200,7 +212,7 @@ function Summary({
           <Icon name="circle-minus" />
           {pointsLabel(total('spent'))} {total('spent') === 1 ? 'speso' : 'spesi'}
         </span>
-      </p>
+      </p>}
       <div className="table-scroll">
         <table>
           <thead>
@@ -210,8 +222,8 @@ function Summary({
               <th scope="col">Verifiche</th>
               <th scope="col">Suggerimenti</th>
               <th scope="col">Soluzione</th>
-              <th scope="col">Punti guadagnati</th>
-              <th scope="col">Punti spesi</th>
+              {!review && <th scope="col">Punti guadagnati</th>}
+              {!review && <th scope="col">Punti spesi</th>}
             </tr>
           </thead>
           <tbody>
@@ -224,19 +236,19 @@ function Summary({
                 </td>
                 <td>
                   <span className="status">
-                    <Icon name={r.solved ? 'circle-check' : 'circle'} />
-                    {r.solved ? 'Risolto' : 'Non risolto'}
+                    <Icon name={(review ? r.review === 'riuscito' : r.solved) ? 'circle-check' : 'circle'} />
+                    {review ? REVIEW_OUTCOME[r.review ?? 'assente'] : r.solved ? 'Risolto' : 'Non risolto'}
                   </span>
                 </td>
                 <td className="number">{r.attempts}</td>
                 <td className="number">{r.hints}</td>
                 <td>{r.solutionSeen ? 'vista' : '—'}</td>
-                <td className="number">{r.earned}</td>
-                <td className="number">{r.spent}</td>
+                {!review && <td className="number">{r.earned}</td>}
+                {!review && <td className="number">{r.spent}</td>}
               </tr>
             ))}
           </tbody>
-          <tfoot>
+          {!review && <tfoot>
             <tr>
               <th scope="row" colSpan={5}>
                 Totale
@@ -244,14 +256,16 @@ function Summary({
               <td className="number">{total('earned')}</td>
               <td className="number">{total('spent')}</td>
             </tr>
-          </tfoot>
+          </tfoot>}
         </table>
       </div>
       <div className="toolbar">
-        <button type="button" className="primary" onClick={onNew}>
-          <SessionIcon />
-          Nuova sessione
-        </button>
+        {!review && (
+          <button type="button" className="primary" onClick={onNew}>
+            <SessionIcon />
+            Nuova sessione
+          </button>
+        )}
         <a className="button" href={formatRoute({ page: 'theme', themeId, section: 'addestramento' })}>
           <Icon name="circle-arrow-left" />
           Torna al percorso
@@ -292,25 +306,44 @@ export function SessionView({ themeId, training, progress, actions, session, onS
   const exercise = byId.get(id)!;
   const last = session.index === session.exerciseIds.length - 1;
 
-  const record = (event: WorkspaceEvent) =>
-    onSession((current) => {
-      if (!current) return current;
-      const before = current.records[id] ?? EMPTY_RECORD;
-      const next =
+  const review = session.review === true;
+  const current = session.records[id] ?? EMPTY_RECORD;
+  // Nel ripasso l’esito si registra una volta sola: alla risposta corretta, alla soluzione aperta o al salto.
+  const pending = review && current.review === undefined;
+  const conclude = (success: boolean): SessionRecord['review'] => {
+    actions.recordReview(id, success);
+    return success ? 'riuscito' : 'fallito';
+  };
+
+  const record = (event: WorkspaceEvent) => {
+    const outcome =
+      pending && event.kind === 'verify' && event.correct ? conclude(true)
+        : pending && event.kind === 'solution' ? conclude(false)
+        : undefined;
+    onSession((now) => {
+      if (!now) return now;
+      const before = now.records[id] ?? EMPTY_RECORD;
+      const next: SessionRecord =
         event.kind === 'verify'
           ? { ...before, attempts: before.attempts + 1, solved: before.solved || event.correct }
           : event.kind === 'hint'
             ? { ...before, hints: before.hints + 1 }
             : { ...before, solutionSeen: true };
-      return { ...current, records: { ...current.records, [id]: next } };
+      if (outcome && next.review === undefined) next.review = outcome;
+      return { ...now, records: { ...now.records, [id]: next } };
     });
-  const advance = () => onSession(last ? { ...session, finished: true } : { ...session, index: session.index + 1 });
+  };
+  const advance = () => {
+    const skipped = pending ? { [id]: { ...current, review: conclude(false) } } : {};
+    const records = { ...session.records, ...skipped };
+    onSession(last ? { ...session, records, finished: true } : { ...session, records, index: session.index + 1 });
+  };
 
   return (
     <div className="session">
       <p className="session-status">
         <span>
-          Sessione: esercizio {session.index + 1} di {session.exerciseIds.length}
+          {review ? 'Ripasso' : 'Sessione'}: esercizio {session.index + 1} di {session.exerciseIds.length}
         </span>
         <button type="button" className="link-button" onClick={() => onSession({ ...session, finished: true })}>
           Interrompi e vai al riepilogo
@@ -323,10 +356,13 @@ export function SessionView({ themeId, training, progress, actions, session, onS
         training={training}
         actions={actions}
         onEvent={record}
+        review={review}
         footer={
           <button type="button" className="primary" onClick={advance}>
             <Icon name={last ? 'flag' : 'circle-arrow-right'} />
-            {last ? 'Vai al riepilogo' : session.records[id]?.solved ? 'Prossimo esercizio' : 'Salta e vai al prossimo'}
+            {pending
+              ? last ? 'Salta e vai al riepilogo' : 'Salta e vai al prossimo'
+              : last ? 'Vai al riepilogo' : current.solved ? 'Prossimo esercizio' : 'Salta e vai al prossimo'}
           </button>
         }
       />

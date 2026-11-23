@@ -20,6 +20,17 @@ test('scarta versione sconosciuta, epoca diversa, esercizio rimosso e sessione f
   expect(parseSession(serializeSession({ ...session, finished: true }, 3), 3, ids)).toBeUndefined();
 });
 
+test('conserva un ripasso con gli esiti; scarta esiti sconosciuti', () => {
+  const review: ActiveSession = {
+    ...session, review: true,
+    records: { a: { attempts: 1, hints: 0, solutionSeen: false, solved: true, review: 'riuscito' } },
+  };
+  expect(parseSession(serializeSession(review, 3), 3, ids)).toEqual(review);
+  const wrong = { ...review, records: { a: { ...review.records.a, review: 'forse' } } } as unknown as ActiveSession;
+  expect(parseSession(serializeSession(wrong, 3), 3, ids)).toBeUndefined();
+  expect(parseSession(serializeSession({ ...session, review: 'sì' } as unknown as ActiveSession, 3), 3, ids)).toBeUndefined();
+});
+
 test('scarta dati corrotti e indici non validi', () => {
   expect(parseSession('{', 3, ids)).toBeUndefined();
   expect(parseSession(serializeSession({ ...session, index: 2 }, 3), 3, ids)).toBeUndefined();

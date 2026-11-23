@@ -7,6 +7,9 @@
  *
  *   { "version": 1, "epoch": 0, "session": { "exerciseIds": […], "index": 2, … } }
  *
+ * Un ripasso (F12) è una sessione con `"review": true`, e i suoi record hanno
+ * l’esito `review`; le sessioni salvate prima restano valide.
+ *
  * Una sessione di un’altra epoca dei progressi, con esercizi che il tema non
  * ha più o comunque illeggibile si scarta senza errori.
  */
@@ -46,7 +49,8 @@ export function parseSession(text: string | null, epoch: number, exerciseIds: st
       s.index >= s.exerciseIds.length ||
       s.finished !== false ||
       !object(s.records) ||
-      !object(s.baseline)
+      !object(s.baseline) ||
+      (s.review !== undefined && s.review !== true)
     ) {
       return undefined;
     }
@@ -64,7 +68,8 @@ export function parseSession(text: string | null, epoch: number, exerciseIds: st
           !count(record.attempts) ||
           !count(record.hints) ||
           typeof record.solved !== 'boolean' ||
-          typeof record.solutionSeen !== 'boolean')
+          typeof record.solutionSeen !== 'boolean' ||
+          (record.review !== undefined && record.review !== 'riuscito' && record.review !== 'fallito'))
       ) {
         return undefined;
       }
@@ -75,6 +80,7 @@ export function parseSession(text: string | null, epoch: number, exerciseIds: st
       records: s.records as Record<string, SessionRecord>,
       baseline: s.baseline as ActiveSession['baseline'],
       finished: false,
+      ...(s.review === true ? { review: true as const } : {}),
     };
   } catch {
     return undefined;

@@ -47,6 +47,9 @@ test('nella stessa epoca: massimo campo per campo, «o» sui booleani, unione de
     pointsSpent: 8,
     lastQuery: 'SELECT a',
     queryAt: 300,
+    solvedAt: 0,
+    reviewStep: 0,
+    reviewAt: 0,
   });
 });
 
@@ -85,4 +88,28 @@ test('readThemeData legge un oggetto senza versione e scarta le voci malformate'
     freeHintUsed: true,
     exercises: { 'ex-001': exercise({ solved: true }) },
   });
+});
+
+test('ripasso: la prima risoluzione più antica fra quelle note, l’ultimo ripasso con il suo gradino', () => {
+  const x: ThemeProgress = { ...a, exercises: { 'ex-001': exercise({ solved: true, solvedAt: 500, reviewStep: 3, reviewAt: 900 }) } };
+  const y: ThemeProgress = { ...a, exercises: { 'ex-001': exercise({ solved: true, solvedAt: 400, reviewStep: 0, reviewAt: 1000 }) } };
+  const z: ThemeProgress = { ...a, exercises: { 'ex-001': exercise({ solved: true }) } };
+  for (const merged of [mergeProgress(x, y), mergeProgress(y, x)]) {
+    // Il ripasso fallito più recente vince sul gradino più alto ma più vecchio.
+    expect(merged.exercises['ex-001']).toMatchObject({ solvedAt: 400, reviewStep: 0, reviewAt: 1000 });
+  }
+  // Una copia senza date (dati vecchi) non cancella quelle dell’altra.
+  expect(mergeProgress(x, z).exercises['ex-001']).toMatchObject({ solvedAt: 500, reviewStep: 3, reviewAt: 900 });
+  expect(text(mergeProgress(x, z))).toBe(text(mergeProgress(z, x)));
+  // A parità di ora vince il gradino più alto, in tutti e due gli ordini.
+  const w: ThemeProgress = { ...a, exercises: { 'ex-001': exercise({ solved: true, reviewStep: 1, reviewAt: 900 }) } };
+  expect(text(mergeProgress(x, w))).toBe(text(mergeProgress(w, x)));
+  expect(mergeProgress(w, x).exercises['ex-001'].reviewStep).toBe(3);
+});
+
+test('readThemeData legge i dati salvati prima del ripasso con le date a zero', () => {
+  const old = { epoch: 0, freeHintUsed: false, exercises: { 'ex-001': { solved: true, attempts: 1, pointsEarned: 10, queryAt: 77 } } };
+  expect(readThemeData(old)?.exercises['ex-001']).toEqual(
+    exercise({ solved: true, attempts: 1, pointsEarned: 10, queryAt: 77, solvedAt: 0, reviewStep: 0, reviewAt: 0 }),
+  );
 });

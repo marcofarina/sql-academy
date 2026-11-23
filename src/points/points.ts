@@ -128,8 +128,16 @@ export function withSolution(progress: ThemeProgress, exercise: PointsExercise):
   };
 }
 
-/** Registra una pressione di «Verifica»; alla prima risposta corretta incassa il premio. */
-export function withVerification(progress: ThemeProgress, exercise: PointsExercise, correct: boolean): ThemeProgress {
+/**
+ * Registra una pressione di «Verifica»; alla prima risposta corretta incassa il
+ * premio e annota l’istante (`now`) da cui conta il ripasso.
+ */
+export function withVerification(
+  progress: ThemeProgress,
+  exercise: PointsExercise,
+  correct: boolean,
+  now = Date.now(),
+): ThemeProgress {
   const state = exerciseProgress(progress, exercise.id);
   const firstSolve = correct && !state.solved;
   return {
@@ -138,6 +146,7 @@ export function withVerification(progress: ThemeProgress, exercise: PointsExerci
       attempts: state.attempts + 1,
       solved: state.solved || correct,
       pointsEarned: firstSolve && !state.solutionBeforeSolve ? REWARD[exercise.difficulty] : state.pointsEarned,
+      solvedAt: firstSolve ? now : state.solvedAt,
     }),
   };
 }

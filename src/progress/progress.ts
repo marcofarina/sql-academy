@@ -13,7 +13,8 @@
  *         "solved": true, "attempts": 2, "hintsRevealed": 1,
  *         "solutionSeen": false, "solutionBeforeSolve": false,
  *         "pointsEarned": 10, "pointsSpent": 0,
- *         "lastQuery": "SELECT …", "queryAt": 1763500000000
+ *         "lastQuery": "SELECT …", "queryAt": 1763500000000,
+ *         "solvedAt": 1763400000000, "reviewStep": 1, "reviewAt": 1763600000000
  *       }
  *     }
  *   }
@@ -24,6 +25,13 @@
  * `epoch`, che sale di uno a ogni azzeramento del tema. L’ultima query non
  * cresce: la accompagna `queryAt`, l’istante in millisecondi in cui è stata
  * scritta, e fra due copie vince la più recente (`mergeProgress`, F15).
+ *
+ * Il ripasso (F12 del piano `portale-v2`) aggiunge tre campi, assenti nei dati
+ * salvati prima e letti come zero: `solvedAt`, l’istante della prima
+ * risoluzione, che fra due copie prende il più antico; `reviewStep` e
+ * `reviewAt`, il gradino della ripetizione spaziata e l’istante dell’ultimo
+ * ripasso, che viaggiano insieme e fra due copie vengono dal ripasso più
+ * recente. Le regole del ripasso sono in `src/training/review.ts`.
  *
  * Il saldo non si salva: è la somma dei punti guadagnati meno quella dei punti
  * spesi (`balanceOf`). Si salvano gli importi effettivi, non si ricalcolano
@@ -56,6 +64,12 @@ export interface ExerciseProgress {
   lastQuery: string;
   /** Quando è stata scritta `lastQuery`, in millisecondi dal 1970; 0 se non si sa. */
   queryAt: number;
+  /** Quando l’esercizio è stato risolto la prima volta, in millisecondi; 0 se non si sa o non è risolto. */
+  solvedAt: number;
+  /** Ripassi riusciti di fila: il gradino della ripetizione spaziata (`src/training/review.ts`). */
+  reviewStep: number;
+  /** Quando è stato fatto l’ultimo ripasso, in millisecondi; 0 se mai. */
+  reviewAt: number;
 }
 
 export interface ThemeProgress {
@@ -76,6 +90,9 @@ export const EMPTY_EXERCISE_PROGRESS: ExerciseProgress = {
   pointsSpent: 0,
   lastQuery: '',
   queryAt: 0,
+  solvedAt: 0,
+  reviewStep: 0,
+  reviewAt: 0,
 };
 
 export function emptyProgress(): ThemeProgress {
@@ -107,6 +124,10 @@ export function withQuery(progress: ThemeProgress, id: string, query: string, no
 function mergeExercise(a: ExerciseProgress, b: ExerciseProgress): ExerciseProgress {
   // L’ultima query: la più recente; a parità di ora decide il testo, così l’unione non dipende dall’ordine.
   const newer = a.queryAt !== b.queryAt ? (a.queryAt > b.queryAt ? a : b) : a.lastQuery >= b.lastQuery ? a : b;
+  // Il ripasso: il più recente; a parità di ora il gradino più alto.
+  const reviewed = a.reviewAt !== b.reviewAt ? (a.reviewAt > b.reviewAt ? a : b) : a.reviewStep >= b.reviewStep ? a : b;
+  // La prima risoluzione: la più antica fra quelle note.
+  const solvedAt = a.solvedAt && b.solvedAt ? Math.min(a.solvedAt, b.solvedAt) : a.solvedAt || b.solvedAt;
   return {
     solved: a.solved || b.solved,
     attempts: Math.max(a.attempts, b.attempts),
@@ -117,6 +138,9 @@ function mergeExercise(a: ExerciseProgress, b: ExerciseProgress): ExerciseProgre
     pointsSpent: Math.max(a.pointsSpent, b.pointsSpent),
     lastQuery: newer.lastQuery,
     queryAt: newer.queryAt,
+    solvedAt,
+    reviewStep: reviewed.reviewStep,
+    reviewAt: reviewed.reviewAt,
   };
 }
 
@@ -124,7 +148,8 @@ function mergeExercise(a: ExerciseProgress, b: ExerciseProgress): ExerciseProgre
  * Unisce due copie dei progressi di un tema (due dispositivi, F15). Fra epoche
  * diverse vince la più alta, per intero: un azzeramento non si ripopola. Nella
  * stessa epoca ogni campo che cresce prende il massimo, ogni `false` che può
- * diventare `true` prende l’«o», l’ultima query prende la più recente.
+ * diventare `true` prende l’«o», l’ultima query prende la più recente, la
+ * prima risoluzione la più antica, il ripasso il più recente.
  * Pura, commutativa e idempotente; gli esercizi escono in ordine di `id`.
  */
 export function mergeProgress(a: ThemeProgress, b: ThemeProgress): ThemeProgress {
@@ -167,6 +192,9 @@ function parseExercise(value: unknown): ExerciseProgress | undefined {
     pointsSpent: count(value.pointsSpent),
     lastQuery: typeof value.lastQuery === 'string' ? value.lastQuery.slice(0, MAX_QUERY_LENGTH) : '',
     queryAt: count(value.queryAt),
+    solvedAt: count(value.solvedAt),
+    reviewStep: count(value.reviewStep),
+    reviewAt: count(value.reviewAt),
   };
 }
 

@@ -38,6 +38,11 @@ interface ExerciseWorkspaceProps {
   training: Extract<TrainingState, { status: 'ready' }>;
   actions: ProgressActions;
   onEvent?(event: WorkspaceEvent): void;
+  /**
+   * Ripasso di un esercizio risolto: editor vuoto, parole chiave nascoste,
+   * suggerimenti e soluzione richiusi e riaperti solo in questa pagina.
+   */
+  review?: boolean;
   /** Comandi di navigazione sotto l’esercizio. */
   footer?: ReactNode;
 }
@@ -97,11 +102,15 @@ function HelpButton({ icon, label, offer, balance, onClick }: { icon: string; la
 }
 
 /** Un esercizio: consegna, tabelle, editor, verifica, aiuti e segnalazioni. */
-export function ExerciseWorkspace({ exercise, progress: themeProgress, training, actions, onEvent, footer }: ExerciseWorkspaceProps) {
+export function ExerciseWorkspace({ exercise, progress: themeProgress, training, actions, onEvent, review = false, footer }: ExerciseWorkspaceProps) {
   const themeIcons = useThemeIcons();
-  const progress = exerciseProgress(themeProgress, exercise.id);
+  const saved = exerciseProgress(themeProgress, exercise.id);
+  // Nel ripasso gli aiuti già aperti si richiudono: contano solo quelli aperti qui, sempre gratis.
+  const [reviewHelp, setReviewHelp] = useState({ hintsRevealed: 0, solutionSeen: false });
+  const progress = review ? { ...saved, ...reviewHelp } : saved;
   const wallet = walletOf(themeProgress);
-  const [query, setQuery] = useState(progress.lastQuery);
+  const [initialQuery] = useState(review ? '' : saved.lastQuery);
+  const [query, setQuery] = useState(initialQuery);
   const [output, setOutput] = useState<Output>();
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<{ id: number; reward: VerificationReward }>();
@@ -147,7 +156,8 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
         // Un azzeramento o l’uscita dallo zaino possono smontare l’esercizio mentre SQLite lavora.
         if (!mounted.current) return { kind: 'verify', verdict, student };
         const correct = verdict.kind === 'correct';
-        const reward = actions.recordVerification(exercise, correct);
+        const recorded = actions.recordVerification(exercise, correct);
+        const reward = review && recorded !== undefined ? (progress.solutionSeen ? 'review-failed' : 'review') : recorded;
         setNotice((current) => reward === undefined ? undefined : { id: (current?.id ?? 0) + 1, reward });
         onEvent?.({ kind: 'verify', correct });
         return { kind: 'verify', verdict, student };
@@ -166,13 +176,15 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
 
   const revealHint = () => {
     if (!canRevealHint(exercise, progress, wallet)) return;
-    actions.openHint(exercise);
+    if (review) setReviewHelp((help) => ({ ...help, hintsRevealed: help.hintsRevealed + 1 }));
+    else actions.openHint(exercise);
     onEvent?.({ kind: 'hint' });
   };
 
   const revealSolution = () => {
     if (!canRevealSolution(exercise, progress, wallet)) return;
-    actions.openSolution(exercise);
+    if (review) setReviewHelp((help) => ({ ...help, solutionSeen: true }));
+    else actions.openSolution(exercise);
     onEvent?.({ kind: 'solution' });
   };
 
@@ -191,7 +203,7 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
             <span>{chapterLabel(exercise.chapter)}</span>
             <span className={`difficulty difficulty-${exercise.difficulty}`}>{DIFFICULTY_LABEL[exercise.difficulty]}</span>
             {/* Le parole chiave suggeriscono la soluzione: si vedono solo a esercizio risolto. */}
-            {progress.solved &&
+            {progress.solved && !review &&
               exercise.keywords.map((k) => (
                 <code key={k} className="keyword">
                   {k}
@@ -212,7 +224,7 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
         </header>
         <p className="prompt">{exercise.prompt}</p>
         <SqlEditor
-          initialValue={progress.lastQuery}
+          initialValue={initialQuery}
           tables={training.db.tables}
           onChange={changeQuery}
           onRun={run}
