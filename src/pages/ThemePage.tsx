@@ -45,11 +45,14 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
   const current = SECTIONS.find((s) => s.id === section)!;
   // La guida compare da sola al primo ingresso; dopo si riapre dal pulsante «Guida» della barra.
   const [guide, setGuide] = useState<'chiusa' | 'aperta' | 'riaperta'>(() => (guideSeen() ? 'chiusa' : 'aperta'));
+  const openGuide = () => {
+    if (guide === 'chiusa') setGuide('riaperta');
+    else document.getElementById(GUIDE_ID)?.focus();
+  };
   const closeGuide = () => {
     markGuideSeen();
-    const reopened = guide === 'riaperta';
     setGuide('chiusa');
-    if (reopened) document.querySelector<HTMLElement>(`[aria-controls="${GUIDE_ID}"]`)?.focus();
+    document.querySelector<HTMLElement>(`[aria-controls="${GUIDE_ID}"]`)?.focus();
   };
 
   useEffect(() => {
@@ -75,7 +78,7 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
     <SiteLayout
       page="theme"
       theme={{ id, title, emblem: activeIcons.emblem, balance, scheme: schemes ? scheme : undefined, switcher }}
-      guide={{ open: guide !== 'chiusa', onOpen: () => setGuide('riaperta') }}
+      guide={{ open: guide !== 'chiusa', onOpen: openGuide }}
     >
       <nav className="sections" aria-label="Sezioni del tema">
         <ul>
