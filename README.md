@@ -25,6 +25,10 @@ Il workflow `.github/workflows/pubblica.yml` parte a ogni push su `main`: esegue
 
 I servizi in rete stanno su Cloudflare Workers: lo zaino nel repo del libro (`servizi/zaino/`), la classifica qui in `servizi/classifica/`. Entrambi ammettono nel CORS l’origine `https://sql.rainbowbits.cloud`.
 
+### Content Security Policy
+
+GitHub Pages non permette di impostare intestazioni HTTP, quindi `scripts/cspPlugin.ts` scrive la politica in un `<meta>` all’inizio di `dist/index.html`. Script, fogli di stile, caratteri e worker vengono solo dal sito; in rete il portale raggiunge soltanto lo zaino e la classifica, con gli indirizzi di `VITE_ZAINO_URL` e `VITE_CLASSIFICA_URL` se impostati. La politica vale solo per la build: `npm run dev` ne resta senza. Un servizio nuovo o una risorsa esterna vanno aggiunti alla politica, altrimenti il browser li blocca e lo segnala nella console.
+
 ### Uso senza rete e aggiornamenti
 
 `npm run build` genera `dist/service-worker.js`. Alla prima visita il browser scarica i file della build, compresi i mondi e SQLite. Prova con `npx vite preview`: apri il sito, attendi che il worker risulti attivo negli strumenti del browser, disattiva la rete e ricarica. `npm run test:e2e` prova anche il salvataggio di un esercizio e la sincronizzazione dello zaino quando torna la rete.
