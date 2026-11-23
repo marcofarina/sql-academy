@@ -61,3 +61,13 @@ Procedura manuale (`npm run dev`, a 1280 e a 375 px): confronta ogni stato delle
 - Restano i due avvisi di Star Wars documentati in F19 e l’avviso di Vite sulla dimensione del bundle. La prova in `servizi/classifica` era condizionata a modifiche del Worker e delle API, che la fase usa così come sono. Le verifiche sono locali.
 
 Segue la revisione incrociata su Claude Code con Opus, prima delle fasi che dipendono da F07.
+
+## Revisione
+
+**Revisione incrociata del 2026-11-23 con Claude Code Opus.** Esito: nessun difetto, nessuna correzione.
+
+- Letti il diff di `edbc513` e il passaggio di consegne, confrontati con il dettaglio e con `docs/design/zaino-classifica.md`, scostamenti compresi.
+- Rieseguiti `npm run lint`, `npm test` (247 test), `npm run check:themes` e `npm run build`: superati, con l’avviso noto sulla dimensione del bundle.
+- Nel browser (`npm run dev`): creazione fino al terzo passo, con la seconda parola sbagliata respinta sul posto e nessuna richiesta al servizio dello zaino; annullamento; `#/classifica/lotr` a 375 px nello stato «La classifica non risponde», perché in sviluppo il Worker locale era spento. Apertura, creazione riuscita, uscita e adesione non riprovate: la fase le ha coperte con risposte simulate, e provarle davvero scriverebbe sui servizi di produzione.
+- Percorsi controllati nel codice: `crea` scrive sul servizio con `If-None-Match: *` e salva codice e versione nel browser solo dopo la risposta, quindi un errore non lascia il browser collegato a uno zaino inesistente; un 412 con codice confermato torna alle parole con un codice nuovo; `collegamentoInCorso` impedisce di aprire e creare insieme nella stessa scheda; `esci` attende il ciclo in corso, che non viene mai rifiutato, prima di svuotare le sezioni; l’uscita dalla classifica attende l’invio in corso, ferma i nuovi invii nel frattempo e tratta come riuscita la risposta 401 o 404 (riga già cancellata), così chi è uscito da un altro dispositivo non resta bloccato; la fase non aggiunge dati nel browser, quindi la decisione «Dati nel browser» non chiede altro.
+- Scelte lasciate: se un’altra scheda collega uno zaino mentre `crea` aspetta la risposta, lo zaino appena scritto resta sul servizio senza browser collegati (la pagina mostra l’errore generico); un 400 sulla cancellazione dalla classifica mostra il testo «irraggiungibile». Entrambi i casi sono rari e non perdono dati.
