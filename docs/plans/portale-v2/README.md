@@ -21,7 +21,7 @@
 | F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | da fare |  | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
 | F18 | Scrivere i test end-to-end | F05, F07 | Sonnet | Terra | `high` | medio | da fare |  | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
 | F19 | Controllare la qualità degli esercizi | — | Opus | Sol | `medium` | medio | completata | 2026-11-21 12:15 | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
-| F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet | Terra | `medium` | basso | da fare |  | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
+| F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet | Terra | `medium` | basso | completata | 2026-11-23 20:31 | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
 
 Le colonne «Claude» e «Codex» danno la famiglia del modello per ciascuno strumento, senza versione; `—` vuol dire che la fase gira solo sull’altro. L’effort è un’indicazione per Marco, che lo imposta all’apertura: nessuno dei due modelli lo legge.
 
@@ -539,3 +539,5 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-23 | Revisioni incrociate di F16, F12 e F14 completate (Codex Sol). Corretto il fuoco della guida (`99659da`), conservata la bozza del ripasso nella sessione e ripristinato l’avvio di una nuova sessione dal percorso (`8253006`), distinte le consegne con titolo diverso anche quando hanno gli stessi esercizi (`eb40da5`). Verifiche automatiche e prove in Chrome superate. Segue F15. |
 | 2026-11-23 | F15 completata (Codex; predefinito Terra, scelta effettiva non verificabile): database iniziale e script nella sandbox, immagine Open Graph approvata da Marco; verifiche locali superate. L’anteprima nei servizi di condivisione resta da controllare dopo la pubblicazione. |
 | 2026-11-23 | F09 completata (Codex, Sol). Il campo obbligatorio `level` compare sulla locandina e nella scheda. Star Wars e Il Signore degli Anelli sono intermedi. Verifiche automatiche e prove in Chrome a 1280 e 375 px superate. Segue F20. |
+
+| 2026-11-23 | F20 completata (Codex; predefinito Terra, scelta effettiva non verificabile): generatore di scheletro e lista di controllo nel README; tema di prova verificato e rimosso. Segue F18. |

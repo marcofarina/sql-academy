@@ -38,4 +38,10 @@ Al termine rimuovi `themes/prova/`.
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+Completata il 2026-11-23 con Codex (predefinito `gpt-6.1-terra` in `~/.codex/config.toml`; scelta effettiva non verificabile).
+
+- `npm run nuovo-tema -- <id>` crea manifest, schema, dati, esercizio, traccia, ER, modello logico e fogli di stile provvisori. Usa il pattern del contratto e le pagine riservate del routing; non sovrascrive una cartella esistente.
+- Lista di controllo e comando nella guida del `README.md`. Sostituire i segnaposto prima della pubblicazione.
+- Superati: generazione di `prova`, `npm run check:themes`, `npm run build`, locandina di `prova` nella pagina iniziale nel browser, rifiuto di `star-wars`, `docente` e `../prova`, `npm run lint`, `npm test` (295 test), `git diff --check`. La cartella `themes/prova/` è stata rimossa.
+- Avvisi preesistenti: due avvisi Star Wars in `check:themes` e dimensione del bundle nella build. Nessuna verifica fallita o non eseguita tra i criteri di accettazione.
+- Scostamenti dal dettaglio: nessuno. Nessuna decisione strutturale nuova; lista nel README. Nessun lavoro residuo della fase. Consumo reale non disponibile.

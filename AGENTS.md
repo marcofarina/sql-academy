@@ -60,7 +60,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-23 | F15 di `portale-v2` completata: download del database iniziale e degli script nella sandbox; immagine di anteprima approvata da Marco e meta Open Graph. File scaricati e verifiche automatiche controllati; verifica dell’anteprima nei servizi di condivisione da fare dopo la pubblicazione. |
 | 2026-11-23 | F09 di `portale-v2` completata. Il manifest richiede `level` (`facile`, `intermedio`, `complesso`). Il livello è visibile sulla locandina e nella scheda, con un consiglio per chi comincia sui mondi facili. Star Wars e Il Signore degli Anelli sono intermedi. Verifiche automatiche e prove in Chrome a 1280 e 375 px superate. |
 
-**Prossimo passo** — F20 di `portale-v2`.
+| 2026-11-23 | F20 di `portale-v2` completata: generatore `npm run nuovo-tema -- <id>`, scheletro provvisorio e lista di controllo nel README; tema di prova verificato e rimosso. |
+
+**Prossimo passo** — F18 di `portale-v2`.
 
 ## Requisiti di Marco
 

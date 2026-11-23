@@ -35,6 +35,21 @@ Un tema è una cartella `themes/<id>/`, scoperta al build: non va registrato in 
 
 Il contratto completo, con il tipo di ogni file, è il commento in testa a `src/themes/contract.ts`. Il tema `themes/lotr/` è l’esempio più recente.
 
+Genera uno scheletro provvisorio con:
+
+```bash
+npm run nuovo-tema -- <id>
+```
+
+Il comando rifiuta gli id non validi, riservati o già esistenti. Il tema generato contiene due tabelle, un esercizio e i file facoltativi di esempio; compare nel sito, quindi sostituisci tutti i segnaposto prima di pubblicarlo. Segui questa lista e le istruzioni sotto:
+
+- [ ] Studia e fai approvare la veste.
+- [ ] Progetta il dominio, lo schema ER e il modello logico.
+- [ ] Sostituisci schema, dati e traccia provvisori.
+- [ ] Scrivi e verifica gli esercizi.
+- [ ] Applica la veste, incluse locandina e icone.
+- [ ] Esegui i controlli e aggiorna i dati della classifica.
+
 ### 1. Studia la veste
 
 Prima di scrivere codice, studia la veste del tema con l’Artifact «Design»: tavole della sandbox a 1280 e 375 px, stati della sandbox e fronte della locandina per la pagina iniziale. Un tema può avere uno schema chiaro e uno scuro.
