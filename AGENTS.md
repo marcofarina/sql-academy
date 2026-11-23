@@ -68,8 +68,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-23 | F17 di `portale-v2` completata: service worker e manifest, SQLite ed esercizi senza rete dopo il primo scaricamento, avviso con «Ricarica» e procedura di ripristino nel README. Verifiche automatiche e collaudo locale con due build in Chromium superati. |
 | 2026-11-23 | Revisione di F17 fatta da Claude: nessun difetto. Tutte le fasi di `portale-v2` sono completate; restano la pubblicazione (merge di `dev` in `main`, su richiesta di Marco) e le verifiche sul sito pubblicato. |
 | 2026-11-23 | Controllo di sicurezza prima della pubblicazione, chiesto da Marco: nessuna via di iniezione, Worker della classifica con query parametrizzate e limiti; la classifica resta aggirabile perché le soluzioni sono nel bundle. Aggiunta la Content Security Policy al sito costruito (`scripts/cspPlugin.ts`), verificata senza violazioni su tutte le sezioni. |
+| 2026-11-24 | Piano `mondi-v1` scritto con Marco in `docs/plans/mondi-v1/` (38 fasi): F01 prepara il portale (campo `draft` per i mondi in bozza, locandine ammucchiate per livello), poi ogni mondo segue una ricetta comune (`ricetta.md`) in quattro tipi di fase; dettaglio completo per Stranger Things. Rosa rivista: facili Stranger Things, Dragon Ball, Sherlock Holmes; intermedi One Piece, Lego, Pokémon; complessi Magic: The Gathering e Clash Royale; Minecraft, Divina Commedia e Mitologia greca escono (`docs/mondi.md`). Nessun codice. |
 
-**Prossimo passo** — Pubblicazione di `portale-v2`, poi verifica sul sito pubblicato di anteprima dei link (F15) e uso senza rete (F17), anche su iPhone.
+**Prossimo passo** — Pubblicazione di `portale-v2`, poi verifica sul sito pubblicato di anteprima dei link (F15) e uso senza rete (F17), anche su iPhone. Poi F01 del piano `mondi-v1`.
 
 ## Requisiti di Marco
 
@@ -110,7 +111,7 @@ Fissati il 2026-11-16. Valgono finché il piano non li rivede insieme a Marco.
 
 ## Piano e decisioni
 
-Il lavoro segue il piano `docs/plans/portale-v2/README.md`: indice delle fasi, prompt di apertura, vincoli, autonomia e strategia dei modelli. Ogni fase si esegue in una sessione propria, con la skill `piani-multisessione`. Le fasi girano su Claude Code o su Codex: l’indice del piano dà il modello per ciascuno, e il prompt dice se una fase è solo per Claude (Artifact «Design», icone nuove). Gli ID delle fasi (F01…) sono propri di ciascun piano: le fasi citate nella tabella «Stato» fino al 2026-11-20 sono del piano archiviato `docs/plans/archivio/portale-v1/README.md`, le cui decisioni condivise restano valide.
+Il lavoro segue il piano `docs/plans/mondi-v1/README.md`, che costruisce i mondi nuovi; `docs/plans/portale-v2/README.md`, tutto completato, resta il riferimento per il portale. Ogni piano ha indice delle fasi, prompt di apertura, vincoli, autonomia e strategia dei modelli. Ogni fase si esegue in una sessione propria, con la skill `piani-multisessione`. Le fasi girano su Claude Code o su Codex: l’indice del piano dà il modello per ciascuno, e il prompt dice se una fase è solo per Claude (Artifact «Design», icone nuove). Gli ID delle fasi (F01…) sono propri di ciascun piano: le fasi citate nella tabella «Stato» fino al 2026-11-20 sono del piano archiviato `docs/plans/archivio/portale-v1/README.md`, le cui decisioni condivise restano valide.
 
 Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisioni condivise» del piano.
 
@@ -134,7 +135,7 @@ Decisioni prese da Marco il 2026-11-16; motivi e dettagli nella sezione «Decisi
 | Sessione di esercizi | Riprendibile: salvata nel browser per tema, sopravvive a cambi di pagina e ricariche (2026-11-21) |
 | Ripasso | Ripetizione spaziata a 1, 3, 7 e 21 giorni, zero punti, aiuti gratis; soluzione aperta o esercizio saltato fanno fallire il ripasso (2026-11-23) |
 | Consegna del docente | Link che porta gli esercizi scelti, nell’ordine scelto; pagina `#/docente` dal piè di pagina; punti normali; riepilogo con data e ora da mostrare, non verificabile; nessun server (2026-11-23) |
-| Mondi | Dieci in tutto, divisi in facili (consigliati per cominciare), intermedi e uno o due complessi, candidati alle CTF; la costruzione va in un piano successivo (2026-11-21). Scelti in F08 (2026-11-23), con livelli e abbozzi in `docs/mondi.md`: facili Minecraft, Sherlock Holmes, Stranger Things; intermedi One Piece, Dragon Ball, Divina Commedia; complessi Pokémon e Mitologia greca. Marco può cambiare opera durante la costruzione |
+| Mondi | Dieci in tutto, divisi in facili (consigliati per cominciare), intermedi e uno o due complessi, candidati alle CTF; la costruzione va in un piano successivo (2026-11-21). Scelti in F08 (2026-11-23), con livelli e abbozzi in `docs/mondi.md`: facili Minecraft, Sherlock Holmes, Stranger Things; intermedi One Piece, Dragon Ball, Divina Commedia; complessi Pokémon e Mitologia greca. Rivisti il 2026-11-24 nel piano `mondi-v1`: facili Stranger Things, Dragon Ball, Sherlock Holmes; intermedi One Piece, Lego, Pokémon; complessi Magic: The Gathering e Clash Royale. Marco può cambiare opera durante la costruzione |
 
 ## Norme condivise (workspace)
 

@@ -1,6 +1,6 @@
 # I mondi di SQL Academy
 
-Documento di F08 del piano `portale-v2`: livelli dei mondi, otto opere nuove, mondi candidati alle CTF e ordine di costruzione. Livelli e scelta delle opere sono decisioni di Marco del 2026-11-23; Marco si riserva di cambiare opera durante la costruzione. Schemi SQL, esercizi e vesti restano al piano successivo.
+Documento di F08 del piano `portale-v2`: livelli dei mondi, otto opere nuove, mondi candidati alle CTF e ordine di costruzione. Livelli e prima scelta delle opere sono decisioni di Marco del 2026-11-23; la rosa è stata rivista con Marco il 2026-11-24, scrivendo il piano `mondi-v1`, che costruisce i mondi. Marco si riserva di cambiare opera durante la costruzione.
 
 ## Livelli
 
@@ -18,58 +18,48 @@ Con gli otto mondi nuovi il portale ha dieci mondi: tre facili, cinque intermedi
 
 ## Le otto opere
 
-Gli abbozzi danno tabelle principali e associazioni, non lo schema definitivo. Le note su notorietà, età e diritti vengono da una ricerca sul web del 2026-11-23: dove dicono «da verificare», la ricerca non ha trovato una fonte.
+Rosa rivista il 2026-11-24. Qui motivo e forma del dominio in breve; abbozzo completo, fonti e rischi stanno nei file dei mondi del piano [`mondi-v1`](plans/mondi-v1/README.md), che li aggiorna durante la costruzione. Le note su notorietà, età e diritti vengono da una ricerca sul web del 2026-11-23, quelle sui mondi aggiunti il 2026-11-24 da verificare nella fase A del mondo.
 
 ### Facili
 
-#### Minecraft
+| Opera | Motivo | Dominio in breve |
+| --- | --- | --- |
+| Stranger Things | Notorietà altissima, quinta stagione uscita a fine 2025; episodi con date e durate | `stagioni`, `episodi`, `personaggi` (episodio del debutto): tre tabelle, due chiavi esterne |
+| Dragon Ball | Molto noto in Italia; passato da intermedio a facile il 2026-11-24 | `saghe`, `combattenti` (saga del debutto), `trasformazioni`: tre tabelle, due chiavi esterne |
+| Sherlock Holmes | Pubblico dominio, casi chiusi in ogni racconto | `raccolte`, `racconti`, `personaggi`: tre tabelle, due chiavi esterne |
+
+### Intermedi
+
+| Opera | Motivo | Dominio in breve |
+| --- | --- | --- |
+| One Piece | Fra gli anime e i manga più seguiti; taglie adatte alle aggregazioni. Dominio diverso da quello dell’esercizio «All’arrembaggio!» di *Master Bits* (vincolo di Marco) | `saghe`, `archi`, `personaggi`, `taglie` (storico), `scontri`, `combattenti` (molti a molti) |
+| Lego | Entrato il 2026-11-24 al posto di Minecraft; database pubblico e vasto (Rebrickable) da cui si prende una fetta | `temi` (autoassociazione), `set`, `minifigure`, `set_minifigure`, `categorie`, `pezzi`, `set_pezzi` |
+| Pokémon | Il dominio più tabellare, notissimo; passato da complesso a intermedio il 2026-11-24 | `generazioni`, `tipi`, `specie` (evoluzione come autoassociazione), `specie_tipi`, `mosse`, `apprendimento` |
+
+### Complessi
+
+| Opera | Motivo | Dominio in breve |
+| --- | --- | --- |
+| Magic: The Gathering | Entrato il 2026-11-24: il database reale delle carte è vastissimo e strutturato | espansioni, carte, colori, tipi, artisti, stampe (carta × espansione × artista), formati, legalità con data: una decina di tabelle |
+| Clash Royale | Entrato il 2026-11-24: molto giocato dai ragazzi, statistiche fitte e aggiornamenti di bilanciamento datati | rarità, arene, carte, statistiche per livello, evoluzioni, aggiornamenti e modifiche, mazzi: una decina di tabelle |
+
+## Opere uscite dalla rosa
+
+Uscite il 2026-11-24 per scelta di Marco. Divina Commedia e Mitologia greca sono destinate agli esercizi del libro (*Python Doesn’t Byte*); Minecraft agli esercizi del libro o a un mondo aggiuntivo con CTF. Abbozzi del 2026-11-23, conservati per quell’uso.
+
+### Minecraft
 
 - **Motivo:** l’opera più nota fra i ragazzi (circa 350 milioni di copie), PEGI 7; dati numerici regolari. La poca trama non pesa su un mondo facile.
 - **Dominio:** `biomi` (temperatura, dimensione tipica), `creature` (→ `biomi`; punti vita, danno, ostile sì o no), `attrezzi` (materiale, durata, velocità), `blocchi` (→ `attrezzi` richiesto; durezza, resistenza alle esplosioni). Quattro tabelle, due chiavi esterne.
 - **Rischi:** i valori cambiano fra le versioni del gioco: fissa una versione e citala nella traccia. Mojang tollera in genere l’uso non commerciale, da verificare.
 
-#### Sherlock Holmes
-
-- **Motivo:** pubblico dominio, testi aperti su Wikisource; personaggi e casi chiusi in ogni racconto.
-- **Dominio:** `raccolte` (titolo, anno), `racconti` (→ `raccolte`; anno di pubblicazione, anno dell’ambientazione, luogo, narratore), `personaggi` (→ `racconti`; ruolo: cliente, colpevole, vittima, testimone; esito). Tre tabelle, due chiavi esterne. Holmes e Watson, presenti ovunque, stanno nella traccia e non nella tabella.
-- **Rischi:** poco noto ai ragazzi; la traccia deve presentare il mondo senza dare per scontata la lettura dei racconti.
-
-#### Stranger Things
-
-- **Motivo:** notorietà altissima, con la quinta stagione uscita a fine 2025; episodi con date e durate.
-- **Dominio:** `stagioni` (anno di uscita, anno dell’ambientazione), `episodi` (→ `stagioni`; numero, titolo, durata, data, regia), `personaggi` (→ `episodi` del debutto; età, ruolo, potere sì o no). Tre tabelle, due chiavi esterne; le creature restano personaggi con un ruolo proprio, per non superare le chiavi esterne del livello.
-- **Rischi:** classificata TV-14 negli Stati Uniti per horror e violenza; la classificazione italiana è da verificare. Netflix titolare.
-
-### Intermedi
-
-#### One Piece
-
-- **Motivo:** l’anime più visto su Netflix nel 2025 e fra i manga più venduti in Italia; le taglie sono numeri adatti alle aggregazioni.
-- **Dominio:** la storia raccontata dal manga, non l’archivio della Marina. `saghe` (ordine), `archi` (→ `saghe`; capitolo iniziale e finale, anno di pubblicazione), `personaggi` (→ `archi` del debutto; affiliazione: pirati, Marina, Rivoluzionari, Governo Mondiale), `taglie` (→ `personaggi`, → `archi`: importo dopo l’arco, cioè la storia delle taglie), `scontri` (→ `archi`; capitolo, luogo), molti a molti `combattenti` (scontri × personaggi, con schieramento ed esito). Sei tabelle, una molti a molti.
-- **Vincolo di Marco:** le opere possono sovrapporsi, i domini no. L’esercizio «All’arrembaggio!» (pagina Notion di *Master Bits*, Manuale dell’Archivista, ER e modello logico) usa ciurme con Jolly Roger e mare, membri con ruolo e taglia, frutti del diavolo legati a una sola persona, isole e approdi datati. Il mondo lascia fuori ciurme, frutti, isole e approdi, e tratta la taglia come storico invece che come attributo del membro.
-- **Rischi:** Shueisha e Toei, politica sui progetti dei fan da verificare; violenza da fumetto.
-
-#### Dragon Ball
-
-- **Motivo:** molto noto in Italia, con Dragon Ball Super fra i fumetti più venduti nel 2025; tornei e saghe danno piazzamenti, ordini e date.
-- **Dominio:** `razze`, `pianeti`, `combattenti` (→ `razze`, → `pianeti`, → `combattenti` maestro: autoassociazione), `saghe` (ordine, episodi), `trasformazioni` (→ `combattenti`, → `saghe` della prima comparsa), `tornei` (→ `saghe`; anno, luogo), molti a molti `partecipazioni` (combattenti × tornei, con piazzamento). Sette tabelle.
-- **Rischi:** i livelli di potenza sono incoerenti fra le fonti: non usarli come dato. Toei e Shueisha, da verificare.
-
-#### Divina Commedia
+### Divina Commedia
 
 - **Motivo:** pubblico dominio, legata al programma di italiano; corpus strutturato (DanteSearch, Università di Bologna, licenza da verificare).
 - **Dominio:** `cantiche`, `luoghi` (→ `cantiche`; ordine, tipo: cerchio, girone, cornice, cielo), `colpe` (→ `luoghi`; peccato o virtù, pena), `canti` (→ `cantiche`, → `luoghi`; numero, versi), `anime` (→ `colpe`; città, anno di morte), molti a molti `incontri` (canti × anime, con chi parla). Sei tabelle.
 - **Rischi:** pochi ragazzi la sceglierebbero da soli: la veste e la traccia devono renderla un mondo, non un ripasso.
 
-### Complessi
-
-#### Pokémon
-
-- **Motivo:** il dominio più ricco e più tabellare della rosa, notissimo a tutte le età.
-- **Dominio:** `generazioni`, `regioni` (→ `generazioni`), `tipi`, `efficacia` (tipi × tipi, moltiplicatore), `specie` (→ `generazioni`; statistiche base), `specie_tipi` (molti a molti, con posizione), `evoluzioni` (specie × specie, livello o metodo: autoassociazione), `mosse` (→ `tipi`; potenza, precisione, PP), `apprendimento` (specie × mosse, livello), `palestre` (→ `regioni`, → `tipi`; città), `allenatori` (→ `palestre`), `squadre` (allenatori × specie, livello). Dodici tabelle.
-- **Rischi:** Nintendo e The Pokémon Company sono le più aggressive della rosa sui progetti dei fan. Solo nomi, nessuna immagine, icone RB stilizzate. I dati di PokeAPI hanno licenza d’origine incerta: costruisci un sottoinsieme a mano, citando le fonti.
-
-#### Mitologia greca
+### Mitologia greca
 
 - **Motivo:** pubblico dominio, nessun rischio sui diritti; le genealogie chiedono sottoquery e `WITH`; utile anche alle altre materie.
 - **Dominio:** `figure` (tipo: dio, titano, eroe, mortale, mostro), `genitori` (figure × figure: autoassociazione molti a molti), `unioni` (figure × figure), `luoghi`, `culti` (figure × luoghi, santuario), `oggetti` (→ `figure` proprietaria), `imprese` (→ `figure` eroe, → `luoghi`), `avversari` (imprese × figure), `fonti` (opera, autore, secolo), `citazioni` (figure × fonti). Dieci tabelle.
@@ -77,17 +67,19 @@ Gli abbozzi danno tabelle principali e associazioni, non lo schema definitivo. L
 
 ## Mondi candidati alle CTF
 
-Pokémon e Mitologia greca, i due complessi. Le CTF restano a un piano successivo (decisione «CTF» del piano `portale-v2`).
+Magic: The Gathering e Clash Royale, i due complessi (2026-11-24). Le CTF restano a un piano successivo (decisione «CTF» del piano `portale-v2`, confermata nel piano `mondi-v1`).
 
-## Ordine di costruzione consigliato
+## Ordine di costruzione
 
-1. Minecraft: porta subito nel portale il livello facile, che oggi manca, e collauda il livello nel contratto (F09).
-2. Stranger Things.
+Deciso con Marco il 2026-11-24: prima i facili, poi gli intermedi, infine i complessi.
+
+1. Stranger Things: porta subito nel portale il livello facile, che oggi manca, e collauda la ricetta del piano `mondi-v1`.
+2. Dragon Ball.
 3. Sherlock Holmes.
 4. One Piece.
-5. Dragon Ball.
-6. Divina Commedia.
-7. Mitologia greca: il primo complesso è quello senza rischi sui diritti.
-8. Pokémon, per ultimo: è il dominio più grande e il più esposto sui diritti.
+5. Lego.
+6. Pokémon.
+7. Magic: The Gathering.
+8. Clash Royale.
 
 Ogni mondo chiede uno studio della veste con l’Artifact «Design» prima della costruzione (decisione «Studio della veste»).
