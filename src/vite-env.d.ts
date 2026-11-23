@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
 
+/** Revisione Git del sito, impostata da Vite. */
+declare const __SITE_REVISION__: string;
+
 interface ImportMetaEnv {
   /** Indirizzo del servizio dello zaino (F15), senza `/` finale. */
   readonly VITE_ZAINO_URL?: string;

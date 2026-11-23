@@ -52,8 +52,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 | 2026-11-22 | F11 di `portale-v2` completata: spiegazioni degli errori di SQLite con indizi dallo schema e messaggio originale, nella sandbox e negli esercizi (`src/sandbox/SqlErrorNotice.tsx`). Testi approvati da Marco e verificati nel browser. |
 | 2026-11-23 | Revisione di F07 fatta da Claude: nessun difetto; creazione, apertura e uscita dello zaino e uscita dalla classifica ricontrollate nel codice. |
 | 2026-11-23 | F08 di `portale-v2` completata: livelli dei mondi (facile, intermedio, complesso) e otto opere nuove scelte da Marco, con abbozzi dei domini, CTF e ordine di costruzione in `docs/mondi.md`. Nessun codice. |
+| 2026-11-23 | F13 di `portale-v2` completata: segnalazioni dagli esercizi del percorso e della sessione, via e-mail o GitHub, con query escludibile e revisione del sito. Informativa aggiornata e prove superate in Chrome nei due temi. |
 
-**Prossimo passo** — F13 di `portale-v2`.
+**Prossimo passo** — F12 di `portale-v2`.
 
 ## Requisiti di Marco
 

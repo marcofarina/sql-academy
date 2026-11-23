@@ -1356,6 +1356,30 @@ button.link-button {
   margin-top: 1.5rem;
 }
 
+.exercise-report {
+  margin-top: 1rem;
+}
+
+.exercise-report summary {
+  width: fit-content;
+  padding: 0.65rem 0;
+  color: var(--color-link);
+  cursor: pointer;
+}
+
+.exercise-report p {
+  margin: 0.5rem 0;
+}
+
+.exercise-report-copy textarea {
+  display: block;
+  width: min(100%, 40rem);
+  margin-top: 0.5rem;
+  color: var(--editor-text);
+  background: var(--editor-bg);
+  font-family: var(--font-mono);
+}
+
 /* Addestramento: sessione */
 
 .session-status {

@@ -14,7 +14,7 @@
 | F10 | Predisporre il piè di pagina comune | F04 | Sonnet | Terra | `medium` | basso | completata | 2026-11-21 19:30 | [P-F10](#p-f10) | [F10](F10-predisporre-pie-di-pagina.md) |
 | F11 | Spiegare in italiano gli errori di SQLite | — | Opus | Sol | `medium` | medio | completata | 2026-11-22 22:08 | [P-F11](#p-f11) | [F11](F11-errori-sqlite-italiano.md) |
 | F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
-| F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | da fare |  | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
+| F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | completata | 2026-11-23 14:53 | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
 | F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | da fare |  | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
 | F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | da fare |  | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
 | F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | da fare |  | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
@@ -501,6 +501,7 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | `id-badge` | invito a partecipare con lo zaino collegato | F07 | già nel progetto | usata |
 | `backpack` | invito ad aprire lo zaino per partecipare | F07 | già nel progetto | usata |
 | `circle-check` | conferma dello zaino appena creato | F07 | già nel progetto | usata |
+| `flag` | apertura delle opzioni di segnalazione di un esercizio | F13 | già nel progetto | usata |
 
 ## Aggiornamenti di stato
 
@@ -523,3 +524,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-21 | F07 completata (Codex, Sol). Zaino con apertura a quattro caselle e creazione in tre passi. Classifica con podio, lista e posizione per mondo, collaudata con lo zaino a 1280 e 375 px. Segue la revisione incrociata su Claude Code con Opus. |
 | 2026-11-22 | F11 completata (Codex, Sol). Testi approvati da Marco. Spiegazioni, indizi dallo schema e messaggio originale verificati nella sandbox e negli esercizi. |
 | 2026-11-23 | Revisione di F07 (Claude Code, Opus): nessun difetto. F08 completata (Claude Code, Opus): livelli approvati da Marco, otto opere scelte, `docs/mondi.md`. |
+| 2026-11-23 | F13 completata (Codex, Sol): bozze per e-mail e GitHub con query escludibile, informativa aggiornata e prove superate nei due temi. |

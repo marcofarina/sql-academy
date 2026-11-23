@@ -29,8 +29,8 @@ export function InformativaPage() {
           usa per scrivere e leggere i dati che restano anche quando chiudi la pagina. In questo archivio SQL Academy salva i progressi di
           ogni tema: esercizi
           risolti, tentativi, suggerimenti e soluzioni aperti, punti guadagnati e spesi, l’ultima query scritta in ogni esercizio. Salva
-          anche lo schema di colori scelto per ogni tema. Questi dati lasciano il dispositivo solo se usi lo zaino, descritto nella sezione
-          successiva.
+          anche lo schema di colori scelto per ogni tema. Puoi salvare una copia dei progressi nello zaino e scegliere di condividere
+          la query di un esercizio quando segnali un problema.
         </p>
         <p>
           Restano finché non azzeri i progressi di un tema, non esci dallo zaino o non cancelli i dati del sito dalle impostazioni del browser.
@@ -73,7 +73,7 @@ export function InformativaPage() {
           <li>il servizio conserva solo un’impronta del token, cioè un valore calcolato dal token da cui non si può risalire al token stesso;</li>
           <li>
             al servizio arriva solo ciò che serve a calcolare i punti: per ogni esercizio, se l’hai risolto, quanti suggerimenti hai aperto, se
-            hai visto la soluzione prima di risolverlo e quanti punti hai speso. Le query che scrivi restano a te;
+            hai visto la soluzione prima di risolverlo e quanti punti hai speso;
           </li>
           <li>
             il servizio ti assegna un nome scelto a caso, per esempio «Lontra Tenace 42», che non si può cambiare, e conserva il nome, i punti
@@ -87,6 +87,18 @@ export function InformativaPage() {
         <p>
           Quando confermi «Esci dalla classifica», il servizio cancella nome e punti. Se per 18 mesi non arrivano punti nuovi, li cancella da sé.
           «Esci dallo zaino» toglie il token solo da quel browser: nello zaino il token resta, e riaprendo lo zaino ritrovi lo stesso nome.
+        </p>
+      </section>
+
+      <section className="zaino-scheda" aria-labelledby="dati-segnalazioni">
+        <h2 id="dati-segnalazioni">Segnalazioni sugli esercizi</h2>
+        <p>
+          Quando segnali un problema, puoi aprire una bozza nel tuo programma di posta o su GitHub. La bozza contiene il tema,
+          l’identificativo dell’esercizio, la versione del sito e la tua query, se scegli di includerla.
+        </p>
+        <p>
+          Se invii l’e-mail, chi la riceve vede il tuo indirizzo. Quando apri la bozza su GitHub, GitHub riceve il testo precompilato.
+          Quando pubblichi l’issue, il testo e il tuo nome utente sono visibili a tutti.
         </p>
       </section>
 

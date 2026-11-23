@@ -18,6 +18,7 @@ import { chapterLabel, DIFFICULTY_LABEL, formatQuery } from './exercises.ts';
 import { costLabel, disabledReason } from '../points/labels.ts';
 import type { TrainingState } from './useTraining.ts';
 import { ExerciseNotice } from './ExerciseNotice.tsx';
+import { ExerciseReport } from './ExerciseReport.tsx';
 
 /** Righe del risultato dello studente mostrate sotto l’esito della verifica. */
 const SHOWN_ROWS = 200;
@@ -95,7 +96,7 @@ function HelpButton({ icon, label, offer, balance, onClick }: { icon: string; la
   );
 }
 
-/** Un esercizio: consegna, tabelle coinvolte, editor, esecuzione, verifica, suggerimenti e soluzione. */
+/** Un esercizio: consegna, tabelle, editor, verifica, aiuti e segnalazioni. */
 export function ExerciseWorkspace({ exercise, progress: themeProgress, training, actions, onEvent, footer }: ExerciseWorkspaceProps) {
   const themeIcons = useThemeIcons();
   const progress = exerciseProgress(themeProgress, exercise.id);
@@ -285,6 +286,7 @@ export function ExerciseWorkspace({ exercise, progress: themeProgress, training,
             </figure>
           )}
         </section>
+        <ExerciseReport themeId={training.source.key} exerciseId={exercise.id} query={query} />
         {footer && <nav className="toolbar exercise-nav" aria-label="Navigazione fra gli esercizi">{footer}</nav>}
       </div>
       <SchemaPanel tables={tables} />
