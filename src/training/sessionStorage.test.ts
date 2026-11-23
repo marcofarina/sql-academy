@@ -31,6 +31,18 @@ test('conserva un ripasso con gli esiti; scarta esiti sconosciuti', () => {
   expect(parseSession(serializeSession({ ...session, review: 'sì' } as unknown as ActiveSession, 3), 3, ids)).toBeUndefined();
 });
 
+test('conserva una consegna con codice e titolo; scarta consegne illeggibili', () => {
+  const consegna: ActiveSession = { ...session, consegna: { code: '1.3.17', title: 'Join e gruppi' } };
+  expect(parseSession(serializeSession(consegna, 3), 3, ids)).toEqual(consegna);
+  const untitled: ActiveSession = { ...session, consegna: { code: '1.3' } };
+  expect(parseSession(serializeSession(untitled, 3), 3, ids)).toEqual(untitled);
+  const bad = (value: unknown) => ({ ...session, consegna: value }) as unknown as ActiveSession;
+  expect(parseSession(serializeSession(bad({ code: '9.3' }), 3), 3, ids)).toBeUndefined();
+  expect(parseSession(serializeSession(bad({ code: '1.3', title: 4 }), 3), 3, ids)).toBeUndefined();
+  expect(parseSession(serializeSession(bad('1.3'), 3), 3, ids)).toBeUndefined();
+  expect(parseSession(serializeSession({ ...consegna, review: true }, 3), 3, ids)).toBeUndefined();
+});
+
 test('scarta dati corrotti e indici non validi', () => {
   expect(parseSession('{', 3, ids)).toBeUndefined();
   expect(parseSession(serializeSession({ ...session, index: 2 }, 3), 3, ids)).toBeUndefined();

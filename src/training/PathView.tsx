@@ -7,6 +7,14 @@ import { SessionIcon } from './SessionIcon.tsx';
 import { Reward } from '../points/Reward.tsx';
 import { buildPath, chapterLabel, DIFFICULTY_LABEL, plural } from './exercises.ts';
 import { daysUntil } from './review.ts';
+import type { SessionKind } from './session.ts';
+
+/** «Riprendi la sessione», «Riprendi il ripasso», «Riprendi la consegna». */
+const RESUME_LABEL: Record<SessionKind, string> = {
+  sessione: 'Riprendi la sessione',
+  ripasso: 'Riprendi il ripasso',
+  consegna: 'Riprendi la consegna',
+};
 
 interface PathViewProps {
   themeId: string;
@@ -14,8 +22,8 @@ interface PathViewProps {
   progress: ThemeProgress;
   /** Posizione della sessione in corso, se c’è: «3 di 5». */
   sessionStatus?: string;
-  /** La sessione in corso è un ripasso. */
-  sessionReview?: boolean;
+  /** Il tipo della sessione in corso: sessione, ripasso o consegna. */
+  sessionKind?: SessionKind;
   /** Quanti esercizi sono da ripassare adesso e, se nessuno, quando arriva il prossimo. */
   review: { due: number; nextAt: number | undefined };
   onReset(): void;
@@ -46,7 +54,7 @@ function ReviewNote({ review }: { review: PathViewProps['review'] }) {
 }
 
 /** Il percorso: gli esercizi per capitolo del libro e difficoltà, con lo stato di ciascuno. */
-export function PathView({ themeId, exercises, progress, sessionStatus, sessionReview, review, onReset, onResume, onReview, onAbandon }: PathViewProps) {
+export function PathView({ themeId, exercises, progress, sessionStatus, sessionKind = 'sessione', review, onReset, onResume, onReview, onAbandon }: PathViewProps) {
   const link = (item: string) => formatRoute({ page: 'theme', themeId, section: 'addestramento', item });
   const themeIcons = useThemeIcons();
 
@@ -64,10 +72,10 @@ export function PathView({ themeId, exercises, progress, sessionStatus, sessionR
         <a className="button primary" href={link(SESSION_ITEM)} onClick={onResume}>
           <SessionIcon />
           {sessionStatus
-            ? `${sessionReview ? 'Riprendi il ripasso' : 'Riprendi la sessione'} (${sessionStatus})`
+            ? `${RESUME_LABEL[sessionKind]} (${sessionStatus})`
             : 'Nuova sessione'}
         </a>
-        {onAbandon && <button type="button" onClick={onAbandon}>{sessionReview ? 'Abbandonalo' : 'Abbandonala'}</button>}
+        {onAbandon && <button type="button" onClick={onAbandon}>{sessionKind === 'ripasso' ? 'Abbandonalo' : 'Abbandonala'}</button>}
         {!sessionStatus && (review.due > 0 ? (
           <a className="button" href={link(SESSION_ITEM)} onClick={onReview}>
             <Icon name="circle-arrow-rotate-left" />

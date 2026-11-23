@@ -1438,6 +1438,99 @@ button.link-button {
   margin: 0 0 0.5rem;
 }
 
+/* Consegna del docente: elenco degli esercizi, dati del riepilogo, pagina per i docenti */
+
+.consegna-intro h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.consegna-intro .notice {
+  margin-bottom: 1rem;
+}
+
+.consegna-list {
+  margin: 0 0 1rem;
+  padding-left: 1.75rem;
+}
+
+.consegna-list li {
+  padding: 0.3rem 0;
+}
+
+.consegna-list li > * + * {
+  margin-left: 0.6rem;
+}
+
+.consegna-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin: 0 0 1rem;
+}
+
+.consegna-meta dt {
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.consegna-meta dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.docente-page h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.docente-page .lead {
+  max-width: 46rem;
+}
+
+.docente-title {
+  flex: 1 1 18rem;
+}
+
+.docente-link {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  margin-bottom: 0.75rem;
+  padding: 0 0.6rem;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: var(--radius);
+  background: var(--color-bg, var(--color-surface));
+  color: var(--color-text);
+  font: inherit;
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+}
+
+.docente-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.docente-size select {
+  min-height: 44px;
+  padding: 0 0.5rem;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.docente-prompt {
+  display: block;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
 /* Tutte le query */
 
 .catalog-filters {

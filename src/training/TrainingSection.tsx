@@ -4,19 +4,24 @@ import { loadSession, saveSession, useSessionsCleared } from './sessionStorage.t
 import { Icon } from '../icons/Icon.tsx';
 import type { ThemeProgress } from '../progress/progress.ts';
 import type { ProgressActions } from '../progress/useProgress.ts';
-import { formatRoute, SESSION_ITEM } from '../routing/route.ts';
+import { CONSEGNA_ITEM, formatRoute, SESSION_ITEM, type ThemeRoute } from '../routing/route.ts';
+import { readConsegna } from '../consegna/consegna.ts';
+import { ConsegnaIntro } from '../consegna/ConsegnaIntro.tsx';
 import { ExerciseWorkspace } from './ExerciseWorkspace.tsx';
 import { plural, sortExercises } from './exercises.ts';
 import { PathView } from './PathView.tsx';
 import { SessionIcon } from './SessionIcon.tsx';
 import { SessionView, type ActiveSession } from './SessionView.tsx';
+import { baselineOf, sessionKind } from './session.ts';
 import { dueExercises, nextReviewAt, startReview } from './review.ts';
 import type { TrainingState } from './useTraining.ts';
 
 interface TrainingSectionProps {
   themeId: string;
-  /** `undefined`: il percorso; `SESSION_ITEM`: la sessione; altrimenti l’`id` di un esercizio. */
+  /** `undefined`: il percorso; `SESSION_ITEM`: la sessione; `CONSEGNA_ITEM`: una consegna; altrimenti l’`id` di un esercizio. */
   item: string | undefined;
+  /** Con `CONSEGNA_ITEM`: codice e titolo della consegna dall’indirizzo. */
+  consegna?: ThemeRoute['consegna'];
   training: TrainingState;
   progress: ThemeProgress;
   actions: ProgressActions;
@@ -48,20 +53,22 @@ export function TrainingSection(props: TrainingSectionProps) {
 /** Una sessione salvata, aperta dal suo indirizzo: si riprende o si abbandona per sceglierne una nuova. */
 function SavedSession({ session, onResume, onAbandon }: { session: ActiveSession; onResume(): void; onAbandon(): void }) {
   const solved = Object.values(session.records).filter((record) => record.solved).length;
-  const review = session.review === true;
+  const kind = sessionKind(session);
+  const text = {
+    sessione: ['Hai una sessione in corso', 'Puoi riprenderla da lì, oppure abbandonarla e sceglierne una nuova.', 'Riprendi la sessione'],
+    ripasso: ['Hai un ripasso in corso', 'Puoi riprenderlo da lì, oppure abbandonarlo.', 'Riprendi il ripasso'],
+    consegna: ['Hai una consegna in corso', 'Puoi riprenderla da lì, oppure abbandonarla e sceglierne una nuova.', 'Riprendi la consegna'],
+  }[kind];
   return (
     <div className="session-config">
       <p className="lead">
-        {review ? 'Hai un ripasso in corso' : 'Hai una sessione in corso'}: sei all’esercizio {session.index + 1} di{' '}
-        {session.exerciseIds.length}, con {plural(solved, 'esercizio risolto', 'esercizi risolti')}.{' '}
-        {review
-          ? 'Puoi riprenderlo da lì, oppure abbandonarlo.'
-          : 'Puoi riprenderla da lì, oppure abbandonarla e sceglierne una nuova.'}
+        {text[0]}: sei all’esercizio {session.index + 1} di {session.exerciseIds.length}, con{' '}
+        {plural(solved, 'esercizio risolto', 'esercizi risolti')}. {text[1]}
       </p>
       <div className="toolbar">
         <button type="button" className="primary" onClick={onResume}>
           <SessionIcon />
-          {review ? 'Riprendi il ripasso' : 'Riprendi la sessione'}
+          {text[2]}
         </button>
         <button type="button" onClick={onAbandon}>
           Abbandonala
@@ -73,7 +80,7 @@ function SavedSession({ session, onResume, onAbandon }: { session: ActiveSession
 
 /** L’addestramento con gli esercizi caricati: tiene la sessione in corso e la salva a ogni cambiamento. */
 function ReadyTraining(props: TrainingSectionProps & { training: Extract<TrainingState, { status: 'ready' }> }) {
-  const { themeId, item, training, progress, actions } = props;
+  const { themeId, item, consegna, training, progress, actions } = props;
   const [saved, setSaved] = useState(() => loadSession(storageDi(), themeId, progress.epoch, training.exercises.map((e) => e.id)));
   const [session, setSession] = useState<ActiveSession>();
   useEffect(() => {
@@ -96,7 +103,7 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
         exercises={training.exercises}
         progress={progress}
         sessionStatus={sessionStatus}
-        sessionReview={pending?.review === true}
+        sessionKind={pending ? sessionKind(pending) : undefined}
         review={{ due: due.length, nextAt: nextReviewAt(ids, progress) }}
         onReset={() => { abandon(); actions.reset(); }}
         onResume={resume}
@@ -108,14 +115,58 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
 
   if (item === SESSION_ITEM) {
     if (saved && !session) return <SavedSession session={saved} onResume={resume} onAbandon={abandon} />;
+    // Il riepilogo di una consegna sta sul suo link e non offre «Nuova sessione»: qui se ne configura una nuova.
+    const shown = session?.finished && session.consegna ? undefined : session;
     return (
       <SessionView
         themeId={themeId}
         training={training}
         progress={progress}
         actions={actions}
-        session={session}
+        session={shown}
         onSession={setSession}
+      />
+    );
+  }
+
+  if (item === CONSEGNA_ITEM) {
+    const letta = consegna
+      ? readConsegna(consegna, training.exercises.map((e) => e.id))
+      : ({ ok: false, reason: 'illeggibile' } as const);
+    // La consegna di questo link è già in memoria: si svolge, o se ne vede il riepilogo.
+    if (letta.ok && consegna && session?.consegna?.code === consegna.code) {
+      return (
+        <SessionView
+          themeId={themeId}
+          training={training}
+          progress={progress}
+          actions={actions}
+          session={session}
+          onSession={setSession}
+        />
+      );
+    }
+    const start = () => {
+      if (!letta.ok || !consegna) return;
+      setSaved(undefined);
+      setSession({
+        exerciseIds: letta.ids,
+        index: 0,
+        records: {},
+        baseline: baselineOf(progress, letta.ids),
+        finished: false,
+        consegna: { code: consegna.code, ...(letta.title ? { title: letta.title } : {}) },
+      });
+    };
+    return (
+      <ConsegnaIntro
+        themeId={themeId}
+        letta={letta}
+        code={consegna?.code}
+        exercises={training.exercises}
+        pending={pending}
+        onStart={start}
+        onResume={resume}
       />
     );
   }

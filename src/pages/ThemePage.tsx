@@ -1,7 +1,7 @@
 /** Sezioni e stato di lavoro di un tema. */
 import { useEffect, useState } from 'react';
 import { Icon } from '../icons/Icon.tsx';
-import { SECTIONS, formatRoute, type SectionId } from '../routing/route.ts';
+import { SECTIONS, formatRoute, type SectionId, type ThemeRoute } from '../routing/route.ts';
 import { SandboxSection } from '../sandbox/SandboxSection.tsx';
 import { useSandbox } from '../sandbox/useSandbox.ts';
 import { SCHEMES, type Scheme, type Theme, type ThemeIcons } from '../themes/contract.ts';
@@ -18,7 +18,7 @@ import { TrainingSection } from '../training/TrainingSection.tsx';
 import { useTraining } from '../training/useTraining.ts';
 
 /** Mostra le sei sezioni del tema nella veste scelta. */
-export function ThemePage({ theme, section, item }: { theme: Theme; section: SectionId; item?: string }) {
+export function ThemePage({ theme, section, item, consegna }: { theme: Theme; section: SectionId; item?: string; consegna?: ThemeRoute['consegna'] }) {
   const { id, title, schemes } = theme.manifest;
   const [scheme, setScheme] = useState<Scheme>(() => loadScheme(id));
   const chooseScheme = (next: Scheme) => {
@@ -97,6 +97,7 @@ export function ThemePage({ theme, section, item }: { theme: Theme; section: Sec
           <TrainingSection
             themeId={id}
             item={item}
+            consegna={consegna}
             training={training}
             progress={progress}
             actions={progressActions}

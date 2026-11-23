@@ -3,7 +3,9 @@
  */
 
 import { DIFFICULTIES, type Chapter, type Difficulty, type Exercise } from '../themes/contract.ts';
+import { exerciseProgress, type ThemeProgress } from '../progress/progress.ts';
 import { sortExercises } from './exercises.ts';
+import type { ActiveSession } from './SessionView.tsx';
 
 export const SESSION_LENGTHS = [5, 10, 20] as const;
 export type SessionLength = (typeof SESSION_LENGTHS)[number];
@@ -60,4 +62,30 @@ export function generateSession(
     }
   }
   return sortExercises(picked);
+}
+
+/** Che cosa è la sessione: configurata dallo studente, ripasso o consegna del docente. */
+export type SessionKind = 'sessione' | 'ripasso' | 'consegna';
+
+/** Il tipo della sessione, per i testi che la nominano. */
+export function sessionKind(session: ActiveSession): SessionKind {
+  return session.review ? 'ripasso' : session.consegna ? 'consegna' : 'sessione';
+}
+
+/** I punti di ogni esercizio all’avvio della sessione, da cui il riepilogo conta la differenza. */
+export function baselineOf(progress: ThemeProgress, ids: string[]): ActiveSession['baseline'] {
+  return Object.fromEntries(
+    ids.map((id) => {
+      const { pointsEarned, pointsSpent } = exerciseProgress(progress, id);
+      return [id, { earned: pointsEarned, spent: pointsSpent }];
+    }),
+  );
+}
+
+/** «23 novembre 2026 alle 16:42», nell’ora del dispositivo. */
+export function formatFinishedAt(at: number): string {
+  const date = new Date(at);
+  const day = date.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+  const time = date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  return `${day} alle ${time}`;
 }

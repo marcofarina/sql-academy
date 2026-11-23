@@ -16,7 +16,8 @@ export function FooterContenuti() {
         <cite>Manuale dell’Archivista</cite>
       </a>{' '}
       di <cite>Python Doesn’t Byte</cite>. I mondi dei temi appartengono ai loro autori: SQL Academy ne usa nomi e ambientazioni e non è
-      affiliato ai titolari delle opere. <a href={formatRoute({ page: 'informativa' })}>I tuoi dati</a>
+      affiliato ai titolari delle opere. <a href={formatRoute({ page: 'informativa' })}>I tuoi dati</a> ·{' '}
+      <a href={formatRoute({ page: 'docente' })}>Per i docenti</a>
     </>
   );
 }

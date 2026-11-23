@@ -8,12 +8,15 @@
  *   { "version": 1, "epoch": 0, "session": { "exerciseIds": […], "index": 2, … } }
  *
  * Un ripasso (F12) è una sessione con `"review": true`, e i suoi record hanno
- * l’esito `review`; le sessioni salvate prima restano valide.
+ * l’esito `review`; una consegna del docente (F14) è una sessione con
+ * `"consegna": { "code": "1.3.17", "title": "…" }`. Le sessioni salvate prima
+ * restano valide.
  *
  * Una sessione di un’altra epoca dei progressi, con esercizi che il tema non
  * ha più o comunque illeggibile si scarta senza errori.
  */
 import { useSyncExternalStore } from 'react';
+import { decodeConsegna, TITOLO_MAX } from '../consegna/consegna.ts';
 import type { ActiveSession, SessionRecord } from './SessionView.tsx';
 
 const SESSION_VERSION = 1;
@@ -23,6 +26,15 @@ const key = (themeId: string) => `sql-academy:${themeId}:sessione`;
 const object = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 const count = (value: unknown): value is number => Number.isSafeInteger(value) && (value as number) >= 0;
+
+/** Il campo `consegna` di una sessione salvata: assente, oppure codice leggibile e titolo facoltativo. */
+function consegnaOf(value: unknown): ActiveSession['consegna'] | null | undefined {
+  if (value === undefined) return undefined;
+  if (!object(value) || typeof value.code !== 'string' || !decodeConsegna(value.code)) return null;
+  if (value.title === undefined) return { code: value.code };
+  if (typeof value.title !== 'string' || value.title.length > TITOLO_MAX) return null;
+  return { code: value.code, title: value.title };
+}
 
 /** Testo da salvare per la sessione, legata all’epoca dei progressi in cui è nata. */
 export function serializeSession(session: ActiveSession, epoch: number): string {
@@ -40,7 +52,10 @@ export function parseSession(text: string | null, epoch: number, exerciseIds: st
       return undefined;
     }
     const s = data.session;
+    const consegna = consegnaOf(s.consegna);
     if (
+      consegna === null ||
+      (consegna !== undefined && s.review !== undefined) ||
       !Array.isArray(s.exerciseIds) ||
       s.exerciseIds.length === 0 ||
       !s.exerciseIds.every((id) => typeof id === 'string' && exerciseIds.includes(id)) ||
@@ -81,6 +96,7 @@ export function parseSession(text: string | null, epoch: number, exerciseIds: st
       baseline: s.baseline as ActiveSession['baseline'],
       finished: false,
       ...(s.review === true ? { review: true as const } : {}),
+      ...(consegna ? { consegna } : {}),
     };
   } catch {
     return undefined;

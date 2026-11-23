@@ -99,3 +99,40 @@ test('un mondo della classifica ha un indirizzo e conserva il link di ritorno', 
   expect(parseRoute(hash)).toEqual({ page: 'classifica', themeId: 'lotr' });
   expect(returnLink(hash, () => undefined)).toEqual({ href: hash, label: 'Torna alla classifica' });
 });
+
+test('consegna: codice e titolo facoltativo, andata e ritorno', () => {
+  const route = parseRoute('#/lotr/addestramento/consegna/1.42.3.17/Join%20e%20gruppi');
+  expect(route).toEqual({
+    page: 'theme',
+    themeId: 'lotr',
+    section: 'addestramento',
+    item: 'consegna',
+    consegna: { code: '1.42.3.17', title: 'Join e gruppi' },
+  });
+  expect(formatRoute(route as Parameters<typeof formatRoute>[0])).toBe('#/lotr/addestramento/consegna/1.42.3.17/Join%20e%20gruppi');
+  expect(parseRoute('#/lotr/addestramento/consegna/1.42')).toEqual({
+    page: 'theme',
+    themeId: 'lotr',
+    section: 'addestramento',
+    item: 'consegna',
+    consegna: { code: '1.42' },
+  });
+  expect(canonicalHash('#/lotr/addestramento/consegna/1.42/Join%20e%20gruppi')).toBeUndefined();
+});
+
+test('consegna: una barra nel titolo resta nel titolo', () => {
+  const hash = formatRoute({ page: 'theme', themeId: 'lotr', section: 'addestramento', item: 'consegna', consegna: { code: '1.3', title: 'A/B' } });
+  expect(hash).toBe('#/lotr/addestramento/consegna/1.3/A%2FB');
+  expect(parseRoute(hash)).toMatchObject({ consegna: { code: '1.3', title: 'A/B' } });
+});
+
+test('consegna: troppi elementi o fuori dall’addestramento, pagina non trovata', () => {
+  expect(parseRoute('#/lotr/addestramento/consegna/1.3/titolo/altro')).toEqual({ page: 'not-found' });
+  expect(parseRoute('#/lotr/sandbox/consegna/1.3')).toEqual({ page: 'not-found' });
+});
+
+test('la pagina per i docenti', () => {
+  expect(parseRoute('#/docente')).toEqual({ page: 'docente' });
+  expect(formatRoute({ page: 'docente' })).toBe('#/docente');
+  expect(returnLink('#/docente', () => undefined)).toEqual({ href: '#/docente', label: 'Torna alla pagina per i docenti' });
+});

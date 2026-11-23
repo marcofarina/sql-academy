@@ -1,5 +1,6 @@
 /** Sceglie il contenuto del portale e la destinazione del ritorno. */
 import { ClassificaPage } from './classifica/ClassificaPage.tsx';
+import { DocentePage } from './consegna/DocentePage.tsx';
 import { InformativaPage } from './classifica/InformativaPage.tsx';
 import { HomePage } from './pages/HomePage.tsx';
 import { NotFoundPage } from './pages/NotFoundPage.tsx';
@@ -17,7 +18,7 @@ export function App() {
   if (route.page === 'theme') {
     const theme = findTheme(route.themeId);
     if (theme) {
-      return <ThemePage key={theme.manifest.id} theme={theme} section={route.section} item={route.item} />;
+      return <ThemePage key={theme.manifest.id} theme={theme} section={route.section} item={route.item} consegna={route.consegna} />;
     }
   }
   if (route.page === 'home') {
@@ -36,6 +37,7 @@ export function App() {
       {page === 'zaino' ? <ZainoPage themes={themes} />
         : page === 'classifica' ? <ClassificaPage themes={themes} mondo={mondoClassifica} />
         : page === 'informativa' ? <InformativaPage />
+        : page === 'docente' ? <DocentePage themes={themes} />
         : <NotFoundPage message={error} />}
     </SiteLayout>
   );

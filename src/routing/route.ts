@@ -7,7 +7,9 @@
  * questi nomi come `id`.
  *
  * Solo l’addestramento ha un elemento in più: `#/<tema>/addestramento/<id>` apre
- * un esercizio, `#/<tema>/addestramento/sessione` la sessione configurabile.
+ * un esercizio, `#/<tema>/addestramento/sessione` la sessione configurabile,
+ * `#/<tema>/addestramento/consegna/<codice>[/<titolo>]` una consegna del docente
+ * (formato in `src/consegna/consegna.ts`). `#/docente` è la pagina che la crea.
  */
 
 export const SECTIONS = [
@@ -26,19 +28,24 @@ export const DEFAULT_SECTION: SectionId = 'sandbox';
 /** L’elemento dell’addestramento che apre la sessione; nessun esercizio può avere questo `id`. */
 export const SESSION_ITEM = 'sessione';
 
+/** L’elemento dell’addestramento che apre una consegna; nessun esercizio può avere questo `id`. */
+export const CONSEGNA_ITEM = 'consegna';
+
 export type ThemeRoute = {
   page: 'theme';
   themeId: string;
   section: SectionId;
-  /** Solo nell’addestramento: l’`id` di un esercizio oppure `SESSION_ITEM`. */
+  /** Solo nell’addestramento: l’`id` di un esercizio, `SESSION_ITEM` o `CONSEGNA_ITEM`. */
   item?: string;
+  /** Solo con `CONSEGNA_ITEM`: codice e titolo della consegna, come li porta l’indirizzo. */
+  consegna?: { code: string; title?: string };
 };
 
 /** La pagina dello zaino; il suo nome è riservato e nessun tema può usarlo come `id`. */
 export const ZAINO_PAGE = 'zaino';
 
-/** Le pagine del portale fuori dai temi: i loro nomi sono riservati (F15, F17). */
-export const PORTAL_PAGES = [ZAINO_PAGE, 'classifica', 'informativa'] as const;
+/** Le pagine del portale fuori dai temi: i loro nomi sono riservati (F15, F17, F14 di `portale-v2`). */
+export const PORTAL_PAGES = [ZAINO_PAGE, 'classifica', 'informativa', 'docente'] as const;
 
 export type PortalPage = (typeof PORTAL_PAGES)[number];
 
@@ -47,7 +54,7 @@ function isPortalPage(value: string): value is PortalPage {
 }
 
 /** Una pagina del portale; distribuita su ogni nome, così `route.page` restringe il tipo. */
-export type PortalRoute = { page: 'zaino' | 'informativa' } | { page: 'classifica'; themeId?: string };
+export type PortalRoute = { page: 'zaino' | 'informativa' | 'docente' } | { page: 'classifica'; themeId?: string };
 
 export type Route = { page: 'home' } | PortalRoute | ThemeRoute | { page: 'not-found' };
 
@@ -70,6 +77,10 @@ export function parseRoute(hash: string): Route {
   if (!isSection(section)) return { page: 'not-found' };
   if (rest.length === 0) return { page: 'theme', themeId, section };
   if (rest.length === 1 && section === 'addestramento') return { page: 'theme', themeId, section, item: rest[0] };
+  if ((rest.length === 2 || rest.length === 3) && section === 'addestramento' && rest[0] === CONSEGNA_ITEM) {
+    const [, code, title] = rest;
+    return { page: 'theme', themeId, section, item: CONSEGNA_ITEM, consegna: title === undefined ? { code } : { code, title } };
+  }
   return { page: 'not-found' };
 }
 
@@ -79,7 +90,11 @@ export function formatRoute(route: { page: 'home' } | PortalRoute | ThemeRoute):
   if (route.page === 'classifica' && route.themeId) return `#/classifica/${encodeURIComponent(route.themeId)}`;
   if (route.page !== 'theme') return `#/${route.page}`;
   const base = `#/${encodeURIComponent(route.themeId)}/${route.section}`;
-  return route.item === undefined ? base : `${base}/${encodeURIComponent(route.item)}`;
+  if (route.item === undefined) return base;
+  const item = `${base}/${encodeURIComponent(route.item)}`;
+  if (route.item !== CONSEGNA_ITEM || !route.consegna) return item;
+  const { code, title } = route.consegna;
+  return `${item}/${encodeURIComponent(code)}${title === undefined ? '' : `/${encodeURIComponent(title)}`}`;
 }
 
 /** L’hash canonico della stessa pagina, se diverso da quello dato: `#/star-wars` → `#/star-wars/sandbox`. */
@@ -106,6 +121,8 @@ export function returnLink(hash: string | null, themeTitle: (id: string) => stri
     label = 'Torna alla classifica';
   } else if (route.page === 'informativa') {
     label = 'Torna all’informativa';
+  } else if (route.page === 'docente') {
+    label = 'Torna alla pagina per i docenti';
   }
   return { href: hash, label };
 }

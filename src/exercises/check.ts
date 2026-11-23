@@ -17,7 +17,7 @@ import { SqlError, SqlTimeoutError, type ResultSet, type SqlDatabase, type SqlEn
 import { compareResults, hasOuterOrderBy } from './compare.ts';
 import { asksForMany, missingKeywords, tieBreakVariants, undeclaredKeywords } from './quality.ts';
 import { ExerciseError, runExpected } from './verify.ts';
-import { SESSION_ITEM } from '../routing/route.ts';
+import { CONSEGNA_ITEM, SESSION_ITEM } from '../routing/route.ts';
 
 export interface ThemeToCheck {
   id: string;
@@ -103,6 +103,7 @@ export async function checkTheme(engine: SqlEngine, theme: ThemeToCheck): Promis
 
       if (seen.has(exercise.id)) report('id usato da più di un esercizio');
       if (exercise.id === SESSION_ITEM) report(`l’id «${SESSION_ITEM}» è riservato alla sessione di addestramento`);
+      if (exercise.id === CONSEGNA_ITEM) report(`l’id «${CONSEGNA_ITEM}» è riservato alle consegne del docente`);
       seen.add(exercise.id);
       shapeProblems(exercise).forEach(report);
 

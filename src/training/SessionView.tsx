@@ -10,7 +10,9 @@ import { CHAPTERS, DIFFICULTIES, type Chapter, type Exercise } from '../themes/c
 import { chapterLabel, DIFFICULTY_LABEL, keywordsOf, plural } from './exercises.ts';
 import { ExerciseWorkspace, type WorkspaceEvent } from './ExerciseWorkspace.tsx';
 import {
+  baselineOf,
   eligibleExercises,
+  formatFinishedAt,
   generateSession,
   SESSION_LENGTHS,
   type SessionConfig,
@@ -38,6 +40,10 @@ export interface ActiveSession {
   finished: boolean;
   /** Un ripasso (`src/training/review.ts`) invece di una sessione configurata. */
   review?: true;
+  /** Una consegna del docente (`src/consegna/consegna.ts`): il codice del link e il titolo, se c’è. */
+  consegna?: { code: string; title?: string };
+  /** Quando la sessione è finita, in millisecondi: il riepilogo della consegna lo mostra. */
+  finishedAt?: number;
 }
 
 interface PointsSnapshot {
@@ -189,12 +195,35 @@ function Summary({
   const remembered = records.filter((r) => r.review === 'riuscito').length;
   const total = (key: 'attempts' | 'hints' | 'earned' | 'spent') => records.reduce((sum, r) => sum + r[key], 0);
   const review = session.review === true;
+  const { consegna } = session;
   return (
     <div className="session-summary">
       <h2>
         <Icon name="flag" />
-        {review ? 'Riepilogo del ripasso' : 'Riepilogo della sessione'}
+        {review ? 'Riepilogo del ripasso' : consegna ? 'Riepilogo della consegna' : 'Riepilogo della sessione'}
       </h2>
+      {consegna && (
+        <dl className="consegna-meta">
+          {consegna.title && (
+            <div>
+              <dt>Consegna</dt>
+              <dd>{consegna.title}</dd>
+            </div>
+          )}
+          {session.finishedAt !== undefined && (
+            <div>
+              <dt>Conclusa il</dt>
+              <dd>{formatFinishedAt(session.finishedAt)}</dd>
+            </div>
+          )}
+          <div>
+            <dt>Codice</dt>
+            <dd>
+              <code>{consegna.code}</code>
+            </dd>
+          </div>
+        </dl>
+      )}
       <p className="lead">
         {review
           ? `${remembered === 1 ? 'Riuscito' : 'Riusciti'} ${remembered} su ${plural(records.length, 'ripasso', 'ripassi')}`
@@ -260,7 +289,7 @@ function Summary({
         </table>
       </div>
       <div className="toolbar">
-        {!review && (
+        {!review && !consegna && (
           <button type="button" className="primary" onClick={onNew}>
             <SessionIcon />
             Nuova sessione
@@ -289,7 +318,7 @@ export function SessionView({ themeId, training, progress, actions, session, onS
             exerciseIds,
             index: 0,
             records: {},
-            baseline: Object.fromEntries(exerciseIds.map((id) => [id, snapshot(progress, id)])),
+            baseline: baselineOf(progress, exerciseIds),
             finished: false,
           });
         }}
@@ -336,16 +365,19 @@ export function SessionView({ themeId, training, progress, actions, session, onS
   const advance = () => {
     const skipped = pending ? { [id]: { ...current, review: conclude(false) } } : {};
     const records = { ...session.records, ...skipped };
-    onSession(last ? { ...session, records, finished: true } : { ...session, records, index: session.index + 1 });
+    onSession(
+      last ? { ...session, records, finished: true, finishedAt: Date.now() } : { ...session, records, index: session.index + 1 },
+    );
   };
 
   return (
     <div className="session">
       <p className="session-status">
         <span>
-          {review ? 'Ripasso' : 'Sessione'}: esercizio {session.index + 1} di {session.exerciseIds.length}
+          {review ? 'Ripasso' : session.consegna ? 'Consegna' : 'Sessione'}: esercizio {session.index + 1} di{' '}
+          {session.exerciseIds.length}
         </span>
-        <button type="button" className="link-button" onClick={() => onSession({ ...session, finished: true })}>
+        <button type="button" className="link-button" onClick={() => onSession({ ...session, finished: true, finishedAt: Date.now() })}>
           Interrompi e vai al riepilogo
         </button>
       </p>
