@@ -45,8 +45,8 @@ Gli abbozzi danno tabelle principali e associazioni, non lo schema definitivo. L
 #### One Piece
 
 - **Motivo:** l’anime più visto su Netflix nel 2025 e fra i manga più venduti in Italia; le taglie sono numeri adatti alle aggregazioni.
-- **Dominio:** `ciurme` (→ `pirati` capitano, autoassociazione come `fazioni.leader_id`), `pirati` (→ `ciurme`, → `frutti_del_diavolo`; taglia, età), `frutti_del_diavolo` (tipo: Paramisha, Zoo Zoo, Rogia), `isole` (mare), `archi` (→ `isole`; capitoli, saga), molti a molti `apparizioni` (pirati × archi, con esito). Sei tabelle.
-- **Vincolo di Marco:** esiste già un esercizio su One Piece per *Python Doesn’t Byte*, non ancora pubblicato. Le opere possono sovrapporsi, i domini no: prima di costruire il mondo, confronta l’esercizio e scegli tabelle diverse. Non l’ho trovato nei branch del repo `python-doesnt-byte` il 2026-11-23: chiedi a Marco dove si trova.
+- **Dominio:** la storia raccontata dal manga, non l’archivio della Marina. `saghe` (ordine), `archi` (→ `saghe`; capitolo iniziale e finale, anno di pubblicazione), `personaggi` (→ `archi` del debutto; affiliazione: pirati, Marina, Rivoluzionari, Governo Mondiale), `taglie` (→ `personaggi`, → `archi`: importo dopo l’arco, cioè la storia delle taglie), `scontri` (→ `archi`; capitolo, luogo), molti a molti `combattenti` (scontri × personaggi, con schieramento ed esito). Sei tabelle, una molti a molti.
+- **Vincolo di Marco:** le opere possono sovrapporsi, i domini no. L’esercizio «All’arrembaggio!» (pagina Notion di *Master Bits*, Manuale dell’Archivista, ER e modello logico) usa ciurme con Jolly Roger e mare, membri con ruolo e taglia, frutti del diavolo legati a una sola persona, isole e approdi datati. Il mondo lascia fuori ciurme, frutti, isole e approdi, e tratta la taglia come storico invece che come attributo del membro.
 - **Rischi:** Shueisha e Toei, politica sui progetti dei fan da verificare; violenza da fumetto.
 
 #### Dragon Ball
@@ -84,7 +84,7 @@ Pokémon e Mitologia greca, i due complessi. Le CTF restano a un piano successiv
 1. Minecraft: porta subito nel portale il livello facile, che oggi manca, e collauda il livello nel contratto (F09).
 2. Stranger Things.
 3. Sherlock Holmes.
-4. One Piece, dopo il confronto con l’esercizio del libro.
+4. One Piece.
 5. Dragon Ball.
 6. Divina Commedia.
 7. Mitologia greca: il primo complesso è quello senza rischi sui diritti.
