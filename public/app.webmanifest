@@ -1,0 +1,10 @@
+{
+  "name": "SQL Academy",
+  "short_name": "SQL Academy",
+  "lang": "it",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "icons": [{ "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

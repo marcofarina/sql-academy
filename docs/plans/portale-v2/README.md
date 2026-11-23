@@ -18,7 +18,7 @@
 | F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | completata | 2026-11-23 16:48 | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
 | F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-23 17:58 | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
 | F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | completata | 2026-11-23 17:15 | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
-| F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | da fare |  | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
+| F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | completata | 2026-11-23 21:50 | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
 | F18 | Scrivere i test end-to-end | F05, F07 | Sonnet | Terra | `high` | medio | completata | 2026-11-23 21:25 | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
 | F19 | Controllare la qualità degli esercizi | — | Opus | Sol | `medium` | medio | completata | 2026-11-21 12:15 | [P-F19](#p-f19) | [F19](F19-controllare-esercizi.md) |
 | F20 | Generare lo scheletro di un tema nuovo | F09 | Sonnet | Terra | `medium` | basso | completata | 2026-11-23 20:31 | [P-F20](#p-f20) | [F20](F20-generatore-tema.md) |
@@ -545,3 +545,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-23 | F18 in corso (Codex, predefinito Terra): suite Chromium e controlli locali superati; verifica del workflow remoto da concordare con Marco. |
 
 | 2026-11-23 | F18 completata (Codex; predefinito Terra): workflow remoto su `dev` superato, pubblicazione saltata. Segue F17. |
+| 2026-11-23 | F17 completata (Codex, Sol): portale disponibile senza rete dopo il primo scaricamento, avviso di aggiornamento con «Ricarica» e procedura di ripristino. Verifiche automatiche e collaudo locale con due build in Chromium superati. Segue la revisione incrociata su Claude Code con Opus. |

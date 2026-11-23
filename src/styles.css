@@ -239,6 +239,25 @@ h1 .icon-box {
   min-height: 100vh;
 }
 
+.site-update {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.site-update[data-visible='true'] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.site-update p {
+  margin: 0;
+}
+
 .site-footer {
   padding: 24px;
   border-top: 1px solid var(--color-rule);

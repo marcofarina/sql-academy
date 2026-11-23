@@ -25,6 +25,29 @@ Il workflow `.github/workflows/pubblica.yml` parte a ogni push su `main`: esegue
 
 I servizi in rete stanno su Cloudflare Workers: lo zaino nel repo del libro (`servizi/zaino/`), la classifica qui in `servizi/classifica/`. Entrambi ammettono nel CORS l’origine `https://sql.rainbowbits.cloud`.
 
+### Uso senza rete e aggiornamenti
+
+`npm run build` genera `dist/service-worker.js`. Alla prima visita il browser scarica i file della build, compresi i mondi e SQLite. Prova con `npx vite preview`: apri il sito, attendi che il worker risulti attivo negli strumenti del browser, disattiva la rete e ricarica. `npm run test:e2e` prova anche il salvataggio di un esercizio e la sincronizzazione dello zaino quando torna la rete.
+
+Il browser prepara ogni versione in una cache propria. Quando compare «È disponibile una versione nuova», premi «Ricarica». Se hai altre schede del portale aperte, chiudile prima di riprovare. Se chiudi tutte le schede, il browser attiva da sé la versione già scaricata.
+
+#### Disattivare il service worker
+
+- **Su un browser.** Con la rete attiva, apri gli strumenti per sviluppatori di Chrome, **Application → Service Workers**, ed esegui **Unregister** per l’indirizzo di SQL Academy. In **Cache Storage** elimina le cache del sito che iniziano con `sql-academy:offline:`. Chiudi le schede del portale. Per verificare il sito dalla rete mentre la registrazione è ancora disponibile, usa **Bypass for network**. La rimozione delle sole cache lascia i progressi nel browser.
+- **Da una pubblicazione.** Togli la chiamata a `startOfflineUpdates()` con il suo import da `src/main.tsx` e disattiva `offlinePlugin()` in `vite.config.ts`, insieme al suo import. Pubblica il codice qui sotto in `public/service-worker.js`, allo stesso URL del worker precedente. Il browser lo scarica al controllo successivo, rimuove le cache di SQL Academy e annulla la registrazione. Lascia il file all’URL originale finché vuoi permettere il recupero dei browser che non hanno ancora visitato il sito dopo la correzione.
+
+```js
+self.addEventListener('install', (event) => event.waitUntil(self.skipWaiting()));
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const prefix = `sql-academy:offline:${encodeURIComponent(self.registration.scope)}:`;
+    const names = (await caches.keys()).filter((name) => name.startsWith(prefix));
+    await Promise.all(names.map((name) => caches.delete(name)));
+    await self.registration.unregister();
+  })());
+});
+```
+
 ## Piè di pagina
 
 Il piè di pagina è comune a tutte le pagine: `src/footer/SiteFooter.tsx` lo monta dentro `SiteLayout`, i contenuti stanno solo in `src/footer/contenuti.tsx`. Il contenuto attuale è provvisorio: quello definitivo arriva da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina dei mini-siti di Marco, e sostituisce quel file senza toccare le pagine.

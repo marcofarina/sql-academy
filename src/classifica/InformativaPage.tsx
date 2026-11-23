@@ -35,6 +35,10 @@ export function InformativaPage() {
         <p>
           Restano finché non azzeri i progressi di un tema, non esci dallo zaino o non cancelli i dati del sito dalle impostazioni del browser.
         </p>
+        <p>
+          Alla prima visita il browser scarica anche una copia dei file pubblici di SQL Academy. Con quei file puoi aprire i mondi,
+          usare la sandbox e fare gli esercizi quando manca la rete. Per accedere allo zaino in rete e consultare la classifica serve una connessione.
+        </p>
       </section>
 
       <section className="zaino-scheda" aria-labelledby="dati-zaino">

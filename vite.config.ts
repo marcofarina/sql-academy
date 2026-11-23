@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
+import { offlinePlugin } from './scripts/offlinePlugin.ts';
 import { themeStatsPlugin } from './scripts/themeStatsPlugin.ts';
 
 function siteRevision(): string {
@@ -22,7 +23,7 @@ export default defineConfig({
   // Percorsi relativi: il sito funziona sotto qualunque sottocartella di GitHub Pages.
   base: './',
   define: { __SITE_REVISION__: JSON.stringify(siteRevision()) },
-  plugins: [react(), themeStatsPlugin(fileURLToPath(new URL('./themes', import.meta.url)))],
+  plugins: [react(), themeStatsPlugin(fileURLToPath(new URL('./themes', import.meta.url))), offlinePlugin()],
   worker: { format: 'es' },
   test: {
     include: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'servizi/*/src/**/*.test.ts'],

@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App.tsx';
 import { avviaClassifica } from './classifica/invio.ts';
+import { startOfflineUpdates } from './offline/updates.ts';
 import { themes } from './themes/registry.ts';
 import './zaino/sezione.ts';
 import { avviaZaino } from './zaino/sincronizza.ts';
@@ -17,6 +18,8 @@ avviaClassifica(
   import.meta.env.VITE_CLASSIFICA_URL ?? (import.meta.env.DEV ? 'http://localhost:8788' : 'https://sql-classifica.rainbowbits.cloud'),
   themes.map((theme) => theme.manifest.id),
 );
+
+startOfflineUpdates();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

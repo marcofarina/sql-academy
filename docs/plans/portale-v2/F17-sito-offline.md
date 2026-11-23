@@ -40,4 +40,24 @@ Procedura manuale (`npx vite preview`): visita il sito, disattiva la rete, ricar
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+Completata il 2026-11-23 21:50, ora di Roma, con Codex (Sol, predefinito letto da `~/.codex/config.toml`).
+
+### Decisioni ed esito
+
+- Marco ha confermato un service worker scritto a mano, il salvataggio dei file della build per l’uso senza rete, zaino e classifica via rete e l’aggiornamento con avviso e «Ricarica».
+- `scripts/offlinePlugin.ts` genera `dist/service-worker.js` a fine build. Il worker verifica le impronte di tutti i file prima di attivarsi. La cache contiene solo file pubblici e usa una chiave per versione e indirizzo del portale. Quando si attiva una versione nuova, il worker cancella le cache precedenti del portale per quell’indirizzo.
+- `src/offline/updates.ts` controlla gli aggiornamenti all’apertura, quando la scheda riprende il fuoco, al ritorno della rete e ogni quindici minuti finché la scheda è visibile. Il browser attiva una versione già scaricata anche quando chiudi tutte le schede del portale.
+- Il manifest riusa il favicon RB del portale. Il README descrive il ripristino dal browser e la pubblicazione di un worker che rimuove la registrazione e le cache.
+
+### Scostamenti dal dettaglio
+
+- «Ricarica» chiede di chiudere le altre schede del portale prima di attivare la versione nuova. Così una scheda lasciata aperta per lavorare conserva la propria pagina e i file che le servono.
+
+### Verifiche
+
+- `npm run lint && npm test && npm run check:themes && npm run build` superato. Passati 295 test. Restano i due avvisi Star Wars documentati in F19 e l’avviso Vite sulla dimensione del bundle.
+- `npm run test:e2e` superato, 7 test su Chromium. A rete disattivata dopo la prima visita, ricaricata la home, eseguita una query in ciascun mondo e risolto un esercizio. I punti restano dopo la ricarica. Al ritorno della rete, lo zaino simulato riceve i progressi.
+- Collaudo in Chromium a 375 px con due build servite da `npx vite preview` sotto `/prova/`. La seconda build compare nell’avviso e si attiva con «Ricarica» anche se la rete cade dopo il download. La prova ha coperto una risorsa con impronta errata, il tentativo di aggiornamento con due schede aperte e l’attivazione quando vengono chiuse tutte le schede.
+- Provato il worker di ripristino del README allo stesso indirizzo del worker attivo. Ha rimosso la registrazione e la cache del portale. Il valore di prova in `localStorage` e la cache di un’altra app erano ancora presenti.
+
+Il collaudo ha usato Chromium in anteprima locale. Restano la revisione incrociata su Claude Code con Opus e la verifica su GitHub Pages dopo la pubblicazione.

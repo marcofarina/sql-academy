@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { SiteFooter } from '../footer/SiteFooter.tsx';
 import { Icon } from '../icons/Icon.tsx';
+import { UpdateNotice } from '../offline/UpdateNotice.tsx';
 import { Balance } from '../points/Balance.tsx';
 import { formatRoute, type Route } from '../routing/route.ts';
 import { GUIDE_ID } from '../guide/ThemeGuide.tsx';
@@ -65,6 +66,7 @@ export function SiteLayout(props: LayoutPage & { children: ReactNode }) {
         </a>
         {theme?.switcher}
       </header>
+      <UpdateNotice />
       {children}
       <SiteFooter />
     </div>
