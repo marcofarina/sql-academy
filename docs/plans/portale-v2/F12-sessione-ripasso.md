@@ -69,6 +69,14 @@ Procedura manuale (`npm run dev`): con progressi di prova che hanno date passate
 
 **Verifiche non eseguite.** «Esci dallo zaino» e «Azzera i progressi» durante un ripasso non sono stati riprovati nel browser: il ripasso usa la stessa chiave della sessione, già provata in F06. Unione reale fra due dispositivi con lo zaino non provata nel browser, solo nei test.
 
-**Lavoro residuo.** Revisione incrociata su Codex con Sol, prima di F14 e F16.
-
 **Strumento e modello.** Claude Code, Opus 5.5.
+
+## Revisione
+
+Revisione incrociata del 2026-11-23 con Codex Sol. Confrontati il diff di `2d96a94`, i criteri e gli scostamenti. Correzioni nel commit `8253006`.
+
+- Dopo il riepilogo del ripasso, «Nuova sessione» dal percorso apre la configurazione.
+- L’editor parte vuoto a ogni nuovo esercizio del ripasso. Bozza e aiuti aperti si ritrovano dopo una ricarica. La query del percorso e il suo `queryAt` restano disponibili, anche per i progressi precedenti a F12.
+- Un esito arrivato prima della nuova scadenza lascia in vigore quello già registrato nei progressi. Durante l’esecuzione di una query di ripasso la soluzione resta disattivata, così l’apertura e la verifica hanno un ordine definito.
+- In Chrome con `npm run dev`, verificati selezione da dati precedenti a F12, bozza e aiuti dopo la ricarica, successo, fallimento aprendo la soluzione, saldo, nuova sessione e azzeramento durante un ripasso. Provata anche l’uscita dal pulsante «Esci dallo zaino» durante un ripasso temporaneo, con servizio simulato.
+- Superati `npm run lint`, `npm test` (294 test), `npm run check:themes`, `npm run build` e `git diff --check`. La fusione fra dispositivi è coperta dai test automatici. Restano da provare la fusione con il servizio reale e, tra gli avvisi dei controlli, restano i due casi Star Wars di F19 e le dimensioni del bundle segnalate da Vite.

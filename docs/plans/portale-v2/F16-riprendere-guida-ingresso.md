@@ -78,4 +78,12 @@ Testo finale della guida, dopo la passata di `scrittura-umana.md`: «In alto tro
 ### Limiti e lavoro residuo
 
 - La scheda della locandina legge la sessione salvata quando si apre; se gli esercizi si caricano dopo i 450 ms del giro della scheda, il fuoco va su «Entra» e il pulsante di ripresa compare subito prima.
-- Revisione incrociata su Codex (Sol) prima delle fasi che ne dipendono.
+
+## Revisione
+
+Revisione incrociata del 2026-11-23 con Codex Sol. Il commit `99659da` restituisce il fuoco al pulsante «Guida» anche alla prima chiusura. Il pulsante porta il fuoco al riquadro anche quando è già aperto.
+
+- Confrontati il diff di `965c704`, le scelte approvate e gli scostamenti del passaggio di consegne.
+- In Chrome con `npm run dev`, a 375 px, verificati il primo ingresso, il segno comune ai temi dopo la ricarica, il fuoco, la ripresa con la query dalla locandina, la precedenza della sessione salvata e l’azzeramento. Barra e guida entrano nella larghezza della finestra.
+- Con il servizio dello zaino simulato, «Esci dallo zaino» cancella il segno in modalità temporanea e conserva quello dell’area normale.
+- Superati `npm run lint`, `npm test` (294 test), `npm run check:themes`, `npm run build` e `git diff --check`. Restano i due avvisi Star Wars di F19 e l’avviso di Vite sulle dimensioni del bundle.

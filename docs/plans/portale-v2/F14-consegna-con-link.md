@@ -74,7 +74,15 @@ Tutte come proposte, il 2026-11-23:
 
 ### Limiti e lavoro residuo
 
-- **Difetto di F12, non corretto qui:** dopo un ripasso concluso, «Nuova sessione» dal percorso riapre il riepilogo del ripasso, che non offre «Nuova sessione»; si esce solo ricaricando la pagina. Il riepilogo del ripasso sta sullo stesso indirizzo della sessione, quindi la correzione chiede una scelta (per esempio il pulsante «Nuova sessione» anche nel riepilogo del ripasso): da affidare alla revisione di F12.
+- Il blocco di «Nuova sessione» dopo un ripasso concluso è stato corretto nella [revisione di F12](F12-sessione-ripasso.md#revisione).
 - Il riepilogo della consegna vive in memoria: ricaricando la pagina dopo la fine, il link riapre la consegna da capo.
 - Un id di sole cifre non entra in una consegna (si leggerebbe come `ex-NNN`); oggi tutti gli id sono `ex-NNN`.
-- Revisione incrociata su Codex (Sol) prima delle fasi che ne dipendono.
+
+## Revisione
+
+Revisione incrociata del 2026-11-23 con Codex Sol. Confrontati il diff di `5f3b848`, i criteri e gli scostamenti. Correzioni nel commit `eb40da5`.
+
+- Due consegne con gli stessi esercizi e titoli diversi attivano l’avviso prima della sostituzione. Un codice equivalente, per esempio con il punto finale incollato, riprende la stessa consegna a parità di titolo e di ordine.
+- Titoli con emoji al limite di lunghezza producono link leggibili. Se il browser è privo dell’API degli appunti, «Copia il link» seleziona il link come quando l’API nega la copia.
+- In Chrome con `npm run dev`, creata una consegna di quattro esercizi LOTR e aperta in un contesto isolato, con lo stesso ordine. Verificati copia e selezione di ripiego, avviso e ritorno alla consegna precedente, ripresa dopo ricarica, sostituzione, punti, riepilogo, esercizi mancanti e link manomessi. La pagina del docente entra nella larghezza di 375 px. Provata l’uscita dal pulsante «Esci dallo zaino» con una consegna salvata in modalità temporanea e servizio simulato.
+- Superati `npm run lint`, `npm test` (294 test), `npm run check:themes`, `npm run build` e `git diff --check`. Restano i due avvisi Star Wars di F19 e l’avviso di Vite sulle dimensioni del bundle.
