@@ -98,6 +98,8 @@ export function buildRegistry(
         icons: themeIcons,
         stats: stats[folder],
         loadDatabaseScript: async () => `${await loadSchema()}\n${await loadData()}`,
+        loadSchema,
+        loadData,
         loadExercises: exercises.get(folder) ?? (async () => []),
         loadEr: ers.get(folder) ?? (async () => undefined),
         loadTrace: traces.get(folder) ?? (async () => undefined),

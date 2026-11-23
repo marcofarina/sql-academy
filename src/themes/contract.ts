@@ -157,6 +157,9 @@ export interface Theme {
    * da `dati.sql`. I file si scaricano solo alla prima chiamata.
    */
   loadDatabaseScript(): Promise<string>;
+  /** Carica separatamente gli script originali del tema. */
+  loadSchema(): Promise<string>;
+  loadData(): Promise<string>;
   /** Carica gli esercizi del tema (`esercizi.ts`); elenco vuoto se il file manca. */
   loadExercises(): Promise<Exercise[]>;
   /** Carica lo schema ER del tema (`er.ts`); `undefined` se il file manca. */

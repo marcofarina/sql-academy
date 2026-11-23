@@ -126,6 +126,8 @@ export function createCore(SQL: SqlJsStatic): Core {
       }
       case 'run':
         return { type: 'result', id, result: runScript(opened(dbId).db, request.sql, request.maxRows) };
+      case 'export':
+        return { type: 'exported', id, bytes: opened(dbId).db.export() };
       case 'reset': {
         const entry = opened(dbId);
         entry.db.close();

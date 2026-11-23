@@ -1,6 +1,8 @@
 /** Editor e pannello dei risultati della sandbox di un tema. */
 
 import { Icon } from '../icons/Icon.tsx';
+import { DatabaseDownload } from './DatabaseDownload.tsx';
+import type { Theme } from '../themes/contract.ts';
 import { ResultsView } from './ResultsView.tsx';
 import { SchemaPanel } from './SchemaPanel.tsx';
 import { SqlEditor } from './SqlEditor.tsx';
@@ -8,12 +10,13 @@ import type { SandboxController } from './useSandbox.ts';
 
 interface SandboxSectionProps {
   controller: SandboxController;
+  theme: Theme;
   query: string;
   onQueryChange(query: string): void;
 }
 
 /** La sandbox: editor, comandi, risultati e tabelle del tema. */
-export function SandboxSection({ controller, query, onQueryChange }: SandboxSectionProps) {
+export function SandboxSection({ controller, theme, query, onQueryChange }: SandboxSectionProps) {
   const { state, outcome, busy, run, reset } = controller;
 
   if (state.status === 'loading') return <p role="status">Preparazione del database…</p>;
@@ -66,6 +69,7 @@ export function SandboxSection({ controller, query, onQueryChange }: SandboxSect
         </div>
       </div>
       <SchemaPanel tables={state.sandbox.tables} />
+      <DatabaseDownload theme={theme} />
     </div>
   );
 }

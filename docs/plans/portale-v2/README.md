@@ -16,7 +16,7 @@
 | F12 | Aggiungere la sessione di ripasso | F06 | Opus | Sol | `medium` | medio | completata | 2026-11-23 15:10 | [P-F12](#p-f12) | [F12](F12-sessione-ripasso.md) |
 | F13 | Segnalare un problema su un esercizio | — | Opus | Sol | `medium` | basso | completata | 2026-11-23 14:53 | [P-F13](#p-f13) | [F13](F13-segnalare-problema.md) |
 | F14 | Assegnare una consegna con un link | F06 | Opus | Sol | `medium` | medio | completata | 2026-11-23 16:48 | [P-F14](#p-f14) | [F14](F14-consegna-con-link.md) |
-| F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | da fare |  | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
+| F15 | Scaricare il database e mostrare l’anteprima dei link | — | Sonnet | Terra | `medium` | basso | completata | 2026-11-23 17:58 | [P-F15](#p-f15) | [F15](F15-scaricare-database-anteprima-link.md) |
 | F16 | Riprendere da dove eri e guidare il primo ingresso | F04, F06 | Opus | Sol | `medium` | basso-medio | completata | 2026-11-23 17:15 | [P-F16](#p-f16) | [F16](F16-riprendere-guida-ingresso.md) |
 | F17 | Far funzionare il sito senza rete | — | Opus | Sol | `medium` | medio | da fare |  | [P-F17](#p-f17) | [F17](F17-sito-offline.md) |
 | F18 | Scrivere i test end-to-end | F05, F07 | Sonnet | Terra | `high` | medio | da fare |  | [P-F18](#p-f18) | [F18](F18-test-end-to-end.md) |
@@ -537,3 +537,5 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 | 2026-11-23 | F14 completata (Claude Code, Opus): scelte di Marco tutte come proposte (pagina `#/docente` dal piè di pagina, punti normali, avviso prima di sostituire una sessione, riepilogo con data e ora); link `#/<tema>/addestramento/consegna/1.<numeri>/<titolo>`, consegna salvata come sessione con il campo `consegna`; verifiche automatiche e prova nel browser superate. Segue la revisione incrociata su Codex con Sol. |
 | 2026-11-23 | F16 completata (Claude Code, Opus): «Riprendi da dove eri» sulla locandina e nel percorso, ricavato da `queryAt`; guida in un riquadro chiudibile, memoria per sito scelta da Marco, pulsante «Guida» con la nuova icona `circle-question`; verifiche automatiche e prova nel browser superate. Segue la revisione incrociata su Codex con Sol. |
 | 2026-11-23 | Revisioni incrociate di F16, F12 e F14 completate (Codex Sol). Corretto il fuoco della guida (`99659da`), conservata la bozza del ripasso nella sessione e ripristinato l’avvio di una nuova sessione dal percorso (`8253006`), distinte le consegne con titolo diverso anche quando hanno gli stessi esercizi (`eb40da5`). Verifiche automatiche e prove in Chrome superate. Segue F15. |
+
+| 2026-11-23 | F15 completata (Codex; predefinito Terra, scelta effettiva non verificabile): database iniziale e script nella sandbox, immagine Open Graph approvata da Marco; verifiche locali superate. L’anteprima nei servizi di condivisione resta da controllare dopo la pubblicazione. |

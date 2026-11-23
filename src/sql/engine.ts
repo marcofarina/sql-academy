@@ -55,6 +55,8 @@ export interface SqlDatabase {
    * `SqlTimeoutError` se lo script non termina in tempo.
    */
   run(sql: string, options?: RunOptions): Promise<RunResult>;
+  /** Restituisce il database in formato SQLite. */
+  export(): Promise<Uint8Array>;
   /** Riporta il database allo stato iniziale. */
   reset(): Promise<void>;
   /** Libera il database. Dopo la chiusura ogni altra chiamata è rifiutata. */

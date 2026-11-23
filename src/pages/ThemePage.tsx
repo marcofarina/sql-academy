@@ -122,7 +122,7 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
           />
         </div>
         {section === 'sandbox' ? (
-          <SandboxSection controller={sandbox} query={query} onQueryChange={setQuery} />
+          <SandboxSection theme={theme} controller={sandbox} query={query} onQueryChange={setQuery} />
         ) : section === 'addestramento' ? null : section === 'query' ? (
           <CatalogSection themeId={id} training={training} progress={progress} />
         ) : section === 'traccia' ? (

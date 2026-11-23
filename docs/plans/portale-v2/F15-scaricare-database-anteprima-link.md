@@ -42,4 +42,11 @@ Procedura manuale: dopo la pubblicazione, controlla l’anteprima con lo strumen
 
 ## 6. Passaggio di consegne
 
-Da compilare a fine fase.
+**Completata il 2026-11-23 — Codex** (il predefinito in `~/.codex/config.toml` è Terra; eventuale scelta diversa all’apertura non verificabile).
+
+- Marco ha scelto il download nella sandbox e il solo database iniziale. Il database si esporta da una copia separata; sono disponibili anche `schema.sql` e `dati.sql`.
+- Marco ha approvato l’immagine 1200 × 630 in `public/anteprima.png`; `index.html` contiene i meta Open Graph del sito.
+- Verifiche superate: `npm run lint`, `npm test` (295 test), `npm run check:themes`, `npm run build` e `git diff --check`. I database scaricati in browser per entrambi i temi contengono sette tabelle e superano `PRAGMA integrity_check`; i quattro script scaricati coincidono con gli originali.
+- Avvisi non bloccanti: due esercizi Star Wars segnalati da `check:themes`, già documentati in F19, e dimensione del bundle in build.
+- Da fare dopo la pubblicazione, fuori da questa sessione: verificare l’anteprima con un servizio di condivisione o in una chat. Nessuna pubblicazione effettuata.
+- Scostamenti dal dettaglio: nessuno. Consumo reale non disponibile.

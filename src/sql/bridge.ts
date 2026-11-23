@@ -182,6 +182,11 @@ export function createEngine(spawn: SpawnWorker, options: EngineOptions = {}): S
           );
           return (response as Extract<Response, { type: 'result' }>).result satisfies RunResult;
         },
+        async export() {
+          await ensureOpen(dbId);
+          const response = await request({ type: 'export', dbId }, defaultTimeoutMs);
+          return (response as Extract<Response, { type: 'exported' }>).bytes;
+        },
         async reset() {
           await ensureOpen(dbId);
           await request({ type: 'reset', dbId }, defaultTimeoutMs);

@@ -1,4 +1,5 @@
 import { afterAll, expect, test } from 'vitest';
+import initSqlJs from 'sql.js';
 import { findTheme } from '../themes/registry.ts';
 import { EngineError, SqlError, SqlTimeoutError, type DatabaseSource } from './engine.ts';
 import { createNodeEngine } from './testing/nodeEngine.ts';
@@ -41,6 +42,20 @@ test('esegue una query valida', async () => {
   ]);
   expect(result.rowsModified).toBe(0);
   await db.close();
+});
+
+test('esporta la copia iniziale indipendente dalle modifiche della sandbox', async () => {
+  const sandbox = await engine.open(source);
+  await sandbox.run('DELETE FROM maghi');
+  const initial = await engine.open(source);
+  const bytes = await initial.export();
+  const SQL = await initSqlJs();
+  const exported = new SQL.Database(bytes);
+  expect(exported.exec('SELECT count(*) FROM maghi')[0].values).toEqual([[3]]);
+  expect((await sandbox.run('SELECT count(*) FROM maghi')).resultSets[0].rows).toEqual([[0]]);
+  exported.close();
+  await initial.close();
+  await sandbox.close();
 });
 
 test('esegue la query della pagina sul tema Star Wars', async () => {
