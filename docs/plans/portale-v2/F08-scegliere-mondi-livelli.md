@@ -51,7 +51,7 @@ Procedura manuale: Marco approva la definizione dei livelli e la scelta delle ot
 ### Scostamenti dal dettaglio
 
 - Stranger Things, scelto da Marco fra i facili al posto della mia proposta (Studio Ghibli): per restare entro due chiavi esterne le creature sono personaggi con un ruolo proprio.
-- One Piece ha un vincolo di Marco: l’esercizio «All’arrembaggio!» su Notion (ciurme, membri con taglia, frutti del diavolo, isole, approdi) usa la stessa opera, e i domini devono essere diversi. Trovato con il connettore Notion dopo la chiusura: l’abbozzo è stato riscritto sulla storia del manga (saghe, archi, personaggi, storico delle taglie, scontri con i combattenti).
+- One Piece ha un vincolo di Marco: l’esercizio «All’arrembaggio!» su Notion (ciurme, membri con taglia, frutti del diavolo, isole, approdi) usa la stessa opera, e i domini devono essere diversi. Trovato con il connettore Notion dopo la chiusura: l’abbozzo è stato riscritto sulla storia del manga (saghe, archi, personaggi, storico delle taglie, scontri con i combattenti), approvato da Marco il 2026-11-23.
 
 ### Verifiche
 
