@@ -64,7 +64,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 
 | 2026-11-23 | F18 di `portale-v2` in corso: suite Chromium e verifiche locali superate; resta la verifica del workflow remoto dopo il via di Marco al push. |
 
-**Prossimo passo** — completare F18 di `portale-v2`.
+| 2026-11-23 | F18 di `portale-v2` completata: workflow remoto su `dev` superato, senza pubblicazione. |
+
+**Prossimo passo** — F17 di `portale-v2`.
 
 ## Requisiti di Marco
 
