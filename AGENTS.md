@@ -66,8 +66,9 @@ Repo git indipendente dentro il workspace `~/Developer/github/`, ignorato dal re
 
 | 2026-11-23 | F18 di `portale-v2` completata: workflow remoto su `dev` superato, senza pubblicazione. |
 | 2026-11-23 | F17 di `portale-v2` completata: service worker e manifest, SQLite ed esercizi senza rete dopo il primo scaricamento, avviso con «Ricarica» e procedura di ripristino nel README. Verifiche automatiche e collaudo locale con due build in Chromium superati. |
+| 2026-11-23 | Revisione di F17 fatta da Claude: nessun difetto. Tutte le fasi di `portale-v2` sono completate; restano la pubblicazione (merge di `dev` in `main`, su richiesta di Marco) e le verifiche sul sito pubblicato. |
 
-**Prossimo passo** — Revisione incrociata di F17 di `portale-v2` su Claude Code con Opus.
+**Prossimo passo** — Pubblicazione di `portale-v2`, poi verifica sul sito pubblicato di anteprima dei link (F15) e uso senza rete (F17), anche su iPhone.
 
 ## Requisiti di Marco
 

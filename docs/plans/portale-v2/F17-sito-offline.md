@@ -61,3 +61,11 @@ Completata il 2026-11-23 21:50, ora di Roma, con Codex (Sol, predefinito letto d
 - Provato il worker di ripristino del README allo stesso indirizzo del worker attivo. Ha rimosso la registrazione e la cache del portale. Il valore di prova in `localStorage` e la cache di un’altra app erano ancora presenti.
 
 Il collaudo ha usato Chromium in anteprima locale. Restano la revisione incrociata su Claude Code con Opus e la verifica su GitHub Pages dopo la pubblicazione.
+
+**Revisione incrociata del 2026-11-23 con Claude Code Opus.** Esito: nessun difetto, nessuna correzione.
+
+- Letti il diff di `d1c1922` e il passaggio di consegne, confrontati con il dettaglio, scostamento compreso.
+- Rieseguiti `npm run lint`, `npm test` (295 test), `npm run check:themes`, `npm run build` e `npm run test:e2e` (7 test): superati, con i due avvisi noti di Star Wars e l’avviso sulla dimensione del bundle.
+- Build controllata: `dist` pesa 3,6 MB, tutti i file compaiono nel worker con la loro impronta; favicon e manifest diventano relativi (`./favicon.svg`, `./app.webmanifest`), quindi il sito resta pubblicabile sotto una sottocartella.
+- Percorsi controllati nel codice: il worker risponde solo agli indirizzi della build e lascia passare zaino, classifica e richieste diverse da `GET`; alla prima visita `clients.claim()` prende il controllo senza ricaricare la pagina; «Ricarica» attiva la versione nuova solo se non ci sono altre schede del portale, così una scheda vecchia non chiede pezzi di codice che la cache nuova non ha più; le cache vecchie si cancellano solo con il prefisso del portale e del suo indirizzo. La cache contiene solo file pubblici: la decisione «Dati nel browser» non chiede altro.
+- Scelte lasciate: subito dopo una pubblicazione la CDN di GitHub Pages può servire per qualche minuto copie vecchie dei file senza impronta nel nome (`index.html`, manifest, immagini); l’installazione fallisce e riprova al controllo successivo, senza danni. L’uso senza rete su Safari per iPhone, dove il worker di SQLite scarica il `wasm`, non è verificato: si prova solo sul sito pubblicato, perché il *service worker* richiede HTTPS.

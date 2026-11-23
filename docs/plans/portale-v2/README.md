@@ -546,3 +546,4 @@ Una riga per icona nuova o con un uso nuovo, compilata dalla fase che la usa.
 
 | 2026-11-23 | F18 completata (Codex; predefinito Terra): workflow remoto su `dev` superato, pubblicazione saltata. Segue F17. |
 | 2026-11-23 | F17 completata (Codex, Sol): portale disponibile senza rete dopo il primo scaricamento, avviso di aggiornamento con «Ricarica» e procedura di ripristino. Verifiche automatiche e collaudo locale con due build in Chromium superati. Segue la revisione incrociata su Claude Code con Opus. |
+| 2026-11-23 | Revisione di F17 (Claude Code, Opus): nessun difetto, verifiche automatiche ed end-to-end rieseguite. Tutte le fasi completate; restano la pubblicazione e le verifiche sul sito pubblicato (anteprima dei link, uso senza rete anche su iPhone). |
