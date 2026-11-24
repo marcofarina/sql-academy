@@ -1923,6 +1923,13 @@ button.link-button {
   --focus-color: var(--home-link);
 }
 
+/* La scheda aperta è centrata sulla finestra, non sul tavolo: con la pagina
+   scorsa fino al piè di pagina uscirebbe dal tavolo e verrebbe tagliata. */
+.home:has(.poster.is-open) {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
 .home a {
   color: var(--home-link);
 }
