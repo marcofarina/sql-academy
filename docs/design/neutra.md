@@ -37,6 +37,27 @@ La parete è un gradiente radiale: `radial-gradient(ellipse 75% 65% at 50% 68%, 
 
 Il fronte delle locandine usa i colori del suo tema (sezione «Locandine»), non questi.
 
+### Schema scuro
+
+Aggiunto il 2026-11-24, su richiesta di Marco, prima della pubblicazione di `portale-v2`. Le pagine fuori dai temi (pagina iniziale, Zaino, Classifica, Informativa, Docente) seguono `prefers-color-scheme`, anche quando il sistema cambia a pagina aperta. In fondo alla barra c’è il selettore «Chiaro» / «Scuro», con le icone RB `sun` e `moon` (commit `c9165bb` del repo `icone`). La scelta vale per tutte quelle pagine, resta nella chiave `sql-academy:schema` e si cancella con «Azzera i progressi» e con «Esci dallo zaino» (`src/scheme/siteScheme.ts`). Le pagine di un tema restano escluse, perché hanno i propri schemi e il proprio selettore.
+
+`siteScheme.ts` mette lo schema nell’attributo `data-schema` della radice prima del primo disegno; i valori scuri sono nel blocco `:root[data-schema='scuro']` di `src/styles.css`, i contrasti in `node docs/design/contrasto.mjs neutra-scura`. Nessuna tavola: la palette ricalca i toni blu ardesia della veste chiara.
+
+| Variabile | Valore | Uso |
+| --- | --- | --- |
+| `--home-wall` | `#121924` | parete, colore medio |
+| `--home-wall-light` | `#1B2431` | centro della luce sulla parete |
+| `--home-wall-edge` | `#0C121A` | bordi della parete |
+| `--home-text`, `--color-text` | `#E6EAF0` | testo, titolo, pulsante primario |
+| `--home-muted`, `--color-muted` | `#A3AEBF` | testo secondario |
+| `--home-link`, `--color-link` | `#9FC2F0` | link; contorno del fuoco |
+| `--home-card`, `--color-surface` | `#18202B` | scheda, riquadri |
+| `--color-bg` | `#10161F` | fondo delle pagine Zaino, Classifica, Informativa, Docente |
+| `--home-on-primary` | `#10161F` | testo del pulsante primario |
+| `--home-easy`, `--home-medium`, `--home-hard` | `#5DBB8A`, `#6FA8DC`, `#C3CADB` | barra delle difficoltà |
+
+Le locandine non cambiano: il fronte è del tema, i «Prossimamente» restano grigio ardesia.
+
 ## Caratteri
 
 | Carattere | Uso | Pesi | Licenza | Fonte |

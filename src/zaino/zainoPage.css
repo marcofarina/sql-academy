@@ -128,7 +128,7 @@
   height: 28px;
   border-radius: 50%;
   background: var(--color-text);
-  color: white;
+  color: var(--color-accent-text);
   font-size: 15px;
   font-weight: 800;
 }
@@ -140,7 +140,7 @@
   padding-inline: 9px;
   border: 1.5px solid var(--color-control-border);
   border-radius: 8px;
-  background: white;
+  background: var(--color-field);
   color: var(--color-text);
   font: 700 18px var(--font-body);
 }
@@ -171,8 +171,8 @@
   list-style: none;
   border-radius: 8px;
   border: 1px solid var(--color-control-border);
-  background: white;
-  box-shadow: 0 6px 18px rgb(23 33 49 / 15%);
+  background: var(--color-field);
+  box-shadow: 0 6px 18px var(--color-shadow);
 }
 
 .zaino-proposte li {
@@ -186,7 +186,7 @@
 .zaino-proposte li:hover,
 .zaino-proposte [aria-selected='true'] {
   background: var(--color-text);
-  color: white;
+  color: var(--color-accent-text);
 }
 
 .zaino-cambia-codice {
@@ -206,7 +206,7 @@
   padding: 10px 12px;
   border: 1px solid var(--color-rule);
   border-radius: 8px;
-  background: white;
+  background: var(--color-field);
   font-weight: 700;
   cursor: pointer;
 }
@@ -352,14 +352,14 @@
   height: 8px;
   border: 0;
   border-radius: 8px;
-  background: #e4e7ec;
+  background: var(--color-track);
   color: var(--color-link);
   accent-color: var(--color-link);
 }
 
 .zaino-mondi progress::-webkit-progress-bar {
   border-radius: 8px;
-  background: #e4e7ec;
+  background: var(--color-track);
 }
 
 .zaino-mondi progress::-webkit-progress-value {
@@ -395,7 +395,7 @@
 
 .zaino-temporaneo button {
   background: var(--color-warning);
-  color: white;
+  color: var(--color-warning-bg);
 }
 
 @media (max-width: 64rem) {

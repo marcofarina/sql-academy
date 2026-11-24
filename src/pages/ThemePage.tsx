@@ -6,6 +6,7 @@ import { SandboxSection } from '../sandbox/SandboxSection.tsx';
 import { useSandbox } from '../sandbox/useSandbox.ts';
 import { SCHEMES, type Scheme, type Theme, type ThemeIcons } from '../themes/contract.ts';
 import { loadScheme, saveScheme } from '../scheme/scheme.ts';
+import { SchemeSwitch, type SchemeIcon } from '../scheme/SchemeSwitch.tsx';
 import { ThemeIconsContext } from '../themes/ThemeIconsContext.ts';
 import { SectionIndicator } from './SectionIndicator.tsx';
 import { SiteLayout } from './SiteLayout.tsx';
@@ -59,20 +60,12 @@ export function ThemePage({ theme, section, item, consegna }: { theme: Theme; se
     document.title = `${current.label} · ${title} · SQL Academy`;
   }, [current, title]);
 
-  const switcher = schemes && (
-    <div className="scheme-switch" role="group" aria-label="Schema di colori">
-      {SCHEMES.map((s) => {
-        const emblem = themeIcon(schemes[s].emblem);
-        const label = s === 'chiaro' ? 'Chiaro' : 'Scuro';
-        return (
-          <button key={s} type="button" aria-label={label} aria-pressed={scheme === s} onClick={() => chooseScheme(s)}>
-            {emblem && <Icon svg={emblem} />}
-            <span className={emblem ? 'site-control-label' : 'scheme-text-fallback'}>{label}</span>
-          </button>
-        );
-      })}
-    </div>
-  );
+  const schemeIcons: Partial<Record<Scheme, SchemeIcon>> = {};
+  for (const s of SCHEMES) {
+    const svg = schemes && themeIcon(schemes[s].emblem);
+    if (svg) schemeIcons[s] = { svg };
+  }
+  const switcher = schemes && <SchemeSwitch scheme={scheme} onChoose={chooseScheme} icons={schemeIcons} />;
 
   return (
     <SiteLayout

@@ -72,6 +72,15 @@
   --color-success-bg: #e0efe5;
   --color-success-border: #8dbb9c;
 
+  /* Zaino e Classifica (docs/design/zaino-classifica.md) */
+  --color-accent-muted: #c3cadb;
+  --color-field: #ffffff;
+  --color-track: #e4e7ec;
+  --color-highlight: #e4e9f0;
+  --color-podium-3: #46536a;
+  --color-shadow: rgba(23, 33, 49, 0.15);
+  --color-shadow-strong: rgba(23, 33, 49, 0.25);
+
   /* Editor SQL: scuro in ogni veste, come la strumentazione di una cabina */
   --editor-bg: #172131;
   --editor-text: #f3f5f8;
@@ -129,6 +138,76 @@
   --poster-band-2: var(--home-wall);
 
   color-scheme: light;
+}
+
+/*
+ * Veste neutra scura delle pagine fuori dai temi (pagina iniziale, Zaino,
+ * Classifica, Informativa, Docente). `src/scheme/siteScheme.ts` mette sulla
+ * radice `data-schema`: la preferenza del sistema o la scelta fatta con il
+ * selettore della barra. Le pagine di un tema restano escluse: hanno i propri
+ * schemi e il proprio selettore.
+ * Contrasti: `node docs/design/contrasto.mjs neutra-scura`.
+ */
+:root[data-schema='scuro']:not(:has(.site-layout.theme)) {
+  --color-bg: #10161f;
+  --color-surface: #18202b;
+  --color-surface-2: #212b38;
+  --color-border: #3a4658;
+  --color-rule: #2a3442;
+  --color-text: #e6eaf0;
+  --color-muted: #a3aebf;
+
+  --color-accent: #e6eaf0;
+  --color-accent-hover: #c3cadb;
+  --color-accent-text: #10161f;
+  --color-accent-ink: #9fc2f0;
+  --color-link: #9fc2f0;
+  --color-link-hover: #c9ddf7;
+  --color-control-border: #6e7a8e;
+
+  --color-null: #c4a6ee;
+  --color-error: #ffb4aa;
+  --color-error-bg: #3a1714;
+  --color-error-border: #8a443c;
+  --color-warning: #f3cc7a;
+  --color-warning-bg: #33260c;
+  --color-warning-border: #8a6a2a;
+  --color-success: #a8e0be;
+  --color-success-bg: #12251b;
+  --color-success-border: #3f7a55;
+
+  --color-accent-muted: #46536a;
+  --color-field: #0f151d;
+  --color-track: #212b38;
+  --color-highlight: #243246;
+  --color-podium-3: #a3aebf;
+  --color-shadow: rgba(0, 0, 0, 0.45);
+  --color-shadow-strong: rgba(0, 0, 0, 0.6);
+
+  --editor-bg: #0b1018;
+  --editor-rule: #2c3b55;
+
+  --home-wall: #121924;
+  --home-wall-light: #1b2431;
+  --home-wall-edge: #0c121a;
+  --home-text: #e6eaf0;
+  --home-muted: #a3aebf;
+  --home-link: #9fc2f0;
+  --home-link-hover: #c9ddf7;
+  --home-card: #18202b;
+  --home-chip: #243041;
+  --home-rule: #2a3442;
+  --home-control-border: #6e7a8e;
+  --home-primary-hover: #c3cadb;
+  --home-on-primary: #10161f;
+  --home-easy: #5dbb8a;
+  --home-medium: #6fa8dc;
+  --home-hard: #c3cadb;
+  --home-veil: rgba(4, 7, 12, 0.6);
+  --home-shadow: rgba(0, 0, 0, 0.6);
+  --home-shadow-deep: rgba(0, 0, 0, 0.7);
+
+  color-scheme: dark;
 }
 
 *,
@@ -307,7 +386,20 @@ h1 .icon-box {
 }
 
 .site-bar:not(.site-bar--theme) {
-  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+}
+
+/* Fuori dai temi il selettore dello schema chiude la barra. */
+.site-bar:not(.site-bar--theme) .scheme-switch {
+  grid-column: 5;
+}
+
+.site-bar:not(.site-bar--theme) .site-ranking {
+  grid-column: 4;
+}
+
+.site-bar:not(.site-bar--theme) .zaino-link {
+  grid-column: 3;
 }
 
 /* Nella barra del tema c’è una colonna in più, per il pulsante «Guida» (F16). */
@@ -482,7 +574,7 @@ h1 .icon-box {
 }
 
 /* «Scuro» è il secondo pulsante, come in SCHEMES (src/themes/contract.ts). */
-.theme[data-scheme='scuro'] .scheme-switch::before {
+.site-layout[data-scheme='scuro'] .scheme-switch::before {
   transform: translateX(calc(100% + 2px));
 }
 
@@ -2546,7 +2638,7 @@ button.link-button {
   border-radius: 12px;
   background: var(--color-surface);
   color: var(--color-text);
-  box-shadow: 0 22px 44px -20px rgba(7, 11, 26, 0.55);
+  box-shadow: 0 22px 44px -20px var(--home-shadow);
   --notice-entry: -12px;
 }
 
@@ -2788,4 +2880,25 @@ button.link-button {
   background: var(--mondo-fondo, var(--poster-band-1));
   box-shadow: inset 0 0 0 1.5px var(--mondo-anello, var(--poster-band-2));
   touch-action: auto;
+}
+
+/* Barra fuori dai temi su telefono: zaino, classifica e selettore dello schema in fila. */
+@media (max-width: 56rem) {
+  .site-bar:not(.site-bar--theme) {
+    grid-template-columns: auto minmax(0, 1fr) auto 44px 44px auto;
+  }
+
+  .site-bar:not(.site-bar--theme) .zaino-link {
+    grid-column: 4;
+  }
+
+  .site-bar:not(.site-bar--theme) .site-ranking {
+    grid-column: 5;
+  }
+
+  .site-bar:not(.site-bar--theme) .scheme-switch {
+    grid-column: 6;
+    grid-row: 1;
+    margin-inline-start: 6px;
+  }
 }

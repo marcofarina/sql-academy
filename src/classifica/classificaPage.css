@@ -77,12 +77,12 @@
 
 .classifica-nav a[aria-current='page'] {
   background: var(--color-text);
-  color: white;
+  color: var(--color-accent-text);
   font-weight: 700;
 }
 
 .classifica-nav a:not([aria-current]):hover {
-  background: #e4e7ec;
+  background: var(--color-track);
 }
 
 .classifica-adesione {
@@ -155,12 +155,12 @@
   justify-content: space-between;
   border-color: transparent;
   background: var(--color-text);
-  color: white;
+  color: var(--color-accent-text);
 }
 
 .classifica-senza-punti .button {
-  border-color: #c3cadb;
-  color: white;
+  border-color: var(--color-accent-muted);
+  color: var(--color-accent-text);
 }
 
 .classifica-avviso {
@@ -179,7 +179,7 @@
   gap: 20px;
   padding: 16px 22px;
   background: var(--color-text);
-  color: white;
+  color: var(--color-accent-text);
   line-height: 1.2;
 }
 
@@ -194,7 +194,7 @@
 
 .classifica-posizione-desktop span,
 .classifica-scalata {
-  color: #c3cadb;
+  color: var(--color-accent-muted);
 }
 
 .classifica-scalata {
@@ -203,7 +203,7 @@
 }
 
 .classifica-scalata strong {
-  color: white;
+  color: var(--color-accent-text);
 }
 
 .classifica-posizione-mobile {
@@ -250,7 +250,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  color: white;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
 }
@@ -286,18 +286,18 @@
   border: 1.5px solid transparent;
   border-radius: 8px 8px 0 0;
   background: var(--color-text);
-  color: white;
+  color: var(--color-accent-text);
   font: 900 64px / 1 var(--font-display);
 }
 
 [data-posto='2'] .classifica-gradino {
   min-height: 132px;
-  background: #2c3b55;
+  background: var(--color-accent-hover);
 }
 
 [data-posto='3'] .classifica-gradino {
   min-height: 104px;
-  background: #46536a;
+  background: var(--color-podium-3);
 }
 
 .classifica-podio .classifica-gradino[data-libero] {
@@ -361,18 +361,18 @@
   height: 8px;
   overflow: hidden;
   border-radius: 8px;
-  background: #e4e7ec;
+  background: var(--color-track);
 }
 
 .classifica-binario span {
   display: block;
   height: 100%;
   border-radius: 8px;
-  background: #6e7a8e;
+  background: var(--color-control-border);
 }
 
 .classifica-tabella [aria-current='true'] {
-  background: #e4e9f0;
+  background: var(--color-highlight);
 }
 
 .classifica-tabella [aria-current='true'] td:first-child {
@@ -388,7 +388,7 @@
   display: inline-block;
   padding: 1px 7px;
   border-radius: 12px;
-  color: white;
+  color: var(--color-accent-text);
   font-size: 13px;
   font-weight: 700;
 }
@@ -473,7 +473,7 @@
   }
 
   .classifica-selettore dialog::backdrop {
-    background: rgb(23 33 49 / 50%);
+    background: var(--home-veil);
   }
 
   .classifica-pannello-interno {
@@ -532,7 +532,7 @@
     gap: 14px;
     padding: 8px 12px;
     border-radius: 12px;
-    box-shadow: 0 4px 14px rgb(23 33 49 / 25%);
+    box-shadow: 0 4px 14px var(--color-shadow-strong);
   }
 
   .classifica-posizione-numero {
@@ -550,7 +550,7 @@
   }
 
   span.classifica-posizione-mobile {
-    color: #c3cadb;
+    color: var(--color-accent-muted);
     font-size: 13px;
   }
 

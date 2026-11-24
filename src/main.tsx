@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from './App.tsx';
 import { avviaClassifica } from './classifica/invio.ts';
 import { startOfflineUpdates } from './offline/updates.ts';
+import { startSiteScheme } from './scheme/siteScheme.ts';
 import { themes } from './themes/registry.ts';
 import './zaino/sezione.ts';
 import { avviaZaino } from './zaino/sincronizza.ts';
@@ -20,6 +21,9 @@ avviaClassifica(
 );
 
 startOfflineUpdates();
+
+// Schema delle pagine fuori dai temi: va applicato prima del primo disegno.
+startSiteScheme();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

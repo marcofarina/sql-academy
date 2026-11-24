@@ -21,6 +21,7 @@ import { emptyProgress, mergeProgress, readThemeData, type ThemeProgress } from 
 import { clearAllProgress, readProgress, replaceProgress, storedThemeIds, subscribeLocalChanges } from '../progress/store.ts';
 import { clearAllSessions } from '../training/sessionStorage.ts';
 import { clearGuide } from '../guide/guide.ts';
+import { clearSiteScheme } from '../scheme/siteScheme.ts';
 import { storageDi } from './area.ts';
 import {
   NESSUNA_ADESIONE,
@@ -99,6 +100,8 @@ export const sezioneSqlAcademy: TipoSezione<DatiSqlAcademy> = {
     clearAllSessions(storageDi());
     // Anche la guida già vista (F16): chi usa il computer dopo la ritrova.
     clearGuide(storageDi());
+    // E lo schema scelto per le pagine fuori dai temi.
+    clearSiteScheme(storageDi());
     svuotaAdesione();
   },
 };

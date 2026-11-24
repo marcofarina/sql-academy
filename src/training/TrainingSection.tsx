@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { storageDi, useArea } from '../zaino/area.ts';
 import { loadSession, saveSession, useSessionsCleared } from './sessionStorage.ts';
 import { clearGuide } from '../guide/guide.ts';
+import { clearSiteScheme } from '../scheme/siteScheme.ts';
 import { lastExercise } from './resume.ts';
 import { Icon } from '../icons/Icon.tsx';
 import type { ThemeProgress } from '../progress/progress.ts';
@@ -108,7 +109,7 @@ function ReadyTraining(props: TrainingSectionProps & { training: Extract<Trainin
         sessionKind={pending ? sessionKind(pending) : undefined}
         review={{ due: due.length, nextAt: nextReviewAt(ids, progress) }}
         last={lastExercise(sortExercises(training.exercises), progress)}
-        onReset={() => { abandon(); clearGuide(); actions.reset(); }}
+        onReset={() => { abandon(); clearGuide(); clearSiteScheme(); actions.reset(); }}
         onResume={() => {
           if (session?.finished && session.review) setSession(undefined);
           else resume();

@@ -1,5 +1,5 @@
 // Contrasto WCAG delle palette approvate in docs/design/<id>.md.
-// Uso: node docs/design/contrasto.mjs [neutra|guscio-neutro|star-wars-chiaro|star-wars-scuro|lotr-chiaro|lotr-scuro|barra-notifica|zaino-classifica]
+// Uso: node docs/design/contrasto.mjs [neutra|guscio-neutro|star-wars-chiaro|star-wars-scuro|lotr-chiaro|lotr-scuro|barra-notifica|zaino-classifica|neutra-scura]
 // Senza argomenti misura tutte le palette. Esce con codice 1 se una coppia è sotto la soglia.
 
 const PALETTES = {
@@ -228,6 +228,41 @@ const PALETTES = {
     ['LOTR scuro: testo / riga dello zaino', '#E4E9EF', '#10151C'],
     ['LOTR scuro: «Collega lo zaino» / riga dello zaino', '#9CCBF5', '#10151C'],
     ['LOTR scuro: «+20» accanto al saldo', '#A8E0BE', '#12251B'],
+  ],
+  // Veste neutra scura: pagine fuori dai temi con prefers-color-scheme: dark (src/styles.css).
+  'neutra-scura': [
+    ['testo / fondo', '#E6EAF0', '#10161F'],
+    ['testo / superficie', '#E6EAF0', '#18202B'],
+    ['testo / superficie 2', '#E6EAF0', '#212B38'],
+    ['secondario / fondo', '#A3AEBF', '#10161F'],
+    ['secondario / superficie', '#A3AEBF', '#18202B'],
+    ['secondario / superficie 2', '#A3AEBF', '#212B38'],
+    ['link / fondo', '#9FC2F0', '#10161F'],
+    ['link / superficie', '#9FC2F0', '#18202B'],
+    ['pulsante primario', '#10161F', '#E6EAF0'],
+    ['pulsante primario, passaggio del mouse', '#10161F', '#C3CADB'],
+    ['NULL / superficie', '#C4A6EE', '#18202B'],
+    ['errore', '#FFB4AA', '#3A1714'],
+    ['avviso', '#F3CC7A', '#33260C'],
+    ['avviso: pulsante', '#33260C', '#F3CC7A'],
+    ['ripristino', '#A8E0BE', '#12251B'],
+    ['riuscito / superficie', '#A8E0BE', '#18202B'],
+    ['bordo dei controlli / fondo', '#6E7A8E', '#10161F', 3],
+    ['bordo dei controlli / superficie', '#6E7A8E', '#18202B', 3],
+    ['casella: testo', '#E6EAF0', '#0F151D'],
+    ['riga «tu»: testo', '#E6EAF0', '#243246'],
+    ['fascia della posizione: secondario', '#46536A', '#E6EAF0'],
+    ['podio 3º', '#10161F', '#A3AEBF'],
+    ['barra dei punti / binario', '#6E7A8E', '#212B38', 3],
+    ['editor: testo', '#F3F5F8', '#0B1018'],
+    ['editor: commenti', '#A3ADBD', '#0B1018'],
+    ['parete: testo', '#E6EAF0', '#121924'],
+    ['parete al centro: secondario', '#A3AEBF', '#1B2431'],
+    ['parete: link', '#9FC2F0', '#121924'],
+    ['scheda: etichetta tabella', '#E6EAF0', '#243041'],
+    ['barra «facili» / scheda', '#5DBB8A', '#18202B', 3],
+    ['barra «medi» / scheda', '#6FA8DC', '#18202B', 3],
+    ['barra «difficili» / scheda', '#C3CADB', '#18202B', 3],
   ],
   // Pagine Zaino e Classifica (F03 di portale-v2): docs/design/zaino-classifica.md.
   'zaino-classifica': [

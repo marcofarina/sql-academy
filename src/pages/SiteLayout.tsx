@@ -6,6 +6,8 @@ import { UpdateNotice } from '../offline/UpdateNotice.tsx';
 import { Balance } from '../points/Balance.tsx';
 import { formatRoute, type Route } from '../routing/route.ts';
 import { GUIDE_ID } from '../guide/ThemeGuide.tsx';
+import { SchemeSwitch } from '../scheme/SchemeSwitch.tsx';
+import { chooseSiteScheme, useSiteScheme } from '../scheme/siteScheme.ts';
 import type { Scheme } from '../themes/contract.ts';
 import { ZainoLink } from '../zaino/ZainoLink.tsx';
 
@@ -23,9 +25,10 @@ type LayoutPage =
 export function SiteLayout(props: LayoutPage & { children: ReactNode }) {
   const { page, children } = props;
   const theme = page === 'theme' ? props.theme : undefined;
+  const siteScheme = useSiteScheme();
 
   return (
-    <div className={theme ? 'site-layout theme' : 'site-layout'} data-theme-id={theme?.id} data-scheme={theme?.scheme}>
+    <div className={theme ? 'site-layout theme' : 'site-layout'} data-theme-id={theme?.id} data-scheme={theme ? theme.scheme : siteScheme}>
       <header className={`site-bar site-bar--${page === 'home' ? 'home' : page === 'theme' ? 'theme' : 'portal'}`}>
         <a className="site-brand" href={formatRoute({ page: 'home' })}>SQL Academy</a>
         {theme && (
@@ -64,7 +67,9 @@ export function SiteLayout(props: LayoutPage & { children: ReactNode }) {
           <Icon name="trophy" />
           <span className="site-control-label">Classifica</span>
         </a>
-        {theme?.switcher}
+        {theme ? theme.switcher : (
+          <SchemeSwitch scheme={siteScheme} onChoose={chooseSiteScheme} icons={{ chiaro: { name: 'sun' }, scuro: { name: 'moon' } }} />
+        )}
       </header>
       <UpdateNotice />
       {children}
