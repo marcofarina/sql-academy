@@ -11,7 +11,7 @@ const BOOK_URL = 'https://python.rainbowbits.cloud';
 export function FooterContenuti() {
   return (
     <>
-      Le query girano nel tuo browser con SQLite. Gli esercizi accompagnano il{' '}
+      SQLite esegue le query nel tuo browser. Gli esercizi accompagnano il{' '}
       <a href={BOOK_URL}>
         <cite>Manuale dell’Archivista</cite>
       </a>{' '}

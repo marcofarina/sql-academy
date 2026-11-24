@@ -914,7 +914,7 @@ const exercises: Exercise[] = [
       JOIN battaglie ON partecipazioni.battaglia_id = battaglie.id
       WHERE partecipazioni.personaggio_id = 8`,
     hints: [
-      'La tabella partecipazioni ha una riga per ogni personaggio in ogni battaglia: lì trovi le battaglie di Gimli, come id.',
+      'La tabella partecipazioni ha una riga per ogni personaggio in ogni battaglia: in questa tabella trovi le battaglie di Gimli, come id.',
       'Unisci partecipazioni a battaglie su partecipazioni.battaglia_id = battaglie.id e tieni le righe con personaggio_id = 8.',
     ],
     tables: ['partecipazioni', 'battaglie'],
@@ -2104,7 +2104,7 @@ const exercises: Exercise[] = [
         )
       )`,
     hints: [
-      'Parti dall’interno: una sottoquery trova l’id della battaglia dal suo nome, una seconda gli id dei personaggi che vi hanno partecipato.',
+      'Parti dall’interno: una sottoquery trova l’id della battaglia dal suo nome, una seconda gli id dei personaggi che hanno partecipato a quella battaglia.',
       'La query esterna tiene i personaggi con WHERE id IN (…), dove fra parentesi c’è l’elenco degli id dei partecipanti.',
     ],
     tables: ['personaggi', 'partecipazioni', 'battaglie'],
@@ -2614,7 +2614,7 @@ const exercises: Exercise[] = [
         WHERE membro_compagnia = 1
       )`,
     hints: [
-      'Per ogni luogo conta quanti membri della Compagnia ci sono passati, e confronta il numero con quanti sono i membri in tutto.',
+      'Per ogni luogo conta quanti membri della Compagnia sono passati da quel luogo, e confronta il numero con quanti sono i membri in tutto.',
       'A sinistra del confronto una sottoquery correlata al luogo con COUNT(DISTINCT personaggio_id); a destra una sottoquery che conta i membri con COUNT(*).',
     ],
     tables: ['luoghi', 'tappe', 'personaggi'],

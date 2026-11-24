@@ -57,9 +57,9 @@ function SavedSession({ session, onResume, onAbandon }: { session: ActiveSession
   const solved = Object.values(session.records).filter((record) => record.solved).length;
   const kind = sessionKind(session);
   const text = {
-    sessione: ['Hai una sessione in corso', 'Puoi riprenderla da lì, oppure abbandonarla e sceglierne una nuova.', 'Riprendi la sessione'],
-    ripasso: ['Hai un ripasso in corso', 'Puoi riprenderlo da lì, oppure abbandonarlo.', 'Riprendi il ripasso'],
-    consegna: ['Hai una consegna in corso', 'Puoi riprenderla da lì, oppure abbandonarla e sceglierne una nuova.', 'Riprendi la consegna'],
+    sessione: ['Hai una sessione in corso', 'Puoi riprenderla dal punto in cui l’hai lasciata, oppure abbandonarla e sceglierne una nuova.', 'Riprendi la sessione'],
+    ripasso: ['Hai un ripasso in corso', 'Puoi riprenderlo dal punto in cui l’hai lasciato, oppure abbandonarlo.', 'Riprendi il ripasso'],
+    consegna: ['Hai una consegna in corso', 'Puoi riprenderla dal punto in cui l’hai lasciata, oppure abbandonarla e sceglierne una nuova.', 'Riprendi la consegna'],
   }[kind];
   return (
     <div className="session-config">

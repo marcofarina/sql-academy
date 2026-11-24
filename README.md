@@ -23,7 +23,7 @@ Richiede Node 22.18 o successivo.
 
 Il workflow `.github/workflows/pubblica.yml` parte a ogni push su `main`: esegue lint, test, `check:themes`, il controllo dei dati della classifica e la build, poi pubblica `dist/` su GitHub Pages, con il dominio `sql.rainbowbits.cloud`. Si lavora su `dev`; il merge in `main` è la pubblicazione.
 
-I servizi in rete stanno su Cloudflare Workers: lo zaino nel repo del libro (`servizi/zaino/`), la classifica qui in `servizi/classifica/`. Entrambi ammettono nel CORS l’origine `https://sql.rainbowbits.cloud`.
+I servizi in rete sono ospitati da Cloudflare Workers: lo zaino nel repo del libro (`servizi/zaino/`), la classifica qui in `servizi/classifica/`. Entrambi ammettono nel CORS l’origine `https://sql.rainbowbits.cloud`.
 
 ### Content Security Policy
 
@@ -54,7 +54,7 @@ self.addEventListener('activate', (event) => {
 
 ## Piè di pagina
 
-Il piè di pagina è comune a tutte le pagine: `src/footer/SiteFooter.tsx` lo monta dentro `SiteLayout`, i contenuti stanno solo in `src/footer/contenuti.tsx`. Il contenuto attuale è provvisorio: quello definitivo arriva da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina dei mini-siti di Marco, e sostituisce quel file senza toccare le pagine.
+Il piè di pagina è comune a tutte le pagine: `src/footer/SiteFooter.tsx` lo monta dentro `SiteLayout`, i contenuti sono solo in `src/footer/contenuti.tsx`. Il contenuto attuale è provvisorio: quello definitivo arriva da una sessione aperta in `~/Developer/github/`, che rende coerenti i piè di pagina dei mini-siti di Marco, e sostituisce quel file senza toccare le pagine.
 
 ## Aggiungere un tema
 
@@ -135,7 +135,7 @@ npm run classifica:dati
 | `fonts/` | i caratteri del tema, ciascuno con il suo file di licenza |
 | `icone/` | le icone RB proprie del tema, citate per nome dal manifest |
 
-Le decorazioni SVG stanno dentro i fogli di stile come `url("data:image/svg+xml,…")`. Le icone si cercano e si creano solo con la skill `icone-rb`; il manifest può assegnarle all’emblema, all’esercizio risolto, agli stati vuoti, ai pulsanti che avviano una sessione (`session`), al pulsante che azzera i progressi (`reset`) e, con `icons.sections`, a una sezione.
+Le decorazioni SVG sono scritte dentro i fogli di stile come `url("data:image/svg+xml,…")`. Le icone si cercano e si creano solo con la skill `icone-rb`; il manifest può assegnarle all’emblema, all’esercizio risolto, agli stati vuoti, ai pulsanti che avviano una sessione (`session`), al pulsante che azzera i progressi (`reset`) e, con `icons.sections`, a una sezione.
 
 L’indicatore della sezione attiva lo sposta il guscio, con un’animazione propria: il tema ne decide solo l’aspetto. `.sections-indicator` ha la posizione e le misure della voce attiva, e `.sections-indicator::after` disegna il segno rispetto alla voce, per esempio una linea con `bottom: 0` o un punto con `left: 50%`. Senza regole del tema resta la linea comune del colore d’accento.
 
