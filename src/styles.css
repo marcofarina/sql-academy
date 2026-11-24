@@ -835,8 +835,17 @@ h1 .icon-box {
 }
 
 .sql-editor .cm-editor {
-  min-height: 8rem;
   font-size: 15px;
+}
+
+/*
+ * Cinque righe vuote già pronte: il contenuto (e il margine dei numeri) occupa
+ * tutta l’altezza, così il clic sotto la prima riga porta il cursore nel testo.
+ * 1.4 è l’interlinea di CodeMirror, 28px il padding verticale di .cm-content.
+ */
+.sql-editor .cm-content,
+.sql-editor .cm-gutter {
+  min-height: calc(5 * 1.4em + 28px);
 }
 
 @media (max-width: 40rem) {
@@ -2266,7 +2275,7 @@ button.link-button {
   line-height: 1.2;
 }
 
-/* Locandine «Prossimamente» */
+/* Locandine «In arrivo» */
 .poster-soon {
   background: repeating-linear-gradient(-45deg, var(--soon-a1) 0 14px, var(--soon-a2) 14px 28px);
   color: var(--soon-line);

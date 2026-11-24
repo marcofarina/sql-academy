@@ -56,7 +56,7 @@ Aggiunto il 2026-11-24, su richiesta di Marco, prima della pubblicazione di `por
 | `--home-on-primary` | `#10161F` | testo del pulsante primario |
 | `--home-easy`, `--home-medium`, `--home-hard` | `#5DBB8A`, `#6FA8DC`, `#C3CADB` | barra delle difficoltà |
 
-Le locandine non cambiano: il fronte è del tema, i «Prossimamente» restano grigio ardesia.
+Le locandine non cambiano: il fronte è del tema, gli «In arrivo» restano grigio ardesia.
 
 ## Caratteri
 
@@ -142,7 +142,7 @@ Il **retro** è la scheda del tema ed è uguale per tutti i temi. I numeri si ri
 
 Un tema in preparazione ha nella scheda solo titolo, descrizione, una riga sullo stato e «Rimetti sul tavolo».
 
-Finché i temi sono meno di quattro, il tavolo si completa con locandine «Prossimamente» («Tema 3, da scegliere», «Tema 4, da scegliere»): fondo a strisce diagonali di 14 px (`#3A4252`/`#343B4A` e `#4A4F5C`/`#444956`), titolo `#E4E7EC`, riga `#C3CADB`. Il loro retro dice «Un altro mondo da interrogare, ancora da scegliere.».
+Ogni mondo del piano `mondi-v1` non ancora costruito ha una locandina «In arrivo», con livello e opera sotto il titolo («Livello facile», «Stranger Things»); i temi veri partono in cima alla pila (2026-11-24, prima c’erano due «Prossimamente» numerati). Fondo a strisce diagonali di 14 px (`#3A4252`/`#343B4A` e `#4A4F5C`/`#444956`), titolo `#E4E7EC`, riga `#C3CADB`. Il retro porta il nome dell’opera e dice «Livello facile. Un altro mondo da interrogare, in arrivo.».
 
 ## Accessibilità
 
@@ -171,8 +171,8 @@ Misurati il 2026-11-18 con `node docs/design/contrasto.mjs neutra`. Soglia 4,5:1
 | bordo del pulsante secondario: parete / bordi della parete / scheda | 3,50:1 / 3,03:1 / 4,20:1 |
 | barra: facili / medi / difficili su `#FBFBFC` | 3,81:1 / 6,55:1 / 12,51:1 |
 | locandina Star Wars: motto e crediti / titolo | 11,93:1 / 12,35:1 |
-| «Prossimamente» 3: titolo / riga | 8,14:1 / 6,15:1 |
-| «Prossimamente» 4: titolo / riga | 6,61:1 / 4,99:1 |
+| «In arrivo», strisce A: titolo / riga | 8,14:1 / 6,15:1 |
+| «In arrivo», strisce B: titolo / riga | 6,61:1 / 4,99:1 |
 
 Correzioni fatte durante lo studio: bordo dei pulsanti secondari da `#8C97A8` (2,38:1) a `#6E7A8E`; segmento «facili» da `#7FB89A` (2,20:1) a `#3F8F67`; segmento «medi» da `#3E7FA8` a `#2A5F8A`, perché i tre segmenti si distinguessero anche per luminosità.
 

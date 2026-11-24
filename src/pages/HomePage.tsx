@@ -17,13 +17,14 @@ import {
   credits,
   deckPlacement,
   flightDurations,
-  MIN_POSTERS,
   POSTER_HEIGHT,
   POSTER_WIDTH,
   scatter,
   throwStarts,
   transformOf,
   type Placement,
+  type UpcomingWorld,
+  UPCOMING_WORLDS,
 } from './homeLayout.ts';
 
 /** Il cambio di faccia avviene a metà del giro: prima la faccia nuova non può ricevere il fuoco. */
@@ -44,8 +45,8 @@ const CHAPTER_SHORT = {
   'sottoquery-viste': 'sottoquery e viste',
 } as const;
 
-/** Una locandina: un tema o un posto «Prossimamente». */
-type Poster = { kind: 'theme'; theme: Theme } | { kind: 'soon'; number: number };
+/** Una locandina: un tema o un mondo «In arrivo». */
+type Poster = { kind: 'theme'; theme: Theme } | { kind: 'soon'; world: UpcomingWorld };
 
 /**
  * Porta il fuoco su `target` quando la sua faccia è visibile: il cambio di
@@ -94,9 +95,8 @@ interface Drag {
 export function HomePage({ themes }: { themes: Theme[] }) {
   const posters: Poster[] = [
     ...themes.map((theme): Poster => ({ kind: 'theme', theme })),
-    ...Array.from(
-      { length: Math.max(0, MIN_POSTERS - themes.length) },
-      (_, i): Poster => ({ kind: 'soon', number: themes.length + i + 1 }),
+    ...UPCOMING_WORLDS.filter((world) => !themes.some((theme) => theme.manifest.id === world.id)).map(
+      (world): Poster => ({ kind: 'soon', world }),
     ),
   ];
   const count = posters.length;
@@ -111,8 +111,8 @@ export function HomePage({ themes }: { themes: Theme[] }) {
   const tableRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ width: number; height: number } | null>(null);
   const [scattered, setScattered] = useState<Placement[] | null>(null);
-  /** Ordine di sovrapposizione: l’ultimo è in cima. */
-  const [stack, setStack] = useState(() => posters.map((_, i) => i));
+  /** Ordine di sovrapposizione: l’ultimo è in cima; i temi veri, primi nell’elenco, partono in cima. */
+  const [stack, setStack] = useState(() => posters.map((_, i) => i).reverse());
   /** Prima del lancio: le locandine ferme sotto il bordo della pagina, da dove partono tutte insieme. */
   const [launchStart, setLaunchStart] = useState<Placement[] | null>(null);
   /** Durante un lancio o un rimescolamento: la durata del volo di ogni locandina, in secondi. */
@@ -355,13 +355,13 @@ export function HomePage({ themes }: { themes: Theme[] }) {
           }
           const themeId = poster.kind === 'theme' ? poster.theme.manifest.id : undefined;
           const levelId = themeId ? `poster-level-${themeId}` : undefined;
-          const title = poster.kind === 'theme' ? poster.theme.manifest.title : `Tema ${poster.number}`;
+          const title = poster.kind === 'theme' ? poster.theme.manifest.title : poster.world.title;
           const classes = ['poster', isOpen && 'is-open', isDragging && 'is-dragging'].filter(Boolean).join(' ');
           const duration = flight && !isOpen && !isDragging ? `${flight[index]}s, 0.7s, 0.7s` : undefined;
 
           return (
             <div
-              key={themeId ?? `soon-${poster.kind === 'soon' ? poster.number : index}`}
+              key={themeId ?? `soon-${poster.kind === 'soon' ? poster.world.id : index}`}
               className={classes}
               data-theme-id={themeId}
               style={{
@@ -447,8 +447,12 @@ function PosterFront({ poster, levelId }: { poster: Poster; levelId?: string }) 
   if (poster.kind === 'soon') {
     return (
       <>
-        <h2 className="poster-front-title">Prossima&shy;mente</h2>
-        <p className="poster-credits">Tema {poster.number}, da scegliere</p>
+        <h2 className="poster-front-title">In arrivo</h2>
+        <p className="poster-credits">
+          Livello {poster.world.level}
+          <br />
+          {poster.world.title}
+        </p>
       </>
     );
   }
@@ -526,9 +530,9 @@ function PosterCard({ poster, titleId, isOpen, onClose }: { poster: Poster; titl
         <div className="card-band" />
         <div className="card-body">
           <h2 className="card-title" id={titleId}>
-            Tema {poster.number}
+            {poster.world.title}
           </h2>
-          <p className="card-description">Un altro mondo da interrogare, in arrivo.</p>
+          <p className="card-description">Livello {poster.world.level}. Un altro mondo da interrogare, in arrivo.</p>
           <div className="card-actions">{back}</div>
         </div>
       </>

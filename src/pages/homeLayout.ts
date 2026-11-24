@@ -17,8 +17,25 @@ export interface Placement {
   scale: number;
 }
 
-/** Numero di locandine sul tavolo: i temi, completati con «Prossimamente» fino a quattro. */
-export const MIN_POSTERS = 4;
+/** Mondo in arrivo: una locandina «In arrivo» finché il tema non esiste (docs/mondi.md). */
+export interface UpcomingWorld {
+  /** L’id che avrà la cartella `themes/<id>/`: quando esiste, la locandina sparisce. */
+  id: string;
+  title: string;
+  level: 'facile' | 'intermedio' | 'complesso';
+}
+
+/** I mondi del piano `mondi-v1`, nell’ordine di costruzione. */
+export const UPCOMING_WORLDS: UpcomingWorld[] = [
+  { id: 'stranger-things', title: 'Stranger Things', level: 'facile' },
+  { id: 'dragon-ball', title: 'Dragon Ball', level: 'facile' },
+  { id: 'sherlock-holmes', title: 'Sherlock Holmes', level: 'facile' },
+  { id: 'one-piece', title: 'One Piece', level: 'intermedio' },
+  { id: 'lego', title: 'Lego', level: 'intermedio' },
+  { id: 'pokemon', title: 'Pokémon', level: 'intermedio' },
+  { id: 'magic', title: 'Magic: The Gathering', level: 'complesso' },
+  { id: 'clash-royale', title: 'Clash Royale', level: 'complesso' },
+];
 
 const between = (random: () => number, min: number, max: number) => min + random() * (max - min);
 
